@@ -1,0 +1,92 @@
+<div class="container py-20 md:py-3 mt-5 mx-auto">
+  <div class="flex flex-wrap -m-4">
+    <div class="grow p-4 lg:w-5/12">
+      <div
+        class="h-full flex justify-center flex-wrap bg-white px-8 pt-10 pb-10 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <!-- <canvas id="chartjs"></canvas> -->
+        <div class="lg:w-1/2" style="text-align: center">
+          <apx-chart
+            [series]="chartOptions.seriesK"
+            [chart]="chartOptions.chart"
+            [labels]="chartOptions.labels"
+            [title]="chartOptions.titleK"
+            [fill]="chartOptions.fillK"
+            [stroke]="chartOptions.stroke"
+            [plotOptions]="chartOptions.plotOptionsK"
+          ></apx-chart>
+        </div>
+        <div class="lg:w-1/2" style="text-align: center">
+          <apx-chart
+            [series]="chartOptions.seriesS"
+            [chart]="chartOptions.chart"
+            [labels]="chartOptions.labels"
+            [title]="chartOptions.titleS"
+            [fill]="chartOptions.fillS"
+            [stroke]="chartOptions.stroke"
+            [plotOptions]="chartOptions.plotOptionsS"
+          ></apx-chart>
+          <button
+            data-tooltip-target="tooltip-bottom"
+            data-tooltip-placement="bottom"
+            type="button"
+            class="mb-2 md:mb-0 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Tooltip bottom
+          </button>
+          <div
+            id="tooltip-bottom"
+            role="tooltip"
+            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
+          >
+            Tooltip on bottom
+            <div class="tooltip-arrow" data-popper-arrow></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="p-4 grow lg:w-7/12">
+      <div
+        class="h-full bg-white px-8 pt-10 pb-10 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <div class="w-full lg:w-full" id="chart">
+          <apx-chart
+            [series]="barChart.series"
+            [chart]="barChart.chart"
+            [dataLabels]="barChart.dataLabels"
+            [plotOptions]="barChart.plotOptions"
+            [xaxis]="barChart.xaxis"
+            [stroke]="barChart.stroke"
+            [fill]="barChart.fill"
+            [title]="barChart.title"
+            [tooltip]="barChart.tooltip"
+            [legend]="barChart.legend"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+    <div class="max-lg:grow p-4 lg:w-7/12">
+      <div
+        class="h-full bg-white px-8 pt-10 pb-10 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <div id="chart">
+          <apx-chart
+            [series]="columnChart.series"
+            [chart]="columnChart.chart"
+            [dataLabels]="columnChart.dataLabels"
+            [plotOptions]="columnChart.plotOptions"
+            [yaxis]="columnChart.yaxis"
+            [xaxis]="columnChart.xaxis"
+            [fill]="columnChart.fill"
+            [title]="columnChart.title"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="p-4 lg:w-1/3">
+      <div
+        class="h-full bg-gray-100 bg-opacity-75 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative"
+      ></div>
+    </div> -->
+  </div>
+</div>
