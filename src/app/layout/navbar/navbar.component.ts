@@ -17,4 +17,10 @@ export class NavbarComponent {
       this.dropdown = !this.dropdown;
     }
   }
+  mouseOver() {
+    this.dropdownRes = true;
+  }
+  mouseLeave() {
+    this.dropdownRes = false;
+  }
 }

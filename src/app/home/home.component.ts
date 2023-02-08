@@ -1,66 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
-import {
-  ChartComponent,
-  ApexAxisChartSeries,
-  ApexChart,
-  ApexXAxis,
-  ApexTitleSubtitle,
-  ApexPlotOptions,
-  ApexFill,
-  ApexStroke,
-  ApexDataLabels,
-  ApexTooltip,
-  ApexLegend,
-  ApexYAxis,
-  ApexResponsive,
-} from 'ng-apexcharts';
-Chart.register(...registerables);
-
-export type ChartOptions = {
-  seriesK: ApexAxisChartSeries;
-  seriesS: ApexAxisChartSeries;
-  chart: ApexChart;
-  xaxis: ApexXAxis;
-  lables: String[];
-  titleK: ApexTitleSubtitle;
-  titleS: ApexTitleSubtitle;
-  plotOptionsK: ApexPlotOptions;
-  plotOptionsS: ApexPlotOptions;
-  fillK: ApexFill;
-  fillS: ApexFill;
-  stroke: ApexStroke;
-};
-
-export type BarChart = {
-  series: ApexAxisChartSeries;
-  chart: ApexChart;
-  dataLabels: ApexDataLabels;
-  plotOptions: ApexPlotOptions;
-  xaxis: ApexXAxis;
-  stroke: ApexStroke;
-  title: ApexTitleSubtitle;
-  tooltip: ApexTooltip;
-  fill: ApexFill;
-  legend: ApexLegend;
-  responsive: ApexResponsive;
-};
-
-export type ColumnCart = {
-  series: ApexAxisChartSeries;
-  chart: ApexChart;
-  dataLabels: ApexDataLabels;
-  plotOptions: ApexPlotOptions;
-  yaxis: ApexYAxis;
-  xaxis: ApexXAxis;
-  fill: ApexFill;
-  title: ApexTitleSubtitle;
-};
+import { ChartComponent } from 'ng-apexcharts';
+import { ChartOptions, BarChart, ColumnCart } from './homeChart';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
+  host: { class: 'flex justify-center' },
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {

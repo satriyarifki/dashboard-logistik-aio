@@ -1,0 +1,268 @@
+<div class="container py-12 md:py-0 my-5 xl:-mr-16">
+  <div class="flex flex-wrap mx-auto">
+    <div class="p-2 w-full">
+      <div
+        class="h-fit flex justify-center flex-wrap bg-white px-8 py-4 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <h1 class="font-fonarto text-2xl">Warehouse Occupancy</h1>
+      </div>
+    </div>
+    <div class="p-2 grow lg:w-4/12">
+      <div
+        class="h-full bg-white px-8 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <div class="relative overflow-x-auto rounded-lg shadow-md">
+          <table
+            class="w-full text-sm text-left text-gray-500 dark:text-gray-800 font-medium"
+          >
+            <thead
+              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-200 dark:text-gray-900"
+            >
+              <tr>
+                <th scope="col" class="px-3 py-2 text-center">Capacity</th>
+                <th scope="col" class="px-3 py-2 text-center">Occupancy</th>
+                <th scope="col" class="px-3 py-2 text-center">
+                  Empty Location
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-white dark:border-gray-700">
+                <td class="px-3 py-2 text-center">15,223</td>
+                <td class="px-3 py-2 text-center">13,223</td>
+                <td class="px-3 py-2 text-center">1,223</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="h-fit" style="text-align: center">
+          <apx-chart
+            [series]="occupancyApex.series"
+            [chart]="occupancyApex.chart"
+            [plotOptions]="occupancyApex.plotOptions"
+            [labels]="occupancyApex.labels"
+            [fill]="occupancyApex.fill"
+            [title]="occupancyApex.titleKejayan"
+            [grid]="occupancyApex.grid"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+    <div class="p-2 grow lg:w-4/12">
+      <div
+        class="h-full bg-white px-8 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <div class="relative overflow-x-auto rounded-lg shadow-md">
+          <table
+            class="w-full text-sm text-left text-gray-500 dark:text-gray-800 font-medium"
+          >
+            <thead
+              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-200 dark:text-gray-900"
+            >
+              <tr>
+                <th scope="col" class="px-3 py-2 text-center">Capacity</th>
+                <th scope="col" class="px-3 py-2 text-center">Occupancy</th>
+                <th scope="col" class="px-3 py-2 text-center">
+                  Empty Location
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-white dark:border-gray-700">
+                <td class="px-3 py-2 text-center">14,223</td>
+                <td class="px-3 py-2 text-center">12,223</td>
+                <td class="px-3 py-2 text-center">1,023</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="h-fit" style="text-align: center">
+          <apx-chart
+            [series]="occupancyApex.series"
+            [chart]="occupancyApex.chart"
+            [plotOptions]="occupancyApex.plotOptions"
+            [labels]="occupancyApex.labels"
+            [fill]="occupancyApex.fill"
+            [title]="occupancyApex.titleSukabumi"
+            [grid]="occupancyApex.grid"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+    <div class="p-2 grow lg:w-4/12">
+      <div
+        class="h-full bg-white px-8 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <div class="relative overflow-x-auto rounded-lg shadow-md">
+          <table
+            class="w-full text-sm text-left text-gray-500 dark:text-gray-800 font-medium"
+          >
+            <thead
+              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-200 dark:text-gray-900"
+            >
+              <tr>
+                <th scope="col" class="px-3 py-2 text-center">Capacity</th>
+                <th scope="col" class="px-3 py-2 text-center">Occupancy</th>
+                <th scope="col" class="px-3 py-2 text-center">
+                  Empty Location
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-white dark:border-gray-700">
+                <td class="px-3 py-2 text-center">2,923</td>
+                <td class="px-3 py-2 text-center">1,223</td>
+                <td class="px-3 py-2 text-center">223</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="h-fit" style="text-align: center">
+          <apx-chart
+            [series]="occupancyApex.series"
+            [chart]="occupancyApex.chart"
+            [plotOptions]="occupancyApex.plotOptions"
+            [labels]="occupancyApex.labels"
+            [fill]="occupancyApex.fill"
+            [title]="occupancyApex.titleBekasi"
+            [grid]="occupancyApex.grid"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+    <div class="p-2 grow lg:w-4/12">
+      <div
+        class="h-full bg-white px-8 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <div class="relative overflow-x-auto rounded-lg shadow-md">
+          <table
+            class="w-full text-sm text-left text-gray-500 dark:text-gray-800 font-medium"
+          >
+            <thead
+              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-200 dark:text-gray-900"
+            >
+              <tr>
+                <th scope="col" class="px-3 py-2 text-center">Capacity</th>
+                <th scope="col" class="px-3 py-2 text-center">Occupancy</th>
+                <th scope="col" class="px-3 py-2 text-center">
+                  Empty Location
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-white dark:border-gray-700">
+                <td class="px-3 py-2 text-center">2,123</td>
+                <td class="px-3 py-2 text-center">1,8823</td>
+                <td class="px-3 py-2 text-center">223</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="h-fit" style="text-align: center">
+          <apx-chart
+            [series]="occupancyApex.series"
+            [chart]="occupancyApex.chart"
+            [plotOptions]="occupancyApex.plotOptions"
+            [labels]="occupancyApex.labels"
+            [fill]="occupancyApex.fill"
+            [title]="occupancyApex.titlePasarRebo"
+            [grid]="occupancyApex.grid"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+    <div class="p-2 grow lg:w-4/12">
+      <div
+        class="h-full bg-white px-8 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <div class="relative overflow-x-auto rounded-lg shadow-md">
+          <table
+            class="w-full text-sm text-left text-gray-500 dark:text-gray-800 font-medium"
+          >
+            <thead
+              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-200 dark:text-gray-900"
+            >
+              <tr>
+                <th scope="col" class="px-3 py-2 text-center">Capacity</th>
+                <th scope="col" class="px-3 py-2 text-center">Occupancy</th>
+                <th scope="col" class="px-3 py-2 text-center">
+                  Empty Location
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-white dark:border-gray-700">
+                <td class="px-3 py-2 text-center">2,523</td>
+                <td class="px-3 py-2 text-center">1,423</td>
+                <td class="px-3 py-2 text-center">423</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="h-fit" style="text-align: center">
+          <apx-chart
+            [series]="occupancyApex.series"
+            [chart]="occupancyApex.chart"
+            [plotOptions]="occupancyApex.plotOptions"
+            [labels]="occupancyApex.labels"
+            [fill]="occupancyApex.fill"
+            [title]="occupancyApex.titleMargomulyo"
+            [grid]="occupancyApex.grid"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+    <div class="p-2 grow lg:w-4/12">
+      <div
+        class="h-full bg-white px-8 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <div class="relative overflow-x-auto rounded-lg shadow-md">
+          <table
+            class="w-full text-sm text-left text-gray-500 dark:text-gray-800 font-medium"
+          >
+            <thead
+              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-200 dark:text-gray-900"
+            >
+              <tr>
+                <th scope="col" class="px-3 py-2 text-center">Capacity</th>
+                <th scope="col" class="px-3 py-2 text-center">Occupancy</th>
+                <th scope="col" class="px-3 py-2 text-center">
+                  Empty Location
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-white dark:border-gray-700">
+                <td class="px-3 py-2 text-center">2,423</td>
+                <td class="px-3 py-2 text-center">1,323</td>
+                <td class="px-3 py-2 text-center">323</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="h-fit" style="text-align: center">
+          <apx-chart
+            [series]="occupancyApex.series"
+            [chart]="occupancyApex.chart"
+            [plotOptions]="occupancyApex.plotOptions"
+            [labels]="occupancyApex.labels"
+            [fill]="occupancyApex.fill"
+            [title]="occupancyApex.titleCikarang"
+            [grid]="occupancyApex.grid"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="max-lg:grow p-2 lg:w-4/12">
+      <div
+        class="h-full bg-white px-8 pt-10 pb-10 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      ></div>
+    </div> -->
+  </div>
+</div>

@@ -4,8 +4,10 @@ module.exports = {
   theme: {
     extend: {},
     fontFamily: {
-      'manrope' : ['Manrope']
-    }
+      manrope: ["Manrope"],
+      aller: ["Aller"],
+      fonarto: ["Fonarto"],
+    },
   },
   plugins: [],
 };

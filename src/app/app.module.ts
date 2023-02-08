@@ -9,9 +9,10 @@ import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
+import { OccupancyComponent } from './warehouse/occupancy/occupancy.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NavbarComponent, SidebarComponent],
+  declarations: [AppComponent, HomeComponent, NavbarComponent, SidebarComponent, OccupancyComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, NgApexchartsModule],
   providers: [],
   bootstrap: [AppComponent],
