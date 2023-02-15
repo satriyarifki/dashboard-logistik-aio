@@ -26,7 +26,7 @@ export class OccupancyComponent {
           fontSize: '25px',
           fontFamily: 'Fonarto',
           fontWeight: 500,
-        }
+        },
       },
       titleSukabumi: {
         text: 'Sukabumi',
@@ -36,7 +36,7 @@ export class OccupancyComponent {
           fontSize: '25px',
           fontFamily: 'Fonarto',
           fontWeight: 500,
-        }
+        },
       },
       titleMargomulyo: {
         text: 'DHL Margomulyo',
@@ -46,7 +46,7 @@ export class OccupancyComponent {
           fontSize: '25px',
           fontFamily: 'Fonarto',
           fontWeight: 500,
-        }
+        },
       },
       titleBekasi: {
         text: 'LDC Bekasi',
@@ -56,7 +56,7 @@ export class OccupancyComponent {
           fontSize: '25px',
           fontFamily: 'Fonarto',
           fontWeight: 500,
-        }
+        },
       },
       titlePasarRebo: {
         text: 'LDC PasarRebo',
@@ -66,7 +66,7 @@ export class OccupancyComponent {
           fontSize: '25px',
           fontFamily: 'Fonarto',
           fontWeight: 500,
-        }
+        },
       },
       titleCikarang: {
         text: 'YCH Cikarang',
@@ -76,7 +76,7 @@ export class OccupancyComponent {
           fontSize: '25px',
           fontFamily: 'Fonarto',
           fontWeight: 500,
-        }
+        },
       },
       chart: {
         height: 350,
@@ -104,6 +104,25 @@ export class OccupancyComponent {
               left: 0,
               opacity: 0.31,
               blur: 2,
+            },
+          },
+          hollow: {
+            margin: 5,
+            size: '40%',
+            background: 'transparent',
+            image: undefined,
+            imageWidth: 150,
+            imageHeight: 150,
+            imageOffsetX: 0,
+            imageOffsetY: 0,
+            imageClipped: true,
+            position: 'front',
+            dropShadow: {
+              enabled: false,
+              top: 0,
+              left: 0,
+              blur: 3,
+              opacity: 0.5,
             },
           },
           dataLabels: {

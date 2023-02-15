@@ -1,76 +1,47 @@
-<div class="container py-12 md:py-3 my-5 xl:-mr-16">
-  <div class="flex flex-wrap  mx-auto">
-    <div class="grow p-2 lg:w-5/12">
+<div class="py-12 md:py-0 my-5 mx-2 md:pl-[4.5rem] w-full">
+  <div class="flex flex-wrap mx-auto">
+    <!-- <div class="grow p-2 lg:w-5/12">
+      
+    </div> -->
+    <div class="grow p-0 lg:w-full">
       <div
-        class="h-full flex justify-center flex-wrap bg-white px-8 pt-10 pb-10 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+        class="bg-gray-100 bg-opacity-100 px-8 py-8 rounded-lg overflow-hidden text-center relative"
       >
-        <!-- <canvas id="chartjs"></canvas> -->
-        <div class="lg:w-1/2" style="text-align: center">
-          <apx-chart
-            [series]="chartOptions.seriesK"
-            [chart]="chartOptions.chart"
-            [labels]="chartOptions.labels"
-            [title]="chartOptions.titleK"
-            [fill]="chartOptions.fillK"
-            [stroke]="chartOptions.stroke"
-            [plotOptions]="chartOptions.plotOptionsK"
-          ></apx-chart>
-        </div>
-        <div class="lg:w-1/2" style="text-align: center">
-          <apx-chart
-            [series]="chartOptions.seriesS"
-            [chart]="chartOptions.chart"
-            [labels]="chartOptions.labels"
-            [title]="chartOptions.titleS"
-            [fill]="chartOptions.fillS"
-            [stroke]="chartOptions.stroke"
-            [plotOptions]="chartOptions.plotOptionsS"
-          ></apx-chart>
+        <div
+          class="p-12 text-center relative overflow-hidden bg-no-repeat bg-cover"
+          style="
+            background-image: url('https://img.freepik.com/free-photo/industrial-containers-box-logistic-import-export-business_335224-804.jpg?w=996&t=st=1676013836~exp=1676014436~hmac=303f5d49e414f4d239c064b94aad02ca6fe190b303b20ae9b0ab82a5359e7111');
+            height: 83vh;
+          "
+        >
+          <div
+            class="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed"
+            style="background-color: rgba(0, 0, 0, 0.6)"
+          >
+            <div class="flex justify-center items-center h-full">
+              <div class="text-white">
+                <h2
+                  class="font-medium text-3xl md:text-6xl font-coolvetica mb-4"
+                >
+                  LOGISTIK DASHBOARD
+                </h2>
+                <h4 class="font-regular text-sm md:text-xl mb-6 font-manrope">
+                  Reporting page of AIO Logistik Department
+                </h4>
+                <a
+                  [routerLink]="['/warehouse/occupancy']"
+                  routerLinkActive="router-link-active"
+                  class="inline-block px-7 py-3 mb-1 border-2 border-gray-200 text-gray-200 font-medium text-sm leading-snug uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                  role="button"
+                  data-mdb-ripple="true"
+                  data-mdb-ripple-color="light"
+                  >Start</a
+                >
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <!-- <div class="p-2 grow lg:w-7/12">
-      <div
-        class="h-full bg-white px-8 pt-10 pb-10 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
-      >
-        <div class="w-full lg:w-full" id="chart">
-          <apx-chart
-            [series]="barChart.series"
-            [chart]="barChart.chart"
-            [dataLabels]="barChart.dataLabels"
-            [plotOptions]="barChart.plotOptions"
-            [xaxis]="barChart.xaxis"
-            [stroke]="barChart.stroke"
-            [fill]="barChart.fill"
-            [title]="barChart.title"
-            [tooltip]="barChart.tooltip"
-            [legend]="barChart.legend"
-          ></apx-chart>
-        </div>
-      </div>
-    </div> -->
-    <div class="max-lg:grow p-2 lg:w-7/12">
-      <div
-        class="h-full bg-white px-8 pt-10 pb-10 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
-      >
-        <div id="chart">
-          <apx-chart
-            [series]="columnChart.series"
-            [chart]="columnChart.chart"
-            [dataLabels]="columnChart.dataLabels"
-            [plotOptions]="columnChart.plotOptions"
-            [yaxis]="columnChart.yaxis"
-            [xaxis]="columnChart.xaxis"
-            [fill]="columnChart.fill"
-            [title]="columnChart.title"
-          ></apx-chart>
-        </div>
-      </div>
-    </div>
-    <!-- <div class="p-4 lg:w-1/3">
-      <div
-        class="h-full bg-gray-100 bg-opacity-75 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative"
-      ></div>
-    </div> -->
   </div>
 </div>
