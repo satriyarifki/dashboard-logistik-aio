@@ -1,4 +1,6 @@
 <app-navbar class="flex justify-start md:hidden"></app-navbar>
 <app-sidebar class="flex justify-start w-0 h-0 max-md:hidden"></app-sidebar>
 <!-- <app-home class="flex justify-center"></app-home> -->
-<router-outlet [@routeAnimations]="getRouteAnimationData()"></router-outlet>
+<div [@routeAnimations]="prepareRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
+</div>

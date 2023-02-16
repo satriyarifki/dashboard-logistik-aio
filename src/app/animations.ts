@@ -15,7 +15,18 @@ import {
   zoomOut,
 } from 'ng-animate';
 
-export const slideInRoute = trigger('routeAnimations', [
-  transition(':enter', useAnimation(slideInLeft, { params: { timing: 0.25 } })),
-  transition(':leave', useAnimation(slideInLeft, { params: { timing: 0.25 } })),
+export const slideInRouteVar = trigger('routeAnimations', [
+  transition(
+    '* => HomePage',
+    useAnimation(slideInLeft, { params: { timing: 0.25 } })
+  ),
+  transition('* => *', useAnimation(slideInLeft, { params: { timing: 0.25 } })),
+]);
+
+export const zoomInOutVar = trigger('ZoomInOutAnimation', [
+  transition(':enter', useAnimation(zoomIn, { params: { timing: 0.25 } })),
+  transition(':leave', useAnimation(zoomOut, { params: { timing: 0.25 } })),
+]);
+export const zoomInVar = trigger('ZoomInAnimation', [
+  transition(':enter', useAnimation(zoomIn, { params: { timing: 0.25 } })),
 ]);

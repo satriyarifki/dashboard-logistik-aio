@@ -35,6 +35,7 @@
     </div>
 
     <div
+      [@ZoomInOutAnimation]
       *ngIf="dropdownRes"
       class="block h-full w-full basis-full transition-all duration-300 ease-in lg:hidden bg-opacity-40"
       data-collapse="navbar"
@@ -78,6 +79,7 @@
             </button>
             <!-- Dropdown menu -->
             <div
+              [@ZoomInOutAnimation]
               *ngIf="dropdown"
               class="fixed h-fit self-center px-5 mx-[70px] z-40 py-5 overflow-y-auto rounded-xl bg-white border-l border-r sm:w-46 w-60 dark:bg-white dark:border-gray-200"
             >

@@ -17,8 +17,6 @@ import { bounce, swing, slideInLeft, slideInDown, slideInUp } from 'ng-animate';
   host: { class: 'flex justify-center' },
   styleUrls: ['./inven-accuracy.component.css'],
   animations: [
-    trigger('bounce', [transition(':enter', useAnimation(bounce))]),
-    trigger('swing', [transition(':enter', useAnimation(swing))]),
     trigger('slideInSKU', [
       transition(
         ':enter',
@@ -32,16 +30,6 @@ import { bounce, swing, slideInLeft, slideInDown, slideInUp } from 'ng-animate';
           params: { timing: 0.2, a: '0px', b: '50px' },
         })
       ),
-    ]),
-    trigger('inOutAnimation', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('0.4s ease-out', style({ opacity: 1 })),
-      ]),
-      transition(':leave', [
-        style({ opacity: 1 }),
-        animate('0.2s ease-in', style({ opacity: 0 })),
-      ]),
     ]),
   ],
 })

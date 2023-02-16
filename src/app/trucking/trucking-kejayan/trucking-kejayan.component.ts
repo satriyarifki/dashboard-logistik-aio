@@ -1,19 +1,39 @@
 import { Component, ViewChild } from '@angular/core';
 import { ChartComponent } from 'ng-apexcharts';
 import { TrackingFromChart } from '../truckingChart';
+import { zoomInVar } from 'src/app/animations';
 
 @Component({
   selector: 'app-trucking-kejayan',
   templateUrl: './trucking-kejayan.component.html',
   host: { class: 'flex justify-center' },
   styleUrls: ['./trucking-kejayan.component.css'],
+  animations: [zoomInVar],
 })
 export class TruckingKejayanComponent {
   @ViewChild('chart') chart!: ChartComponent;
   public trackingFromChart!: Partial<TrackingFromChart> | any;
-  check = false;
+  focusButton = false;
+  wingboxFocus = false;
 
   constructor() {
+    this.TruckingFromCharts();
+  }
+
+  onFocus() {
+    this.focusButton = true;
+  }
+  onFocusout() {
+    this.focusButton = false;
+  }
+  wingboxFocused() {
+    this.wingboxFocus = true;
+  }
+  wingboxFocusout() {
+    this.wingboxFocus = false;
+  }
+
+  TruckingFromCharts() {
     this.trackingFromChart = {
       series: [
         {
@@ -33,6 +53,13 @@ export class TruckingKejayanComponent {
         height: 450,
         width: '100%',
         events: {
+          click: (event: any, chartContext: any, config: any) => {
+            if (config.config.title.text == 'Kejayan') {
+            }
+            if (config.config.title.text == 'Sukabumi') {
+            }
+            console.log(config);
+          },
           legendClick: function (
             chartContext: any,
             seriesIndex: any,

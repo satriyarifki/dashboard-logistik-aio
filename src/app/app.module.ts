@@ -21,6 +21,7 @@ import { PerfectOrderRateComponent } from './perfect-order-rate/perfect-order-ra
 import { AvgHandlingLoadComponent } from './kejayan-sukabumi/avg-handling-load/avg-handling-load.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
+import { TemperatureComponent } from './temperature/temperature.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { MatButtonModule } from '@angular/material/button';
     DamagesProductComponent,
     PerfectOrderRateComponent,
     AvgHandlingLoadComponent,
+    TemperatureComponent,
   ],
   imports: [
     BrowserModule,
