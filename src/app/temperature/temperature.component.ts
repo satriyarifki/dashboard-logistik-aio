@@ -14,54 +14,163 @@ export class TemperatureComponent {
   public tempChart!: Partial<TempChart> | any;
   mockData: any;
   mockAvg: number[] = [];
+  time: any;
+
+  getCurrentDate() {
+    setInterval(() => {
+      this.time = new Date(); //set time variable with current date
+    }, 1000); // set it every one seconds
+  }
 
   constructor(private pService: ProductService) {
-    this.pService.getMockSum().subscribe((respon) => {
-      this.mockData = respon;
-      for (let index of respon) {
-        this.mockAvg.push(index.sum_estoque);
-      }
-      console.log(this.mockAvg);
-      this.tempChartFunc();
-    });
+    this.getCurrentDate();
+    // this.pService.getMockSum().subscribe((respon) => {
+    //   this.mockData = respon;
+    //   for (let index of respon) {
+    //     this.mockAvg.push(index.sum_estoque);
+    //   }
+    //   console.log(this.mockAvg);
+    //
+    // });
+    this.tempChartFunc();
   }
   tempChartFunc() {
     this.tempChart = {
-      series: [
-        {
-          name: 'Servings',
-          data: this.mockAvg,
-        },
-      ],
       annotations: {
         points: [
           {
-            x: 'Bananas',
+            x: 'Storage1',
+            y: -10,
             seriesIndex: 0,
+            marker: {
+              size: 8,
+            },
             label: {
-              borderColor: '#775DD0',
-              offsetY: 0,
-              style: {
-                color: '#fff',
-                background: '#775DD0',
-              },
-              text: 'Bananas are good',
+              borderColor: '#FF4560',
+              text: 'Point Annotation',
             },
           },
         ],
       },
+      series: [
+        {
+          name: 'Actual',
+          data: [
+            {
+              x: 'Cold Storage',
+              y: -16,
+              goals: [
+                {
+                  name: 'Expected',
+                  value: -18,
+                  strokeColor: '#775DD0',
+                },
+              ],
+            },
+            {
+              x: 'Storage D1',
+              y: 21,
+              goals: [
+                {
+                  name: 'Expected',
+                  value: 23,
+                  strokeColor: '#775DD0',
+                },
+              ],
+            },
+            {
+              x: 'Storage D2',
+              y: 8,
+              goals: [
+                {
+                  name: 'Expected',
+                  value: 7,
+                  strokeColor: '#775DD0',
+                },
+              ],
+            },
+            {
+              x: 'Storage D3',
+              y: 20,
+              goals: [
+                {
+                  name: 'Expected',
+                  value: 20,
+                  strokeColor: '#775DD0',
+                },
+              ],
+            },
+            {
+              x: 'Storage D4',
+              y: 22,
+              goals: [
+                {
+                  name: 'Expected',
+                  value: 23,
+                  strokeColor: '#775DD0',
+                },
+              ],
+            },
+            {
+              x: 'Storage D6',
+              y: 30,
+              goals: [
+                {
+                  name: 'Expected',
+                  value: 35,
+                  strokeColor: '#775DD0',
+                },
+              ],
+            },
+            {
+              x: 'Storage D7',
+              y: 7,
+              goals: [
+                {
+                  name: 'Expected',
+                  value: 7,
+                  strokeColor: '#775DD0',
+                },
+              ],
+            },
+            {
+              x: 'Connection Room',
+              y: 21,
+              goals: [
+                {
+                  name: 'Expected',
+                  value: 23,
+                  strokeColor: '#775DD0',
+                },
+              ],
+            },
+          ],
+        },
+      ],
       chart: {
         height: 350,
         type: 'bar',
       },
       plotOptions: {
         bar: {
-          columnWidth: '50%',
+          horizontal: true,
+          colors: {
+            ranges: [
+              {
+                from: -20,
+                to: 0,
+              },
+            ],
+          },
+          columnWidth: '80%',
           endingShape: 'rounded',
         },
       },
       dataLabels: {
-        enabled: false,
+        enabled: true,
+        formatter: function (val: any) {
+          return val + '°C';
+        },
       },
       stroke: {
         width: 2,
@@ -74,28 +183,7 @@ export class TemperatureComponent {
       },
       xaxis: {
         labels: {
-          rotate: -45,
-        },
-        categories: [
-          'Apples',
-          'Oranges',
-          'Strawberries',
-          'Pineapples',
-          'Mangoes',
-          'Bananas',
-          'Blackberries',
-          'Pears',
-          'Watermelons',
-          'Cherries',
-          'Pomegranates',
-          'Tangerines',
-          'Papayas',
-        ],
-        tickPlacement: 'on',
-      },
-      yaxis: {
-        title: {
-          text: 'Servings',
+          rotate: 0,
         },
       },
       fill: {
@@ -108,7 +196,6 @@ export class TemperatureComponent {
           inverseColors: true,
           opacityFrom: 0.85,
           opacityTo: 0.85,
-          stops: [50, 0, 100],
         },
       },
     };

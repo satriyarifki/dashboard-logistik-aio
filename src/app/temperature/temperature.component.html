@@ -1,16 +1,35 @@
-<div class="py-12 md:py-0 my-5 md:pl-[4.5rem] w-full">
+<div class="py-12 md:py-0 my-2 md:pl-[4.5rem] w-full">
   <div class="flex flex-wrap mx-auto">
-    <div class="p-2 w-full">
+    <div class="px-2 w-full">
       <div
-        class="h-fit flex justify-center flex-wrap bg-white px-8 py-4 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+        class="h-fit flex justify-between flex-wrap bg-white px-8 py-2 text-center rounded-lg overflow-hidden relative drop-shadow-xl"
       >
-        <h1 class="font-coolvetica font-[500] text-3xl">Temperature</h1>
+        <span class="flex items-center">
+          <h1 class="font-manrope font-semibold text-md">
+            Home / Temperature
+          </h1></span
+        >
+
+        <h1 class="font-coolvetica font-[500] text-2xl">Temperature Gudang</h1>
+        <span class="flex items-center">
+          <h1 class="font-manrope font-semibold text-md">
+            {{ time | date : "hh:mm:ss a  |  d-MM-YYYY" }}
+          </h1></span
+        >
       </div>
     </div>
     <div class="grow p-2 lg:w-6/12">
       <div
-        class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+        class="h-full flex justify-start flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
       >
+        <div class="px-5">
+          <h1 class="text-lg font-manrope font-semibold text-start h-fit">
+            Storage Soyjoy
+          </h1>
+          <h1
+            class="text-sm w-5/6 font-manrope font-semibold text-start text-gray-500"
+          ></h1>
+        </div>
         <div id="chart" class="w-full">
           <apx-chart
             [series]="tempChart.series"
@@ -22,7 +41,33 @@
             [stroke]="tempChart.stroke"
             [grid]="tempChart.grid"
             [fill]="tempChart.fill"
-            [annotations]="tempChart.annotations"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+    <div class="grow p-2 lg:w-6/12">
+      <div
+        class="h-full flex justify-start flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <div class="px-5">
+          <h1 class="text-lg font-manrope font-semibold text-start h-fit">
+            Storage Pocari
+          </h1>
+          <h1
+            class="text-sm w-5/6 font-manrope font-semibold text-start text-gray-500"
+          ></h1>
+        </div>
+        <div id="chart" class="w-full">
+          <apx-chart
+            [series]="tempChart.series"
+            [chart]="tempChart.chart"
+            [dataLabels]="tempChart.dataLabels"
+            [plotOptions]="tempChart.plotOptions"
+            [yaxis]="tempChart.yaxis"
+            [xaxis]="tempChart.xaxis"
+            [stroke]="tempChart.stroke"
+            [grid]="tempChart.grid"
+            [fill]="tempChart.fill"
           ></apx-chart>
         </div>
       </div>
