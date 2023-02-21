@@ -1,0 +1,416 @@
+<div class="py-10 md:py-0 my-2 md:pl-[4.5rem] w-full">
+  <div class="flex flex-wrap mx-auto">
+    <div class="px-2 w-full">
+      <div
+        class="h-fit flex justify-between flex-wrap bg-white px-8 py-2 text-center rounded-lg overflow-hidden relative drop-shadow-xl"
+      >
+        <span class="flex items-center">
+          <h1 class="font-manrope font-semibold text-md">
+            Home / Fleet & Distribution
+          </h1></span
+        >
+
+        <h1 class="font-coolvetica font-[500] text-3xl">
+          Fleet & Distribution
+        </h1>
+        <span class="flex items-center">
+          <h1 class="font-manrope font-semibold text-md">
+            {{ time | date : "hh:mm:ss a  |  d-MM-YYYY" }}
+          </h1></span
+        >
+      </div>
+    </div>
+
+    <div class="grow lg:w-5/12 h-[92vh]">
+      <div class="grow p-2 lg:h-1/2 lg:w-full">
+        <div
+          class="h-full grid justify-items-stretch flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+        >
+          <h1 class="text-lg font-exo font-semibold text-start h-fit">
+            Trucking
+          </h1>
+          <h1
+            class="text-sm w-5/6 font-manrope font-semibold text-start text-gray-500"
+          >
+            From Kejayan
+          </h1>
+          <div id="chart" class="w-full">
+            <apx-chart
+              [series]="truckingFromChart.seriesKejayan"
+              [chart]="truckingFromChart.chart"
+              [dataLabels]="truckingFromChart.dataLabels"
+              [plotOptions]="truckingFromChart.plotOptions"
+              [xaxis]="truckingFromChart.xaxis"
+              [yaxis]="truckingFromChart.yaxis"
+              [stroke]="truckingFromChart.stroke"
+              [responsive]="truckingFromChart.responsive"
+            ></apx-chart>
+          </div>
+        </div>
+      </div>
+      <div class="grow p-2 lg:h-1/2 lg:w-full">
+        <div
+          class="h-full grid justify-items-stretch flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+        >
+          <h1 class="text-lg font-exo font-semibold text-start h-fit">
+            Trucking
+          </h1>
+          <h1
+            class="text-sm w-5/6 font-manrope font-semibold text-start text-gray-500"
+          >
+            From Sukabumi
+          </h1>
+          <div id="chart" class="w-full">
+            <apx-chart
+              [series]="truckingFromChart.seriesSukabumi"
+              [chart]="truckingFromChart.chart"
+              [dataLabels]="truckingFromChart.dataLabels"
+              [plotOptions]="truckingFromChart.plotOptions"
+              [xaxis]="truckingFromChart.xaxis"
+              [yaxis]="truckingFromChart.yaxis"
+              [stroke]="truckingFromChart.stroke"
+              [responsive]="truckingFromChart.responsive"
+            ></apx-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grow lg:w-4/12 h-[92vh]">
+      <div class="grow p-2 lg:h-1/2 lg:w-full">
+        <div
+          class="h-full grid justify-items-stretch flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+        >
+          <div>
+            <h1 class="text-lg font-exo font-semibold text-start h-fit">
+              Delivery by Destination
+            </h1>
+            <h1
+              class="text-sm w-5/6 font-manrope font-semibold text-start text-gray-500"
+            >
+              From Kejayan
+            </h1>
+          </div>
+
+          <div id="chart" class="w-full">
+            <apx-chart
+              [series]="deliveryDestinationChart.series"
+              [chart]="deliveryDestinationChart.chart"
+              [labels]="deliveryDestinationChart.labels"
+              [fill]="deliveryDestinationChart.fill"
+              [dataLabels]="deliveryDestinationChart.dataLabels"
+              [responsive]="deliveryDestinationChart.responsive"
+              [legend]="deliveryDestinationChart.legend"
+              [plotOptions]="deliveryDestinationChart.plotOptions"
+              [grid]="deliveryDestinationChart.grid"
+            ></apx-chart>
+          </div>
+        </div>
+      </div>
+      <div class="grow p-2 lg:h-1/2 lg:w-full">
+        <div
+          class="h-full grid justify-items-stretch flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+        >
+          <div>
+            <h1 class="text-lg font-exo font-semibold text-start h-fit">
+              Delivery by Destination
+            </h1>
+            <h1
+              class="text-sm w-5/6 font-manrope font-semibold text-start text-gray-500"
+            >
+              From Sukabumi
+            </h1>
+          </div>
+
+          <div id="chart" class="w-full">
+            <apx-chart
+              [series]="deliveryDestinationChart.series"
+              [chart]="deliveryDestinationChart.chart"
+              [labels]="deliveryDestinationChart.labels"
+              [fill]="deliveryDestinationChart.fill"
+              [dataLabels]="deliveryDestinationChart.dataLabels"
+              [responsive]="deliveryDestinationChart.responsive"
+              [legend]="deliveryDestinationChart.legend"
+              [grid]="deliveryDestinationChart.grid"
+            ></apx-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grow lg:w-3/12 h-[92vh]">
+      <div class="grow p-2 lg:h-1/2 lg:w-full">
+        <div
+          class="h-full flex justify-start flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+        >
+          <svg
+            class="mx-2"
+            xmlns="http://www.w3.org/2000/svg"
+            height="36"
+            viewBox="0 96 960 960"
+            width="36"
+          >
+            <path
+              d="M687.693 955.999q-74.923 0-127.461-52.538Q507.694 850.922 507.694 776t52.538-127.461q52.538-52.538 127.461-52.538 74.922 0 127.46 52.538Q867.691 701.078 867.691 776t-52.538 127.461q-52.538 52.538-127.46 52.538Zm66.615-88.461 24.923-24.923-73.846-73.846V658.308h-35.384v124.923l84.307 84.307Zm-541.999 48.461q-29.923 0-51.115-21.193-21.193-21.192-21.193-51.115V308.309q0-29.923 21.193-51.115 21.192-21.193 51.115-21.193H388.54q8.308-29.23 33.961-48.46Q448.154 168.31 480 168.31q33.076 0 58.422 19.231 25.346 19.23 33.653 48.46h175.616q29.923 0 51.115 21.193 21.193 21.192 21.193 51.115v245.384q-14.154-9.154-28.769-15.654-14.615-6.499-31.23-11.576V308.309q0-5.385-3.462-8.847-3.462-3.462-8.847-3.462h-87.692v104.614H300.001V296h-87.692q-5.385 0-8.847 3.462-3.462 3.462-3.462 8.847v535.382q0 5.385 3.462 8.847 3.462 3.462 8.847 3.462h228.539q5.077 16.615 11.769 31.422 6.692 14.808 16.615 28.577H212.309ZM480 300.616q15.461 0 25.807-10.346 10.347-10.346 10.347-25.808 0-15.461-10.347-25.807-10.346-10.346-25.807-10.346-15.461 0-25.807 10.346-10.347 10.346-10.347 25.807 0 15.462 10.347 25.808 10.346 10.346 25.807 10.346Z"
+            />
+          </svg>
+          <div>
+            <h1 class="text-md font-exo font-semibold text-start h-fit">
+              On Time Fleet Arrival
+            </h1>
+            <h1
+              class="text-xs w-5/6 font-manrope font-semibold text-start text-gray-500 h-fit"
+            >
+              From Kejayan
+            </h1>
+          </div>
+
+          <div id="chart" class="w-full flex flex-wrap">
+            <apx-chart
+              [series]="onTimeFleetChart.series"
+              [chart]="onTimeFleetChart.chart"
+              [plotOptions]="onTimeFleetChart.plotOptions"
+              [labels]="onTimeFleetChart.labels"
+              [stroke]="onTimeFleetChart.stroke"
+              [dataLabels]="onTimeFleetChart.dataLabels"
+              [fill]="onTimeFleetChart.fill"
+            ></apx-chart>
+            <h1
+              class="text-sm w-5/6 font-manrope font-semibold text-start text-gray-500"
+            >
+              Within time limit (<=11 P.M)
+            </h1>
+            <h1
+              class="text-sm w-1/6 font-manrope font-semibold text-start text-gray-500"
+            >
+              98%
+            </h1>
+            <h1
+              class="text-sm w-5/6 font-manrope font-semibold text-start text-gray-500"
+            >
+              Out of the limit (> 11 P.M)
+            </h1>
+            <h1
+              class="text-sm w-1/6 font-manrope font-semibold text-start text-gray-500"
+            >
+              2%
+            </h1>
+          </div>
+        </div>
+      </div>
+      <div class="grow p-2 lg:h-1/2 lg:w-full">
+        <div
+          class="h-full flex justify-start flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+        >
+          <svg
+            class="mx-2"
+            xmlns="http://www.w3.org/2000/svg"
+            height="36"
+            viewBox="0 96 960 960"
+            width="36"
+          >
+            <path
+              d="M687.693 955.999q-74.923 0-127.461-52.538Q507.694 850.922 507.694 776t52.538-127.461q52.538-52.538 127.461-52.538 74.922 0 127.46 52.538Q867.691 701.078 867.691 776t-52.538 127.461q-52.538 52.538-127.46 52.538Zm66.615-88.461 24.923-24.923-73.846-73.846V658.308h-35.384v124.923l84.307 84.307Zm-541.999 48.461q-29.923 0-51.115-21.193-21.193-21.192-21.193-51.115V308.309q0-29.923 21.193-51.115 21.192-21.193 51.115-21.193H388.54q8.308-29.23 33.961-48.46Q448.154 168.31 480 168.31q33.076 0 58.422 19.231 25.346 19.23 33.653 48.46h175.616q29.923 0 51.115 21.193 21.193 21.192 21.193 51.115v245.384q-14.154-9.154-28.769-15.654-14.615-6.499-31.23-11.576V308.309q0-5.385-3.462-8.847-3.462-3.462-8.847-3.462h-87.692v104.614H300.001V296h-87.692q-5.385 0-8.847 3.462-3.462 3.462-3.462 8.847v535.382q0 5.385 3.462 8.847 3.462 3.462 8.847 3.462h228.539q5.077 16.615 11.769 31.422 6.692 14.808 16.615 28.577H212.309ZM480 300.616q15.461 0 25.807-10.346 10.347-10.346 10.347-25.808 0-15.461-10.347-25.807-10.346-10.346-25.807-10.346-15.461 0-25.807 10.346-10.347 10.346-10.347 25.807 0 15.462 10.347 25.808 10.346 10.346 25.807 10.346Z"
+            />
+          </svg>
+          <div>
+            <h1 class="text-md font-exo font-semibold text-start">
+              On Time Fleet Arrival
+            </h1>
+            <h1
+              class="text-xs w-full font-manrope font-semibold text-start text-gray-500"
+            >
+              From Sukabumi
+            </h1>
+          </div>
+
+          <div id="chart" class="w-full flex flex-wrap">
+            <apx-chart
+              [series]="onTimeFleetChart.series"
+              [chart]="onTimeFleetChart.chart"
+              [plotOptions]="onTimeFleetChart.plotOptions"
+              [labels]="onTimeFleetChart.labels"
+              [stroke]="onTimeFleetChart.stroke"
+              [fill]="onTimeFleetChart.fill"
+            ></apx-chart>
+            <h1
+              class="text-sm w-5/6 font-manrope font-semibold text-start text-gray-500"
+            >
+              Within time limit (<=11 P.M)
+            </h1>
+            <h1
+              class="text-sm w-1/6 font-manrope font-semibold text-start text-gray-500"
+            >
+              97,1%
+            </h1>
+            <h1
+              class="text-sm w-5/6 font-manrope font-semibold text-start text-gray-500"
+            >
+              Out of the limit (> 11 P.M)
+            </h1>
+            <h1
+              class="text-sm w-1/6 font-manrope font-semibold text-start text-gray-500"
+            >
+              %
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="max-lg:grow p-2 w-full">
+      <div
+        class="h-full bg-white px-8 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <h1 class="font-coolvetica font-[500] text-lg py-2">
+          Kejayan Trucking Info
+        </h1>
+        <div class="flex items-center justify-center mb-3 w-full">
+          <div
+            class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg"
+            role="group"
+          >
+            <button
+              appDetectFocus
+              on-focus="onFocus()"
+              on-focusout="onFocusout()"
+              type="button"
+              class="rounded-l inline-block px-2 min-[600px]:px-6 py-2.5 bg-biru text-white font-medium text-[10px] min-[600px]:text-xs leading-tight uppercase hover:bg-biru2 focus:bg-biru2 focus:outline-none focus:ring-0 active:bg-biru2 transition duration-150 ease-in-out"
+            >
+              Container
+            </button>
+            <button
+              appDetectFocus
+              on-focus="wingboxFocused()"
+              on-focusout="wingboxFocusout()"
+              type="button"
+              class="inline-block px-2 min-[600px]:px-6 py-2.5 bg-biru text-white font-medium text-[10px] min-[600px]:text-xs leading-tight uppercase hover:bg-biru2 focus:bg-biru2 focus:outline-none focus:ring-0 active:bg-biru2 transition duration-150 ease-in-out"
+            >
+              Wingbox
+            </button>
+            <button
+              type="button"
+              class="inline-block px-2 min-[600px]:px-6 py-2.5 bg-biru text-white font-medium text-[10px] min-[600px]:text-xs leading-tight uppercase hover:bg-biru2 focus:bg-biru2 focus:outline-none focus:ring-0 active:bg-biru2 transition duration-150 ease-in-out"
+            >
+              Tronton
+            </button>
+            <button
+              type="button"
+              class="inline-block px-2 min-[600px]:px-6 py-2.5 bg-biru text-white font-medium text-[10px] min-[600px]:text-xs leading-tight uppercase hover:bg-biru2 focus:bg-biru2 focus:outline-none focus:ring-0 active:bg-biru2 transition duration-150 ease-in-out"
+            >
+              Fuso
+            </button>
+            <button
+              type="button"
+              class="rounded-r inline-block px-2 min-[600px]:px-6 py-2.5 bg-biru text-white font-medium text-[10px] min-[600px]:text-xs leading-tight uppercase hover:bg-biru2 focus:bg-biru2 focus:outline-none focus:ring-0 active:bg-biru2 transition duration-150 ease-in-out"
+            >
+              Colt Diesel
+            </button>
+          </div>
+        </div>
+        <div
+          [@ZoomInAnimation]
+          *ngIf="focusButton"
+          class="relative overflow-x-auto rounded-lg shadow-md"
+        >
+          <table
+            class="w-full text-sm text-left text-gray-500 dark:text-gray-800 font-medium"
+          >
+            <thead
+              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-200 dark:text-gray-900"
+            >
+              <tr>
+                <th scope="col" class="px-3 py-2 text-center">Mobil</th>
+                <th scope="col" class="px-3 py-2 text-center">Destination</th>
+                <th scope="col" class="px-3 py-2 text-center">No Urut</th>
+                <th scope="col" class="px-3 py-2 text-center">No Kendaraan</th>
+                <th scope="col" class="px-3 py-2 text-center">No Container</th>
+                <th scope="col" class="px-3 py-2 text-center">Jam Masuk</th>
+                <th scope="col" class="px-3 py-2 text-center">Jam Keluar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-white dark:border-gray-700">
+                <td class="px-3 py-2 text-center">Sokrosa FS</td>
+                <td class="px-3 py-2 text-center">Mutiara Hati Bojonegoro</td>
+                <td class="px-3 py-2 text-center">1</td>
+                <td class="px-3 py-2 text-center">N 9873</td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr class="bg-white dark:border-gray-700">
+                <td class="px-3 py-2 text-center">Sokrosa FS</td>
+                <td class="px-3 py-2 text-center">
+                  Bahagia Intra Niaga Pasuruan
+                </td>
+                <td class="px-3 py-2 text-center">2</td>
+                <td class="px-3 py-2 text-center">N 1083</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div
+          [@ZoomInAnimation]
+          *ngIf="wingboxFocus"
+          class="relative overflow-x-auto rounded-lg shadow-md"
+        >
+          <table
+            class="w-full text-sm text-left text-gray-500 dark:text-gray-800 font-medium"
+          >
+            <thead
+              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-200 dark:text-gray-900"
+            >
+              <tr>
+                <th scope="col" class="px-3 py-2 text-center">Mobil</th>
+                <th scope="col" class="px-3 py-2 text-center">Destination</th>
+                <th scope="col" class="px-3 py-2 text-center">No Urut</th>
+                <th scope="col" class="px-3 py-2 text-center">No Kendaraan</th>
+                <th scope="col" class="px-3 py-2 text-center">No Container</th>
+                <th scope="col" class="px-3 py-2 text-center">Jam Masuk</th>
+                <th scope="col" class="px-3 py-2 text-center">Jam Keluar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-white dark:border-gray-700">
+                <td class="px-3 py-2 text-center">Sokrosa</td>
+                <td class="px-3 py-2 text-center">Mutiara Hati Bojonegoro</td>
+                <td class="px-3 py-2 text-center">1</td>
+                <td class="px-3 py-2 text-center">N 9873</td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr class="bg-white dark:border-gray-700">
+                <td class="px-3 py-2 text-center">Sokrosa</td>
+                <td class="px-3 py-2 text-center">
+                  Bahagia Intra Niaga Malang
+                </td>
+                <td class="px-3 py-2 text-center">2</td>
+                <td class="px-3 py-2 text-center">N 1083</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="max-lg:grow p-2 lg:w-7/12">
+            <div
+              class="h-full bg-white px-8 pt-10 pb-10 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+            >
+              <div id="chart">
+                <apx-chart
+                  [series]="columnChart.series"
+                  [chart]="columnChart.chart"
+                  [dataLabels]="columnChart.dataLabels"
+                  [plotOptions]="columnChart.plotOptions"
+                  [yaxis]="columnChart.yaxis"
+                  [xaxis]="columnChart.xaxis"
+                  [fill]="columnChart.fill"
+                  [title]="columnChart.title"
+                ></apx-chart>
+              </div>
+            </div>
+          </div> -->
+    <!-- <div class="p-4 lg:w-1/3">
+              <div
+                class="h-full bg-gray-100 bg-opacity-75 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative"
+              ></div>
+            </div> -->
+  </div>
+</div>

@@ -28,6 +28,8 @@
     "preline": "^1.7.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "world-clock": "^1.4.0",
+    "world-timestamp": "^1.0.1",
     "zone.js": "~0.12.0"
   },
   "devDependencies": {

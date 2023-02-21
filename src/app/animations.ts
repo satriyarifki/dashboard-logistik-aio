@@ -13,14 +13,13 @@ import {
   slideInDown,
   zoomIn,
   zoomOut,
+  fadeInDown,
+  fadeInUp,
 } from 'ng-animate';
 
 export const slideInRouteVar = trigger('routeAnimations', [
-  transition(
-    '* => HomePage',
-    useAnimation(slideInLeft, { params: { timing: 0.25 } })
-  ),
-  transition('* => *', useAnimation(slideInLeft, { params: { timing: 0.25 } })),
+  transition('* => *', useAnimation(fadeInDown, { params: { timing: 0.25 } })),
+  transition('* => *', useAnimation(fadeInUp, { params: { timing: 0.25 } })),
 ]);
 
 export const zoomInOutVar = trigger('ZoomInOutAnimation', [

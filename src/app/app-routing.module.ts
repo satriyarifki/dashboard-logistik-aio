@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DamagesProductComponent } from './damages-product/damages-product/damages-product.component';
 import { DelDesKejayanComponent } from './delivery-destination/del-des-kejayan/del-des-kejayan.component';
 import { DelDesSukabumiComponent } from './delivery-destination/del-des-sukabumi/del-des-sukabumi.component';
+import { FleetDistributionComponent } from './fleet-distribution/fleet-distribution.component';
 import { HomeComponent } from './home/home.component';
 import { AvgHandlingLoadComponent } from './kejayan-sukabumi/avg-handling-load/avg-handling-load.component';
 import { PerfectOrderRateComponent } from './perfect-order-rate/perfect-order-rate.component';
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'delivery-destination/sukabumi', component: DelDesSukabumiComponent },
   { path: 'damages-product', component: DamagesProductComponent },
   { path: 'perfect-order-rate', component: PerfectOrderRateComponent },
+  { path: 'fleet-distribution', component: FleetDistributionComponent },
   {
     path: 'kejayan-Sukabumo-avg-handling-load',
     component: AvgHandlingLoadComponent,

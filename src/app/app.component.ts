@@ -10,13 +10,20 @@ import { slideInRouteVar } from './animations';
 })
 export class AppComponent {
   title = 'logistik-dashboard';
-  constructor(private contexts: ChildrenOutletContexts) {}
+  timenow: any;
+  constructor(private contexts: ChildrenOutletContexts) {
+    this.getCurrentDate;
+  }
+
+  getCurrentDate() {
+    setInterval(() => {
+      this.timenow = new Date(); //set time variable with current date
+    }, 1000); // set it every one seconds
+  }
 
   prepareRoute(outlet: RouterOutlet) {
-    return (
-      outlet &&
-      outlet.activatedRouteData &&
-      outlet.activatedRouteData['animationState']
-    );
+    return this.contexts.getContext('primary')?.route?.snapshot?.data?.[
+      'animation'
+    ];
   }
 }

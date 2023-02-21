@@ -22,6 +22,7 @@ import { AvgHandlingLoadComponent } from './kejayan-sukabumi/avg-handling-load/a
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { TemperatureComponent } from './temperature/temperature.component';
+import { FleetDistributionComponent } from './fleet-distribution/fleet-distribution.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { TemperatureComponent } from './temperature/temperature.component';
     PerfectOrderRateComponent,
     AvgHandlingLoadComponent,
     TemperatureComponent,
+    FleetDistributionComponent,
   ],
   imports: [
     BrowserModule,
