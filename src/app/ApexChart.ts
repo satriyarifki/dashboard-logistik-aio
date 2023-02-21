@@ -17,12 +17,19 @@ import {
 } from 'ng-apexcharts';
 
 export type TempChart = {
-  series: ApexAxisChartSeries;
+  seriesSoyjoy: ApexAxisChartSeries;
+  seriesPocari: ApexAxisChartSeries;
+  humiditySoyjoy: ApexAxisChartSeries;
+  humidityPocari: ApexAxisChartSeries;
   chart: ApexChart;
-  dataLabels: ApexDataLabels;
+  rangeChart: ApexChart;
+  dataLabelsTemperature: ApexDataLabels;
+  dataLabelsHumidity: ApexDataLabels;
   plotOptions: ApexPlotOptions;
   yaxis: ApexYAxis;
   xaxis: ApexXAxis;
+  xHumiditySoyjoy: ApexXAxis;
+  xHumidityPocari: ApexXAxis;
   annotations: ApexAnnotations;
   fill: ApexFill;
   stroke: ApexStroke;

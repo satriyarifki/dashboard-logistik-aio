@@ -10,7 +10,7 @@
           </h1></span
         >
 
-        <h1 class="font-coolvetica font-[500] text-2xl">Temperature Gudang</h1>
+        <h1 class="font-coolvetica font-[500] text-2xl">WAREHOUSE TEMPERATURE</h1>
         <span class="flex items-center">
           <h1 class="font-manrope font-semibold text-md">
             {{ time | date : "hh:mm:ss a  |  d-MM-YYYY" }}
@@ -20,21 +20,25 @@
     </div>
     <div class="grow p-2 lg:w-6/12">
       <div
-        class="h-full flex justify-start flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+        class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
       >
-        <div class="px-5">
-          <h1 class="text-lg font-manrope font-semibold text-start h-fit">
-            Storage Soyjoy
+        <div class="px-5 w-full flex flex-wrap items-center">
+          <h1
+            class="px-2 text-lg w-fit font-manrope font-semibold text-start h-fit"
+          >
+            Temperature
           </h1>
           <h1
-            class="text-sm w-5/6 font-manrope font-semibold text-start text-gray-500"
-          ></h1>
+            class="text-sm w-fit font-manrope font-semibold h-fit text-start text-gray-500"
+          >
+            Storage Soyjoy
+          </h1>
         </div>
         <div id="chart" class="w-full">
           <apx-chart
-            [series]="tempChart.series"
+            [series]="tempChart.seriesSoyjoy"
             [chart]="tempChart.chart"
-            [dataLabels]="tempChart.dataLabels"
+            [dataLabels]="tempChart.dataLabelsTemperature"
             [plotOptions]="tempChart.plotOptions"
             [yaxis]="tempChart.yaxis"
             [xaxis]="tempChart.xaxis"
@@ -49,22 +53,88 @@
       <div
         class="h-full flex justify-start flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
       >
-        <div class="px-5">
-          <h1 class="text-lg font-manrope font-semibold text-start h-fit">
-            Storage Pocari
+        <div class="px-5 w-full flex flex-wrap items-center">
+          <h1
+            class="px-2 text-lg w-fit font-manrope font-semibold text-start h-fit"
+          >
+            Temperature
           </h1>
           <h1
-            class="text-sm w-5/6 font-manrope font-semibold text-start text-gray-500"
-          ></h1>
+            class="text-sm w-fit font-manrope font-semibold h-fit text-start text-gray-500"
+          >
+            Storage Pocari
+          </h1>
         </div>
         <div id="chart" class="w-full">
           <apx-chart
-            [series]="tempChart.series"
+            [series]="tempChart.seriesPocari"
             [chart]="tempChart.chart"
-            [dataLabels]="tempChart.dataLabels"
+            [dataLabels]="tempChart.dataLabelsTemperature"
             [plotOptions]="tempChart.plotOptions"
             [yaxis]="tempChart.yaxis"
             [xaxis]="tempChart.xaxis"
+            [stroke]="tempChart.stroke"
+            [grid]="tempChart.grid"
+            [fill]="tempChart.fill"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+    <div class="grow p-2 lg:w-6/12">
+      <div
+        class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <div class="px-5 w-full flex flex-wrap items-center">
+          <h1
+            class="px-2 text-lg w-fit font-manrope font-semibold text-start h-fit"
+          >
+            Humidity
+          </h1>
+          <h1
+            class="text-sm w-fit font-manrope font-semibold h-fit text-start text-gray-500"
+          >
+            Storage Soyjoy
+          </h1>
+        </div>
+        <div id="chart" class="w-full">
+          <apx-chart
+            [series]="tempChart.humiditySoyjoy"
+            [chart]="tempChart.chart"
+            [dataLabels]="tempChart.dataLabelsHumidity"
+            [plotOptions]="tempChart.plotOptions"
+            [yaxis]="tempChart.yaxis"
+            [xaxis]="tempChart.xHumiditySoyjoy"
+            [stroke]="tempChart.stroke"
+            [grid]="tempChart.grid"
+            [fill]="tempChart.fill"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+    <div class="grow p-2 lg:w-6/12">
+      <div
+        class="h-full flex justify-start flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+      <div class="px-5 w-full flex flex-wrap items-center">
+        <h1
+          class="px-2 text-lg w-fit font-manrope font-semibold text-start h-fit"
+        >
+          Humidity
+        </h1>
+        <h1
+          class="text-sm w-fit font-manrope font-semibold h-fit text-start text-gray-500"
+        >
+          Storage Pocari
+        </h1>
+      </div>
+        <div id="chart" class="w-full">
+          <apx-chart
+            [series]="tempChart.humidityPocari"
+            [chart]="tempChart.chart"
+            [dataLabels]="tempChart.dataLabelsHumidity"
+            [plotOptions]="tempChart.plotOptions"
+            [yaxis]="tempChart.yaxis"
+            [xaxis]="tempChart.xHumidityPocari"
             [stroke]="tempChart.stroke"
             [grid]="tempChart.grid"
             [fill]="tempChart.fill"
