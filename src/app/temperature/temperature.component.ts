@@ -79,7 +79,7 @@ export class TemperatureComponent {
                 {
                   name: 'Min Standart',
                   value: 21,
-                  strokeColor: '#e32200',
+                  strokeColor: '#e0e800',
                 },
                 {
                   name: 'Max Standart',
@@ -111,7 +111,7 @@ export class TemperatureComponent {
                 {
                   name: 'Min Standart',
                   value: 18,
-                  strokeColor: '#e32200',
+                  strokeColor: '#e0e800',
                 },
                 {
                   name: 'Max Standart',
@@ -132,7 +132,7 @@ export class TemperatureComponent {
                 {
                   name: 'Min Standart',
                   value: 21,
-                  strokeColor: '#e32200',
+                  strokeColor: '#e0e800',
                 },
                 {
                   name: 'Max Standart',
@@ -175,7 +175,7 @@ export class TemperatureComponent {
                 {
                   name: 'Min Standart',
                   value: 21,
-                  strokeColor: '#e32200',
+                  strokeColor: '#e0e800',
                 },
                 {
                   name: 'Max Standart',
@@ -209,7 +209,7 @@ export class TemperatureComponent {
                 {
                   name: 'Min Standart',
                   value: 0,
-                  strokeColor: '#e32200',
+                  strokeColor: '#e0e800',
                 },
                 {
                   name: 'Max Standart',
@@ -358,6 +358,7 @@ export class TemperatureComponent {
             ],
           },
           columnWidth: '80%',
+          borderRadius: 5,
           endingShape: 'rounded',
         },
       },

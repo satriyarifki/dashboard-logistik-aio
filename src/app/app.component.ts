@@ -6,7 +6,7 @@ import { slideInRouteVar } from './animations';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  animations: [slideInRouteVar],
+  animations: [],
 })
 export class AppComponent {
   title = 'logistik-dashboard';

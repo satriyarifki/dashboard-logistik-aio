@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <div class="grow lg:w-5/12 h-[92vh]">
+    <div class="grow lg:w-5/12 lg:h-[92vh]">
       <div class="grow p-2 lg:h-1/2 lg:w-full">
         <div
           class="h-full grid justify-items-stretch flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
@@ -75,7 +75,7 @@
         </div>
       </div>
     </div>
-    <div class="grow lg:w-4/12 h-[92vh]">
+    <div class="grow lg:w-4/12 lg:h-[92vh]">
       <div class="grow p-2 lg:h-1/2 lg:w-full">
         <div
           class="h-full grid justify-items-stretch flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
@@ -136,7 +136,7 @@
         </div>
       </div>
     </div>
-    <div class="grow lg:w-3/12 h-[92vh]">
+    <div class="grow lg:w-3/12 h-fit lg:h-[92vh]">
       <div class="grow p-2 lg:h-1/2 lg:w-full">
         <div
           class="h-full flex justify-start flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
@@ -165,6 +165,7 @@
 
           <div id="chart" class="w-full flex flex-wrap">
             <apx-chart
+              class="w-full"
               [series]="onTimeFleetChart.series"
               [chart]="onTimeFleetChart.chart"
               [plotOptions]="onTimeFleetChart.plotOptions"
@@ -224,6 +225,7 @@
 
           <div id="chart" class="w-full flex flex-wrap">
             <apx-chart
+              class="w-full"
               [series]="onTimeFleetChart.series"
               [chart]="onTimeFleetChart.chart"
               [plotOptions]="onTimeFleetChart.plotOptions"
