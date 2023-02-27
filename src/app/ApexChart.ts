@@ -26,6 +26,7 @@ export type TempChart = {
   dataLabelsTemperature: ApexDataLabels;
   dataLabelsHumidity: ApexDataLabels;
   plotOptions: ApexPlotOptions;
+  plotOptionsHorizontal: ApexPlotOptions;
   yaxis: ApexYAxis;
   xaxis: ApexXAxis;
   xHumiditySoyjoy: ApexXAxis;

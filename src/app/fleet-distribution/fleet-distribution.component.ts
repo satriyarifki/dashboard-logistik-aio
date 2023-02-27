@@ -218,7 +218,9 @@ export class FleetDistributionComponent {
         offsetX: 0,
         offsetY: 40,
         horizontalAlign: 'center',
-
+        onItemClick: {
+          toggleDataSeries: true,
+        },
         fontFamily: 'manrope',
         fontWeight: 400,
         itemMargin: {
@@ -235,7 +237,9 @@ export class FleetDistributionComponent {
               width: 320,
             },
             legend: {
-              position: 'bottom',
+              // position: 'bottom',
+              offsetX: -20,
+              offsetY: 20,
             },
           },
         },

@@ -57,7 +57,7 @@ export class TemperatureComponent {
           name: 'Actual',
           data: [
             {
-              x: 'Cold Storage',
+              x: ['Cold', 'Storage'],
               y: -16,
               goals: [
                 {
@@ -68,7 +68,7 @@ export class TemperatureComponent {
               ],
             },
             {
-              x: 'Storage D1',
+              x: ['Storage', 'D1'],
               y: 21,
               goals: [
                 {
@@ -89,7 +89,7 @@ export class TemperatureComponent {
               ],
             },
             {
-              x: 'Storage D2',
+              x: ['Storage', 'D2'],
               y: 8,
               goals: [
                 {
@@ -100,7 +100,7 @@ export class TemperatureComponent {
               ],
             },
             {
-              x: 'Storage D3',
+              x: ['Storage', 'D3'],
               y: 20,
               goals: [
                 {
@@ -121,7 +121,7 @@ export class TemperatureComponent {
               ],
             },
             {
-              x: 'Storage D4',
+              x: ['Storage', 'D4'],
               y: 22,
               goals: [
                 {
@@ -142,7 +142,7 @@ export class TemperatureComponent {
               ],
             },
             {
-              x: 'Storage D6',
+              x: ['Storage', 'D6'],
               y: 30,
               goals: [
                 {
@@ -153,7 +153,7 @@ export class TemperatureComponent {
               ],
             },
             {
-              x: 'Storage D7',
+              x: ['Storage', 'D7'],
               y: 7,
               goals: [
                 {
@@ -164,7 +164,7 @@ export class TemperatureComponent {
               ],
             },
             {
-              x: 'Connection Room',
+              x: ['Connection ', ' Room'],
               y: 21,
               goals: [
                 {
@@ -192,7 +192,7 @@ export class TemperatureComponent {
           name: 'Actual',
           data: [
             {
-              x: 'Cold Storage',
+              x: ['Cold', 'Storage'],
               y: -17,
               goals: [
                 {
@@ -203,7 +203,7 @@ export class TemperatureComponent {
               ],
             },
             {
-              x: 'Storage B1',
+              x: ['Storage', 'B1'],
               y: 9,
               goals: [
                 {
@@ -219,7 +219,7 @@ export class TemperatureComponent {
               ],
             },
             {
-              x: 'Storage B2',
+              x: ['Storage', 'B2'],
               y: 8,
               goals: [
                 {
@@ -230,7 +230,7 @@ export class TemperatureComponent {
               ],
             },
             {
-              x: 'Storage B3',
+              x: ['Storage', 'B3'],
               y: 20,
               goals: [
                 {
@@ -263,7 +263,7 @@ export class TemperatureComponent {
               ],
             },
             {
-              x: 'Gudang Chemical',
+              x: ['Gudang', 'Chemical'],
               y: 27,
               goals: [
                 {
@@ -274,7 +274,7 @@ export class TemperatureComponent {
               ],
             },
             {
-              x: 'WH Packaging Pocari',
+              x: ['WH', 'Packaging'],
               y: 21,
               goals: [
                 {
@@ -348,6 +348,22 @@ export class TemperatureComponent {
       },
       plotOptions: {
         bar: {
+          horizontal: false,
+          colors: {
+            ranges: [
+              {
+                from: -20,
+                to: 0,
+              },
+            ],
+          },
+          columnWidth: '80%',
+          borderRadius: 5,
+          endingShape: 'rounded',
+        },
+      },
+      plotOptionsHorizontal: {
+        bar: {
           horizontal: true,
           colors: {
             ranges: [
@@ -389,11 +405,17 @@ export class TemperatureComponent {
           'Storage D3',
           'Storage D4',
           'Storage D6',
-          'Connection Room',
+          'Connection \n Room',
         ],
       },
       xHumidityPocari: {
-        categories: ['WH B', 'WH A', 'Gudang Chemical', 'WH Packaging', 'WH C'],
+        categories: [
+          'WH B',
+          'WH A',
+          'Gudang Chemical',
+          'WH \n Packaging',
+          'WH C',
+        ],
       },
       xaxis: {
         labels: {
