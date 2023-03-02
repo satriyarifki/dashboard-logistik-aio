@@ -22,6 +22,7 @@ export type TempChart = {
   humiditySoyjoy: ApexAxisChartSeries;
   humidityPocari: ApexAxisChartSeries;
   chart: ApexChart;
+  chart2: ApexChart;
   rangeChart: ApexChart;
   dataLabelsTemperature: ApexDataLabels;
   dataLabelsHumidity: ApexDataLabels;

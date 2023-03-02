@@ -1,5 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import * as ApexCharts from 'apexcharts';
 import { ChartComponent } from 'ng-apexcharts';
+import { forkJoin } from 'rxjs';
+import { ApiService } from '../services/api.service';
 import { ProductService } from '../services/product.service';
 import { TempChart } from './../ApexChart';
 
@@ -9,341 +12,328 @@ import { TempChart } from './../ApexChart';
   host: { class: 'flex justify-center' },
   styleUrls: ['./temperature.component.css'],
 })
-export class TemperatureComponent {
-  @ViewChild('chart') chart!: ChartComponent;
+export class TemperatureComponent implements OnInit {
+  // @ViewChild('chart') chart!: ChartComponent;
   public tempChart!: Partial<TempChart> | any;
-  mockData: any;
-  mockAvg: number[] = [];
+  test = [
+    {
+      x: ['Cold', 'Storage'],
+      y: 20,
+      goals: [
+        {
+          name: 'Standart',
+          value: -18,
+          strokeColor: '#35e300',
+        },
+      ],
+    },
+  ];
+  xTempPocari: any = [
+    ['Cold', 'Storage'],
+    ['Storage', 'B1'],
+    ['Storage', 'B2'],
+    ['Storage', 'B3'],
+    'WH B',
+    'WH A',
+    ['Gudang', 'Chemical'],
+    ['WH', 'Packaging'],
+    'WH C',
+  ];
+  xTempSoyjoy: any = [
+    ['Cold', 'Storage'],
+    ['Storage', 'D1'],
+    ['Storage', 'D2'],
+    ['Storage', 'D3'],
+    ['Storage', 'D4'],
+    ['Storage', 'D6'],
+    ['Storage', 'D7'],
+    ['Connection ', ' Room'],
+  ];
+  goalTempPocari: any = [
+    [
+      {
+        name: 'Standart',
+        value: -18,
+        strokeColor: '#35e300',
+      },
+    ],
+    [
+      {
+        name: 'Min Standart',
+        value: 0,
+        strokeColor: '#e0e800',
+      },
+      {
+        name: 'Max Standart',
+        value: 10,
+        strokeColor: '#e32200',
+      },
+    ],
+    [
+      {
+        name: 'Max Standart',
+        value: 15,
+        strokeColor: '#e32200',
+      },
+    ],
+    [
+      {
+        name: 'Max Standart',
+        value: 15,
+        strokeColor: '#e32200',
+      },
+    ],
+    [
+      {
+        name: 'Max Standart',
+        value: 35,
+        strokeColor: '#e32200',
+      },
+    ],
+    [
+      {
+        name: 'Max Standart',
+        value: 35,
+        strokeColor: '#e32200',
+      },
+    ],
+    [
+      {
+        name: 'Max Standart',
+        value: 35,
+        strokeColor: '#e32200',
+      },
+    ],
+    [
+      {
+        name: 'Max Standart',
+        value: 35,
+        strokeColor: '#e32200',
+      },
+    ],
+    [
+      {
+        name: 'Max Standart',
+        value: 35,
+        strokeColor: '#e32200',
+      },
+    ],
+  ];
+  goalTempSoyjoy: any = [
+    [
+      {
+        name: 'Standart',
+        value: -18,
+        strokeColor: '#35e300',
+      },
+    ],
+    [
+      {
+        name: 'Standart',
+        value: 23,
+        strokeColor: '#35e300',
+      },
+      {
+        name: 'Min Standart',
+        value: 21,
+        strokeColor: '#e0e800',
+      },
+      {
+        name: 'Max Standart',
+        value: 25,
+        strokeColor: '#e32200',
+      },
+    ],
+    [
+      {
+        name: 'Standart',
+        value: 7,
+        strokeColor: '#35e300',
+      },
+    ],
+    [
+      {
+        name: 'Standart',
+        value: 20,
+        strokeColor: '#35e300',
+      },
+      {
+        name: 'Min Standart',
+        value: 18,
+        strokeColor: '#e0e800',
+      },
+      {
+        name: 'Max Standart',
+        value: 22,
+        strokeColor: '#e32200',
+      },
+    ],
+    [
+      {
+        name: 'Standart',
+        value: 23,
+        strokeColor: '#35e300',
+      },
+      {
+        name: 'Min Standart',
+        value: 21,
+        strokeColor: '#e0e800',
+      },
+      {
+        name: 'Max Standart',
+        value: 25,
+        strokeColor: '#e32200',
+      },
+    ],
+    [
+      {
+        name: 'Max Standart',
+        value: 35,
+        strokeColor: '#e32200',
+      },
+    ],
+    [
+      {
+        name: 'Standart',
+        value: 7,
+        strokeColor: '#35e300',
+      },
+    ],
+    [
+      {
+        name: 'Standart',
+        value: 23,
+        strokeColor: '#35e300',
+      },
+      {
+        name: 'Min Standart',
+        value: 21,
+        strokeColor: '#e0e800',
+      },
+      {
+        name: 'Max Standart',
+        value: 25,
+        strokeColor: '#e32200',
+      },
+    ],
+  ];
+  yTempPocari: any[] = [];
+  yTempSoyjoy: any[] = [];
   time: any;
+  tempPocari: any;
+  tempSoyjoy: any;
+  dataTempPocari: any[] = [];
+  dataTempSoyjoy: any[] = [];
 
   getCurrentDate() {
     setInterval(() => {
-      this.time = new Date(); //set time variable with current date
-    }, 1000); // set it every one seconds
+      this.time = new Date();
+    }, 1000);
   }
 
-  constructor(private pService: ProductService) {
+  constructor(private apiService: ApiService) {
     this.getCurrentDate();
-    // this.pService.getMockSum().subscribe((respon) => {
-    //   this.mockData = respon;
-    //   for (let index of respon) {
-    //     this.mockAvg.push(index.sum_estoque);
-    //   }
-    //   console.log(this.mockAvg);
-    //
-    // });
-    this.tempChartFunc();
+    this.getData();
+    // console.log(this.dataTempPocari);
+    setInterval(() => {
+      this.getData();
+    }, 2.5 * 60 * 1000);
+  }
+  ngOnInit(): void {}
+  getData() {
+    forkJoin(
+      this.apiService.getTempPocari(),
+      this.apiService.getTempSoyjoy()
+    ).subscribe(([pocari, soyjoy]) => {
+      this.tempPocari = pocari[0];
+      this.tempSoyjoy = soyjoy[0];
+      this.yTempSoyjoy.length = 0;
+      this.yTempSoyjoy.push(soyjoy[0].Temp_Cold_Storage);
+      this.yTempSoyjoy.push(soyjoy[0].Temp_RM_Storage);
+      this.yTempSoyjoy.push(soyjoy[0].Temp_RM_7);
+      this.yTempSoyjoy.push(soyjoy[0].Temp_Soy_Flour);
+      this.yTempSoyjoy.push(pocari[0].temp_strgD4);
+      this.yTempSoyjoy.push(pocari[0].temp_add_strg);
+      this.yTempSoyjoy.push(pocari[0].temp_strgD7);
+      this.yTempSoyjoy.push(pocari[0].temp_connect_room);
+
+      this.yTempPocari.length = 0;
+      this.yTempPocari.push(pocari[0].tempColdStr);
+      this.yTempPocari.push(pocari[0].temp_B1anteroom);
+      this.yTempPocari.push(pocari[0].temp_B2_Flavour1);
+      this.yTempPocari.push(pocari[0].temp_B3_Flavour2.toFixed(1));
+      this.yTempPocari.push(pocari[0].temp_gdGula);
+      this.yTempPocari.push(pocari[0].temp_Gresin);
+      this.yTempPocari.push(pocari[0].temp_WHchemi);
+      this.yTempPocari.push(pocari[0].temp_WHpack_pocari);
+      this.yTempPocari.push(pocari[0].temp_FG_pocari);
+
+      this.dataTempPocari.length = 0;
+      for (let i = 0; i < this.yTempPocari.length; i++) {
+        this.dataTempPocari.push({
+          x: this.xTempPocari[i],
+          y: this.yTempPocari[i],
+          goals: this.goalTempPocari[i],
+        });
+      }
+      this.dataTempSoyjoy.length = 0;
+      for (let i = 0; i < this.yTempSoyjoy.length; i++) {
+        this.dataTempSoyjoy.push({
+          x: this.xTempSoyjoy[i],
+          y: this.yTempSoyjoy[i],
+          goals: this.goalTempSoyjoy[i],
+        });
+      }
+
+      this.tempChartFunc();
+    });
   }
   tempChartFunc() {
+    // console.log(this.tempPocari);
+    console.log(this.dataTempPocari);
+    console.log(this.test);
+
     this.tempChart = {
-      annotations: {
-        points: [
-          {
-            x: 'Storage1',
-            y: -10,
-            seriesIndex: 0,
-            marker: {
-              size: 8,
-            },
-            label: {
-              borderColor: '#FF4560',
-              text: 'Point Annotation',
-            },
-          },
-        ],
-      },
       seriesSoyjoy: [
         {
           name: 'Actual',
-          data: [
-            {
-              x: ['Cold', 'Storage'],
-              y: -16,
-              goals: [
-                {
-                  name: 'Standart',
-                  value: -18,
-                  strokeColor: '#35e300',
-                },
-              ],
-            },
-            {
-              x: ['Storage', 'D1'],
-              y: 21,
-              goals: [
-                {
-                  name: 'Standart',
-                  value: 23,
-                  strokeColor: '#35e300',
-                },
-                {
-                  name: 'Min Standart',
-                  value: 21,
-                  strokeColor: '#e0e800',
-                },
-                {
-                  name: 'Max Standart',
-                  value: 25,
-                  strokeColor: '#e32200',
-                },
-              ],
-            },
-            {
-              x: ['Storage', 'D2'],
-              y: 8,
-              goals: [
-                {
-                  name: 'Standart',
-                  value: 7,
-                  strokeColor: '#35e300',
-                },
-              ],
-            },
-            {
-              x: ['Storage', 'D3'],
-              y: 20,
-              goals: [
-                {
-                  name: 'Standart',
-                  value: 20,
-                  strokeColor: '#35e300',
-                },
-                {
-                  name: 'Min Standart',
-                  value: 18,
-                  strokeColor: '#e0e800',
-                },
-                {
-                  name: 'Max Standart',
-                  value: 22,
-                  strokeColor: '#e32200',
-                },
-              ],
-            },
-            {
-              x: ['Storage', 'D4'],
-              y: 22,
-              goals: [
-                {
-                  name: 'Standart',
-                  value: 23,
-                  strokeColor: '#35e300',
-                },
-                {
-                  name: 'Min Standart',
-                  value: 21,
-                  strokeColor: '#e0e800',
-                },
-                {
-                  name: 'Max Standart',
-                  value: 25,
-                  strokeColor: '#e32200',
-                },
-              ],
-            },
-            {
-              x: ['Storage', 'D6'],
-              y: 30,
-              goals: [
-                {
-                  name: 'Max Standart',
-                  value: 35,
-                  strokeColor: '#e32200',
-                },
-              ],
-            },
-            {
-              x: ['Storage', 'D7'],
-              y: 7,
-              goals: [
-                {
-                  name: 'Standart',
-                  value: 7,
-                  strokeColor: '#35e300',
-                },
-              ],
-            },
-            {
-              x: ['Connection ', ' Room'],
-              y: 21,
-              goals: [
-                {
-                  name: 'Standart',
-                  value: 23,
-                  strokeColor: '#35e300',
-                },
-                {
-                  name: 'Min Standart',
-                  value: 21,
-                  strokeColor: '#e0e800',
-                },
-                {
-                  name: 'Max Standart',
-                  value: 25,
-                  strokeColor: '#e32200',
-                },
-              ],
-            },
-          ],
+          data: this.dataTempSoyjoy,
         },
       ],
       seriesPocari: [
         {
           name: 'Actual',
+          data: this.dataTempPocari,
+        },
+      ],
+      humiditySoyjoy: [
+        {
           data: [
-            {
-              x: ['Cold', 'Storage'],
-              y: -17,
-              goals: [
-                {
-                  name: 'Standart',
-                  value: -18,
-                  strokeColor: '#35e300',
-                },
-              ],
-            },
-            {
-              x: ['Storage', 'B1'],
-              y: 9,
-              goals: [
-                {
-                  name: 'Min Standart',
-                  value: 0,
-                  strokeColor: '#e0e800',
-                },
-                {
-                  name: 'Max Standart',
-                  value: 10,
-                  strokeColor: '#e32200',
-                },
-              ],
-            },
-            {
-              x: ['Storage', 'B2'],
-              y: 8,
-              goals: [
-                {
-                  name: 'Max Standart',
-                  value: 15,
-                  strokeColor: '#e32200',
-                },
-              ],
-            },
-            {
-              x: ['Storage', 'B3'],
-              y: 20,
-              goals: [
-                {
-                  name: 'Max Standart',
-                  value: 15,
-                  strokeColor: '#e32200',
-                },
-              ],
-            },
-            {
-              x: 'WH B',
-              y: 22,
-              goals: [
-                {
-                  name: 'Max Standart',
-                  value: 35,
-                  strokeColor: '#e32200',
-                },
-              ],
-            },
-            {
-              x: 'WH A',
-              y: 30,
-              goals: [
-                {
-                  name: 'Max Standart',
-                  value: 35,
-                  strokeColor: '#e32200',
-                },
-              ],
-            },
-            {
-              x: ['Gudang', 'Chemical'],
-              y: 27,
-              goals: [
-                {
-                  name: 'Max Standart',
-                  value: 35,
-                  strokeColor: '#e32200',
-                },
-              ],
-            },
-            {
-              x: ['WH', 'Packaging'],
-              y: 21,
-              goals: [
-                {
-                  name: 'Max Standart',
-                  value: 35,
-                  strokeColor: '#e32200',
-                },
-              ],
-            },
-            {
-              x: 'WH C',
-              y: 21,
-              goals: [
-                {
-                  name: 'Max Standart',
-                  value: 35,
-                  strokeColor: '#e32200',
-                },
-              ],
-            },
+            90,
+            80,
+            this.tempPocari.RH_strgD4,
+            this.tempPocari.RH_add_strg,
+            this.tempPocari.RH_conect_room,
           ],
         },
-        // {
-        //   name: 'Standart',
-        //   type: 'bar',
-        //   data: [
-        //     {
-        //       x: 'Cold Storage',
-        //       y: [-17, -20],
-        //     },
-        //     {
-        //       x: 'Storage B1',
-        //       y: [9, 10],
-        //     },
-        //     {
-        //       x: 'Storage B2',
-        //       y: [8, 14],
-        //     },
-        //     {
-        //       x: 'Storage B3',
-        //       y: [19, 20],
-        //     },
-        //     {
-        //       x: 'WH B',
-        //       y: [22, 25],
-        //     },
-        //     {
-        //       x: 'WH A',
-        //       y: [30, 20],
-        //     },
-        //     {
-        //       x: 'Gudang Chemical',
-        //       y: [7, 12],
-        //     },
-        //     {
-        //       x: 'WH Packaging Pocari',
-        //       y: [21, 22],
-        //     },
-        //     {
-        //       x: 'WH C',
-        //       y: [21, 21],
-        //     },
-        //   ],
-        // },
       ],
-      humiditySoyjoy: [{ data: [90, 92, 95, 80, 88] }],
-      humidityPocari: [{ data: [90, 92, 95, 80, 88] }],
+      humidityPocari: [
+        {
+          data: [
+            this.tempPocari.RH_gdGula,
+            this.tempPocari.RH_Gresin,
+            this.tempPocari.RH_WHchemi,
+            this.tempPocari.RH_WHpack_pocari,
+            this.tempPocari.RH_FG_pocari,
+          ],
+        },
+      ],
       chart: {
         height: 300,
+        type: 'bar',
+      },
+      chart2: {
+        height: 200,
         type: 'bar',
       },
       plotOptions: {
@@ -405,15 +395,15 @@ export class TemperatureComponent {
           'Storage D3',
           'Storage D4',
           'Storage D6',
-          'Connection \n Room',
+          ['Connection', 'Room'],
         ],
       },
       xHumidityPocari: {
         categories: [
           'WH B',
           'WH A',
-          'Gudang Chemical',
-          'WH \n Packaging',
+          ['Gudang', 'Chemical'],
+          ['WH', 'Packaging'],
           'WH C',
         ],
       },
@@ -421,17 +411,10 @@ export class TemperatureComponent {
         labels: {
           rotate: 0,
         },
-        // categories: [
-        //   'Cold Storage',
-        //   'Storage B1',
-        //   'Storage B2',
-        //   'Storage B3',
-        //   'WH B',
-        //   'WH A',
-        //   'Gudang Chemical',
-        //   'WH Packaging',
-        //   'WH C',
-        // ],
+      },
+      yaxis: {
+        min: -25,
+        max: 45,
       },
       fill: {
         type: 'gradient',
