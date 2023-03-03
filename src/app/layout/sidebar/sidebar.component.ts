@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Router, NavigationStart } from '@angular/router';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import {
   trigger,
   state,
@@ -27,20 +27,28 @@ import {
       transition(':leave', useAnimation(zoomOut, { params: { timing: 0.25 } })),
     ]),
   ],
+  host: { '(document:click)': 'falseAll($event)' },
 })
 export class SidebarComponent {
+  @ViewChild('MenuList') menuList!: ElementRef;
   tooltipHome: Boolean = false;
   tooltipDropdown: Boolean = false;
   tooltipLink: Boolean = false;
   dropdown: Boolean = false;
   bounce: any;
   swing: any;
+  loading = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private eref: ElementRef) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
+        this.loading = true;
         this.dropdown = false;
-        console.log('Route change detected');
+        // console.log('Route change Start');
+      }
+      if (event instanceof NavigationEnd) {
+        this.loading = false;
+        // console.log('Route change End');
       }
     });
   }
@@ -66,9 +74,18 @@ export class SidebarComponent {
     this.tooltipLink = false;
   }
   clickDropdown() {
+
     this.dropdown = !this.dropdown;
     if (this.dropdown) {
       this.tooltipDropdown = false;
+    }
+  }
+  falseAll(event: any) {
+    // console.log(this.menuList.nativeElement);
+    // console.log(event.target);
+
+    if (!this.menuList.nativeElement.contains(event.target) && this.dropdown) {
+      this.dropdown = false;
     }
   }
 }

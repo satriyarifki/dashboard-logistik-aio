@@ -1,17 +1,38 @@
 import { Component } from '@angular/core';
-import { ChildrenOutletContexts, RouterOutlet } from '@angular/router';
+import {
+  ChildrenOutletContexts,
+  NavigationEnd,
+  NavigationStart,
+  Router,
+  RouterOutlet,
+} from '@angular/router';
 import { slideInRouteVar } from './animations';
+import { LoaderService } from './services/loader.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  animations: [],
+  animations: [slideInRouteVar],
 })
 export class AppComponent {
   title = 'logistik-dashboard';
   timenow: any;
-  constructor(private contexts: ChildrenOutletContexts) {
+  constructor(
+    private contexts: ChildrenOutletContexts,
+    public loader: LoaderService,
+    private router: Router
+  ) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        // loader.setLoading(true);
+        // console.log(loader.getLoading());
+
+        console.log('Route change Start');
+      }
+      if (event instanceof NavigationEnd) {
+      }
+    });
     this.getCurrentDate;
   }
 

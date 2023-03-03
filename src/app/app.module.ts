@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
@@ -23,7 +23,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { TemperatureComponent } from './temperature/temperature.component';
 import { FleetDistributionComponent } from './fleet-distribution/fleet-distribution.component';
-
+import { LoadingInterceptor } from './loading.interceptor';
+import { NgxLoadingModule } from 'ngx-loading';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -52,8 +54,13 @@ import { FleetDistributionComponent } from './fleet-distribution/fleet-distribut
     MatTooltipModule,
     MatButtonModule,
     BrowserAnimationsModule,
+    NgxLoadingModule.forRoot({}),
+    NgxSpinnerModule,
   ],
-  providers: [],
+  providers: [
+    // { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,8 +1,12 @@
+<ngx-loading
+  [show]="loading"
+  [config]="{ backdropBorderRadius: '3px' }"
+></ngx-loading>
 <aside class="flex items-stretch h-screen px-1">
   <div
     class="flex flex-col self-center items-center shadow-xl fixed z-30 rounded-xl w-16 h-fit py-8 overflow-y-auto bg-white border-r rtl:border-l rtl:border-r-0 dark:bg-white dark:border-gray-100"
   >
-    <nav class="flex flex-col flex-1 space-y-6">
+    <nav class="flex flex-col flex-1 space-y-6" data-te-dropdown-ref>
       <a
         class="flex justify-center"
         [routerLink]="['/']"
@@ -40,14 +44,15 @@
           Home Page
         </div>
       </a>
-
       <a
+        #MenuList
         (mouseover)="overDropdown()"
         (mouseleave)="leaveDropdown()"
         (click)="clickDropdown()"
-        class="p-1.5 flex flex-wrap text-gray-700 focus:outline-nones transition-colors duration-200 rounded-lg dark:text-gray-900 dark:hover:bg-gray-100 hover:bg-gray-100"
+        class="p-1.5 flex flex-wrap text-gray-700 focus:outline-nones transition-colors duration-200 rounded-lg dark:text-gray-900 dark:hover:bg-gray-100 hover:bg-gray-100 motion-reduce:transition-none"
       >
         <svg
+          #MenuList
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -56,6 +61,7 @@
           class="w-6 h-6"
         >
           <path
+            #MenuList
             stroke-linecap="round"
             stroke-linejoin="round"
             d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"

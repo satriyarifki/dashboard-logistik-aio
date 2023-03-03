@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
   trigger,
   state,
@@ -21,6 +21,7 @@ import { NavigationStart, Router } from '@angular/router';
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
+  host: { '(document:click)': 'falseAll($event)' },
   animations: [
     trigger('ZoomInOutAnimation', [
       transition(':enter', useAnimation(zoomIn, { params: { timing: 0.25 } })),
@@ -29,14 +30,17 @@ import { NavigationStart, Router } from '@angular/router';
   ],
 })
 export class NavbarComponent {
+  @ViewChild('MenuList') menuList!: ElementRef;
+  @ViewChild('DropIcon') dropIcon!: ElementRef;
   dropdown: Boolean = false;
   dropdownRes: Boolean = false;
+
   constructor(private router: Router) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.dropdownRes = false;
         this.dropdown = false;
-        console.log('Route change detected');
+        // console.log('Route change detected');
       }
     });
   }
@@ -54,5 +58,20 @@ export class NavbarComponent {
   }
   mouseLeave() {
     this.dropdownRes = false;
+  }
+  falseAll(event: any) {
+    // console.log(this.menuList.nativeElement);
+    // console.log(event.target);
+    if (
+      !this.dropIcon.nativeElement.contains(event.target) &&
+      this.dropdownRes &&
+      !this.menuList.nativeElement.contains(event.target) &&
+      !this.dropdown
+    ) {
+      this.dropdownRes = false;
+    }
+    if (!this.menuList.nativeElement.contains(event.target) && this.dropdown) {
+      this.dropdown = false;
+    }
   }
 }

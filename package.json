@@ -25,9 +25,12 @@
     "flowbite": "^1.6.3",
     "ng-animate": "^2.0.1",
     "ng-apexcharts": "^1.7.4",
+    "ngx-loading": "^15.0.0",
+    "ngx-spinner": "^15.0.1",
     "preline": "^1.7.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "tw-elements": "^1.0.0-beta1",
     "world-clock": "^1.4.0",
     "world-timestamp": "^1.0.1",
     "zone.js": "~0.12.0"

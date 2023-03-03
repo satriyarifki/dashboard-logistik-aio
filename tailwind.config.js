@@ -21,5 +21,5 @@ module.exports = {
       biryani: ["Biryani"],
     },
   },
-  plugins: [],
+  plugins: [require("tw-elements/dist/plugin")],
 };

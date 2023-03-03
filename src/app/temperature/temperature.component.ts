@@ -1,8 +1,12 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, ViewContainerRef } from '@angular/core';
 import * as ApexCharts from 'apexcharts';
+import { LogarithmicScale } from 'chart.js';
 import { ChartComponent } from 'ng-apexcharts';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { forkJoin } from 'rxjs';
+import { AppComponent } from '../app.component';
 import { ApiService } from '../services/api.service';
+import { LoaderService } from '../services/loader.service';
 import { ProductService } from '../services/product.service';
 import { TempChart } from './../ApexChart';
 
@@ -13,21 +17,9 @@ import { TempChart } from './../ApexChart';
   styleUrls: ['./temperature.component.css'],
 })
 export class TemperatureComponent implements OnInit {
-  // @ViewChild('chart') chart!: ChartComponent;
+  @ViewChild('chart') chart!: ChartComponent;
   public tempChart!: Partial<TempChart> | any;
-  test = [
-    {
-      x: ['Cold', 'Storage'],
-      y: 20,
-      goals: [
-        {
-          name: 'Standart',
-          value: -18,
-          strokeColor: '#35e300',
-        },
-      ],
-    },
-  ];
+  public loading = false;
   xTempPocari: any = [
     ['Cold', 'Storage'],
     ['Storage', 'B1'],
@@ -225,28 +217,41 @@ export class TemperatureComponent implements OnInit {
   dataTempPocari: any[] = [];
   dataTempSoyjoy: any[] = [];
 
-  getCurrentDate() {
-    setInterval(() => {
-      this.time = new Date();
-    }, 1000);
-  }
+  // getCurrentDate() {
+  //   setInterval(() => {
+  //     this.time = new Date();
+  //   }, 1000);
+  // }
 
-  constructor(private apiService: ApiService) {
-    this.getCurrentDate();
+  constructor(
+    private apiService: ApiService,
+    public loader: LoaderService,
+    private spinner: NgxSpinnerService
+  ) {
+    this.loader.getCurrentDate(this.time);
+  }
+  ngOnInit(): void {
+    // this.getCurrentDate();
+
+    console.log(this.time);
+
     this.getData();
-    // console.log(this.dataTempPocari);
+
     setInterval(() => {
       this.getData();
     }, 2.5 * 60 * 1000);
   }
-  ngOnInit(): void {}
+
+  // GET DATA PROCESS ============================================ //
   getData() {
+    this.spinner.show();
     forkJoin(
       this.apiService.getTempPocari(),
       this.apiService.getTempSoyjoy()
     ).subscribe(([pocari, soyjoy]) => {
       this.tempPocari = pocari[0];
       this.tempSoyjoy = soyjoy[0];
+
       this.yTempSoyjoy.length = 0;
       this.yTempSoyjoy.push(soyjoy[0].Temp_Cold_Storage);
       this.yTempSoyjoy.push(soyjoy[0].Temp_RM_Storage);
@@ -255,7 +260,7 @@ export class TemperatureComponent implements OnInit {
       this.yTempSoyjoy.push(pocari[0].temp_strgD4);
       this.yTempSoyjoy.push(pocari[0].temp_add_strg);
       this.yTempSoyjoy.push(pocari[0].temp_strgD7);
-      this.yTempSoyjoy.push(pocari[0].temp_connect_room);
+      this.yTempSoyjoy.push(pocari[0].temp_conect_room);
 
       this.yTempPocari.length = 0;
       this.yTempPocari.push(pocari[0].tempColdStr);
@@ -269,30 +274,32 @@ export class TemperatureComponent implements OnInit {
       this.yTempPocari.push(pocari[0].temp_FG_pocari);
 
       this.dataTempPocari.length = 0;
-      for (let i = 0; i < this.yTempPocari.length; i++) {
+      this.dataTempSoyjoy.length = 0;
+      for (
+        let i = 0;
+        i < this.yTempPocari.length && this.yTempSoyjoy.length;
+        i++
+      ) {
         this.dataTempPocari.push({
           x: this.xTempPocari[i],
           y: this.yTempPocari[i],
           goals: this.goalTempPocari[i],
         });
+        if (this.yTempSoyjoy[i] != null) {
+          this.dataTempSoyjoy.push({
+            x: this.xTempSoyjoy[i],
+            y: this.yTempSoyjoy[i],
+            goals: this.goalTempSoyjoy[i],
+          });
+        }
       }
-      this.dataTempSoyjoy.length = 0;
-      for (let i = 0; i < this.yTempSoyjoy.length; i++) {
-        this.dataTempSoyjoy.push({
-          x: this.xTempSoyjoy[i],
-          y: this.yTempSoyjoy[i],
-          goals: this.goalTempSoyjoy[i],
-        });
-      }
-
       this.tempChartFunc();
+      this.spinner.hide();
     });
   }
-  tempChartFunc() {
-    // console.log(this.tempPocari);
-    console.log(this.dataTempPocari);
-    console.log(this.test);
 
+  // Chart Variable ========================================= //
+  tempChartFunc() {
     this.tempChart = {
       seriesSoyjoy: [
         {
@@ -309,8 +316,8 @@ export class TemperatureComponent implements OnInit {
       humiditySoyjoy: [
         {
           data: [
-            90,
-            80,
+            0,
+            0,
             this.tempPocari.RH_strgD4,
             this.tempPocari.RH_add_strg,
             this.tempPocari.RH_conect_room,
