@@ -214,27 +214,26 @@ export class TemperatureComponent implements OnInit {
   time: any;
   tempPocari: any;
   tempSoyjoy: any;
+  humPocari: any[] = [];
+  humSoyjoy: any[] = [];
   dataTempPocari: any[] = [];
   dataTempSoyjoy: any[] = [];
 
-  // getCurrentDate() {
-  //   setInterval(() => {
-  //     this.time = new Date();
-  //   }, 1000);
-  // }
+  getCurrentDate() {
+    this.time = new Date();
+    setInterval(() => {
+      this.time = new Date();
+    }, 1000);
+  }
 
   constructor(
     private apiService: ApiService,
     public loader: LoaderService,
     private spinner: NgxSpinnerService
-  ) {
-    this.loader.getCurrentDate(this.time);
-  }
+  ) {}
   ngOnInit(): void {
-    // this.getCurrentDate();
-
-    console.log(this.time);
-
+    this.getCurrentDate();
+    this.tempChartFunc();
     this.getData();
 
     setInterval(() => {
@@ -252,26 +251,49 @@ export class TemperatureComponent implements OnInit {
       this.tempPocari = pocari[0];
       this.tempSoyjoy = soyjoy[0];
 
+      this.humPocari.length = 0;
+      this.humSoyjoy.length = 0;
+      this.humSoyjoy.push(
+        0,
+        0,
+        this.tempPocari.RH_strgD4,
+        this.tempPocari.RH_add_strg,
+        this.tempPocari.RH_conect_room
+      );
+
+      this.humPocari.push(
+        pocari[0].RH_gdGula,
+        pocari[0].RH_Gresin,
+        pocari[0].RH_WHchemi,
+        pocari[0].RH_WHpack_pocari,
+        pocari[0].RH_FG_pocari
+      );
+
       this.yTempSoyjoy.length = 0;
-      this.yTempSoyjoy.push(soyjoy[0].Temp_Cold_Storage);
-      this.yTempSoyjoy.push(soyjoy[0].Temp_RM_Storage);
-      this.yTempSoyjoy.push(soyjoy[0].Temp_RM_7);
-      this.yTempSoyjoy.push(soyjoy[0].Temp_Soy_Flour);
-      this.yTempSoyjoy.push(pocari[0].temp_strgD4);
-      this.yTempSoyjoy.push(pocari[0].temp_add_strg);
-      this.yTempSoyjoy.push(pocari[0].temp_strgD7);
-      this.yTempSoyjoy.push(pocari[0].temp_conect_room);
+      this.yTempSoyjoy.push(
+        soyjoy[0].Temp_Cold_Storage,
+        soyjoy[0].Temp_RM_Storage,
+        soyjoy[0].Temp_RM_7,
+        soyjoy[0].Temp_Soy_Flour,
+        // pocari[0].temp_strgD4,
+        0,
+        pocari[0].temp_add_strg,
+        pocari[0].temp_strgD7,
+        pocari[0].temp_conect_room
+      );
 
       this.yTempPocari.length = 0;
-      this.yTempPocari.push(pocari[0].tempColdStr);
-      this.yTempPocari.push(pocari[0].temp_B1anteroom);
-      this.yTempPocari.push(pocari[0].temp_B2_Flavour1);
-      this.yTempPocari.push(pocari[0].temp_B3_Flavour2.toFixed(1));
-      this.yTempPocari.push(pocari[0].temp_gdGula);
-      this.yTempPocari.push(pocari[0].temp_Gresin);
-      this.yTempPocari.push(pocari[0].temp_WHchemi);
-      this.yTempPocari.push(pocari[0].temp_WHpack_pocari);
-      this.yTempPocari.push(pocari[0].temp_FG_pocari);
+      this.yTempPocari.push(
+        pocari[0].tempColdStr,
+        pocari[0].temp_B1anteroom,
+        pocari[0].temp_B2_Flavour1,
+        pocari[0].temp_B3_Flavour2.toFixed(1),
+        pocari[0].temp_gdGula,
+        pocari[0].temp_Gresin,
+        pocari[0].temp_WHchemi,
+        pocari[0].temp_WHpack_pocari,
+        pocari[0].temp_FG_pocari
+      );
 
       this.dataTempPocari.length = 0;
       this.dataTempSoyjoy.length = 0;
@@ -315,24 +337,12 @@ export class TemperatureComponent implements OnInit {
       ],
       humiditySoyjoy: [
         {
-          data: [
-            0,
-            0,
-            this.tempPocari.RH_strgD4,
-            this.tempPocari.RH_add_strg,
-            this.tempPocari.RH_conect_room,
-          ],
+          data: this.humSoyjoy,
         },
       ],
       humidityPocari: [
         {
-          data: [
-            this.tempPocari.RH_gdGula,
-            this.tempPocari.RH_Gresin,
-            this.tempPocari.RH_WHchemi,
-            this.tempPocari.RH_WHpack_pocari,
-            this.tempPocari.RH_FG_pocari,
-          ],
+          data: this.humPocari,
         },
       ],
       chart: {

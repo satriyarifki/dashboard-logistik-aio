@@ -13,7 +13,6 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { OccupancyComponent } from './warehouse/occupancy/occupancy.component';
 import { InvenAccuracyComponent } from './warehouse/inven-accuracy/inven-accuracy.component';
 import { TruckingKejayanComponent } from './trucking/trucking-kejayan/trucking-kejayan.component';
-import { TruckingSukabumiComponent } from './trucking/trucking-sukabumi/trucking-sukabumi.component';
 import { DelDesKejayanComponent } from './delivery-destination/del-des-kejayan/del-des-kejayan.component';
 import { DelDesSukabumiComponent } from './delivery-destination/del-des-sukabumi/del-des-sukabumi.component';
 import { DamagesProductComponent } from './damages-product/damages-product/damages-product.component';
@@ -36,7 +35,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     OccupancyComponent,
     InvenAccuracyComponent,
     TruckingKejayanComponent,
-    TruckingSukabumiComponent,
     DelDesKejayanComponent,
     DelDesSukabumiComponent,
     DamagesProductComponent,

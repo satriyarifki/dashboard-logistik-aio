@@ -30,7 +30,7 @@ import { NavigationStart, Router } from '@angular/router';
   ],
 })
 export class NavbarComponent {
-  @ViewChild('MenuList') menuList!: ElementRef;
+  @ViewChild('MenuList') navMenuList!: ElementRef;
   @ViewChild('DropIcon') dropIcon!: ElementRef;
   dropdown: Boolean = false;
   dropdownRes: Boolean = false;
@@ -65,13 +65,15 @@ export class NavbarComponent {
     if (
       !this.dropIcon.nativeElement.contains(event.target) &&
       this.dropdownRes &&
-      !this.menuList.nativeElement.contains(event.target) &&
+      !this.navMenuList.nativeElement.contains(event.target) &&
       !this.dropdown
     ) {
       this.dropdownRes = false;
     }
-    if (!this.menuList.nativeElement.contains(event.target) && this.dropdown) {
-      this.dropdown = false;
+    if (this.dropdown) {
+      if (!this.navMenuList.nativeElement.contains(event.target)) {
+        this.dropdown = false;
+      }
     }
   }
 }

@@ -30,7 +30,6 @@ export class FleetDistributionComponent {
     this.chartDelDes();
     this.OnTimeCharts();
     this.getCurrentDate();
-    console.log(this.pService.getTimeNow());
   }
 
   onFocus() {
@@ -47,6 +46,7 @@ export class FleetDistributionComponent {
   }
 
   getCurrentDate() {
+    this.time = new Date();
     setInterval(() => {
       this.time = new Date(); //set time variable with current date
     }, 1000); // set it every one seconds
@@ -79,16 +79,15 @@ export class FleetDistributionComponent {
             }
             if (config.config.title.text == 'Sukabumi') {
             }
-            console.log(config);
+            // console.log(config);
           },
           legendClick: function (
             chartContext: any,
             seriesIndex: any,
             config: any
           ) {
-            console.log(chartContext);
-
-            console.log('clicked');
+            // console.log(chartContext);
+            // console.log('clicked');
           },
         },
       },
@@ -129,10 +128,10 @@ export class FleetDistributionComponent {
       },
       responsive: [
         {
-          breakpoint: 650,
+          breakpoint: 700,
           options: {
             chart: {
-              height: 300,
+              width: '100%',
             },
             yaxis: {
               labels: {

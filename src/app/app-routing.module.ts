@@ -9,7 +9,6 @@ import { AvgHandlingLoadComponent } from './kejayan-sukabumi/avg-handling-load/a
 import { PerfectOrderRateComponent } from './perfect-order-rate/perfect-order-rate.component';
 import { TemperatureComponent } from './temperature/temperature.component';
 import { TruckingKejayanComponent } from './trucking/trucking-kejayan/trucking-kejayan.component';
-import { TruckingSukabumiComponent } from './trucking/trucking-sukabumi/trucking-sukabumi.component';
 import { InvenAccuracyComponent } from './warehouse/inven-accuracy/inven-accuracy.component';
 import { OccupancyComponent } from './warehouse/occupancy/occupancy.component';
 
@@ -21,8 +20,7 @@ const routes: Routes = [
     data: { animation: 'OccuPage' },
   },
   { path: 'inven-accuracy', component: InvenAccuracyComponent },
-  { path: 'trucking/kejayan', component: TruckingKejayanComponent },
-  { path: 'trucking/sukabumi', component: TruckingSukabumiComponent },
+  // { path: 'trucking/kejayan', component: TruckingKejayanComponent },
   { path: 'delivery-destination/kejayan', component: DelDesKejayanComponent },
   { path: 'delivery-destination/sukabumi', component: DelDesSukabumiComponent },
   { path: 'damages-product', component: DamagesProductComponent },

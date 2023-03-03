@@ -13,7 +13,7 @@ import { LoaderService } from './services/loader.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  animations: [slideInRouteVar],
+  animations: [],
 })
 export class AppComponent {
   title = 'logistik-dashboard';
@@ -28,7 +28,7 @@ export class AppComponent {
         // loader.setLoading(true);
         // console.log(loader.getLoading());
 
-        console.log('Route change Start');
+        // console.log('Route change Start');
       }
       if (event instanceof NavigationEnd) {
       }

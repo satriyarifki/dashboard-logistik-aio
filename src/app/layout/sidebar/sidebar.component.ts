@@ -42,7 +42,6 @@ export class SidebarComponent {
   constructor(private router: Router, private eref: ElementRef) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
-        this.loading = true;
         this.dropdown = false;
         // console.log('Route change Start');
       }
