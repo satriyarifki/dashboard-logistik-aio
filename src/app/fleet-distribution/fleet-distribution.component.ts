@@ -8,6 +8,8 @@ import {
 import { ProductService } from '../services/product.service';
 import worldTimestamp from 'world-timestamp';
 import { zoomInVar } from '../animations';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
+import { Keepalive } from '@ng-idle/keepalive';
 
 @Component({
   selector: 'app-fleet-distribution',
@@ -21,15 +23,37 @@ export class FleetDistributionComponent {
   public truckingFromChart!: Partial<TruckingFromChart> | any;
   public deliveryDestinationChart: Partial<DeliveryDesChart> | any;
   public onTimeFleetChart: Partial<OnTimeFleetChart> | any;
+  
   focusButton = false;
   wingboxFocus = false;
   time: any;
 
-  constructor(private pService: ProductService) {
+  constructor(
+    private pService: ProductService,
+    private idle: Idle,
+    private keepLive: Keepalive
+  ) {
     this.TruckingFromCharts();
     this.chartDelDes();
     this.OnTimeCharts();
     this.getCurrentDate();
+
+    this.idle.setIdle(5);
+    this.idle.setTimeout(5);
+
+    console.log(idle.getIdle());
+
+    // sets the default interrupts, in this case, things like clicks, scrolls, touches to the document
+    this.idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+    this.idle.onIdleStart.subscribe(() => {
+      console.log('Session Di Mulai');
+    });
+    this.idle.onTimeout.subscribe(() => {
+      console.log('Session Habis');
+    });
+
+    this.keepLive.interval(15);
   }
 
   onFocus() {
@@ -301,7 +325,7 @@ export class FleetDistributionComponent {
               },
               color: '#111',
               fontSize: '36px',
-              fontFamily: 'manrope',
+              fontFamily: 'Quicksand',
               fontWeight: 700,
               show: true,
             },

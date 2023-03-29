@@ -56,16 +56,18 @@ export class AvgHandlingLoadComponent {
         text: 'In mio Carton',
         align: 'left',
         style: {
-          fontFamily: 'Exo',
+          fontFamily: 'Manrope',
           fontSize: '20px',
+          fontWeight: 600,
         },
       },
       titleSukabumi: {
         text: 'From Sukabumi',
         align: 'left',
         style: {
-          fontFamily: 'Exo',
+          fontFamily: 'Manrope',
           fontSize: '20px',
+          fontWeight: 600,
         },
       },
       fill: {
@@ -76,7 +78,6 @@ export class AvgHandlingLoadComponent {
           type: 'horizontal',
           opacityFrom: 1,
           opacityTo: 1,
-          
         },
       },
       markers: {

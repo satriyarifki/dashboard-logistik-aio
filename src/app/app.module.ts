@@ -25,6 +25,9 @@ import { FleetDistributionComponent } from './fleet-distribution/fleet-distribut
 import { LoadingInterceptor } from './loading.interceptor';
 import { NgxLoadingModule } from 'ngx-loading';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { CheckLn2Component } from './check-ln2/check-ln2.component';
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+import { NgIdleModule } from '@ng-idle/core';
 
 @NgModule({
   declarations: [
@@ -42,6 +45,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     AvgHandlingLoadComponent,
     TemperatureComponent,
     FleetDistributionComponent,
+    CheckLn2Component,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +58,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     BrowserAnimationsModule,
     NgxLoadingModule.forRoot({}),
     NgxSpinnerModule,
+    NgIdleKeepaliveModule.forRoot(),
+    NgIdleModule.forRoot(),
   ],
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },

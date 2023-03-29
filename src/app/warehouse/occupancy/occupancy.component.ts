@@ -24,8 +24,8 @@ export class OccupancyComponent {
         offsetY: 20,
         style: {
           fontSize: '25px',
-          fontFamily: 'Fonarto',
-          fontWeight: 500,
+          fontFamily: 'Manrope',
+          fontWeight: 600,
         },
       },
       titleSukabumi: {
@@ -34,8 +34,8 @@ export class OccupancyComponent {
         offsetY: 20,
         style: {
           fontSize: '25px',
-          fontFamily: 'Fonarto',
-          fontWeight: 500,
+          fontFamily: 'Manrope',
+          fontWeight: 600,
         },
       },
       titleMargomulyo: {
@@ -44,8 +44,8 @@ export class OccupancyComponent {
         offsetY: 20,
         style: {
           fontSize: '25px',
-          fontFamily: 'Fonarto',
-          fontWeight: 500,
+          fontFamily: 'Manrope',
+          fontWeight: 600,
         },
       },
       titleBekasi: {
@@ -54,8 +54,8 @@ export class OccupancyComponent {
         offsetY: 20,
         style: {
           fontSize: '25px',
-          fontFamily: 'Fonarto',
-          fontWeight: 500,
+          fontFamily: 'Manrope',
+          fontWeight: 600,
         },
       },
       titlePasarRebo: {
@@ -64,8 +64,8 @@ export class OccupancyComponent {
         offsetY: 20,
         style: {
           fontSize: '25px',
-          fontFamily: 'Fonarto',
-          fontWeight: 500,
+          fontFamily: 'Manrope',
+          fontWeight: 600,
         },
       },
       titleCikarang: {
@@ -74,15 +74,15 @@ export class OccupancyComponent {
         offsetY: 20,
         style: {
           fontSize: '25px',
-          fontFamily: 'Fonarto',
-          fontWeight: 500,
+          fontFamily: 'Manrope',
+          fontWeight: 600,
         },
       },
       chart: {
         height: 350,
         type: 'radialBar',
         offsetY: 0,
-        size: 500,
+        size: 600,
       },
       grid: {
         show: true,
@@ -132,6 +132,8 @@ export class OccupancyComponent {
             value: {
               offsetY: -2,
               fontSize: '22px',
+              fontFamily: 'Quicksand',
+              fontWeight: 600,
             },
           },
         },

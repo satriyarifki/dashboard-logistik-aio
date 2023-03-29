@@ -29,13 +29,17 @@ export class PerfectOrderRateComponent {
           endAngle: 105,
           dataLabels: {
             name: {
-              fontSize: '16px',
+              fontSize: '18px',
               color: undefined,
-              offsetY: 50,
+              fontFamily: 'Quicksand',
+              offsetY: 40,
+              fontWeight: 600,
             },
             value: {
-              offsetY: 10,
-              fontSize: '22px',
+              offsetY: 0,
+              fontSize: '25px',
+              fontFamily: 'Quicksand',
+              fontWeight: 600,
               color: undefined,
               formatter: function (val: any) {
                 return val + '%';
@@ -50,7 +54,7 @@ export class PerfectOrderRateComponent {
         offsetY: 20,
         style: {
           fontSize: '30px',
-          fontFamily: 'Exo',
+          fontFamily: 'Manrope',
           fontWeight: 600,
         },
       },
@@ -60,7 +64,7 @@ export class PerfectOrderRateComponent {
         offsetY: 20,
         style: {
           fontSize: '30px',
-          fontFamily: 'Exo',
+          fontFamily: 'Manrope',
           fontWeight: 600,
         },
       },

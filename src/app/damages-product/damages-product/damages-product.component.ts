@@ -51,16 +51,18 @@ export class DamagesProductComponent {
         text: 'From Kejayan',
         align: 'left',
         style: {
-          fontFamily: 'Exo',
+          fontFamily: 'Manrope',
           fontSize: '20px',
+          fontWeight: 600,
         },
       },
       titleSukabumi: {
         text: 'From Sukabumi',
         align: 'left',
         style: {
-          fontFamily: 'Exo',
+          fontFamily: 'Manrope',
           fontSize: '20px',
+          fontWeight: 600,
         },
       },
       fill: {

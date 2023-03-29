@@ -1,0 +1,329 @@
+<!-- <ngx-loading
+  [show]="loading"
+  [config]="{ backdropBorderRadius: '3px' }"
+></ngx-loading>
+<ngx-spinner
+  color="white"
+  type="square-jelly-box"
+  [fullScreen]="true"
+  size="medium"
+  ><p style="color: white">Loading...</p></ngx-spinner
+> -->
+<div class="py-12 md:py-0 my-2 md:pl-[4.5rem] w-full">
+  <div class="flex flex-wrap mx-auto">
+    <div class="px-2 w-full">
+      <div
+        class="h-fit flex justify-between flex-wrap bg-white px-8 py-2 text-center rounded-lg overflow-hidden relative drop-shadow-xl"
+      >
+        <span class="flex items-center">
+          <h1 class="font-quicksand font-semibold text-lg">
+            Home / Check Ln 2
+          </h1></span
+        >
+
+        <h1 class="font-manrope font-[700] text-3xl">Check Ln 2</h1>
+        <span class="flex items-center">
+          <h1 class="font-quicksand font-semibold text-lg">
+            {{ time | date : "hh:mm:ss a  |  d-MM-YYYY" }}
+          </h1></span
+        >
+      </div>
+    </div>
+    <div class="grow p-2 lg:w-8/12">
+      <div
+        class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <div class="px-5 w-full flex flex-wrap items-center">
+          <h1
+            class="px-2 text-lg w-fit font-manrope font-[700] text-start h-fit"
+          >
+            Level Ln2 - Samator
+          </h1>
+          <h1
+            class="text-sm w-fit font-manrope font-semibold h-fit text-start text-gray-500"
+          ></h1>
+        </div>
+        <div class="w-full">
+          <apx-chart
+            [series]="checkLnChart.series"
+            [chart]="checkLnChart.chart"
+            [yaxis]="checkLnChart.yaxis"
+            [xaxis]="checkLnChart.xaxis"
+            [labels]="checkLnChart.labels"
+            [stroke]="checkLnChart.stroke"
+            [plotOptions]="checkLnChart.plotOptions"
+            [title]="checkLnChart.title"
+            [dataLabels]="checkLnChart.dataLabels"
+            [colors]="checkLnChart.colors"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+
+    <div class="grow p-2 lg:w-4/12">
+      <div
+        class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <div class="px-5 w-full flex flex-wrap items-center">
+          <h1
+            class="px-2 text-lg w-fit font-quicksand font-[700] text-start h-fit"
+          >
+            Level - Air Product
+          </h1>
+          <h1
+            class="text-sm w-fit font-quicksand font-semibold h-fit text-start text-gray-500"
+          ></h1>
+        </div>
+        <div class="w-full">
+          <apx-chart
+            [series]="checkLnChart.series2"
+            [chart]="checkLnChart.chart"
+            [yaxis]="checkLnChart.yaxis2"
+            [xaxis]="checkLnChart.xaxis"
+            [plotOptions]="checkLnChart.plotOptions"
+            [labels]="checkLnChart.labels2"
+            [stroke]="checkLnChart.stroke2"
+            [title]="checkLnChart.title"
+            [dataLabels]="checkLnChart.dataLabels"
+            [colors]="checkLnChart.colors"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+    <div class="grow p-2 lg:w-6/12">
+      <div
+        class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <div class="px-5 w-full flex flex-wrap items-center">
+          <h1
+            class="px-2 text-lg w-fit font-manrope font-[700] text-start h-fit"
+          >
+            Air Products (LN)
+          </h1>
+          <h1
+            class="text-sm w-fit font-manrope font-semibold h-fit text-start text-gray-500"
+          >Yesterday</h1>
+        </div>
+        <div class="w-full">
+          <apx-chart
+            [series]="lnYesterday.series"
+            [chart]="lnYesterday.chart"
+            [xaxis]="lnYesterday.xaxis"
+            [stroke]="lnYesterday.stroke"
+            [dataLabels]="lnYesterday.dataLabels"
+            [yaxis]="lnYesterday.yaxis"
+            [labels]="lnYesterday.labels"
+            [legend]="lnYesterday.legend"
+            [markers]="lnYesterday.markers"
+            [tooltip]="lnYesterday.tooltip"
+            [colors]="lnYesterday.colors"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+    <div class="grow p-2 lg:w-6/12">
+      <div
+        class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <div class="px-5 w-full flex flex-wrap items-center">
+          <h1
+            class="px-2 text-lg w-fit font-manrope font-[700] text-start h-fit"
+          >
+            Samator Soyjoy (Ln2)
+          </h1>
+          <h1
+            class="text-sm w-fit font-manrope font-semibold h-fit text-start text-gray-500"
+          >Yesterday</h1>
+        </div>
+        <div class="w-full">
+          <apx-chart
+            [series]="lnYesterday.series3"
+            [chart]="lnYesterday.chart"
+            [xaxis]="lnYesterday.xaxis2"
+            [stroke]="lnYesterday.stroke"
+            [dataLabels]="lnYesterday.dataLabels"
+            [yaxis]="lnYesterday.yaxis2"
+            [labels]="lnYesterday.labels"
+            [legend]="lnYesterday.legend"
+            [markers]="lnYesterday.markers"
+            [tooltip]="lnYesterday.tooltip"
+            [colors]="lnYesterday.colors2"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+    <div class="grow p-2 lg:w-6/12">
+      <div
+        class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <div class="px-5 w-full flex flex-wrap items-center">
+          <h1
+            class="px-2 text-lg w-fit font-manrope font-[700] text-start h-fit"
+          >
+            Samator TB1 (LN)
+          </h1>
+          <h1
+            class="text-sm w-fit font-manrope font-semibold h-fit text-start text-gray-500"
+          >Yesterday</h1>
+        </div>
+        <div class="w-full">
+          <apx-chart
+            [series]="lnYesterday.series2"
+            [chart]="lnYesterday.chart"
+            [xaxis]="lnYesterday.xaxis"
+            [stroke]="lnYesterday.stroke"
+            [dataLabels]="lnYesterday.dataLabels"
+            [yaxis]="lnYesterday.yaxis2"
+            [labels]="lnYesterday.labels"
+            [legend]="lnYesterday.legend"
+            [markers]="lnYesterday.markers"
+            [tooltip]="lnYesterday.tooltip"
+            [colors]="lnYesterday.colors3"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+    <div class="grow p-2 lg:w-6/12">
+      <div
+        class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <div class="px-5 w-full flex flex-wrap items-center">
+          <h1
+            class="px-2 text-lg w-fit font-manrope font-[700] text-start h-fit"
+          >
+            Samator TB2 (N2)
+          </h1>
+          <h1
+            class="text-sm w-fit font-manrope font-semibold h-fit text-start text-gray-500"
+          >Yesterday</h1>
+        </div>
+        <div class="w-full">
+          <apx-chart
+            [series]="lnYesterday.series4"
+            [chart]="lnYesterday.chart"
+            [xaxis]="lnYesterday.xaxis"
+            [stroke]="lnYesterday.stroke"
+            [dataLabels]="lnYesterday.dataLabels"
+            [yaxis]="lnYesterday.yaxis2"
+            [labels]="lnYesterday.labels"
+            [legend]="lnYesterday.legend"
+            [markers]="lnYesterday.markers"
+            [tooltip]="lnYesterday.tooltip"
+            [colors]="lnYesterday.colors4"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="grow p-2 lg:w-6/12">
+      <div
+        class="h-full flex justify-start flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <div class="px-5 w-full flex flex-wrap items-center">
+          <h1
+            class="px-2 text-lg w-fit font-quicksand font-semibold text-start h-fit"
+          >
+            Temperature
+          </h1>
+          <h1
+            class="text-sm w-fit font-quicksand font-semibold h-fit text-start text-gray-500"
+          >
+            Storage Pocari
+          </h1>
+        </div>
+        <div id="chart" class="w-full">
+          <apx-chart
+            [series]="tempChart.seriesPocari"
+            [chart]="tempChart.chart"
+            [dataLabels]="tempChart.dataLabelsTemperature"
+            [plotOptions]="tempChart.plotOptions"
+            [yaxis]="tempChart.yaxis"
+            [xaxis]="tempChart.xaxis"
+            [stroke]="tempChart.stroke"
+            [grid]="tempChart.grid"
+            [fill]="tempChart.fill"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+    <div class="grow p-2 lg:w-6/12">
+      <div
+        class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <div class="px-5 w-full flex flex-wrap items-center">
+          <h1
+            class="px-2 text-lg w-fit font-quicksand font-semibold text-start h-fit"
+          >
+            Humidity
+          </h1>
+          <h1
+            class="text-sm w-fit font-quicksand font-semibold h-fit text-start text-gray-500"
+          >
+            Storage Soyjoy
+          </h1>
+        </div>
+        <div id="chart" class="w-full">
+          <apx-chart
+            [series]="tempChart.humiditySoyjoy"
+            [chart]="tempChart.chart2"
+            [dataLabels]="tempChart.dataLabelsHumidity"
+            [plotOptions]="tempChart.plotOptions"
+            [xaxis]="tempChart.xHumiditySoyjoy"
+            [stroke]="tempChart.stroke"
+            [grid]="tempChart.grid"
+            [fill]="tempChart.fill"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+    <div class="grow p-2 lg:w-6/12">
+      <div
+        class="h-full flex justify-start flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <div class="px-5 w-full flex flex-wrap items-center">
+          <h1
+            class="px-2 text-lg w-fit font-quicksand font-semibold text-start h-fit"
+          >
+            Humidity
+          </h1>
+          <h1
+            class="text-sm w-fit font-quicksand font-semibold h-fit text-start text-gray-500"
+          >
+            Storage Pocari
+          </h1>
+        </div>
+        <div id="chart" class="w-full">
+          <apx-chart
+            [series]="tempChart.humidityPocari"
+            [chart]="tempChart.chart2"
+            [dataLabels]="tempChart.dataLabelsHumidity"
+            [plotOptions]="tempChart.plotOptions"
+            [xaxis]="tempChart.xHumidityPocari"
+            [stroke]="tempChart.stroke"
+            [grid]="tempChart.grid"
+            [fill]="tempChart.fill"
+          ></apx-chart>
+        </div>
+      </div>
+    </div> -->
+    <!-- <div class="grow p-2 lg:w-6/12">
+        <div
+          class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+        >
+          <div id="chart" class="w-full">
+            <apx-chart
+              [series]="checkLnChart.series"
+              [chart]="checkLnChart.chart"
+              [xaxis]="checkLnChart.xaxis"
+              [dataLabels]="checkLnChart.dataLabels"
+              [grid]="checkLnChart.grid"
+              [stroke]="checkLnChart.stroke"
+              [title]="checkLnChart.titleSukabumi"
+              [markers]="checkLnChart.markers"
+              [yaxis]="checkLnChart.yaxis"
+
+            ></apx-chart>
+          </div>
+        </div>
+      </div> -->
+  </div>
+</div>

@@ -49,7 +49,7 @@ export class InvenAccuracyComponent {
     //   this.boolSukabumi = false;
     // }
     this.boolKejayan = !this.boolKejayan;
-    console.log(this.boolKejayan);
+    // console.log(this.boolKejayan);
     this.cdr.detectChanges();
   }
   changeSukabumi() {
@@ -57,7 +57,7 @@ export class InvenAccuracyComponent {
     //   this.boolKejayan = false;
     // }
     this.boolSukabumi = !this.boolSukabumi;
-    console.log(this.boolSukabumi);
+    // console.log(this.boolSukabumi);
     this.cdr.detectChanges();
   }
   funRadialChart() {
@@ -75,27 +75,27 @@ export class InvenAccuracyComponent {
             if (config.config.title.text == 'Sukabumi') {
               this.changeSukabumi();
             }
-            console.log(config.config.title.text);
+            // console.log(config.config.title.text);
           },
         },
       },
       titleK: {
         text: 'Kejayan',
         align: 'center',
-        offsetY: 20,
+        offsetY: 30,
         style: {
           fontSize: '30px',
-          fontFamily: 'Exo',
+          fontFamily: 'Manrope',
           fontWeight: 600,
         },
       },
       titleS: {
         text: 'Sukabumi',
         align: 'center',
-        offsetY: 20,
+        offsetY: 30,
         style: {
           fontSize: '30px',
-          fontFamily: 'Exo',
+          fontFamily: 'Manrope',
           fontWeight: 600,
         },
       },
@@ -136,14 +136,15 @@ export class InvenAccuracyComponent {
               show: true,
               color: '#008063',
               fontSize: '27px',
-              fontFamily: 'manrope',
+              fontFamily: 'Quicksand',
               fontWeight: 700,
             },
             value: {
               color: '#111',
               fontSize: '25px',
               show: true,
-              fontFamily: 'manrope',
+              fontFamily: 'Quicksand',
+              fontWeight: 600,
             },
           },
         },
@@ -156,14 +157,15 @@ export class InvenAccuracyComponent {
               show: true,
               color: '#1A5B77',
               fontSize: '27px',
-              fontFamily: 'manrope',
+              fontFamily: 'Quicksand',
               fontWeight: 700,
             },
             value: {
               color: '#111',
               fontSize: '25px',
               show: true,
-              fontFamily: 'manrope',
+              fontFamily: 'Quicksand',
+              fontWeight: 600,
             },
           },
         },

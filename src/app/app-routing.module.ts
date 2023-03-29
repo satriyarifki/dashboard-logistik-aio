@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CheckLn2Component } from './check-ln2/check-ln2.component';
 import { DamagesProductComponent } from './damages-product/damages-product/damages-product.component';
 import { DelDesKejayanComponent } from './delivery-destination/del-des-kejayan/del-des-kejayan.component';
 import { DelDesSukabumiComponent } from './delivery-destination/del-des-sukabumi/del-des-sukabumi.component';
@@ -27,10 +28,11 @@ const routes: Routes = [
   { path: 'perfect-order-rate', component: PerfectOrderRateComponent },
   { path: 'fleet-distribution', component: FleetDistributionComponent },
   {
-    path: 'kejayan-Sukabumo-avg-handling-load',
+    path: 'kejayan-Sukabumi-avg-handling-load',
     component: AvgHandlingLoadComponent,
   },
   { path: 'temp', component: TemperatureComponent },
+  { path: 'check-ln', component: CheckLn2Component },
 ];
 
 @NgModule({
