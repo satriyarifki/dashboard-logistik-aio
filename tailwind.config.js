@@ -1,12 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{html,ts}",
-    "./build/**/*.{html, ts}",
-    "./pages/**/*.{html,js, ts}",
-    "./components/*/.{html,ts}",
-    "./components/**/*.{html, ts}",
-  ],
+  content: ["./src/**/*.{html,ts,tsx,jsx}"],
   theme: {
     extend: {
       colors: {
@@ -21,9 +15,10 @@ module.exports = {
     },
     fontFamily: {
       manrope: ["Manrope"],
-      dosis: ["Dosis"],
       quicksand: ["Quicksand"],
       aller: ["Aller"],
+      alkatra: ["Alkatra"],
+      fasthand: ["Fasthand"],
       fonarto: ["Fonarto"],
       coolvetica: ["Coolvetica"],
       express: ["Expressway"],
@@ -32,5 +27,4 @@ module.exports = {
     },
   },
   plugins: [require("tw-elements/dist/plugin")],
-  enabled: process.env.NODE_ENV === "production",
 };
