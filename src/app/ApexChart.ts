@@ -73,6 +73,7 @@ export type TruckingFromChart = {
 
 export type DeliveryDesChart = {
   series: ApexNonAxisChartSeries;
+  seriesSukabumi: ApexNonAxisChartSeries;
   chart: ApexChart;
   responsive: ApexResponsive[];
   labels: any;
@@ -86,6 +87,7 @@ export type DeliveryDesChart = {
 
 export type OnTimeFleetChart = {
   series: ApexNonAxisChartSeries;
+  seriesSukabumi: ApexNonAxisChartSeries;
   chart: ApexChart;
   labels: string[];
   plotOptions: ApexPlotOptions;

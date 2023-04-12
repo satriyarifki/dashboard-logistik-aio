@@ -18,4 +18,10 @@ export class ApiService {
   getTempSoyjoy(): Observable<any> {
     return this.http.get(this.baseUrl + 'temp-soyjoy');
   }
+  getFleetKejayan(): Observable<any> {
+    return this.http.get(this.baseUrl + 'fleet-kejayan');
+  }
+  getFleetSukabumi(): Observable<any> {
+    return this.http.get(this.baseUrl + 'fleet-sukabumi');
+  }
 }

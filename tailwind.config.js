@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        hijau: "#00FFC6",
+        hijau: "#2FBD85",
         biru: "#30AADD",
         hijau2: "#43919B",
         hijau3: "#247881",

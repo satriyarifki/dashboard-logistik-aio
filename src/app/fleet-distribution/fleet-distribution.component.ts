@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { ChartComponent } from 'ng-apexcharts';
 import {
   DeliveryDesChart,
@@ -10,6 +10,9 @@ import worldTimestamp from 'world-timestamp';
 import { zoomInVar } from '../animations';
 import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 import { Keepalive } from '@ng-idle/keepalive';
+import { Observable, forkJoin } from 'rxjs';
+import { ApiService } from '../services/api.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-fleet-distribution',
@@ -17,43 +20,54 @@ import { Keepalive } from '@ng-idle/keepalive';
   styleUrls: ['./fleet-distribution.component.css'],
   animations: [zoomInVar],
 })
-export class FleetDistributionComponent {
+export class FleetDistributionComponent implements OnInit {
   @Input('timen') timenow: Date = new Date();
   @ViewChild('chart') chart!: ChartComponent;
   public truckingFromChart!: Partial<TruckingFromChart> | any;
   public deliveryDestinationChart: Partial<DeliveryDesChart> | any;
   public onTimeFleetChart: Partial<OnTimeFleetChart> | any;
-  
+
   focusButton = false;
   wingboxFocus = false;
   time: any;
+  fleetKejayan!: any;
+  fleetSukabumi!: any;
 
   constructor(
-    private pService: ProductService,
+    private apiService: ApiService,
+    private spinner: NgxSpinnerService,
     private idle: Idle,
     private keepLive: Keepalive
   ) {
-    this.TruckingFromCharts();
-    this.chartDelDes();
-    this.OnTimeCharts();
+    // this.chartDelDes();
+  }
+  async ngOnInit(): Promise<void> {
     this.getCurrentDate();
+    await this.dataService();
+  }
 
-    this.idle.setIdle(5);
-    this.idle.setTimeout(5);
+  dataService() {
+    this.spinner.show();
+    forkJoin(
+      this.apiService.getFleetKejayan(),
+      this.apiService.getFleetSukabumi()
+    ).subscribe(
+      ([kejayan, sukabumi]) => {
+        this.fleetKejayan = kejayan;
+        this.fleetSukabumi = sukabumi;
 
-    console.log(idle.getIdle());
-
-    // sets the default interrupts, in this case, things like clicks, scrolls, touches to the document
-    this.idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
-
-    this.idle.onIdleStart.subscribe(() => {
-      console.log('Session Di Mulai');
-    });
-    this.idle.onTimeout.subscribe(() => {
-      console.log('Session Habis');
-    });
-
-    this.keepLive.interval(15);
+        this.TruckingFromCharts();
+        this.chartDelDes();
+        this.OnTimeCharts();
+        this.spinner.hide();
+      },
+      (err) => {
+        this.spinner.hide();
+      },
+      () => {
+        this.spinner.hide();
+      }
+    );
   }
 
   onFocus() {
@@ -81,13 +95,25 @@ export class FleetDistributionComponent {
       seriesKejayan: [
         {
           name: 'Kejayan',
-          data: [227, 235, 11, 105, 22],
+          data: [
+            this.fleetKejayan.trucking[0].container,
+            this.fleetKejayan.trucking[0].wing_box,
+            this.fleetKejayan.trucking[0].tronton,
+            this.fleetKejayan.trucking[0].fuso,
+            this.fleetKejayan.trucking[0].cold_diesel,
+          ],
         },
       ],
       seriesSukabumi: [
         {
           name: 'Sukabumi',
-          data: [365, 394, 52, 25, 51],
+          data: [
+            this.fleetSukabumi.trucking[0].container,
+            this.fleetSukabumi.trucking[0].wing_box,
+            this.fleetSukabumi.trucking[0].tronton,
+            this.fleetSukabumi.trucking[0].fuso,
+            this.fleetSukabumi.trucking[0].cold_diesel,
+          ],
         },
       ],
       title: {
@@ -174,7 +200,21 @@ export class FleetDistributionComponent {
 
   chartDelDes() {
     this.deliveryDestinationChart = {
-      series: [40, 32, 19, 6, 3],
+      series: [
+        Number(this.fleetKejayan.deliveryDestination[0].distributor),
+        Number(this.fleetKejayan.deliveryDestination[0].odi),
+        Number(this.fleetKejayan.deliveryDestination[0].export),
+        Number(this.fleetKejayan.deliveryDestination[0].intransit_wh),
+        Number(this.fleetKejayan.deliveryDestination[0].ldc),
+      ],
+      seriesSukabumi: [
+        Number(this.fleetSukabumi.deliveryDestination[0].distributor),
+        Number(this.fleetSukabumi.deliveryDestination[0].odi),
+        Number(this.fleetSukabumi.deliveryDestination[0].export),
+        Number(this.fleetSukabumi.deliveryDestination[0].intransit_wh),
+        Number(this.fleetSukabumi.deliveryDestination[0].ldc),
+      ],
+      // series: [11.1 , Number(this.fleet.deliveryDestination[0].odi), 21.5, 15.98, 17.23],
       chart: {
         height: '230vh',
         type: 'donut',
@@ -272,7 +312,8 @@ export class FleetDistributionComponent {
 
   OnTimeCharts() {
     this.onTimeFleetChart = {
-      series: [75],
+      series: [this.fleetKejayan.arrival[0].within_time],
+      seriesSukabumi: [this.fleetSukabumi.arrival[0].within_time],
       chart: {
         height: 230,
         type: 'radialBar',
@@ -321,7 +362,7 @@ export class FleetDistributionComponent {
             },
             value: {
               formatter: function (val: any) {
-                return parseInt(val.toString(), 10).toString() + '%';
+                return parseFloat(val.toString()).toString() + '%';
               },
               color: '#111',
               fontSize: '36px',
