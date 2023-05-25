@@ -14,6 +14,11 @@ import { Observable, forkJoin } from 'rxjs';
 import { ApiService } from '../services/api.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
+var totalTrucking: {
+  Kejayan: Number;
+  Sukabumi: Number;
+};
+
 @Component({
   selector: 'app-fleet-distribution',
   templateUrl: './fleet-distribution.component.html',
@@ -32,6 +37,9 @@ export class FleetDistributionComponent implements OnInit {
   time: any;
   fleetKejayan!: any;
   fleetSukabumi!: any;
+  totalTrucking = totalTrucking;
+  totalTruckingKejayan: any;
+  totalTruckingSukabumi: any;
 
   constructor(
     private apiService: ApiService,
@@ -59,6 +67,8 @@ export class FleetDistributionComponent implements OnInit {
         this.TruckingFromCharts();
         this.chartDelDes();
         this.OnTimeCharts();
+        this.sumTruckingQuantity();
+
         this.spinner.hide();
       },
       (err) => {
@@ -88,6 +98,31 @@ export class FleetDistributionComponent implements OnInit {
     setInterval(() => {
       this.time = new Date(); //set time variable with current date
     }, 1000); // set it every one seconds
+  }
+
+  sumTruckingQuantity() {
+    this.totalTruckingKejayan = [
+      this.fleetKejayan.trucking[0].container,
+      this.fleetKejayan.trucking[0].wing_box,
+      this.fleetKejayan.trucking[0].tronton,
+      this.fleetKejayan.trucking[0].fuso,
+      this.fleetKejayan.trucking[0].cold_diesel,
+    ]
+      .map(Number)
+      .reduce((x, y) => {
+        return x + y;
+      });
+    this.totalTruckingSukabumi = [
+      this.fleetSukabumi.trucking[0].container,
+      this.fleetSukabumi.trucking[0].wing_box,
+      this.fleetSukabumi.trucking[0].tronton,
+      this.fleetSukabumi.trucking[0].fuso,
+      this.fleetSukabumi.trucking[0].cold_diesel,
+    ]
+      .map(Number)
+      .reduce((x, y) => {
+        return x + y;
+      });
   }
 
   TruckingFromCharts() {
@@ -224,7 +259,7 @@ export class FleetDistributionComponent implements OnInit {
             seriesIndex: any,
             config: any
           ) {
-            console.log('success');
+            // console.log('success');
           },
         },
       },

@@ -31,14 +31,23 @@
         <div
           class="h-full grid justify-items-stretch flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
         >
-          <h1 class="text-lg font-manrope font-semibold text-start h-fit">
-            Trucking
-          </h1>
-          <h1
-            class="text-sm w-5/6 font-manrope font-semibold text-start text-gray-500"
-          >
-            From Kejayan
-          </h1>
+          <div class="flex justify-between">
+            <div class="w-1/2">
+              <h1
+                class="text-lg font-manrope font-semibold text-start h-fit w-fit"
+              >
+                Trucking
+              </h1>
+              <h1
+                class="text-sm w-5/6 font-manrope font-semibold text-start text-gray-500"
+              >
+                From Kejayan
+              </h1>
+            </div>
+
+            <h1 class="w-1/4 semi">Total : <span class="font-[800] text-xl font-manrope text-biru2">{{ this.totalTruckingKejayan }}</span></h1>
+          </div>
+
           <div id="chart" class="w-full" *ngIf="this.fleetKejayan != null">
             <apx-chart
               [series]="truckingFromChart.seriesKejayan"
@@ -57,14 +66,22 @@
         <div
           class="h-full grid justify-items-stretch flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
         >
-          <h1 class="text-lg font-manrope font-semibold text-start h-fit">
-            Trucking
-          </h1>
-          <h1
-            class="text-sm w-5/6 font-manrope font-semibold text-start text-gray-500"
-          >
-            From Sukabumi
-          </h1>
+        <div class="flex justify-between">
+          <div class="w-1/2">
+            <h1
+              class="text-lg font-manrope font-semibold text-start h-fit w-fit"
+            >
+              Trucking
+            </h1>
+            <h1
+              class="text-sm w-5/6 font-manrope font-semibold text-start text-gray-500"
+            >
+              From Sukabumi
+            </h1>
+          </div>
+
+          <h1 class="w-1/4 semi">Total : <span class="font-[800] text-xl font-manrope text-biru2">{{ this.totalTruckingSukabumi }}</span></h1>
+        </div>
           <div id="chart" class="w-full" *ngIf="this.fleetSukabumi != null">
             <apx-chart
               [series]="truckingFromChart.seriesSukabumi"
