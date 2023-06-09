@@ -12,8 +12,11 @@ import { TemperatureComponent } from './temperature/temperature.component';
 import { TruckingKejayanComponent } from './trucking/trucking-kejayan/trucking-kejayan.component';
 import { InvenAccuracyComponent } from './warehouse/inven-accuracy/inven-accuracy.component';
 import { OccupancyComponent } from './warehouse/occupancy/occupancy.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { DocumentationsComponent } from './documentations/documentations.component';
 
 const routes: Routes = [
+  { path: '', component: HomeComponent, data: { animation: 'HomePage' } },
   { path: '', component: HomeComponent, data: { animation: 'HomePage' } },
   {
     path: 'warehouse/occupancy',
@@ -33,6 +36,9 @@ const routes: Routes = [
   },
   { path: 'temp', component: TemperatureComponent },
   { path: 'check-ln', component: CheckLn2Component },
+  { path: 'documentations', component: DocumentationsComponent },
+  { path: '**', component: NotFoundComponent},
+
 ];
 
 @NgModule({

@@ -35,7 +35,7 @@ export class NavbarComponent {
   dropdown: Boolean = false;
   dropdownRes: Boolean = false;
 
-  constructor(private router: Router) {
+  constructor(public router: Router) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.dropdownRes = false;

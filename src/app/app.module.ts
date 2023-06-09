@@ -28,6 +28,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { CheckLn2Component } from './check-ln2/check-ln2.component';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { NgIdleModule } from '@ng-idle/core';
+import { DocumentationsComponent } from './documentations/documentations.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { NgIdleModule } from '@ng-idle/core';
     TemperatureComponent,
     FleetDistributionComponent,
     CheckLn2Component,
+    DocumentationsComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

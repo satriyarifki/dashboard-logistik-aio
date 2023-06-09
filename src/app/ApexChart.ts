@@ -68,6 +68,7 @@ export type TruckingFromChart = {
   yaxis: ApexYAxis;
   title: ApexTitleSubtitle;
   stroke: ApexStroke;
+  colors: any;
   responsive: ApexResponsive;
 };
 

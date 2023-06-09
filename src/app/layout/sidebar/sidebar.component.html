@@ -4,9 +4,9 @@
 ></ngx-loading>
 <aside class="flex items-stretch h-screen px-1">
   <div
-    class="flex flex-col self-center items-center shadow-xl fixed z-30 rounded-xl w-16 h-fit py-8 overflow-y-auto bg-white border-r rtl:border-l rtl:border-r-0 dark:bg-white dark:border-gray-100"
+    class="flex flex-col self-center items-center shadow-xl fixed z-30 rounded-xl w-16 h-fit py-8 overflow-y-auto bg-white border-r rtl:border-l rtl:border-r-0 border-gray-100"
   >
-    <nav class="flex flex-col flex-1 space-y-6" data-te-dropdown-ref>
+    <nav class="flex flex-col flex-1 space-y-5">
       <a
         class="flex justify-center"
         [routerLink]="['/']"
@@ -14,20 +14,24 @@
       >
         <img class="w-auto h-6" src="assets/glogo.png" alt="" />
       </a>
+      <hr class="h-[2.5px] bg-gray-400 rounded-lg " />
 
       <a
         (mouseover)="overHome()"
         (mouseleave)="leaveHome()"
         [routerLink]="['/']"
         routerLinkActive="router-link-active"
-        class="p-1.5 flex flex-wrap text-gray-700 focus:outline-nones transition-colors duration-200 rounded-lg dark:text-gray-900 dark:hover:bg-gray-100 hover:bg-gray-100"
+        class="p-1.5 flex flex-wrap focus:outline-none ease-in-out rounded-lg text-gray-900 hover:bg-gray-600 stroke-black hover:stroke-white"
+        [ngClass]="
+          router.url == '/' ? 'bg-gradient-to-r from-biru to-teal-400' : ''
+        "
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
+          [ngClass]="router.url == '/' ? 'stroke-white' : ''"
           fill="none"
           viewBox="0 0 24 24"
           stroke-width="1.5"
-          stroke="black"
           class="w-6 h-6"
         >
           <path
@@ -39,7 +43,12 @@
         <div
           [@ZoomInOutAnimation]
           *ngIf="tooltipHome"
-          class="fixed z-50 inline-block left-16 px-3 py-1 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700"
+          class="fixed z-50 inline-block left-16 px-3 py-1 text-sm font-medium text-white rounded-lg shadow-sm"
+          [ngClass]="
+            router.url == '/'
+              ? 'bg-gradient-to-r from-sky-600 to-teal-400'
+              : 'bg-gray-700'
+          "
         >
           Home Page
         </div>
@@ -49,7 +58,12 @@
         (mouseover)="overDropdown()"
         (mouseleave)="leaveDropdown()"
         (click)="clickDropdown()"
-        class="p-1.5 flex flex-wrap text-gray-700 focus:outline-nones transition-colors duration-200 rounded-lg dark:text-gray-900 dark:hover:bg-gray-100 hover:bg-gray-100 motion-reduce:transition-none"
+        class="p-1.5 flex flex-wrap cursor-pointer focus:outline-none rounded-lg text-gray-900 motion-reduce:transition-none hover:bg-gray-600 stroke-black hover:stroke-white"
+        [ngClass]="
+          router.url != '/' && router.url != '/temp'
+            ? 'bg-gradient-to-r from-biru to-teal-400'
+            : ''
+        "
       >
         <svg
           #MenuList
@@ -57,8 +71,10 @@
           fill="none"
           viewBox="0 0 24 24"
           stroke-width="1.5"
-          stroke="Black"
           class="w-6 h-6"
+          [ngClass]="
+            router.url != '/' && router.url != '/temp' ? 'stroke-white' : ''
+          "
         >
           <path
             #MenuList
@@ -70,7 +86,12 @@
         <div
           [@ZoomInOutAnimation]
           *ngIf="tooltipDropdown"
-          class="fixed z-50 inline-block px-3 left-16 py-1 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700"
+          class="fixed z-50 inline-block px-3 left-16 py-1 text-sm font-medium text-white rounded-lg shadow-sm"
+          [ngClass]="
+            router.url != '/' && router.url != '/temp'
+              ? 'bg-gradient-to-r from-sky-600 to-teal-400'
+              : 'bg-gray-700'
+          "
         >
           Menu List
         </div>
@@ -81,9 +102,18 @@
         routerLinkActive="router-link-active"
         (mouseover)="overLink()"
         (mouseleave)="leaveLink()"
-        class="p-1.5 flex flex-wrap text-gray-700 focus:outline-nones transition-colors duration-200 rounded-lg dark:text-gray-900 dark:hover:bg-gray-100 hover:bg-gray-100"
+        class="p-1.5 flex flex-wrap focus:outline-none rounded-lg text-gray-900 hover:bg-gray-600 fill-black hover:fill-white"
+        [ngClass]="
+          router.url == '/temp' ? 'bg-gradient-to-r from-biru to-teal-400 ' : ''
+        "
       >
-        <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24"
+          width="24"
+          [ngClass]="router.url == '/temp' ? 'fill-white' : ''"
+          class="hover:fill-white"
+        >
           <path
             d="M12.55 10.75v-1.5h4.9v1.5Zm0-3.875v-1.5h7.9v1.5ZM8.075 20.5q-1.875 0-3.187-1.312Q3.575 17.875 3.575 16q0-1.125.525-2.1.525-.975 1.475-1.625V6q0-1.05.725-1.775.725-.725 1.775-.725 1.05 0 1.775.725.725.725.725 1.775v6.275q.95.65 1.475 1.625.525.975.525 2.1 0 1.85-1.325 3.175Q9.925 20.5 8.075 20.5Zm-3-4.5h6q0-.725-.35-1.387-.35-.663-1.025-1.138L9.075 13V6q0-.425-.287-.713Q8.5 5 8.075 5t-.712.287q-.288.288-.288.713v7l-.625.475q-.65.475-1.012 1.138-.363.662-.363 1.387Z"
           />
@@ -91,7 +121,12 @@
         <div
           [@ZoomInOutAnimation]
           *ngIf="tooltipLink"
-          class="fixed w-fit z-50 inline-block left-16 px-3 py-1 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700"
+          class="fixed w-fit z-50 inline-block left-16 px-3 py-1 text-sm font-medium text-white rounded-lg shadow-sm"
+          [ngClass]="
+            router.url == '/temp'
+              ? 'bg-gradient-to-r from-sky-600 to-teal-400'
+              : 'bg-gray-700'
+          "
         >
           Temperature
         </div>
@@ -101,18 +136,21 @@
   <div
     [@ZoomInOutAnimation]
     *ngIf="dropdown"
-    class="fixed h-fit self-center px-5 mx-[70px] z-40 py-5 overflow-y-auto rounded-xl bg-white border-l border-r sm:w-46 w-60 dark:bg-white dark:border-gray-200"
+    class="fixed h-fit self-center px-5 mx-[70px] z-40 py-5 overflow-y-auto rounded-xl border-l border-r sm:w-46 w-60 bg-white border-gray-200"
   >
     <nav class="mt-1 -mx-3 space-y-6">
       <div class="space-y-3">
-        <label class="px-3 text-xs text-gray-500 uppercase dark:text-gray-900"
-          >Warehouse</label
-        >
+        <label class="px-3 text-xs uppercase text-gray-900">Warehouse</label>
 
         <a
-          class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+          class="flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-700 hover:text-gray-200"
           [routerLink]="['/warehouse/occupancy']"
           routerLinkActive="router-link-active"
+          [ngClass]="
+            router.url == '/warehouse/occupancy'
+              ? 'bg-gradient-to-r from-biru to-teal-400 text-gray-200'
+              : ''
+          "
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -134,14 +172,19 @@
       </div>
 
       <div class="space-y-3">
-        <label class="px-3 text-xs text-gray-500 uppercase dark:text-gray-900"
+        <label class="px-3 text-xs uppercase text-gray-900"
           >Kejayan & Sukabumi</label
         >
 
         <a
           [routerLink]="['/inven-accuracy']"
           routerLinkActive="router-link-active"
-          class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+          class="flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-700 hover:text-gray-200"
+          [ngClass]="
+            router.url == '/inven-accuracy'
+              ? 'bg-gradient-to-r from-biru to-teal-400 text-gray-200'
+              : ''
+          "
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -164,7 +207,12 @@
         <a
           [routerLink]="['/damages-product']"
           routerLinkActive="router-link-active"
-          class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+          class="flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-700 hover:text-gray-200"
+          [ngClass]="
+            router.url == '/damages-product'
+              ? 'bg-gradient-to-r from-biru to-teal-400 text-gray-200'
+              : ''
+          "
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -182,7 +230,12 @@
         <a
           [routerLink]="['/perfect-order-rate']"
           routerLinkActive="router-link-active"
-          class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+          class="flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-700 hover:text-gray-200"
+          [ngClass]="
+            router.url == '/perfect-order-rate'
+              ? 'bg-gradient-to-r from-biru to-teal-400 text-gray-200'
+              : ''
+          "
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -200,7 +253,12 @@
         <a
           [routerLink]="['/fleet-distribution']"
           routerLinkActive="router-link-active"
-          class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+          class="flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-700 hover:text-gray-200"
+          [ngClass]="
+            router.url == '/fleet-distribution'
+              ? 'bg-gradient-to-r from-biru to-teal-400 text-gray-200'
+              : ''
+          "
         >
           <svg
             version="1.1"
@@ -226,7 +284,12 @@
         <a
           [routerLink]="['/kejayan-Sukabumi-avg-handling-load']"
           routerLinkActive="router-link-active"
-          class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+          class="flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-700 hover:text-gray-200"
+          [ngClass]="
+            router.url == '/kejayan-Sukabumi-avg-handling-load'
+              ? 'bg-gradient-to-r from-biru to-teal-400 text-gray-200'
+              : ''
+          "
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -244,7 +307,12 @@
         <a
           [routerLink]="['/check-ln']"
           routerLinkActive="router-link-active"
-          class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+          class="flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-700 hover:text-gray-200"
+          [ngClass]="
+            router.url == '/check-ln'
+              ? 'bg-gradient-to-r from-biru to-teal-400 text-gray-200'
+              : ''
+          "
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

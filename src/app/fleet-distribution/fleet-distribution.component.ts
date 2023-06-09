@@ -181,6 +181,9 @@ export class FleetDistributionComponent implements OnInit {
           horizontal: true,
           borderRadius: 5,
           borderRadiusApplication: 'around',
+          dataLabels: {
+            position: 'center',
+          },
         },
       },
       dataLabels: {
@@ -188,13 +191,23 @@ export class FleetDistributionComponent implements OnInit {
         style: {
           fontFamily: 'manrope',
           fontSize: '15px',
+          fontWeight: 700,
+          colors: ['white'],
         },
+        dropShadow: {
+          enabled: true,
+          opacity: 0.60,
+          left: 0,
+          blur: 1,
+          color: 'biru',
+      }
       },
       stroke: {
         show: true,
         width: 1,
         colors: ['#fff'],
       },
+      // colors: ['#6D67E4'],
       xaxis: {
         categories: ['Container', 'Wing Box', 'Tronton', 'Fuso', 'Colt Diesel'],
         labels: {

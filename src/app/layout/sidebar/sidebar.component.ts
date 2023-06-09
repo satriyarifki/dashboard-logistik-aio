@@ -39,7 +39,7 @@ export class SidebarComponent {
   swing: any;
   loading = false;
 
-  constructor(private router: Router, private eref: ElementRef) {
+  constructor(public router: Router, private eref: ElementRef) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.dropdown = false;

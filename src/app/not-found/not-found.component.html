@@ -1,0 +1,31 @@
+<div class="mx-24 w-[87vw] text-center h-[95vh] flex flex-wrap items-center">
+  <div class="w-full space-y-7">
+    <div class="flex justify-center h-[10.5rem] flex-wrap">
+      <iframe
+        height="fit-content"
+        src="assets/gif/sad-up.gif"
+        class="rounded-2xl"
+      ></iframe>
+    </div>
+    <div class="animate-[spin_0.2__infinite]">
+        <p class="text-8xl font-semibold font-aller text-gray-700">404</p>
+        <p class="text-4xl font-semibold font-aller text-gray-700">
+          Page Not Found
+        </p>
+      </div>
+
+    <a
+      [routerLink]="['/']"
+      routerLinkActive="router-link-active"
+      class="px-4 py-2 relative rounded group overflow-hidden font-medium bg-purple-50 text-biru inline-block"
+    >
+      <span
+        class="absolute top-0 left-0 flex w-full h-0 mb-0 transition-all duration-200 ease-out transform translate-y-0 bg-biru group-hover:h-full opacity-90"
+      ></span>
+      <span
+        class="relative group-hover:text-white font-quicksand font-semibold text-base"
+        >Back to Home</span
+      >
+    </a>
+  </div>
+</div>
