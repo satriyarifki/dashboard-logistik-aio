@@ -11,8 +11,12 @@ import { DamagesProductChart } from '../damagesProduct';
 export class DamagesProductComponent {
   @ViewChild('chart') chart!: ChartComponent;
   public chartOptions: Partial<DamagesProductChart> | any;
+  bool: Boolean = false;
   constructor() {
     this.damagesProduct();
+  }
+  changeBool() {
+    this.bool = !this.bool;
   }
   damagesProduct() {
     this.chartOptions = {
@@ -21,6 +25,18 @@ export class DamagesProductComponent {
           name: 'Likes',
           data: [300, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         },
+        // {
+        //   name: 'Liku',
+        //   data: [20, 21, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        // },
+        // {
+        //   name: 'Lika',
+        //   data: [67, 167, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        // },
+        // {
+        //   name: 'Lika',
+        //   data: [250, 145, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        // },
       ],
       chart: {
         height: 350,
@@ -86,13 +102,21 @@ export class DamagesProductComponent {
           size: 7,
         },
       },
-      yaxis: {
-        min: 0,
-        max: 310,
-        title: {
-          text: '',
+      yaxis: [
+        {
+          min: 0,
+          max: 310,
+          title: {
+            text: '',
+          },
         },
-      },
+        // {
+        //   opposite: true,
+        //   title: {
+        //     text: 'Series B',
+        //   },
+        // },
+      ],
     };
   }
 }
