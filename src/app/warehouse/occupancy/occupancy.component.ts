@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { occupancyApex } from './occupancyCharts';
 import { ChartComponent } from 'ng-apexcharts';
 import { Router, NavigationStart } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-occupancy',
@@ -12,16 +13,31 @@ import { Router, NavigationStart } from '@angular/router';
 export class OccupancyComponent {
   @ViewChild('chart') chartCom!: ChartComponent;
   public occupancyApex!: Partial<occupancyApex> | any;
-  constructor(private router: Router) {
-    this.occupancyChart();
+
+  //API
+  whsOccu: any;
+  constructor(private router: Router, private apiService: ApiService) {
+    apiService.getWarehouseOccupancy().subscribe((data) => {
+      this.whsOccu = data;
+      console.log(data);
+      this.occupancyChart();
+    });
+    
   }
   occupancyChart() {
     this.occupancyApex = {
+      seriesKjy: [
+        (this.whsOccu?.usage_kjy / this.whsOccu?.capacity_kjy) * 100,
+      ],
+      seriesSkb: [(this.whsOccu?.usage_skb / this.whsOccu?.capacity_skb) * 100,],
+      seriesBks: [(this.whsOccu?.usage_bekasi / this.whsOccu?.capacity_bekasi) * 100,],
+      seriesPr: [(this.whsOccu?.usage_ps_rebo / this.whsOccu?.capacity_ps_rebo) * 100,],
+      seriesYch: [(this.whsOccu?.usage_external / this.whsOccu?.capacity_external) * 100,],
       series: [76],
       titleKejayan: {
         text: 'Kejayan',
         align: 'center',
-        offsetY: 20,
+        offsetY: 35,
         style: {
           fontSize: '25px',
           fontFamily: 'Manrope',
@@ -31,7 +47,7 @@ export class OccupancyComponent {
       titleSukabumi: {
         text: 'Sukabumi',
         align: 'center',
-        offsetY: 20,
+        offsetY: 35,
         style: {
           fontSize: '25px',
           fontFamily: 'Manrope',
@@ -41,7 +57,7 @@ export class OccupancyComponent {
       titleMargomulyo: {
         text: 'DHL Margomulyo',
         align: 'center',
-        offsetY: 20,
+        offsetY: 35,
         style: {
           fontSize: '25px',
           fontFamily: 'Manrope',
@@ -51,7 +67,7 @@ export class OccupancyComponent {
       titleBekasi: {
         text: 'LDC Bekasi',
         align: 'center',
-        offsetY: 20,
+        offsetY: 35,
         style: {
           fontSize: '25px',
           fontFamily: 'Manrope',
@@ -61,7 +77,7 @@ export class OccupancyComponent {
       titlePasarRebo: {
         text: 'LDC PasarRebo',
         align: 'center',
-        offsetY: 20,
+        offsetY: 35,
         style: {
           fontSize: '25px',
           fontFamily: 'Manrope',
@@ -71,7 +87,7 @@ export class OccupancyComponent {
       titleCikarang: {
         text: 'YCH Cikarang',
         align: 'center',
-        offsetY: 20,
+        offsetY: 35,
         style: {
           fontSize: '25px',
           fontFamily: 'Manrope',
@@ -97,7 +113,7 @@ export class OccupancyComponent {
           track: {
             background: '#e7e7e7',
             strokeWidth: '97%',
-            margin: 5, // margin is in pixels
+            margin: 1, // margin is in pixels
             dropShadow: {
               enabled: true,
               top: 2,
@@ -107,15 +123,9 @@ export class OccupancyComponent {
             },
           },
           hollow: {
-            margin: 5,
+            margin: 1,
             size: '40%',
             background: 'transparent',
-            image: undefined,
-            imageWidth: 150,
-            imageHeight: 150,
-            imageOffsetX: 0,
-            imageOffsetY: 0,
-            imageClipped: true,
             position: 'front',
             dropShadow: {
               enabled: false,
@@ -131,22 +141,42 @@ export class OccupancyComponent {
             },
             value: {
               offsetY: -2,
-              fontSize: '22px',
+              fontSize: '25px',
               fontFamily: 'Quicksand',
-              fontWeight: 600,
+              fontWeight: 700,
+              formatter: function(val:any) {
+                return parseInt(val.toString(), 10).toString() + '%';
+              },
             },
           },
         },
       },
       fill: {
+        colors: '#F39C12',
         type: 'gradient',
         gradient: {
           shade: 'light',
-          shadeIntensity: 0.4,
+          type: 'horizontal',
+          shadeIntensity: 0.5,
           inverseColors: false,
+          gradientToColors: ["#F5B041"],
           opacityFrom: 1,
           opacityTo: 1,
-          stops: [0, 50, 53, 91],
+          stops: [0,50, 100],
+        },
+      },
+      fills: {
+        colors: '#9B59B6',
+        type: 'gradient',
+        gradient: {
+          shade: 'light',
+          type: 'horizontal',
+          shadeIntensity: 0.5,
+          inverseColors: false,
+          gradientToColors: ["#BB8FCE"],
+          opacityFrom: 1,
+          opacityTo: 1,
+          stops: [0,50, 100],
         },
       },
       labels: ['Average Results'],

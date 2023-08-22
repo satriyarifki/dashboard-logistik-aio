@@ -19,9 +19,12 @@ export class ApiService {
     return this.http.get(this.baseUrl + 'temp-soyjoy');
   }
   getFleetKejayan(): Observable<any> {
-    return this.http.get(this.baseUrl + 'fleet-kejayan');
+    return this.http.get(this.baseUrl + 'fleet-kjy');
   }
   getFleetSukabumi(): Observable<any> {
-    return this.http.get(this.baseUrl + 'fleet-sukabumi');
+    return this.http.get(this.baseUrl + 'fleet-skb');
+  }
+  getWarehouseOccupancy(): Observable<any> {
+    return this.http.get(this.baseUrl + 'warehouse-occU');
   }
 }

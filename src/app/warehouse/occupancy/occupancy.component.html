@@ -5,10 +5,10 @@
         class="h-fit flex justify-between flex-wrap bg-white px-8 py-2 text-center rounded-lg overflow-hidden relative drop-shadow-xl"
       >
         <span class="flex items-center">
-          <h1 class="font-manrope font-semibold text-sm text-red-400">
+          <!-- <h1 class="font-manrope font-semibold text-sm text-red-400">
             (Not Connected)
-          </h1></span
-        >
+          </h1> -->
+        </span>
 
         <h1 class="font-manrope font-[700] text-3xl">Warehouse Occupancy</h1>
         <span class="flex items-center">
@@ -16,195 +16,217 @@
         ></span>
       </div>
     </div>
-    <div class="p-2 grow lg:w-4/12">
+    <div class="p-2 grow lg:w-6/12">
       <div
-        class="h-full bg-white px-8 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+        class="h-full bg-white px-8 py-5 -space-y-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
       >
         <div class="relative overflow-x-auto rounded-lg shadow-md">
-          <table
-            class="w-full text-sm text-left text-gray-500 dark:text-gray-800 font-medium"
-          >
-            <thead
-              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-200 dark:text-gray-900"
-            >
+          <table class="w-full text-sm text-left text-gray-800 font-normal">
+            <thead class="text-xs uppercase bg-slate-400 text-white">
               <tr>
                 <th scope="col" class="px-3 py-2 text-center">Capacity</th>
                 <th scope="col" class="px-3 py-2 text-center">Occupancy</th>
                 <th scope="col" class="px-3 py-2 text-center">
-                  Empty Location
+                  Empty <br />
+                  Location
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr class="bg-white dark:border-gray-700">
-                <td class="px-3 py-2 text-center">15,223</td>
-                <td class="px-3 py-2 text-center">13,223</td>
-                <td class="px-3 py-2 text-center">1,223</td>
+              <tr
+                class="bg-white border-gray-700 text-slate-600 font-semibold text-sm"
+              >
+                <td class="px-3 py-2 text-center">
+                  {{ whsOccu?.capacity_kjy.toLocaleString() }}
+                </td>
+                <td class="px-3 py-2 text-center">
+                  {{ whsOccu?.usage_kjy.toLocaleString() }}
+                </td>
+                <td class="px-3 py-2 text-center">
+                  {{ whsOccu?.remain_kjy.toLocaleString() }}
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <div class="h-fit" style="text-align: center">
+        <div class="h-[200px]" style="text-align: center">
           <apx-chart
-            [series]="occupancyApex.series"
-            [chart]="occupancyApex.chart"
-            [plotOptions]="occupancyApex.plotOptions"
-            [labels]="occupancyApex.labels"
-            [fill]="occupancyApex.fill"
-            [title]="occupancyApex.titleKejayan"
-            [grid]="occupancyApex.grid"
+            class=""
+            [series]="occupancyApex?.seriesKjy"
+            [chart]="occupancyApex?.chart"
+            [plotOptions]="occupancyApex?.plotOptions"
+            [labels]="occupancyApex?.labels"
+            [fill]="occupancyApex?.fill"
+            [title]="occupancyApex?.titleKejayan"
+            [grid]="occupancyApex?.grid"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+    <div class="p-2 grow lg:w-6/12">
+      <div
+        class="h-full bg-white px-8 py-5 -space-y-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <div class="relative overflow-x-auto rounded-lg shadow-md">
+          <table class="w-full text-sm text-left text-gray-800 font-normal">
+            <thead class="text-xs uppercase bg-slate-400 text-white">
+              <tr>
+                <th scope="col" class="px-3 py-2 text-center">Capacity</th>
+                <th scope="col" class="px-3 py-2 text-center">Occupancy</th>
+                <th scope="col" class="px-3 py-2 text-center">
+                  Empty <br />
+                  Location
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                class="bg-white border-gray-700 text-slate-600 font-semibold text-sm"
+              >
+                <td class="px-3 py-2 text-center">
+                  {{ whsOccu?.capacity_skb.toLocaleString() }}
+                </td>
+                <td class="px-3 py-2 text-center">
+                  {{ whsOccu?.usage_skb.toLocaleString() }}
+                </td>
+                <td class="px-3 py-2 text-center">
+                  {{ whsOccu?.remain_skb.toLocaleString() }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="h-[200px]" style="text-align: center">
+          <apx-chart
+            class=""
+            [series]="occupancyApex?.seriesSkb"
+            [chart]="occupancyApex?.chart"
+            [plotOptions]="occupancyApex?.plotOptions"
+            [labels]="occupancyApex?.labels"
+            [fill]="occupancyApex?.fill"
+            [title]="occupancyApex?.titleSukabumi"
+            [grid]="occupancyApex?.grid"
           ></apx-chart>
         </div>
       </div>
     </div>
     <div class="p-2 grow lg:w-4/12">
       <div
-        class="h-full bg-white px-8 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+        class="h-full bg-white px-8 py-5 -space-y-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
       >
         <div class="relative overflow-x-auto rounded-lg shadow-md">
-          <table
-            class="w-full text-sm text-left text-gray-500 dark:text-gray-800 font-medium"
-          >
-            <thead
-              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-200 dark:text-gray-900"
-            >
+          <table class="w-full text-sm text-left text-gray-800 font-normal">
+            <thead class="text-xs uppercase bg-slate-400 text-white">
               <tr>
                 <th scope="col" class="px-3 py-2 text-center">Capacity</th>
                 <th scope="col" class="px-3 py-2 text-center">Occupancy</th>
                 <th scope="col" class="px-3 py-2 text-center">
-                  Empty Location
+                  Empty <br />
+                  Location
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr class="bg-white dark:border-gray-700">
-                <td class="px-3 py-2 text-center">14,223</td>
-                <td class="px-3 py-2 text-center">12,223</td>
-                <td class="px-3 py-2 text-center">1,023</td>
+              <tr
+                class="bg-white border-gray-700 text-slate-600 font-semibold text-sm"
+              >
+                <td class="px-3 py-2 text-center">
+                  {{ whsOccu?.capacity_bekasi.toLocaleString() }}
+                </td>
+                <td class="px-3 py-2 text-center">
+                  {{ whsOccu?.usage_bekasi.toLocaleString() }}
+                </td>
+                <td class="px-3 py-2 text-center">
+                  {{ whsOccu?.remain_bekasi.toLocaleString() }}
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <div class="h-fit" style="text-align: center">
+        <div class="h-[200px]" style="text-align: center">
           <apx-chart
-            [series]="occupancyApex.series"
-            [chart]="occupancyApex.chart"
-            [plotOptions]="occupancyApex.plotOptions"
-            [labels]="occupancyApex.labels"
-            [fill]="occupancyApex.fill"
-            [title]="occupancyApex.titleSukabumi"
-            [grid]="occupancyApex.grid"
+            [series]="occupancyApex?.seriesBks"
+            [chart]="occupancyApex?.chart"
+            [plotOptions]="occupancyApex?.plotOptions"
+            [labels]="occupancyApex?.labels"
+            [fill]="occupancyApex?.fills"
+            [title]="occupancyApex?.titleBekasi"
+            [grid]="occupancyApex?.grid"
           ></apx-chart>
         </div>
       </div>
     </div>
     <div class="p-2 grow lg:w-4/12">
       <div
-        class="h-full bg-white px-8 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+        class="h-full bg-white px-8 py-5 -space-y-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
       >
         <div class="relative overflow-x-auto rounded-lg shadow-md">
-          <table
-            class="w-full text-sm text-left text-gray-500 dark:text-gray-800 font-medium"
-          >
-            <thead
-              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-200 dark:text-gray-900"
-            >
+          <table class="w-full text-sm text-left text-gray-800 font-normal">
+            <thead class="text-xs uppercase bg-slate-400 text-white">
               <tr>
                 <th scope="col" class="px-3 py-2 text-center">Capacity</th>
                 <th scope="col" class="px-3 py-2 text-center">Occupancy</th>
                 <th scope="col" class="px-3 py-2 text-center">
-                  Empty Location
+                  Empty <br />
+                  Location
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr class="bg-white dark:border-gray-700">
-                <td class="px-3 py-2 text-center">2,923</td>
-                <td class="px-3 py-2 text-center">1,223</td>
-                <td class="px-3 py-2 text-center">223</td>
+              <tr
+                class="bg-white border-gray-700 text-slate-600 font-semibold text-sm"
+              >
+                <td class="px-3 py-2 text-center">
+                  {{ whsOccu?.capacity_ps_rebo.toLocaleString() }}
+                </td>
+                <td class="px-3 py-2 text-center">
+                  {{ whsOccu?.usage_ps_rebo.toLocaleString() }}
+                </td>
+                <td class="px-3 py-2 text-center">
+                  {{ whsOccu?.remain_ps_rebo.toLocaleString() }}
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <div class="h-fit" style="text-align: center">
+        <div class="h-[200px]" style="text-align: center">
           <apx-chart
-            [series]="occupancyApex.series"
-            [chart]="occupancyApex.chart"
-            [plotOptions]="occupancyApex.plotOptions"
-            [labels]="occupancyApex.labels"
-            [fill]="occupancyApex.fill"
-            [title]="occupancyApex.titleBekasi"
-            [grid]="occupancyApex.grid"
+            [series]="occupancyApex?.seriesPr"
+            [chart]="occupancyApex?.chart"
+            [plotOptions]="occupancyApex?.plotOptions"
+            [labels]="occupancyApex?.labels"
+            [fill]="occupancyApex?.fills"
+            [title]="occupancyApex?.titlePasarRebo"
+            [grid]="occupancyApex?.grid"
           ></apx-chart>
         </div>
       </div>
     </div>
-    <div class="p-2 grow lg:w-4/12">
+    <!-- <div class="p-2 grow lg:w-4/12">
       <div
-        class="h-full bg-white px-8 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+        class="h-full bg-white px-8 py-5 -space-y-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
       >
         <div class="relative overflow-x-auto rounded-lg shadow-md">
           <table
-            class="w-full text-sm text-left text-gray-500 dark:text-gray-800 font-medium"
+            class="w-full text-sm text-left  text-gray-800 font-normal"
           >
             <thead
-              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-200 dark:text-gray-900"
+              class="text-xs  uppercase bg-gray-50  text-gray-900"
             >
               <tr>
                 <th scope="col" class="px-3 py-2 text-center">Capacity</th>
                 <th scope="col" class="px-3 py-2 text-center">Occupancy</th>
                 <th scope="col" class="px-3 py-2 text-center">
-                  Empty Location
+                  Empty <br> Location
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr class="bg-white dark:border-gray-700">
-                <td class="px-3 py-2 text-center">2,123</td>
-                <td class="px-3 py-2 text-center">1,8823</td>
-                <td class="px-3 py-2 text-center">223</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="h-fit" style="text-align: center">
-          <apx-chart
-            [series]="occupancyApex.series"
-            [chart]="occupancyApex.chart"
-            [plotOptions]="occupancyApex.plotOptions"
-            [labels]="occupancyApex.labels"
-            [fill]="occupancyApex.fill"
-            [title]="occupancyApex.titlePasarRebo"
-            [grid]="occupancyApex.grid"
-          ></apx-chart>
-        </div>
-      </div>
-    </div>
-    <div class="p-2 grow lg:w-4/12">
-      <div
-        class="h-full bg-white px-8 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
-      >
-        <div class="relative overflow-x-auto rounded-lg shadow-md">
-          <table
-            class="w-full text-sm text-left text-gray-500 dark:text-gray-800 font-medium"
-          >
-            <thead
-              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-200 dark:text-gray-900"
-            >
-              <tr>
-                <th scope="col" class="px-3 py-2 text-center">Capacity</th>
-                <th scope="col" class="px-3 py-2 text-center">Occupancy</th>
-                <th scope="col" class="px-3 py-2 text-center">
-                  Empty Location
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="bg-white dark:border-gray-700">
+              <tr class="bg-white border-gray-700 text-slate-600 font-semibold text-sm">
                 <td class="px-3 py-2 text-center">2,523</td>
                 <td class="px-3 py-2 text-center">1,423</td>
                 <td class="px-3 py-2 text-center">423</td>
@@ -213,57 +235,62 @@
           </table>
         </div>
 
-        <div class="h-fit" style="text-align: center">
+        <div class="h-[200px]" style="text-align: center">
           <apx-chart
-            [series]="occupancyApex.series"
-            [chart]="occupancyApex.chart"
-            [plotOptions]="occupancyApex.plotOptions"
-            [labels]="occupancyApex.labels"
-            [fill]="occupancyApex.fill"
-            [title]="occupancyApex.titleMargomulyo"
-            [grid]="occupancyApex.grid"
+            [series]="occupancyApex?.series"
+            [chart]="occupancyApex?.chart"
+            [plotOptions]="occupancyApex?.plotOptions"
+            [labels]="occupancyApex?.labels"
+            [fill]="occupancyApex?.fil"
+            [title]="occupancyApex?.titleMargomulyo"
+            [grid]="occupancyApex?.grid"
           ></apx-chart>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="p-2 grow lg:w-4/12">
       <div
-        class="h-full bg-white px-8 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+        class="h-full bg-white px-8 py-5 -space-y-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
       >
         <div class="relative overflow-x-auto rounded-lg shadow-md">
-          <table
-            class="w-full text-sm text-left text-gray-500 dark:text-gray-800 font-medium"
-          >
-            <thead
-              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-200 dark:text-gray-900"
-            >
+          <table class="w-full text-sm text-left text-gray-800 font-normal">
+            <thead class="text-xs uppercase bg-slate-400 text-white">
               <tr>
                 <th scope="col" class="px-3 py-2 text-center">Capacity</th>
                 <th scope="col" class="px-3 py-2 text-center">Occupancy</th>
                 <th scope="col" class="px-3 py-2 text-center">
-                  Empty Location
+                  Empty <br />
+                  Location
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr class="bg-white dark:border-gray-700">
-                <td class="px-3 py-2 text-center">2,423</td>
-                <td class="px-3 py-2 text-center">1,323</td>
-                <td class="px-3 py-2 text-center">323</td>
+              <tr
+                class="bg-white border-gray-700 text-slate-600 font-semibold text-sm"
+              >
+                <td class="px-3 py-2 text-center">
+                  {{ whsOccu?.capacity_external.toLocaleString() }}
+                </td>
+                <td class="px-3 py-2 text-center">
+                  {{ whsOccu?.usage_external.toLocaleString() }}
+                </td>
+                <td class="px-3 py-2 text-center">
+                  {{ whsOccu?.remain_external.toLocaleString() }}
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <div class="h-fit" style="text-align: center">
+        <div class="h-[200px]" style="text-align: center">
           <apx-chart
-            [series]="occupancyApex.series"
-            [chart]="occupancyApex.chart"
-            [plotOptions]="occupancyApex.plotOptions"
-            [labels]="occupancyApex.labels"
-            [fill]="occupancyApex.fill"
-            [title]="occupancyApex.titleCikarang"
-            [grid]="occupancyApex.grid"
+            [series]="occupancyApex?.seriesYch"
+            [chart]="occupancyApex?.chart"
+            [plotOptions]="occupancyApex?.plotOptions"
+            [labels]="occupancyApex?.labels"
+            [fill]="occupancyApex?.fills"
+            [title]="occupancyApex?.titleCikarang"
+            [grid]="occupancyApex?.grid"
           ></apx-chart>
         </div>
       </div>
