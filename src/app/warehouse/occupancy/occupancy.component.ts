@@ -3,6 +3,7 @@ import { occupancyApex } from './occupancyCharts';
 import { ChartComponent } from 'ng-apexcharts';
 import { Router, NavigationStart } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-occupancy',
@@ -16,23 +17,37 @@ export class OccupancyComponent {
 
   //API
   whsOccu: any;
-  constructor(private router: Router, private apiService: ApiService) {
-    apiService.getWarehouseOccupancy().subscribe((data) => {
-      this.whsOccu = data;
-      console.log(data);
-      this.occupancyChart();
-    });
-    
+  constructor(
+    private router: Router,
+    private apiService: ApiService,
+    private spinner: NgxSpinnerService
+  ) {
+    this.spinner.show();
+    apiService.getWarehouseOccupancy().subscribe(
+      (data) => {
+        this.whsOccu = data;
+        console.log(data);
+        this.occupancyChart();
+      },
+      (err) => {},
+      () => {
+        this.spinner.hide();
+      }
+    );
   }
   occupancyChart() {
     this.occupancyApex = {
-      seriesKjy: [
-        (this.whsOccu?.usage_kjy / this.whsOccu?.capacity_kjy) * 100,
+      seriesKjy: [(this.whsOccu?.usage_kjy / this.whsOccu?.capacity_kjy) * 100],
+      seriesSkb: [(this.whsOccu?.usage_skb / this.whsOccu?.capacity_skb) * 100],
+      seriesBks: [
+        (this.whsOccu?.usage_bekasi / this.whsOccu?.capacity_bekasi) * 100,
       ],
-      seriesSkb: [(this.whsOccu?.usage_skb / this.whsOccu?.capacity_skb) * 100,],
-      seriesBks: [(this.whsOccu?.usage_bekasi / this.whsOccu?.capacity_bekasi) * 100,],
-      seriesPr: [(this.whsOccu?.usage_ps_rebo / this.whsOccu?.capacity_ps_rebo) * 100,],
-      seriesYch: [(this.whsOccu?.usage_external / this.whsOccu?.capacity_external) * 100,],
+      seriesPr: [
+        (this.whsOccu?.usage_ps_rebo / this.whsOccu?.capacity_ps_rebo) * 100,
+      ],
+      seriesYch: [
+        (this.whsOccu?.usage_external / this.whsOccu?.capacity_external) * 100,
+      ],
       series: [76],
       titleKejayan: {
         text: 'Kejayan',
@@ -144,7 +159,7 @@ export class OccupancyComponent {
               fontSize: '25px',
               fontFamily: 'Quicksand',
               fontWeight: 700,
-              formatter: function(val:any) {
+              formatter: function (val: any) {
                 return parseInt(val.toString(), 10).toString() + '%';
               },
             },
@@ -159,10 +174,10 @@ export class OccupancyComponent {
           type: 'horizontal',
           shadeIntensity: 0.5,
           inverseColors: false,
-          gradientToColors: ["#F5B041"],
+          gradientToColors: ['#F5B041'],
           opacityFrom: 1,
           opacityTo: 1,
-          stops: [0,50, 100],
+          stops: [0, 50, 100],
         },
       },
       fills: {
@@ -173,10 +188,10 @@ export class OccupancyComponent {
           type: 'horizontal',
           shadeIntensity: 0.5,
           inverseColors: false,
-          gradientToColors: ["#BB8FCE"],
+          gradientToColors: ['#BB8FCE'],
           opacityFrom: 1,
           opacityTo: 1,
-          stops: [0,50, 100],
+          stops: [0, 50, 100],
         },
       },
       labels: ['Average Results'],
