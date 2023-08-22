@@ -1,5 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { ChartComponent } from 'ng-apexcharts';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { forkJoin } from 'rxjs';
+import { ApiService } from '../services/api.service';
 import { PerfectOrderRateChart } from './perfectOrderRate';
 
 @Component({
@@ -12,12 +15,29 @@ export class PerfectOrderRateComponent {
   @ViewChild('chart') chart!: ChartComponent;
   public chartOptions: Partial<PerfectOrderRateChart> | any;
   cocok = 876;
-  constructor() {
-    this.perfectOrderRate();
+  //API
+  kejayan: any;
+  sukabumi: any;
+  constructor(
+    private apiService: ApiService,
+    private spinner: NgxSpinnerService
+  ) {
+    this.spinner.show();
+    forkJoin(
+      this.apiService.getFleetKejayan(),
+      this.apiService.getFleetSukabumi()
+    ).subscribe(([kejayan, sukabumi]) => {
+      this.kejayan = kejayan;
+      this.sukabumi = sukabumi;
+      console.log(sukabumi);
+      this.perfectOrderRate();
+    });
+    
   }
   perfectOrderRate() {
     this.chartOptions = {
-      series: [67],
+      seriesKjy: [this.kejayan?.percentage],
+      seriesSkb: [this.sukabumi?.percentage],
       chart: {
         height: 350,
         type: 'radialBar',
@@ -82,7 +102,8 @@ export class PerfectOrderRateComponent {
       stroke: {
         dashArray: 10,
       },
-      labels: [this.cocok + ' Shipment'],
+      labelsKjy: [this.kejayan.qty_shipment + ' Shipment'],
+      labelSkb: [this.sukabumi.qty_shipment + ' Shipment'],
     };
   }
 }

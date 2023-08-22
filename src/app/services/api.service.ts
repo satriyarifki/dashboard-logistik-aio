@@ -24,6 +24,12 @@ export class ApiService {
   getFleetSukabumi(): Observable<any> {
     return this.http.get(this.baseUrl + 'fleet-skb');
   }
+  getMonthKejayan(): Observable<any> {
+    return this.http.get(this.baseUrl + 'month-kjy');
+  }
+  getMonthSukabumi(): Observable<any> {
+    return this.http.get(this.baseUrl + 'month-skb');
+  }
   getWarehouseOccupancy(): Observable<any> {
     return this.http.get(this.baseUrl + 'warehouse-occU');
   }

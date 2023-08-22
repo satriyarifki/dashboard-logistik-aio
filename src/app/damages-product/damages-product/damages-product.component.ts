@@ -1,5 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { ChartComponent } from 'ng-apexcharts';
+import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
+import { forkJoin } from 'rxjs';
+import { ApiService } from 'src/app/services/api.service';
 import { DamagesProductChart } from '../damagesProduct';
 
 @Component({
@@ -12,31 +15,58 @@ export class DamagesProductComponent {
   @ViewChild('chart') chart!: ChartComponent;
   public chartOptions: Partial<DamagesProductChart> | any;
   bool: Boolean = false;
-  constructor() {
-    this.damagesProduct();
+  //API
+  kejayan: any[] = [];
+  dateKejayan: any[] = [];
+  valueKejayan: any[] = [];
+  sukabumi: any[] = [];
+  dateSukabumi: any[] = [];
+  valueSukabumi: any[] = [];
+
+  constructor(
+    private apiService: ApiService,
+    private spinner: NgxSpinnerService
+  ) {
+    spinner.show();
+    forkJoin(
+      apiService.getMonthKejayan(),
+      apiService.getMonthSukabumi()
+    ).subscribe(
+      ([kjy, skb]) => {
+        this.kejayan = kjy;
+        this.sukabumi = skb;
+        this.kejayan.forEach((elem, i) => {
+          this.dateKejayan.push(elem.date);
+          this.dateSukabumi.push(this.sukabumi[i].date);
+          this.valueKejayan.push(elem.qty_damage_product);
+          this.valueSukabumi.push(this.sukabumi[i].qty_damage_product);
+        });
+        this.damagesProduct();
+      },
+      () => {},
+      () => {
+        spinner.hide();
+      }
+    );
   }
   changeBool() {
     this.bool = !this.bool;
   }
   damagesProduct() {
+    console.log(this.kejayan);
+
     this.chartOptions = {
       series: [
         {
           name: 'Likes',
-          data: [300, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          data: this.valueKejayan,
         },
-        // {
-        //   name: 'Liku',
-        //   data: [20, 21, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        // },
-        // {
-        //   name: 'Lika',
-        //   data: [67, 167, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        // },
-        // {
-        //   name: 'Lika',
-        //   data: [250, 145, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        // },
+      ],
+      seriesSkb: [
+        {
+          name: 'Likes',
+          data: this.valueKejayan,
+        },
       ],
       chart: {
         height: 350,
@@ -48,20 +78,11 @@ export class DamagesProductComponent {
       },
       xaxis: {
         type: 'datetime',
-        categories: [
-          '1/11/2000',
-          '2/11/2000',
-          '3/11/2000',
-          '4/11/2000',
-          '5/11/2000',
-          '6/11/2000',
-          '7/11/2000',
-          '8/11/2000',
-          '9/11/2000',
-          '10/11/2000',
-          '11/11/2000',
-          '12/11/2000',
-        ],
+        categories: this.dateKejayan,
+      },
+      xaxisSkb: {
+        type: 'datetime',
+        categories: this.dateKejayan,
       },
       titleKejayan: {
         text: 'From Kejayan',
