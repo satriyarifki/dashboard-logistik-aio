@@ -63,6 +63,8 @@ export class FleetDistributionComponent implements OnInit {
       ([kejayan, sukabumi]) => {
         this.fleetKejayan = kejayan;
         this.fleetSukabumi = sukabumi;
+        console.log(this.fleetKejayan);
+        console.log(this.fleetSukabumi.within_time);
 
         this.TruckingFromCharts();
         this.chartDelDes();
@@ -102,22 +104,22 @@ export class FleetDistributionComponent implements OnInit {
 
   sumTruckingQuantity() {
     this.totalTruckingKejayan = [
-      this.fleetKejayan.trucking[0].container,
-      this.fleetKejayan.trucking[0].wing_box,
-      this.fleetKejayan.trucking[0].tronton,
-      this.fleetKejayan.trucking[0].fuso,
-      this.fleetKejayan.trucking[0].cold_diesel,
+      this.fleetKejayan.container,
+      this.fleetKejayan.wing_box,
+      this.fleetKejayan.tronton,
+      this.fleetKejayan.fuso,
+      this.fleetKejayan.cold_diesel,
     ]
       .map(Number)
       .reduce((x, y) => {
         return x + y;
       });
     this.totalTruckingSukabumi = [
-      this.fleetSukabumi.trucking[0].container,
-      this.fleetSukabumi.trucking[0].wing_box,
-      this.fleetSukabumi.trucking[0].tronton,
-      this.fleetSukabumi.trucking[0].fuso,
-      this.fleetSukabumi.trucking[0].cold_diesel,
+      this.fleetSukabumi.container,
+      this.fleetSukabumi.wing_box,
+      this.fleetSukabumi.tronton,
+      this.fleetSukabumi.fuso,
+      this.fleetSukabumi.cold_diesel,
     ]
       .map(Number)
       .reduce((x, y) => {
@@ -131,11 +133,11 @@ export class FleetDistributionComponent implements OnInit {
         {
           name: 'Kejayan',
           data: [
-            this.fleetKejayan.trucking[0].container,
-            this.fleetKejayan.trucking[0].wing_box,
-            this.fleetKejayan.trucking[0].tronton,
-            this.fleetKejayan.trucking[0].fuso,
-            this.fleetKejayan.trucking[0].cold_diesel,
+            this.fleetKejayan.container,
+            this.fleetKejayan.wing_box,
+            this.fleetKejayan.tronton,
+            this.fleetKejayan.fuso,
+            this.fleetKejayan.cold_diesel,
           ],
         },
       ],
@@ -143,11 +145,11 @@ export class FleetDistributionComponent implements OnInit {
         {
           name: 'Sukabumi',
           data: [
-            this.fleetSukabumi.trucking[0].container,
-            this.fleetSukabumi.trucking[0].wing_box,
-            this.fleetSukabumi.trucking[0].tronton,
-            this.fleetSukabumi.trucking[0].fuso,
-            this.fleetSukabumi.trucking[0].cold_diesel,
+            this.fleetSukabumi.container,
+            this.fleetSukabumi.wing_box,
+            this.fleetSukabumi.tronton,
+            this.fleetSukabumi.fuso,
+            this.fleetSukabumi.cold_diesel,
           ],
         },
       ],
@@ -196,11 +198,11 @@ export class FleetDistributionComponent implements OnInit {
         },
         dropShadow: {
           enabled: true,
-          opacity: 0.60,
+          opacity: 0.6,
           left: 0,
           blur: 1,
           color: 'biru',
-      }
+        },
       },
       stroke: {
         show: true,
@@ -249,18 +251,18 @@ export class FleetDistributionComponent implements OnInit {
   chartDelDes() {
     this.deliveryDestinationChart = {
       series: [
-        Number(this.fleetKejayan.deliveryDestination[0].distributor),
-        Number(this.fleetKejayan.deliveryDestination[0].odi),
-        Number(this.fleetKejayan.deliveryDestination[0].export),
-        Number(this.fleetKejayan.deliveryDestination[0].intransit_wh),
-        Number(this.fleetKejayan.deliveryDestination[0].ldc),
+        Number(this.fleetKejayan.ditributor),
+        Number(this.fleetKejayan.odi),
+        Number(this.fleetKejayan.export),
+        Number(this.fleetKejayan.intransitt_wh),
+        Number(this.fleetKejayan.ldc),
       ],
       seriesSukabumi: [
-        Number(this.fleetSukabumi.deliveryDestination[0].distributor),
-        Number(this.fleetSukabumi.deliveryDestination[0].odi),
-        Number(this.fleetSukabumi.deliveryDestination[0].export),
-        Number(this.fleetSukabumi.deliveryDestination[0].intransit_wh),
-        Number(this.fleetSukabumi.deliveryDestination[0].ldc),
+        Number(this.fleetSukabumi.ditributor),
+        Number(this.fleetSukabumi.odi),
+        Number(this.fleetSukabumi.export),
+        Number(this.fleetSukabumi.intransitt_wh),
+        Number(this.fleetSukabumi.ldc),
       ],
       // series: [11.1 , Number(this.fleet.deliveryDestination[0].odi), 21.5, 15.98, 17.23],
       chart: {
@@ -360,8 +362,8 @@ export class FleetDistributionComponent implements OnInit {
 
   OnTimeCharts() {
     this.onTimeFleetChart = {
-      series: [this.fleetKejayan.arrival[0].within_time],
-      seriesSukabumi: [this.fleetSukabumi.arrival[0].within_time],
+      series: [this.fleetKejayan.within_time],
+      seriesSukabumi: [this.fleetSukabumi.within_time],
       chart: {
         height: 230,
         type: 'radialBar',
