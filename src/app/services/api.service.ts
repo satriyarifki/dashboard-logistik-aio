@@ -31,6 +31,6 @@ export class ApiService {
     return this.http.get(this.baseUrl + 'month-skb');
   }
   getWarehouseOccupancy(): Observable<any> {
-    return this.http.get(this.baseUrl + 'warehouse-occU');
+    return this.http.get(this.baseUrl + 'warehouse-occu');
   }
 }
