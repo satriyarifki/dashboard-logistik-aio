@@ -36,8 +36,8 @@ export class DamagesProductComponent {
         this.kejayan = kjy;
         this.sukabumi = skb;
         this.kejayan.forEach((elem, i) => {
-          this.dateKejayan.push(elem.date);
-          this.dateSukabumi.push(this.sukabumi[i].date);
+          this.dateKejayan.push([new Date(elem.date).toLocaleString('default', { month: 'long' }) , + new Date(elem.date).getFullYear()]);
+          this.dateSukabumi.push([new Date(this.sukabumi[i].date).toLocaleString('default', { month: 'long' }) , + new Date(elem.date).getFullYear()]);
           this.valueKejayan.push(elem.qty_damage_product);
           this.valueSukabumi.push(this.sukabumi[i].qty_damage_product);
         });
@@ -53,7 +53,8 @@ export class DamagesProductComponent {
     this.bool = !this.bool;
   }
   damagesProduct() {
-    console.log(this.kejayan);
+    // console.log(new Date(this.dateKejayan[1]).toLocaleString('default', { month: 'long' }));
+    console.log(this.dateKejayan);
 
     this.chartOptions = {
       series: [
@@ -77,12 +78,12 @@ export class DamagesProductComponent {
         curve: 'smooth',
       },
       xaxis: {
-        type: 'datetime',
+        
         categories: this.dateKejayan,
       },
       xaxisSkb: {
-        type: 'datetime',
-        categories: this.dateKejayan,
+        
+        categories: this.dateSukabumi,
       },
       titleKejayan: {
         text: 'From Kejayan',
