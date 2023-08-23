@@ -1,5 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { ChartComponent } from 'ng-apexcharts';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { forkJoin } from 'rxjs';
+import { ApiService } from 'src/app/services/api.service';
 import { AVGHandlingLoadChart } from './avgHandlingLoad';
 
 @Component({
@@ -9,22 +12,71 @@ import { AVGHandlingLoadChart } from './avgHandlingLoad';
   styleUrls: ['./avg-handling-load.component.css'],
 })
 export class AvgHandlingLoadComponent {
-  @ViewChild('chart') chart!: ChartComponent;
+  // @ViewChild('chart') chart!: ChartComponent;
   public chartOptions: Partial<AVGHandlingLoadChart> | any;
 
-  constructor() {
-    this.avgHandlingLoad();
+  //tools
+  time = new Date();
+
+  //API
+  kejayan: any[] = [];
+  sukabumi: any[] = [];
+  dateKejayan: any[] = [];
+  dateSukabumi: any[] = [];
+  valueKejayan: any[] = [];
+  valueSukabumi: any[] = [];
+
+  constructor(
+    private apiService: ApiService,
+    private spinner: NgxSpinnerService
+  ) {
+    this.getCurrentDate();
+    spinner.show();
+    forkJoin(
+      apiService.getMonthKejayan(),
+      apiService.getMonthSukabumi()
+    ).subscribe(
+      ([kjy, skb]) => {
+        this.kejayan = kjy;
+        this.sukabumi = skb;
+        this.kejayan.forEach((elem, i) => {
+          this.dateKejayan.push([
+            new Date(elem.date).toLocaleString('default', { month: 'long' }),
+            +new Date(elem.date).getFullYear(),
+          ]);
+          this.dateSukabumi.push([
+            new Date(this.sukabumi[i].date).toLocaleString('default', {
+              month: 'long',
+            }),
+            +new Date(elem.date).getFullYear(),
+          ]);
+          this.valueKejayan.push(elem.qty_handling_load);
+          this.valueSukabumi.push(this.sukabumi[i].qty_handling_load);
+        });
+        this.avgHandlingLoad();
+      },
+      () => {},
+      () => {
+        spinner.hide();
+      }
+    );
+  }
+  getCurrentDate() {
+    this.time = new Date();
+    setInterval(() => {
+      this.time = new Date(); //set time variable with current date
+    }, 1000); // set it every one seconds
   }
   avgHandlingLoad() {
     this.chartOptions = {
       series: [
         {
           name: 'Kejayan',
-          data: [2.5, 3.5, 5, 4, 3, 2.8, 2.85, 3, 2.5, 3, 2, 2.7],
+          data: this.valueKejayan,
         },
         {
           name: 'Sukabumi',
-          data: [2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          data: this.valueSukabumi,
         },
       ],
       chart: {
@@ -35,22 +87,11 @@ export class AvgHandlingLoadComponent {
         width: 5,
         curve: 'smooth',
       },
+      dataLabels: {
+        enabled: true,
+      },
       xaxis: {
-        type: 'datetime',
-        categories: [
-          '1/11/2000',
-          '2/11/2000',
-          '3/11/2000',
-          '4/11/2000',
-          '5/11/2000',
-          '6/11/2000',
-          '7/11/2000',
-          '8/11/2000',
-          '9/11/2000',
-          '10/11/2000',
-          '11/11/2000',
-          '12/11/2000',
-        ],
+        categories: this.dateKejayan,
       },
       titleKejayan: {
         text: 'In mio Carton',
@@ -93,6 +134,9 @@ export class AvgHandlingLoadComponent {
         // min: 0,
         // max: 310,
         title: {
+          style: {
+            fontFamily: 'Manrope',
+          },
           text: 'Carton',
         },
       },

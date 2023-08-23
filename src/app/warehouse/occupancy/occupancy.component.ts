@@ -12,8 +12,10 @@ import { NgxSpinnerService } from 'ngx-spinner';
   host: { class: 'flex justify-center' },
 })
 export class OccupancyComponent {
-  @ViewChild('chart') chartCom!: ChartComponent;
-  public occupancyApex!: Partial<occupancyApex> | any;
+  // @ViewChild('chart') chartCom!: ChartComponent;
+  public occupancyApex: Partial<occupancyApex> | any;
+  //Tools
+  time = new Date()
 
   //API
   whsOccu: any;
@@ -22,11 +24,12 @@ export class OccupancyComponent {
     private apiService: ApiService,
     private spinner: NgxSpinnerService
   ) {
+    this.getCurrentDate()
     this.spinner.show();
     apiService.getWarehouseOccupancy().subscribe(
       (data) => {
         this.whsOccu = data;
-        console.log(data);
+        // console.log(data);
         this.occupancyChart();
       },
       (err) => {},
@@ -34,6 +37,12 @@ export class OccupancyComponent {
         this.spinner.hide();
       }
     );
+  }
+  getCurrentDate() {
+    this.time = new Date();
+    setInterval(() => {
+      this.time = new Date(); //set time variable with current date
+    }, 1000); // set it every one seconds
   }
   occupancyChart() {
     this.occupancyApex = {

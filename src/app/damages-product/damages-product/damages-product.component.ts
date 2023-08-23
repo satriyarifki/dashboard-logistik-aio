@@ -15,6 +15,8 @@ export class DamagesProductComponent {
   @ViewChild('chart') chart!: ChartComponent;
   public chartOptions: Partial<DamagesProductChart> | any;
   bool: Boolean = false;
+  //Tools
+  time = new Date()
   //API
   kejayan: any[] = [];
   dateKejayan: any[] = [];
@@ -27,6 +29,7 @@ export class DamagesProductComponent {
     private apiService: ApiService,
     private spinner: NgxSpinnerService
   ) {
+    this.getCurrentDate()
     spinner.show();
     forkJoin(
       apiService.getMonthKejayan(),
@@ -52,9 +55,15 @@ export class DamagesProductComponent {
   changeBool() {
     this.bool = !this.bool;
   }
+  getCurrentDate() {
+    this.time = new Date();
+    setInterval(() => {
+      this.time = new Date(); //set time variable with current date
+    }, 1000); // set it every one seconds
+  }
   damagesProduct() {
-    // console.log(new Date(this.dateKejayan[1]).toLocaleString('default', { month: 'long' }));
-    console.log(this.dateKejayan);
+    // console.log(this.valueSukabumi);
+    // console.log(Math.max(...this.valueSukabumi));
 
     this.chartOptions = {
       series: [
@@ -66,7 +75,7 @@ export class DamagesProductComponent {
       seriesSkb: [
         {
           name: 'Likes',
-          data: this.valueKejayan,
+          data: this.valueSukabumi,
         },
       ],
       chart: {
@@ -76,6 +85,9 @@ export class DamagesProductComponent {
       stroke: {
         width: 5,
         curve: 'smooth',
+      },
+      dataLabels: {
+        enabled: true
       },
       xaxis: {
         
@@ -127,17 +139,20 @@ export class DamagesProductComponent {
       yaxis: [
         {
           min: 0,
-          max: 310,
+          max: Math.max(...this.valueKejayan) * 1.2,
           title: {
             text: '',
           },
         },
-        // {
-        //   opposite: true,
-        //   title: {
-        //     text: 'Series B',
-        //   },
-        // },
+      ],
+      yaxisSkb: [
+        {
+          min: 0,
+          max: Math.max(...this.valueSukabumi) * 1.2,
+          title: {
+            text: '',
+          },
+        },
       ],
     };
   }

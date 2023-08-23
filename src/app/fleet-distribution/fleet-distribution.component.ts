@@ -63,8 +63,8 @@ export class FleetDistributionComponent implements OnInit {
       ([kejayan, sukabumi]) => {
         this.fleetKejayan = kejayan;
         this.fleetSukabumi = sukabumi;
-        console.log(this.fleetKejayan);
-        console.log(this.fleetSukabumi.within_time);
+        // console.log(this.fleetKejayan);
+        // console.log(this.fleetSukabumi.within_time);
 
         this.TruckingFromCharts();
         this.chartDelDes();

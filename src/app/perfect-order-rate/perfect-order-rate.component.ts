@@ -15,6 +15,10 @@ export class PerfectOrderRateComponent {
   @ViewChild('chart') chart!: ChartComponent;
   public chartOptions: Partial<PerfectOrderRateChart> | any;
   cocok = 876;
+
+  //tools
+  time = new Date()
+  
   //API
   kejayan: any;
   sukabumi: any;
@@ -22,17 +26,29 @@ export class PerfectOrderRateComponent {
     private apiService: ApiService,
     private spinner: NgxSpinnerService
   ) {
+    this.getCurrentDate()
     this.spinner.show();
     forkJoin(
       this.apiService.getFleetKejayan(),
       this.apiService.getFleetSukabumi()
-    ).subscribe(([kejayan, sukabumi]) => {
-      this.kejayan = kejayan;
-      this.sukabumi = sukabumi;
-      console.log(sukabumi);
-      this.perfectOrderRate();
-    });
-    
+    ).subscribe(
+      ([kejayan, sukabumi]) => {
+        this.kejayan = kejayan;
+        this.sukabumi = sukabumi;
+        // console.log(sukabumi);
+        this.perfectOrderRate();
+      },
+      (err) => {},
+      () => {
+        spinner.hide();
+      }
+    );
+  }
+  getCurrentDate() {
+    this.time = new Date();
+    setInterval(() => {
+      this.time = new Date(); //set time variable with current date
+    }, 1000); // set it every one seconds
   }
   perfectOrderRate() {
     this.chartOptions = {
