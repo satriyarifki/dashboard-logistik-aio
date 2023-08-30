@@ -31,10 +31,13 @@ import {
 })
 export class SidebarComponent {
   @ViewChild('MenuList') menuList!: ElementRef;
+  @ViewChild('InputList') inputList!: ElementRef;
   tooltipHome: Boolean = false;
   tooltipDropdown: Boolean = false;
+  tooltipDropdownInput: Boolean = false;
   tooltipLink: Boolean = false;
   dropdown: Boolean = false;
+  dropdownInput: Boolean = false;
   bounce: any;
   swing: any;
   loading = false;
@@ -66,6 +69,14 @@ export class SidebarComponent {
   leaveDropdown() {
     this.tooltipDropdown = false;
   }
+  overDropdownInput() {
+    if (!this.dropdownInput) {
+      this.tooltipDropdownInput = true;
+    }
+  }
+  leaveDropdownInput() {
+    this.tooltipDropdownInput = false;
+  }
   overLink() {
     this.tooltipLink = true;
   }
@@ -73,10 +84,15 @@ export class SidebarComponent {
     this.tooltipLink = false;
   }
   clickDropdown() {
-
     this.dropdown = !this.dropdown;
     if (this.dropdown) {
       this.tooltipDropdown = false;
+    }
+  }
+  clickDropdownInput() {
+    this.dropdownInput = !this.dropdownInput;
+    if (this.dropdownInput) {
+      this.tooltipDropdownInput = false;
     }
   }
   falseAll(event: any) {
@@ -85,6 +101,12 @@ export class SidebarComponent {
 
     if (!this.menuList.nativeElement.contains(event.target) && this.dropdown) {
       this.dropdown = false;
+    }
+    if (
+      !this.inputList.nativeElement.contains(event.target) &&
+      this.dropdownInput
+    ) {
+      this.dropdownInput = false;
     }
   }
 }

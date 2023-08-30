@@ -14,7 +14,7 @@
       >
         <img class="w-auto h-6" src="assets/glogo.png" alt="" />
       </a>
-      <hr class="h-[2.5px] bg-gray-400 rounded-lg " />
+      <hr class="h-[2.5px] bg-gray-400 rounded-lg" />
 
       <a
         (mouseover)="overHome()"
@@ -60,7 +60,7 @@
         (click)="clickDropdown()"
         class="p-1.5 flex flex-wrap cursor-pointer focus:outline-none rounded-lg text-gray-900 motion-reduce:transition-none hover:bg-gray-600 stroke-black hover:stroke-white"
         [ngClass]="
-          router.url != '/' && router.url != '/temp'
+          router.url != '/' && router.url != '/temp' && !router.url.includes('/input') 
             ? 'bg-gradient-to-r from-biru to-teal-400'
             : ''
         "
@@ -73,7 +73,7 @@
           stroke-width="1.5"
           class="w-6 h-6"
           [ngClass]="
-            router.url != '/' && router.url != '/temp' ? 'stroke-white' : ''
+            router.url != '/' && router.url != '/temp' && !router.url.includes('/input')  ? 'stroke-white' : ''
           "
         >
           <path
@@ -88,7 +88,7 @@
           *ngIf="tooltipDropdown"
           class="fixed z-50 inline-block px-3 left-16 py-1 text-sm font-medium text-white rounded-lg shadow-sm"
           [ngClass]="
-            router.url != '/' && router.url != '/temp'
+            router.url != '/' && router.url != '/temp' && !router.url.includes('/input') 
               ? 'bg-gradient-to-r from-sky-600 to-teal-400'
               : 'bg-gray-700'
           "
@@ -131,8 +131,67 @@
           Temperature
         </div>
       </a>
+      <a
+        #InputList
+        (mouseover)="overDropdownInput()"
+        (mouseleave)="leaveDropdownInput()"
+        (click)="clickDropdownInput()"
+        class="p-1.5 flex flex-wrap cursor-pointer focus:outline-none rounded-lg text-gray-900 motion-reduce:transition-none hover:bg-gray-600 stroke-black hover:stroke-white hover:fill-white" 
+        [ngClass]="
+        router.url.includes('/input') 
+            ? 'bg-gradient-to-r from-biru to-teal-400'
+            : ''
+        "
+      >
+        <!-- <svg
+          #InputList
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          class="w-6 h-6"
+          [ngClass]="
+            router.url != '/' && router.url != '/temp' ? 'stroke-white' : ''
+          "
+        >
+          <path
+            #InputList
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"
+          />
+        </svg> -->
+        <svg
+          #InputList
+          xmlns="http://www.w3.org/2000/svg"
+          height="24"
+          viewBox="0 -840 840 840"
+          
+          width="24"
+          [ngClass]="
+            router.url.includes('/input') ? 'fill-white' : ''
+          "
+        >
+          <path
+            d="M480-120v-85l212-212 85 85-212 212h-85ZM120-320v-80h280v80H120Zm685-40-85-85 29-29q11-11 28-11t28 11l29 29q11 11 11 28t-11 28l-29 29ZM120-480v-80h440v80H120Zm0-160v-80h440v80H120Z"
+          />
+        </svg>
+        <div
+          [@ZoomInOutAnimation]
+          *ngIf="tooltipDropdownInput"
+          class="fixed z-50 inline-block px-3 left-16 py-1 text-sm font-medium text-white rounded-lg shadow-sm"
+          [ngClass]="
+            router.url.includes('/input') 
+              ? 'bg-gradient-to-r from-sky-600 to-teal-400'
+              : 'bg-gray-700'
+          "
+        >
+          Input List
+        </div>
+      </a>
     </nav>
   </div>
+
   <div
     [@ZoomInOutAnimation]
     *ngIf="dropdown"
@@ -140,7 +199,7 @@
   >
     <nav class="mt-1 -mx-3 space-y-6">
       <div class="space-y-3">
-        <label class="px-3 text-xs uppercase text-gray-900">Warehouse</label>
+        <!-- <label class="px-3 text-xs uppercase text-gray-900">Warehouse</label> -->
 
         <a
           class="flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-700 hover:text-gray-200"
@@ -172,9 +231,9 @@
       </div>
 
       <div class="space-y-3">
-        <label class="px-3 text-xs uppercase text-gray-900"
+        <!-- <label class="px-3 text-xs uppercase text-gray-900"
           >Kejayan & Sukabumi</label
-        >
+        > -->
 
         <a
           [routerLink]="['/inven-accuracy']"
@@ -328,6 +387,101 @@
           <span class="mx-2 text-xs font-medium w-fit">Check Ln2</span>
         </a>
       </div>
+    </nav>
+  </div>
+  <div
+    [@ZoomInOutAnimation]
+    *ngIf="dropdownInput"
+    class="fixed h-fit self-center px-5 mx-[70px] z-40 py-5 overflow-y-auto rounded-xl border-l border-r sm:w-46 w-60 bg-white border-gray-200"
+  >
+    <nav class="mt-1 -mx-3 space-y-6">
+      <div class="space-y-3">
+        <!-- <label class="px-3 text-xs uppercase text-gray-900">Warehouse</label> -->
+        <a
+          class="flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-700 hover:text-gray-200"
+          [routerLink]="['/input-occupancy']"
+          routerLinkActive="router-link-active"
+          [ngClass]="
+            router.url == '/input-occupancy'
+              ? 'bg-gradient-to-r from-biru to-teal-400 text-gray-200'
+              : ''
+          "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
+            />
+          </svg>
+
+          <span class="mx-2 text-xs font-medium">Input Occupancy</span>
+        </a>
+        <a
+          class="flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-700 hover:text-gray-200"
+          [routerLink]="['/input-kjy']"
+          routerLinkActive="router-link-active"
+          [ngClass]="
+            router.url == '/input-kjy'
+              ? 'bg-gradient-to-r from-biru to-teal-400 text-gray-200'
+              : ''
+          "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
+            />
+          </svg>
+
+          <span class="mx-2 text-xs font-medium">Input Kejayan</span>
+        </a>
+        <a
+          class="flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-700 hover:text-gray-200"
+          [routerLink]="['/input-skb']"
+          routerLinkActive="router-link-active"
+          [ngClass]="
+            router.url == '/input-skb'
+              ? 'bg-gradient-to-r from-biru to-teal-400 text-gray-200'
+              : ''
+          "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
+            />
+          </svg>
+
+          <span class="mx-2 text-xs font-medium">Input Sukabumi</span>
+        </a>
+        
+      </div>
+
+      
     </nav>
   </div>
 </aside>

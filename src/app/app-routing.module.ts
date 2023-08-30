@@ -14,6 +14,12 @@ import { InvenAccuracyComponent } from './warehouse/inven-accuracy/inven-accurac
 import { OccupancyComponent } from './warehouse/occupancy/occupancy.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { DocumentationsComponent } from './documentations/documentations.component';
+import { InputKjyComponent } from './input/input-kjy/input-kjy.component';
+import { InputSkbComponent } from './input/input-skb/input-skb.component';
+import { InputOccupancyComponent } from './input/input-occupancy/input-occupancy.component';
+import { InputOccupancyEditComponent } from './input/input-occupancy-edit/input-occupancy-edit.component';
+import { InputKjyEditComponent } from './input/input-kjy-edit/input-kjy-edit.component';
+import { InputSkbEditComponent } from './input/input-skb-edit/input-skb-edit.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { animation: 'HomePage' } },
@@ -34,11 +40,16 @@ const routes: Routes = [
     path: 'kejayan-Sukabumi-avg-handling-load',
     component: AvgHandlingLoadComponent,
   },
+  { path: 'input-occupancy', component: InputOccupancyComponent },
+  { path: 'input-occupancy/edit', component: InputOccupancyEditComponent },
+  { path: 'input-kjy', component: InputKjyComponent },
+  { path: 'input-kjy/edit', component: InputKjyEditComponent },
+  { path: 'input-skb', component: InputSkbComponent },
+  { path: 'input-skb/edit', component: InputSkbEditComponent },
   { path: 'temp', component: TemperatureComponent },
   { path: 'check-ln', component: CheckLn2Component },
   { path: 'documentations', component: DocumentationsComponent },
-  { path: '**', component: NotFoundComponent},
-
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({

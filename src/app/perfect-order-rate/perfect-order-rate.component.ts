@@ -14,7 +14,6 @@ import { PerfectOrderRateChart } from './perfectOrderRate';
 export class PerfectOrderRateComponent {
   @ViewChild('chart') chart!: ChartComponent;
   public chartOptions: Partial<PerfectOrderRateChart> | any;
-  cocok = 876;
 
   //tools
   time = new Date()
