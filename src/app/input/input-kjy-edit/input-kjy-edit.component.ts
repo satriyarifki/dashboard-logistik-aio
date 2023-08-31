@@ -96,7 +96,7 @@ export class InputKjyEditComponent {
     return this.formTrucking.controls;
   }
 
-  changeTabs(index: number) {
+  changeTabs(index: any) {
     if (index == 1) {
       ('truck');
       this.truckingBool = true;

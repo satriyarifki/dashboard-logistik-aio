@@ -33,11 +33,13 @@
             <div class="sm:hidden">
               <label for="Tab" class="sr-only">Tab</label>
   
-              <select id="Tab" class="w-full rounded-md border-gray-500">
-                <option>Settings</option>
-                <option>Delivery Destination</option>
-                <option>On Time Fleet</option>
-                <option select>Damages Product</option>
+              <select id="Tab" class="w-full rounded-md border-2 border-sky-600 p-1.5" (change)="changeTabs(type.value)" #type>
+                <option value="1" select>Trucking</option>
+                <option value="2"> Delivery Destination</option>
+                <option value="3"> On Time Fleet</option>
+                <option value="4">Damages Product</option>
+                <option value="5">Perfect Order Rate</option>
+                <option value="6">Handling Load</option>
               </select>
             </div>
   
@@ -127,8 +129,8 @@
             class="mx-auto w-full flex justify-center h-4/5 p-4"
           >
           <form *ngIf="formTrucking" [formGroup]="formTrucking"
-          (ngSubmit)="onSubmitTrucking()" class="space-y-4 text-gray-700 text-start w-1/2">
-              <div class="flex flex-wrap">
+          (ngSubmit)="onSubmitTrucking()" class="space-y-4 text-gray-700 text-start w-full sm:w-1/2">
+              <div class="flex flex-wrap ">
                 <div class="w-full">
                   <label class="block mb-1 text-sm" 
                     >Container</label
@@ -203,7 +205,7 @@
             class="mx-auto w-full flex justify-center h-4/5 p-4"
           >
             <form *ngIf="formDelivery" [formGroup]="formDelivery"
-            (ngSubmit)="onSubmitDelivery()" class="space-y-4 text-gray-700 text-start w-1/2">
+            (ngSubmit)="onSubmitDelivery()" class="space-y-4 text-gray-700 text-start w-full sm:w-1/2">
               <div class="flex flex-wrap">
                 <div class="w-full">
                   <label class="block mb-1 text-sm" 
@@ -280,7 +282,7 @@
           >
             
             <form *ngIf="formOnTime" [formGroup]="formOnTime"
-            (ngSubmit)="onSubmit('onTime')" class="space-y-4 text-gray-700 text-start w-1/2">
+            (ngSubmit)="onSubmit('onTime')" class="space-y-4 text-gray-700 text-start w-full sm:w-1/2">
               <div class="flex flex-wrap">
                 <div class="w-full">
                   <label class="block mb-1 text-sm" 
