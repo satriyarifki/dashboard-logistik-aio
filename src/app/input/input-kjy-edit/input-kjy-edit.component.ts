@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { forkJoin } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -28,19 +29,27 @@ export class InputKjyEditComponent {
   formHandling!: FormGroup;
 
   // API
-  dataApi:any;
+  dataApi: any;
 
   constructor(
     private actRoute: ActivatedRoute,
     private apiService: ApiService,
     private formBuilder: FormBuilder,
+    private spinner: NgxSpinnerService
   ) {
+    spinner.show();
     console.log(this.dateParams);
     forkJoin(apiService.getFleetKejayanById(this.dateParams)).subscribe(
       ([kejayan]) => {
-        this.dataApi = kejayan
-        console.log(this.dataApi);
-        this.initialForm()
+        this.dataApi = kejayan;
+        // console.log(this.dataApi);
+        this.initialForm();
+      },
+      (err) => {
+        spinner.hide();
+      },
+      () => {
+        spinner.hide();
       }
     );
 
@@ -69,11 +78,11 @@ export class InputKjyEditComponent {
       outTime: [this.dataApi['out_of_the_limit_>_=_11_pm']],
       // resourceId: [this.reserv?.resourceId | 0, Validators.required],
     });
-    this.formDamages= this.formBuilder.group({
+    this.formDamages = this.formBuilder.group({
       qty: [this.dataApi.qty_damage_product],
       // resourceId: [this.reserv?.resourceId | 0, Validators.required],
     });
-    this.formPerfect= this.formBuilder.group({
+    this.formPerfect = this.formBuilder.group({
       qty: [this.dataApi.qty_shipment],
       percentage: [this.dataApi.percentage],
       // resourceId: [this.reserv?.resourceId | 0, Validators.required],
@@ -135,7 +144,32 @@ export class InputKjyEditComponent {
       this.handlingBool = true;
     }
   }
-  onSubmit(desc:any){
+  onSubmit(desc: any) {}
+  onSubmitTrucking() {
+    this.spinner.show()
+    if (this.formTrucking.invalid) {
+      alert('Form Must Filled');
+      return;
+    }
 
+    const body = {
+      container: this.formTrucking.controls['container'].value,
+      wing_box: this.formTrucking.controls['wingBox'].value,
+      tronton: this.formTrucking.controls['tronton'].value,
+      fuso: this.formTrucking.controls['fuso'].value,
+      cold_diesel: this.formTrucking.controls['colt'].value,
+    };
+
+    this.apiService.updateKejayanTrucking(this.dataApi.id, body).subscribe(
+      (data) => {
+        alert('Success Update Trucking');
+        console.log('Success');
+        this.spinner.hide()
+      },
+      (err) => {
+        this.spinner.hide()
+        console.log(err);
+      }
+    );
   }
 }

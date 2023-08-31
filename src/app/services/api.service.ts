@@ -27,7 +27,7 @@ export class ApiService {
   getFleetKejayan(): Observable<any> {
     return this.http.get(this.baseUrl + 'fleet-kjy');
   }
-  getFleetKejayanById(date:any): Observable<any> {
+  getFleetKejayanById(date: any): Observable<any> {
     return this.http.get(this.baseUrl + 'fleet-kjy/' + date);
   }
   getFleetSukabumiAll(): Observable<any> {
@@ -36,7 +36,7 @@ export class ApiService {
   getFleetSukabumi(): Observable<any> {
     return this.http.get(this.baseUrl + 'fleet-skb');
   }
-  getFleetSukabumiById(date:any): Observable<any> {
+  getFleetSukabumiById(date: any): Observable<any> {
     return this.http.get(this.baseUrl + 'fleet-skb/' + date);
   }
   getMonthKejayan(): Observable<any> {
@@ -44,6 +44,10 @@ export class ApiService {
   }
   getMonthSukabumi(): Observable<any> {
     return this.http.get(this.baseUrl + 'month-skb');
+  }
+
+  updateKejayanTrucking(id: any, body: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'fleet-kjy/trucking/' + id, body);
   }
 
   // WAREHOUSE

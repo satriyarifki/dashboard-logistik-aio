@@ -1,3 +1,10 @@
+<ngx-spinner
+  color="white"
+  type="square-jelly-box"
+  [fullScreen]="true"
+  size="medium"
+  ><p style="color: white">Loading...</p></ngx-spinner
+>
 <div class="py-10 md:py-0 my-2 md:pl-[4.5rem] w-full">
     <div class="flex flex-wrap mx-auto">
       <div class="px-2 w-full space-y-3">
@@ -120,7 +127,7 @@
             class="mx-auto w-full flex justify-center h-4/5 p-4"
           >
           <form *ngIf="formTrucking" [formGroup]="formTrucking"
-          (ngSubmit)="onSubmit('trucking')" class="space-y-4 text-gray-700 text-start w-1/2">
+          (ngSubmit)="onSubmitTrucking()" class="space-y-4 text-gray-700 text-start w-1/2">
               <div class="flex flex-wrap">
                 <div class="w-full">
                   <label class="block mb-1 text-sm" 
