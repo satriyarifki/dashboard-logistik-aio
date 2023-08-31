@@ -49,6 +49,9 @@ export class ApiService {
   updateKejayanTrucking(id: any, body: any): Observable<any> {
     return this.http.post(this.baseUrl + 'fleet-kjy/trucking/' + id, body);
   }
+  updateKejayanDelivery(id: any, body: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'fleet-kjy/delivery/' + id, body);
+  }
 
   // WAREHOUSE
   getWarehouseOccupancy(): Observable<any> {

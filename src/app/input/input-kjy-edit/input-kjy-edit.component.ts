@@ -172,4 +172,31 @@ export class InputKjyEditComponent {
       }
     );
   }
+  onSubmitDelivery() {
+    this.spinner.show()
+    if (this.formDelivery.invalid) {
+      alert('Form Must Filled');
+      return;
+    }
+
+    const body = {
+      distributor: this.formDelivery.controls['distributor'].value,
+      odi: this.formDelivery.controls['odi'].value,
+      export: this.formDelivery.controls['export'].value,
+      intransitt_wh: this.formDelivery.controls['intersite'].value,
+      ldc: this.formDelivery.controls['ldc'].value,
+    };
+
+    this.apiService.updateKejayanDelivery(this.dataApi.id, body).subscribe(
+      (data) => {
+        alert('Success Update Kejayan Delivery');
+        console.log('Success');
+        this.spinner.hide()
+      },
+      (err) => {
+        this.spinner.hide()
+        console.log(err);
+      }
+    );
+  }
 }

@@ -203,7 +203,7 @@
             class="mx-auto w-full flex justify-center h-4/5 p-4"
           >
             <form *ngIf="formDelivery" [formGroup]="formDelivery"
-            (ngSubmit)="onSubmit('delivery')" class="space-y-4 text-gray-700 text-start w-1/2">
+            (ngSubmit)="onSubmitDelivery()" class="space-y-4 text-gray-700 text-start w-1/2">
               <div class="flex flex-wrap">
                 <div class="w-full">
                   <label class="block mb-1 text-sm" 
@@ -345,7 +345,7 @@
           <!-- PERFECT ORDER RATE -->
           <div
             *ngIf="perfectBool"
-            class="mx-auto w-full flex justify-center h-full p-4"
+            class="mx-auto w-full flex justify-center h-4/5 p-4"
           >
             <form *ngIf="formPerfect" [formGroup]="formPerfect"
             (ngSubmit)="onSubmit('perfect')"  class="space-y-4 text-gray-700 text-start">
@@ -386,7 +386,7 @@
           <!-- AVG HANDLING LOAD -->
           <div
             *ngIf="handlingBool"
-            class="mx-auto w-full flex justify-center h-full p-4"
+            class="mx-auto w-full flex justify-center h-4/5 p-4"
           >
             <form  *ngIf="formHandling" [formGroup]="formHandling"
             (ngSubmit)="onSubmit('handling')" class="space-y-4 text-gray-700 text-start">
