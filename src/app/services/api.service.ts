@@ -52,6 +52,18 @@ export class ApiService {
   updateKejayanDelivery(id: any, body: any): Observable<any> {
     return this.http.post(this.baseUrl + 'fleet-kjy/delivery/' + id, body);
   }
+  updateKejayanOnTime(id: any, body: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'fleet-kjy/ontime/' + id, body);
+  }
+  updateKejayanDamage(id: any, body: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'fleet-kjy/damage/' + id, body);
+  }
+  updateKejayanPerfect(id: any, body: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'fleet-kjy/perfect/' + id, body);
+  }
+  updateKejayanHandling(id: any, body: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'fleet-kjy/handling/' + id, body);
+  }
 
   // WAREHOUSE
   getWarehouseOccupancy(): Observable<any> {

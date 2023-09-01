@@ -172,6 +172,7 @@ export class InputKjyEditComponent {
       }
     );
   }
+  
   onSubmitDelivery() {
     this.spinner.show()
     if (this.formDelivery.invalid) {
@@ -190,6 +191,103 @@ export class InputKjyEditComponent {
     this.apiService.updateKejayanDelivery(this.dataApi.id, body).subscribe(
       (data) => {
         alert('Success Update Kejayan Delivery');
+        console.log('Success');
+        this.spinner.hide()
+      },
+      (err) => {
+        this.spinner.hide()
+        console.log(err);
+      }
+    );
+  }
+
+  onSubmitOnTime() {
+    this.spinner.show()
+    if (this.formOnTime.invalid) {
+      alert('Form Must Filled');
+      return;
+    }
+
+    const body = {
+      within: this.formOnTime.controls['within'].value,
+      outLimit: this.formOnTime.controls['outTime'].value,
+    };
+
+    this.apiService.updateKejayanOnTime(this.dataApi.id, body).subscribe(
+      (data) => {
+        alert('Success Update Kejayan On Time Arrival');
+        console.log('Success');
+        this.spinner.hide()
+      },
+      (err) => {
+        this.spinner.hide()
+        console.log(err);
+      }
+    );
+  }
+  onSubmitDamage() {
+    this.spinner.show()
+    if (this.formDamages.invalid) {
+      alert('Form Must Filled');
+      return;
+    }
+
+    const body = {
+      qty: this.formDamages.controls['qty'].value,
+      
+    };
+
+    this.apiService.updateKejayanDamage(this.dataApi.id, body).subscribe(
+      (data) => {
+        alert('Success Update Kejayan Damage Product');
+        console.log('Success');
+        this.spinner.hide()
+      },
+      (err) => {
+        this.spinner.hide()
+        console.log(err);
+      }
+    );
+  }
+  onSubmitPerfect() {
+    this.spinner.show()
+    if (this.formPerfect.invalid) {
+      alert('Form Must Filled');
+      return;
+    }
+
+    const body = {
+      qty: this.formPerfect.controls['qty'].value,
+      percentage: this.formPerfect.controls['percentage'].value,
+    };
+
+    this.apiService.updateKejayanPerfect(this.dataApi.id, body).subscribe(
+      (data) => {
+        alert('Success Update Kejayan Perfect Order Rate');
+        console.log('Success');
+        this.spinner.hide()
+      },
+      (err) => {
+        this.spinner.hide()
+        console.log(err);
+      }
+    );
+  }
+  onSubmitHandling() {
+    this.spinner.show()
+    if (this.formHandling.invalid) {
+      alert('Form Must Filled');
+      return;
+    }
+
+    const body = {
+      qty: this.formHandling.controls['qty'].value,
+      
+    };
+
+    this.apiService.updateKejayanHandling(this.dataApi.id, body).subscribe(
+      (data) => {
+        alert('Success Update Kejayan Handling');
         console.log('Success');
         this.spinner.hide()
       },

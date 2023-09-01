@@ -6,9 +6,9 @@
   ><p style="color: white">Loading...</p></ngx-spinner
 >
 <div class="py-10 md:py-0 my-2 md:pl-[4.5rem] w-full">
-    <div class="flex flex-wrap mx-auto">
-      <div class="px-2 w-full space-y-3">
-        <!-- <div
+  <div class="flex flex-wrap mx-auto">
+    <div class="px-2 w-full space-y-3">
+      <!-- <div
             class="h-fit flex justify-between flex-wrap bg-white px-8 py-2 text-center rounded-lg overflow-hidden relative drop-shadow-xl"
           >
             <span class="flex items-center justify-start w-1/3">
@@ -20,399 +20,394 @@
               <h1 class="font-quicksand font-semibold text-lg text-sky-900"></h1
             ></span>
           </div> -->
+      <div
+        class="h-[97vh] flex justify-center flex-wrap bg-white px-8 py-5 text-center rounded-lg drop-shadow-xl"
+      >
+        <div class="h-fit w-full flex flex-col justify-center text-center">
+          <h1 class="font-manrope font-[700] text-3xl">Edit Kejayan</h1>
+          <h1 class="font-manrope font-[700] text-xl text-blue-700">
+            {{ dateParams }}
+          </h1>
+        </div>
+        <div class="h-fit pt-9 py-5">
+          <div class="sm:hidden">
+            <label for="Tab" class="sr-only">Tab</label>
+
+            <select
+              id="Tab"
+              class="w-full rounded-md border-2 border-sky-600 p-1.5"
+              (change)="changeTabs(type.value)"
+              #type
+            >
+              <option value="1" select>Trucking</option>
+              <option value="2">Delivery Destination</option>
+              <option value="3">On Time Fleet</option>
+              <option value="4">Damages Product</option>
+              <option value="5">Perfect Order Rate</option>
+              <option value="6">Handling Load</option>
+            </select>
+          </div>
+
+          <div class="hidden sm:block">
+            <div class="border-b-0">
+              <nav class="-mb-px flex gap-6" aria-label="Tabs">
+                <a
+                  (click)="changeTabs(1)"
+                  [ngClass]="
+                    truckingBool
+                      ? 'border-sky-500 text-sky-600'
+                      : 'text-gray-600  hover:border-gray-300  hover:text-gray-700'
+                  "
+                  class="shrink-0 cursor-pointer border-b-2 px-1 pb-3 text-sm font-medium"
+                >
+                  Trucking
+                </a>
+
+                <a
+                  (click)="changeTabs(2)"
+                  [ngClass]="
+                    deliveryBool
+                      ? 'border-sky-500 text-sky-600'
+                      : 'text-gray-600  hover:border-gray-300  hover:text-gray-700'
+                  "
+                  class="shrink-0 cursor-pointer border-b-2 px-1 pb-3 text-sm font-medium"
+                >
+                  Delivery Destination
+                </a>
+
+                <a
+                  (click)="changeTabs(3)"
+                  [ngClass]="
+                    onTimeBool
+                      ? 'border-sky-500 text-sky-600'
+                      : 'text-gray-600  hover:border-gray-300  hover:text-gray-700'
+                  "
+                  class="shrink-0 cursor-pointer border-b-2 px-1 pb-3 text-sm font-medium"
+                >
+                  On Time Arrival
+                </a>
+
+                <a
+                  (click)="changeTabs(4)"
+                  [ngClass]="
+                    damagesBool
+                      ? 'border-sky-500 text-sky-600'
+                      : 'text-gray-600  hover:border-gray-300  hover:text-gray-700'
+                  "
+                  class="shrink-0 cursor-pointer border-b-2 px-1 pb-3 text-sm font-medium"
+                  aria-current="page"
+                >
+                  Damages Product
+                </a>
+                <a
+                  (click)="changeTabs(5)"
+                  [ngClass]="
+                    perfectBool
+                      ? 'border-sky-500 text-sky-600'
+                      : 'text-gray-600  hover:border-gray-300  hover:text-gray-700'
+                  "
+                  class="shrink-0 cursor-pointer border-b-2 px-1 pb-3 text-sm font-medium"
+                  aria-current="page"
+                >
+                  Perfect Order
+                </a>
+                <a
+                  (click)="changeTabs(6)"
+                  [ngClass]="
+                    handlingBool
+                      ? 'border-sky-500 text-sky-600'
+                      : 'text-gray-600  hover:border-gray-300  hover:text-gray-700'
+                  "
+                  class="shrink-0 cursor-pointer border-b-2 px-1 pb-3 text-sm font-medium"
+                  aria-current="page"
+                >
+                  Handling Load
+                </a>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <!-- TRUCKING -->
         <div
-          class="h-[97vh] flex justify-center flex-wrap bg-white px-8 py-5 text-center rounded-lg drop-shadow-xl"
+          *ngIf="truckingBool"
+          class="mx-auto w-full flex justify-center h-4/5 p-4"
         >
-          <div class="h-fit w-full flex flex-col justify-center text-center">
-            <h1 class="font-manrope font-[700] text-3xl">Edit Kejayan</h1>
-            <h1 class="font-manrope font-[700] text-xl text-blue-700">
-              {{ dateParams }}
-            </h1>
-          </div>
-          <div class="h-fit pt-9 py-5">
-            <div class="sm:hidden">
-              <label for="Tab" class="sr-only">Tab</label>
-  
-              <select id="Tab" class="w-full rounded-md border-2 border-sky-600 p-1.5" (change)="changeTabs(type.value)" #type>
-                <option value="1" select>Trucking</option>
-                <option value="2"> Delivery Destination</option>
-                <option value="3"> On Time Fleet</option>
-                <option value="4">Damages Product</option>
-                <option value="5">Perfect Order Rate</option>
-                <option value="6">Handling Load</option>
-              </select>
-            </div>
-  
-            <div class="hidden sm:block">
-              <div class="border-b-0">
-                <nav class="-mb-px flex gap-6" aria-label="Tabs">
-                  <a
-                    (click)="changeTabs(1)"
-                    [ngClass]="
-                      truckingBool
-                        ? 'border-sky-500 text-sky-600'
-                        : 'text-gray-600  hover:border-gray-300  hover:text-gray-700'
-                    "
-                    class="shrink-0 cursor-pointer border-b-2 px-1 pb-3 text-sm font-medium"
-                  >
-                    Trucking
-                  </a>
-  
-                  <a
-                    (click)="changeTabs(2)"
-                    [ngClass]="
-                      deliveryBool
-                        ? 'border-sky-500 text-sky-600'
-                        : 'text-gray-600  hover:border-gray-300  hover:text-gray-700'
-                    "
-                    class="shrink-0 cursor-pointer border-b-2 px-1 pb-3 text-sm font-medium"
-                  >
-                    Delivery Destination
-                  </a>
-  
-                  <a
-                    (click)="changeTabs(3)"
-                    [ngClass]="
-                      onTimeBool
-                        ? 'border-sky-500 text-sky-600'
-                        : 'text-gray-600  hover:border-gray-300  hover:text-gray-700'
-                    "
-                    class="shrink-0 cursor-pointer border-b-2 px-1 pb-3 text-sm font-medium"
-                  >
-                    On Time Arrival
-                  </a>
-  
-                  <a
-                    (click)="changeTabs(4)"
-                    [ngClass]="
-                      damagesBool
-                        ? 'border-sky-500 text-sky-600'
-                        : 'text-gray-600  hover:border-gray-300  hover:text-gray-700'
-                    "
-                    class="shrink-0 cursor-pointer border-b-2 px-1 pb-3 text-sm font-medium"
-                    aria-current="page"
-                  >
-                    Damages Product
-                  </a>
-                  <a
-                    (click)="changeTabs(5)"
-                    [ngClass]="
-                      perfectBool
-                        ? 'border-sky-500 text-sky-600'
-                        : 'text-gray-600  hover:border-gray-300  hover:text-gray-700'
-                    "
-                    class="shrink-0 cursor-pointer border-b-2 px-1 pb-3 text-sm font-medium"
-                    aria-current="page"
-                  >
-                    Perfect Order
-                  </a>
-                  <a
-                    (click)="changeTabs(6)"
-                    [ngClass]="
-                      handlingBool
-                        ? 'border-sky-500 text-sky-600'
-                        : 'text-gray-600  hover:border-gray-300  hover:text-gray-700'
-                    "
-                    class="shrink-0 cursor-pointer border-b-2 px-1 pb-3 text-sm font-medium"
-                    aria-current="page"
-                  >
-                    Handling Load
-                  </a>
-                </nav>
+          <form
+            *ngIf="formTrucking"
+            [formGroup]="formTrucking"
+            (ngSubmit)="onSubmitTrucking()"
+            class="space-y-4 text-gray-700 text-start w-full sm:w-1/2"
+          >
+            <div class="flex flex-wrap">
+              <div class="w-full">
+                <label class="block mb-1 text-sm">Container</label>
+                <input
+                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="number"
+                  formControlName="container"
+                />
               </div>
             </div>
-          </div>
-  
-          <!-- TRUCKING -->
-          <div
-            *ngIf="truckingBool"
-            class="mx-auto w-full flex justify-center h-4/5 p-4"
-          >
-          <form *ngIf="formTrucking" [formGroup]="formTrucking"
-          (ngSubmit)="onSubmitTrucking()" class="space-y-4 text-gray-700 text-start w-full sm:w-1/2">
-              <div class="flex flex-wrap ">
-                <div class="w-full">
-                  <label class="block mb-1 text-sm" 
-                    >Container</label
-                  >
-                  <input
-                    class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                    type="number"
-                    formControlName="container"
-                  />
-                </div>
+            <div class="flex flex-wrap">
+              <div class="w-full">
+                <label class="block mb-1 text-sm">Wing Box</label>
+                <input
+                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="number"
+                  formControlName="wingBox"
+                />
               </div>
-              <div class="flex flex-wrap">
-                <div class="w-full">
-                  <label class="block mb-1 text-sm" 
-                    >Wing Box</label
-                  >
-                  <input
-                    class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                    type="number"
-                    formControlName="wingBox"
-                  />
-                </div>
+            </div>
+            <div class="flex flex-wrap">
+              <div class="w-full">
+                <label class="block mb-1 text-sm">Tronton</label>
+                <input
+                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="number"
+                  formControlName="tronton"
+                />
               </div>
-              <div class="flex flex-wrap">
-                <div class="w-full">
-                  <label class="block mb-1 text-sm" 
-                    >Tronton</label
-                  >
-                  <input
-                    class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                    type="number"
-                    formControlName="tronton"
-                  />
-                </div>
+            </div>
+            <div class="flex flex-wrap">
+              <div class="w-full">
+                <label class="block mb-1 text-sm">Fuso</label>
+                <input
+                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="number"
+                  formControlName="fuso"
+                />
               </div>
-              <div class="flex flex-wrap">
-                <div class="w-full">
-                  <label class="block mb-1 text-sm" 
-                    >Fuso</label
-                  >
-                  <input
-                    class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                    type="number"
-                    formControlName="fuso"
-                  />
-                </div>
+            </div>
+            <div class="flex flex-wrap">
+              <div class="w-full">
+                <label class="block mb-1 text-sm">Colt Diesel</label>
+                <input
+                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="number"
+                  formControlName="colt"
+                />
               </div>
-              <div class="flex flex-wrap">
-                <div class="w-full">
-                  <label class="block mb-1 text-sm" 
-                    >Colt Diesel</label
-                  >
-                  <input
-                    class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                    type="number"
-                    formControlName="colt"
-                  />
-                </div>
-              </div>
-  
-              <button
-                class="h-10 px-5 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100"
-              >
-                Submit
-              </button>
-            </form>
-          </div>
-  
-          <!-- DELIVERY DESTINATION -->
-          <div
-            *ngIf="deliveryBool"
-            class="mx-auto w-full flex justify-center h-4/5 p-4"
-          >
-            <form *ngIf="formDelivery" [formGroup]="formDelivery"
-            (ngSubmit)="onSubmitDelivery()" class="space-y-4 text-gray-700 text-start w-full sm:w-1/2">
-              <div class="flex flex-wrap">
-                <div class="w-full">
-                  <label class="block mb-1 text-sm" 
-                    >Distributor</label
-                  >
-                  <input
-                    class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                    type="text"
-                    formControlName="distributor"
-                  />
-                </div>
-              </div>
-              <div class="flex flex-wrap">
-                <div class="w-full">
-                  <label class="block mb-1 text-sm" 
-                    >ODI</label
-                  >
-                  <input
-                    class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                    type="text"
-                    formControlName="odi"
-                  />
-                </div>
-              </div>
-              <div class="flex flex-wrap">
-                <div class="w-full">
-                  <label class="block mb-1 text-sm" 
-                    >Export</label
-                  >
-                  <input
-                    class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                    type="text"
-                    formControlName="export"
-                  />
-                </div>
-              </div>
-              <div class="flex flex-wrap">
-                <div class="w-full">
-                  <label class="block mb-1 text-sm" 
-                    >Intersite WH</label
-                  >
-                  <input
-                    class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                    type="text"
-                    formControlName="intersite"
-                  />
-                </div>
-              </div>
-              <div class="flex flex-wrap">
-                <div class="w-full">
-                  <label class="block mb-1 text-sm" 
-                    >LDC</label
-                  >
-                  <input
-                    class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                    type="text"
-                    formControlName="ldc"
-                  />
-                </div>
-              </div>
-  
-              <button
-                class="h-10 px-5 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100"
-              >
-                Submit
-              </button>
-            </form>
-          </div>
-  
-          <!-- ON TIME ARRIVAL -->
-          <div
-            *ngIf="onTimeBool"
-            class="mx-auto w-full flex justify-center h-4/5 p-4"
-          >
-            
-            <form *ngIf="formOnTime" [formGroup]="formOnTime"
-            (ngSubmit)="onSubmit('onTime')" class="space-y-4 text-gray-700 text-start w-full sm:w-1/2">
-              <div class="flex flex-wrap">
-                <div class="w-full">
-                  <label class="block mb-1 text-sm" 
-                    >Whittin Time Limit</label
-                  >
-                  <input
-                    class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                    type="text"
-                    formControlName="within"
-                  />
-                </div>
-              </div>
-              <div class="flex flex-wrap">
-                <div class="w-full">
-                  <label class="block mb-1 text-sm" 
-                    >Out Of Limit</label
-                  >
-                  <input
-                    class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                    type="text"
-                    formControlName="outTime"
-                  />
-                </div>
-              </div>
-             
-  
-              <button
-                class="h-10 px-5 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100"
-              >
-                Submit
-              </button>
-            </form>
-          </div>
-  
-          <!-- DAMAGES PRODUCT -->
-          <div
-            *ngIf="damagesBool"
-            class="mx-auto w-full flex justify-center h-4/5 p-4"
-          >
-            <form *ngIf="formDamages" [formGroup]="formDamages"
-            (ngSubmit)="onSubmit('damages')" class="space-y-4 text-gray-700 text-start">
-              <div class="flex flex-wrap">
-                <div class="w-full">
-                  <label class="block mb-1 text-sm" 
-                    >Qty Damages Product</label
-                  >
-                  <input
-                    class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                    type="text"
-                    formControlName="qty"
-                  />
-                </div>
-              </div>
-              <button
-                class="h-10 px-5 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100"
-              >
-                Submit
-              </button>
-            </form>
-          </div>
+            </div>
 
-          <!-- PERFECT ORDER RATE -->
-          <div
-            *ngIf="perfectBool"
-            class="mx-auto w-full flex justify-center h-4/5 p-4"
-          >
-            <form *ngIf="formPerfect" [formGroup]="formPerfect"
-            (ngSubmit)="onSubmit('perfect')"  class="space-y-4 text-gray-700 text-start">
-              
-              <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0">
-                <div class="w-full px-2 md:w-1/2">
-                  <label class="block mb-1 text-sm" for="formGridCode_name"
-                    >Qty Shipment</label
-                  >
-                  <input
-                    class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                    type="text"
-                    formControlName="qty"
-                    
-                  />
-                </div>
-                <div class="w-full px-2 md:w-1/2">
-                  <label class="block mb-1 text-sm" for="formGridCode_last"
-                    >Percentage</label
-                  >
-                  <input
-                    class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                    type="text"
-                    formControlName="percentage"
-                  />
-                </div>
-              </div>
-              
-  
-              <button
-                class="h-10 px-5 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100"
-              >
-                Submit
-              </button>
-            </form>
-          </div>
+            <button
+              class="h-10 px-5 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
 
-          <!-- AVG HANDLING LOAD -->
-          <div
-            *ngIf="handlingBool"
-            class="mx-auto w-full flex justify-center h-4/5 p-4"
+        <!-- DELIVERY DESTINATION -->
+        <div
+          *ngIf="deliveryBool"
+          class="mx-auto w-full flex justify-center h-4/5 p-4"
+        >
+          <form
+            *ngIf="formDelivery"
+            [formGroup]="formDelivery"
+            (ngSubmit)="onSubmitDelivery()"
+            class="space-y-4 text-gray-700 text-start w-full sm:w-1/2"
           >
-            <form  *ngIf="formHandling" [formGroup]="formHandling"
-            (ngSubmit)="onSubmit('handling')" class="space-y-4 text-gray-700 text-start">
-              <div class="flex flex-wrap">
-                <div class="w-full">
-                  <label class="block mb-1 text-sm" 
-                    >Qty Handling Load</label
-                  >
-                  <input
-                    class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                    type="text"
-                    formControlName="qty"
-                  />
-                </div>
+            <div class="flex flex-wrap">
+              <div class="w-full">
+                <label class="block mb-1 text-sm">Distributor</label>
+                <input
+                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="text"
+                  formControlName="distributor"
+                />
               </div>
-              <button
-                class="h-10 px-5 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100"
-              >
-                Submit
-              </button>
-            </form>
-          </div>
+            </div>
+            <div class="flex flex-wrap">
+              <div class="w-full">
+                <label class="block mb-1 text-sm">ODI</label>
+                <input
+                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="text"
+                  formControlName="odi"
+                />
+              </div>
+            </div>
+            <div class="flex flex-wrap">
+              <div class="w-full">
+                <label class="block mb-1 text-sm">Export</label>
+                <input
+                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="text"
+                  formControlName="export"
+                />
+              </div>
+            </div>
+            <div class="flex flex-wrap">
+              <div class="w-full">
+                <label class="block mb-1 text-sm">Intersite WH</label>
+                <input
+                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="text"
+                  formControlName="intersite"
+                />
+              </div>
+            </div>
+            <div class="flex flex-wrap">
+              <div class="w-full">
+                <label class="block mb-1 text-sm">LDC</label>
+                <input
+                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="text"
+                  formControlName="ldc"
+                />
+              </div>
+            </div>
+
+            <button
+              class="h-10 px-5 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+
+        <!-- ON TIME ARRIVAL -->
+        <div
+          *ngIf="onTimeBool"
+          class="mx-auto w-full flex justify-center h-4/5 p-4"
+        >
+          <form
+            *ngIf="formOnTime"
+            [formGroup]="formOnTime"
+            (ngSubmit)="onSubmitOnTime()"
+            class="space-y-4 text-gray-700 text-start w-full sm:w-1/2"
+          >
+            <div class="flex flex-wrap">
+              <div class="w-full">
+                <label class="block mb-1 text-sm">Whittin Time Limit</label>
+                <input
+                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="text"
+                  formControlName="within"
+                />
+              </div>
+            </div>
+            <div class="flex flex-wrap">
+              <div class="w-full">
+                <label class="block mb-1 text-sm">Out Of Limit</label>
+                <input
+                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="text"
+                  formControlName="outTime"
+                />
+              </div>
+            </div>
+
+            <button
+              class="h-10 px-5 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+
+        <!-- DAMAGES PRODUCT -->
+        <div
+          *ngIf="damagesBool"
+          class="mx-auto w-full flex justify-center h-4/5 p-4"
+        >
+          <form
+            *ngIf="formDamages"
+            [formGroup]="formDamages"
+            (ngSubmit)="onSubmitDamage()"
+            class="space-y-4 text-gray-700 text-start"
+          >
+            <div class="flex flex-wrap">
+              <div class="w-full">
+                <label class="block mb-1 text-sm">Qty Damages Product</label>
+                <input
+                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="text"
+                  formControlName="qty"
+                />
+              </div>
+            </div>
+            <button
+              class="h-10 px-5 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+
+        <!-- PERFECT ORDER RATE -->
+        <div
+          *ngIf="perfectBool"
+          class="mx-auto w-full flex justify-center h-4/5 p-4"
+        >
+          <form
+            *ngIf="formPerfect"
+            [formGroup]="formPerfect"
+            (ngSubmit)="onSubmitPerfect()"
+            class="space-y-4 text-gray-700 text-start"
+          >
+            <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0">
+              <div class="w-full px-2 md:w-1/2">
+                <label class="block mb-1 text-sm" for="formGridCode_name"
+                  >Qty Shipment</label
+                >
+                <input
+                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="text"
+                  formControlName="qty"
+                />
+              </div>
+              <div class="w-full px-2 md:w-1/2">
+                <label class="block mb-1 text-sm" for="formGridCode_last"
+                  >Percentage</label
+                >
+                <input
+                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="text"
+                  formControlName="percentage"
+                />
+              </div>
+            </div>
+
+            <button
+              class="h-10 px-5 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+
+        <!-- AVG HANDLING LOAD -->
+        <div
+          *ngIf="handlingBool"
+          class="mx-auto w-full flex justify-center h-4/5 p-4"
+        >
+          <form
+            *ngIf="formHandling"
+            [formGroup]="formHandling"
+            (ngSubmit)="onSubmitHandling()"
+            class="space-y-4 text-gray-700 text-start"
+          >
+            <div class="flex flex-wrap">
+              <div class="w-full">
+                <label class="block mb-1 text-sm">Qty Handling Load</label>
+                <input
+                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="text"
+                  formControlName="qty"
+                />
+              </div>
+            </div>
+            <button
+              class="h-10 px-5 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100"
+            >
+              Submit
+            </button>
+          </form>
         </div>
       </div>
     </div>
   </div>
-  
+</div>
