@@ -3,17 +3,20 @@ import { ExportAsConfig } from 'ngx-export-as';
 import { PaginationControlsDirective } from 'ngx-pagination';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { forkJoin } from 'rxjs';
+import { zoomInOutVar, zoomInVar } from 'src/app/animations';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-input-kjy',
   templateUrl: './input-kjy.component.html',
-  styleUrls: ['./input-kjy.component.css']
+  styleUrls: ['./input-kjy.component.css'],
+  animations: [zoomInOutVar],
 })
 export class InputKjyComponent {
   @ViewChild('p', { static: true }) pa: PaginationControlsDirective | any;
   searchInput: any;
   itemPerPage = 10;
+  createModal = false
 
   //API
   fleetKejayan: any[] = [];
@@ -61,5 +64,10 @@ export class InputKjyComponent {
   changeItemPerPageSelect(value: any) {
     this.config.itemsPerPage = value;
     // console.log(this.config.itemsPerPage);
+  }
+
+  changeCreateModal(behav: any){
+    
+    this.createModal = behav
   }
 }

@@ -60,7 +60,9 @@
         (click)="clickDropdown()"
         class="p-1.5 flex flex-wrap cursor-pointer focus:outline-none rounded-lg text-gray-900 motion-reduce:transition-none hover:bg-gray-600 stroke-black hover:stroke-white"
         [ngClass]="
-          router.url != '/' && router.url != '/temp' && !router.url.includes('/input') 
+          router.url != '/' &&
+          router.url != '/temp' &&
+          !router.url.includes('/input')
             ? 'bg-gradient-to-r from-biru to-teal-400'
             : ''
         "
@@ -73,7 +75,11 @@
           stroke-width="1.5"
           class="w-6 h-6"
           [ngClass]="
-            router.url != '/' && router.url != '/temp' && !router.url.includes('/input')  ? 'stroke-white' : ''
+            router.url != '/' &&
+            router.url != '/temp' &&
+            !router.url.includes('/input')
+              ? 'stroke-white'
+              : ''
           "
         >
           <path
@@ -88,7 +94,9 @@
           *ngIf="tooltipDropdown"
           class="fixed z-50 inline-block px-3 left-16 py-1 text-sm font-medium text-white rounded-lg shadow-sm"
           [ngClass]="
-            router.url != '/' && router.url != '/temp' && !router.url.includes('/input') 
+            router.url != '/' &&
+            router.url != '/temp' &&
+            !router.url.includes('/input')
               ? 'bg-gradient-to-r from-sky-600 to-teal-400'
               : 'bg-gray-700'
           "
@@ -131,7 +139,7 @@
           Temperature
         </div>
       </a>
-      <a
+      <!-- <a
         #InputList
         (mouseover)="overDropdownInput()"
         (mouseleave)="leaveDropdownInput()"
@@ -143,24 +151,6 @@
             : ''
         "
       >
-        <!-- <svg
-          #InputList
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          class="w-6 h-6"
-          [ngClass]="
-            router.url != '/' && router.url != '/temp' ? 'stroke-white' : ''
-          "
-        >
-          <path
-            #InputList
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"
-          />
-        </svg> -->
         <svg
           #InputList
           xmlns="http://www.w3.org/2000/svg"
@@ -188,7 +178,7 @@
         >
           Input List
         </div>
-      </a>
+      </a> -->
     </nav>
   </div>
 
@@ -228,9 +218,7 @@
 
           <span class="mx-2 text-xs font-medium">Warehouse Occupany</span>
         </a>
-      </div>
 
-      <div class="space-y-3">
         <!-- <label class="px-3 text-xs uppercase text-gray-900"
           >Kejayan & Sukabumi</label
         > -->
@@ -389,14 +377,13 @@
       </div>
     </nav>
   </div>
-  <div
+  <!-- <div
     [@ZoomInOutAnimation]
     *ngIf="dropdownInput"
     class="fixed h-fit self-center px-5 mx-[70px] z-40 py-5 overflow-y-auto rounded-xl border-l border-r sm:w-46 w-60 bg-white border-gray-200"
   >
     <nav class="mt-1 -mx-3 space-y-6">
       <div class="space-y-3">
-        <!-- <label class="px-3 text-xs uppercase text-gray-900">Warehouse</label> -->
         <a
           class="flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-700 hover:text-gray-200"
           [routerLink]="['/input-occupancy']"
@@ -483,5 +470,5 @@
 
       
     </nav>
-  </div>
+  </div> -->
 </aside>

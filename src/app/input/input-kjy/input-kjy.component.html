@@ -65,6 +65,34 @@
               </div>
             </div>
             <!-- End Input -->
+            <div>
+              <a
+                (click)="changeCreateModal(true)"
+                class="relative inline-flex cursor-pointer items-center justify-center px-4 py-1 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-purple-500 rounded-full shadow-md group"
+              >
+                <span
+                  class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-purple-500 group-hover:translate-x-0 ease"
+                >
+                  <!-- <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg> -->
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    height="24"
+                    viewBox="0 -960 960 960"
+                    width="24"
+                  >
+                    <path
+                      d="M450-450H200v-60h250v-250h60v250h250v60H510v250h-60v-250Z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="absolute flex items-center justify-center w-full h-full text-purple-500 transition-all duration-300 transform group-hover:translate-x-full ease text-sm"
+                  >Create</span
+                >
+                <span class="relative invisible">Create</span>
+              </a>
+            </div>
 
             <!-- <div class="sm:col-span-2 md:grow">
               <div class="flex justify-end gap-x-2">
@@ -338,8 +366,6 @@
                     | paginate : config
                 "
                 class="bg-white hover:bg-gray-50 text-center cursor-pointer"
-                
-                
               >
                 <td class="h-px w-px whitespace-nowrap py-2.5">
                   <h1 class="text-sm">
@@ -554,3 +580,73 @@
     </div>
   </div>
 </div>
+
+<!-- Card Section -->
+<div
+
+*ngIf="createModal"
+  class="w-full h-full px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto fixed top-0 z-20 bg-slate-500 bg-opacity-30"
+>
+  <!-- Card -->
+  <div
+  [@ZoomInOutAnimation]
+    class="bg-white rounded-xl max-w-sm mx-auto shadow p-4 sm:p-7 dark:bg-slate-900"
+  >
+    <form>
+      <!-- Section -->
+      <div
+        class="grid sm:grid-cols-12 gap-2 sm:gap-4 py-8 first:pt-0 last:pb-0 border-t first:border-transparent border-gray-200 dark:border-gray-700"
+      >
+        <div class="sm:col-span-12 flex justify-between">
+          <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+            Create
+          </h2>
+          <a (click)="changeCreateModal(false)" class="p-1.5 hover:bg-slate-100 rounded-full cursor-pointer"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              viewBox="0 -960 960 960"
+              width="24"
+            >
+              <path
+                d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"
+              />
+            </svg>
+          </a>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-3">
+          <label
+            for="af-submit-application-full-name"
+            class="inline-block text-sm font-medium text-gray-500 mt-2.5"
+          >
+            Date
+          </label>
+        </div>
+        <!-- End Col -->
+
+        <div class="sm:col-span-9">
+          <div class="sm:flex">
+            <input
+              id="af-submit-application-full-name"
+              type="date"
+              class="py-2 px-3 block w-full border-gray-200 shadow-sm border -mt-px -ml-px rounded-md text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+            />
+            <!-- <input type="text" class="py-2 px-3 pr-11 block w-full border-gray-200 shadow-sm border -mt-px -ml-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-l-lg sm:mt-0 sm:first:ml-0 sm:first:rounded-tr-none sm:last:rounded-bl-none sm:last:rounded-r-lg text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"> -->
+          </div>
+        </div>
+        <!-- End Col -->
+      </div>
+      <!-- End Section -->
+      <button
+        type="button"
+        class="py-3 px-4 w-full inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+      >
+        Inisialize Date
+      </button>
+    </form>
+  </div>
+  <!-- End Card -->
+</div>
+<!-- End Card Section -->
