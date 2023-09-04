@@ -321,6 +321,7 @@ export class TemperatureComponent implements OnInit {
         this.tempChartFunc();
       },
       (err) => {
+        alert("Data can't loaded !");
         this.spinner.hide();
       },
       () => {
@@ -408,7 +409,7 @@ export class TemperatureComponent implements OnInit {
       dataLabelsTemperature: {
         enabled: true,
         formatter: function (val: any) {
-          return  val%1 == 0 ? ( val + '°C') : (val.toFixed(1) + '°C')
+          return val % 1 == 0 ? val + '°C' : val.toFixed(1) + '°C';
         },
       },
       dataLabelsHumidity: {
