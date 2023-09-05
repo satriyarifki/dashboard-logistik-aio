@@ -264,7 +264,7 @@
                     <span
                       class="text-xs font-semibold uppercase tracking-wide text-gray-800"
                     >
-                      Trucking
+                      Kejayan
                     </span>
                   </div>
                 </th>
@@ -274,7 +274,7 @@
                     <span
                       class="text-xs font-semibold uppercase tracking-wide text-gray-800"
                     >
-                      Delivery
+                      Sukabumi
                     </span>
                   </div>
                 </th>
@@ -284,7 +284,7 @@
                     <span
                       class="text-xs font-semibold uppercase tracking-wide text-gray-800"
                     >
-                      On Time Arrival
+                      Bekasi
                     </span>
                   </div>
                 </th>
@@ -293,7 +293,7 @@
                     <span
                       class="text-xs font-semibold uppercase tracking-wide text-gray-800"
                     >
-                      Damages Product
+                      Pasar Rebo
                     </span>
                   </div>
                 </th>
@@ -302,19 +302,11 @@
                     <span
                       class="text-xs font-semibold uppercase tracking-wide text-gray-800"
                     >
-                      Perfect Order
+                      YCH Cikarang
                     </span>
                   </div>
                 </th>
-                <th scope="col" class="px-6 py-3 text-left">
-                  <div class="flex items-center justify-center gap-x-2">
-                    <span
-                      class="text-xs font-semibold uppercase tracking-wide text-gray-800"
-                    >
-                      Handling Load
-                    </span>
-                  </div>
-                </th>
+                
 
                 <th scope="col" class="px-6 py-3 text-left">
                   <div class="flex items-center justify-center gap-x-2">
@@ -349,7 +341,7 @@
             <tbody class="divide-y divide-gray-200">
               <tr
                 *ngFor="
-                  let item of fleetKejayan
+                  let item of whOccup
                     | customFilter : searchInput
                     | paginate : config
                 "
@@ -364,26 +356,24 @@
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    {{ item.line_name }}
+                    {{ item.usage_kjy}}
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{ item.global_variable_1 }}</h1>
+                  <h1 class="text-sm">{{ item.usage_skb }}</h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    {{ item.product_name }}
+                    {{ item.usage_bekasi }}
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{ item.count_bag }}</h1>
+                  <h1 class="text-sm">{{ item.usage_ps_rebo }}</h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{ item.count_bag }}</h1>
+                  <h1 class="text-sm">{{ item.usage_external }}</h1>
                 </td>
-                <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{ item.count_bag }}</h1>
-                </td>
+                
                 <td class="h-px w-px whitespace-nowrap">
                   <a
                     [routerLink]="['/input-occupancy/edit']" [queryParams]="{date: item.date}"

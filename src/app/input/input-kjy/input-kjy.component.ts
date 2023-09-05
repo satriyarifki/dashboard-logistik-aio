@@ -66,6 +66,8 @@ export class InputKjyComponent {
     // console.log(this.config.itemsPerPage);
   }
 
+  
+
   changeCreateModal(behav: any){
     
     this.createModal = behav

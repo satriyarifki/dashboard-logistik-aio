@@ -16,7 +16,7 @@ export class InputOccupancyComponent {
   itemPerPage = 10;
 
   //API
-  fleetKejayan: any[] = [];
+  whOccup: any[] = [];
   fleetSukabumi: any[] = [];
 
   exportAsConfig: ExportAsConfig = {
@@ -28,7 +28,7 @@ export class InputOccupancyComponent {
     id: 'custom',
     itemsPerPage: this.itemPerPage,
     currentPage: 1,
-    totalItems: this.fleetKejayan.length,
+    totalItems: this.whOccup.length,
   };
   constructor(
     private apiService: ApiService,
@@ -39,12 +39,12 @@ export class InputOccupancyComponent {
   Service() {
     this.spinner.show();
     forkJoin(
-      this.apiService.getFleetKejayanAll(),
-      this.apiService.getFleetSukabumiAll()
+      this.apiService.getWarehouseOccupancyAll(),
     ).subscribe(
-      ([kejayan, sukabumi]) => {
-        this.fleetKejayan = kejayan;
-        this.fleetSukabumi = sukabumi;
+      ([wh]) => {
+        this.whOccup = wh;
+        console.log(wh);
+        
         // console.log(this.fleetKejayan);
         // console.log(this.fleetSukabumi.within_time);
 
