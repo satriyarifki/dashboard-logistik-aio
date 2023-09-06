@@ -144,7 +144,6 @@ export class InputKjyEditComponent {
       this.handlingBool = true;
     }
   }
-  onSubmit(desc: any) {}
   onSubmitTrucking() {
     this.spinner.show()
     if (this.formTrucking.invalid) {

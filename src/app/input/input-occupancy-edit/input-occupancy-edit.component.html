@@ -1,3 +1,10 @@
+<ngx-spinner
+  color="white"
+  type="square-jelly-box"
+  [fullScreen]="true"
+  size="medium"
+  ><p style="color: white">Loading...</p></ngx-spinner
+>
 <div class="py-10 md:py-0 my-2 md:pl-[4.5rem] w-full">
   <div class="flex flex-wrap mx-auto">
     <div class="px-2 w-full space-y-3">
@@ -17,29 +24,53 @@
         class="h-[97vh] flex justify-center flex-wrap bg-white px-8 py-5 text-center rounded-lg drop-shadow-xl"
       >
         <div class="h-fit w-full flex flex-col justify-center text-center">
-          <h1 class="font-manrope font-[700] text-3xl">Edit Warehouse Occupancy</h1>
+          <a
+            [routerLink]="['/input-occupancy']"
+            routerLinkActive="router-link-active"
+            class="p-1 hover:bg-slate-100 w-fit rounded-xl"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              viewBox="0 -960 960 960"
+              width="24"
+            >
+              <path
+                d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"
+              />
+            </svg>
+          </a>
+          <h1 class="font-manrope font-[700] text-3xl">
+            Edit Warehouse Occupancy
+          </h1>
           <h1 class="font-manrope font-[700] text-xl text-blue-700">
             {{ dateParams }}
           </h1>
         </div>
-        
 
         <!-- FORM -->
         <div
           *ngIf="truckingBool"
           class="mx-auto w-full flex justify-center h-fit p-4"
         >
-        <form class="space-y-4 text-gray-700 text-start w-3/4">
+          <form
+            *ngIf="form"
+            [formGroup]="form"
+            (ngSubmit)="onSubmit()"
+            class="space-y-4 text-gray-700 text-start w-3/4"
+          >
             <div class="flex flex-wrap items-center border py-1.5 rounded-lg">
-              <h1 class="text-lg font-semibold font-manrope w-1/5 text-center">Kejayan</h1>
+              <h1 class="text-lg font-semibold font-manrope w-1/5 text-center">
+                Kejayan
+              </h1>
               <div class="w-1/4 px-1.5">
                 <label class="block mb-1 text-sm" for="formGridCode_card"
                   >Capacity</label
                 >
                 <input
-                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                  type="text"
-                  id="formGridCode_card"
+                  class="w-full h-10 px-3 text-base border-indigo-500 placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="number"
+                  formControlName="capacity_kjy"
                 />
               </div>
               <div class="w-1/4 px-1.5">
@@ -47,32 +78,36 @@
                   >Usage</label
                 >
                 <input
-                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                  type="text"
-                  id="formGridCode_card"
+                  (change)="change()"
+                  class="w-full h-10 px-3 text-base border-red-500 placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="number"
+                  formControlName="usage_kjy"
                 />
               </div>
               <div class="w-1/4 px-1.5">
                 <label class="block mb-1 text-sm" for="formGridCode_card"
-                  >Empty</label
+                  >Remain</label
                 >
                 <input
-                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                  type="text"
-                  id="formGridCode_card"
+                  [disabled]="true"
+                  class="w-full h-10 px-3 text-base border-green-500 placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="number"
+                  formControlName="remain_kjy"
                 />
               </div>
             </div>
             <div class="flex flex-wrap items-center border py-1.5 rounded-lg">
-              <h1 class="text-lg font-semibold font-manrope w-1/5 text-center">Sukabumi</h1>
+              <h1 class="text-lg font-semibold font-manrope w-1/5 text-center">
+                Sukabumi
+              </h1>
               <div class="w-1/4 px-1.5">
                 <label class="block mb-1 text-sm" for="formGridCode_card"
                   >Capacity</label
                 >
                 <input
-                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                  type="text"
-                  id="formGridCode_card"
+                  class="w-full h-10 px-3 text-base border-indigo-500 placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="number"
+                  formControlName="capacity_skb"
                 />
               </div>
               <div class="w-1/4 px-1.5">
@@ -80,32 +115,36 @@
                   >Usage</label
                 >
                 <input
-                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                  type="text"
-                  id="formGridCode_card"
+                  (change)="change()"
+                  class="w-full h-10 px-3 text-base border-red-500 placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="number"
+                  formControlName="usage_skb"
                 />
               </div>
               <div class="w-1/4 px-1.5">
                 <label class="block mb-1 text-sm" for="formGridCode_card"
-                  >Empty</label
+                  >Remain</label
                 >
                 <input
-                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                  type="text"
-                  id="formGridCode_card"
+                  [disabled]="true"
+                  class="w-full h-10 px-3 text-base border-green-500 placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="number"
+                  formControlName="remain_skb"
                 />
               </div>
             </div>
             <div class="flex flex-wrap items-center border py-1.5 rounded-lg">
-              <h1 class="text-lg font-semibold font-manrope w-1/5 text-center">Bekasi</h1>
+              <h1 class="text-lg font-semibold font-manrope w-1/5 text-center">
+                Bekasi
+              </h1>
               <div class="w-1/4 px-1.5">
                 <label class="block mb-1 text-sm" for="formGridCode_card"
                   >Capacity</label
                 >
                 <input
-                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                  type="text"
-                  id="formGridCode_card"
+                  class="w-full h-10 px-3 text-base border-indigo-500 placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="number"
+                  formControlName="capacity_bekasi"
                 />
               </div>
               <div class="w-1/4 px-1.5">
@@ -113,32 +152,36 @@
                   >Usage</label
                 >
                 <input
-                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                  type="text"
-                  id="formGridCode_card"
+                  (change)="change()"
+                  class="w-full h-10 px-3 text-base border-red-500 placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="number"
+                  formControlName="usage_bekasi"
                 />
               </div>
               <div class="w-1/4 px-1.5">
                 <label class="block mb-1 text-sm" for="formGridCode_card"
-                  >Empty</label
+                  >Remain</label
                 >
                 <input
-                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                  type="text"
-                  id="formGridCode_card"
+                  [disabled]="true"
+                  class="w-full h-10 px-3 text-base border-green-500 placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="number"
+                  formControlName="remain_bekasi"
                 />
               </div>
             </div>
             <div class="flex flex-wrap items-center border py-1.5 rounded-lg">
-              <h1 class="text-lg font-semibold font-manrope w-1/5 text-center">Pasar Rebo</h1>
+              <h1 class="text-lg font-semibold font-manrope w-1/5 text-center">
+                Pasar Rebo
+              </h1>
               <div class="w-1/4 px-1.5">
                 <label class="block mb-1 text-sm" for="formGridCode_card"
                   >Capacity</label
                 >
                 <input
-                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                  type="text"
-                  id="formGridCode_card"
+                  class="w-full h-10 px-3 text-base border-indigo-500 placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="number"
+                  formControlName="capacity_ps_rebo"
                 />
               </div>
               <div class="w-1/4 px-1.5">
@@ -146,32 +189,36 @@
                   >Usage</label
                 >
                 <input
-                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                  type="text"
-                  id="formGridCode_card"
+                  (change)="change()"
+                  class="w-full h-10 px-3 text-base border-red-500 placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="number"
+                  formControlName="usage_ps_rebo"
                 />
               </div>
               <div class="w-1/4 px-1.5">
                 <label class="block mb-1 text-sm" for="formGridCode_card"
-                  >Empty</label
+                  >Remain</label
                 >
                 <input
-                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                  type="text"
-                  id="formGridCode_card"
+                  [disabled]="true"
+                  class="w-full h-10 px-3 text-base border-green-500 placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="number"
+                  formControlName="remain_ps_rebo"
                 />
               </div>
             </div>
             <div class="flex flex-wrap items-center border py-1.5 rounded-lg">
-              <h1 class="text-lg font-semibold font-manrope w-1/5 text-center">Cikarang</h1>
+              <h1 class="text-lg font-semibold font-manrope w-1/5 text-center">
+                Cikarang
+              </h1>
               <div class="w-1/4 px-1.5">
                 <label class="block mb-1 text-sm" for="formGridCode_card"
                   >Capacity</label
                 >
                 <input
-                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                  type="text"
-                  id="formGridCode_card"
+                  class="w-full h-10 px-3 text-base border-indigo-500 placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="number"
+                  formControlName="capacity_external"
                 />
               </div>
               <div class="w-1/4 px-1.5">
@@ -179,33 +226,34 @@
                   >Usage</label
                 >
                 <input
-                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                  type="text"
-                  id="formGridCode_card"
+                  (change)="change()"
+                  class="w-full h-10 px-3 text-base border-red-500 placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="number"
+                  formControlName="usage_external"
                 />
               </div>
               <div class="w-1/4 px-1.5">
                 <label class="block mb-1 text-sm" for="formGridCode_card"
-                  >Empty</label
+                  >Remain</label
                 >
                 <input
-                  class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                  type="text"
-                  id="formGridCode_card"
+                  [disabled]="true"
+                  class="w-full h-10 px-3 text-base border-green-500 placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="number"
+                  formControlName="remain_external"
                 />
               </div>
             </div>
-            
 
-            <button
-              class="h-10 px-5 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100"
-            >
-              Submit
-            </button>
+            <div class="flex justify-center">
+              <button
+                class="py-2 px-6 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-50"
+              >
+                Submit
+              </button>
+            </div>
           </form>
         </div>
-
-        
       </div>
     </div>
   </div>

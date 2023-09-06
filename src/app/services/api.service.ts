@@ -69,7 +69,13 @@ export class ApiService {
   getWarehouseOccupancy(): Observable<any> {
     return this.http.get(this.baseUrl + 'warehouse-occu');
   }
+  getWarehouseOccupancyByDate(date:any): Observable<any> {
+    return this.http.get(this.baseUrl + 'warehouse-occu/' + date);
+  }
   getWarehouseOccupancyAll(): Observable<any> {
     return this.http.get(this.baseUrl + 'warehouse-occu-all');
+  }
+  updateWarehouseOccupancy(id: any, body: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'warehouse-occu-update/' + id, body);
   }
 }
