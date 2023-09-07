@@ -376,7 +376,7 @@
                 
                 <td class="h-px w-px whitespace-nowrap">
                   <a
-                    [routerLink]="['/input-occupancy/edit']" [queryParams]="{date: item.date}"
+                    [routerLink]="['/input-occupancy/edit']" [queryParams]="{date: item.date, id:item.id}"
                     [ngClass]="
                       item.approval != 1
                         ? ' bg-gradient-to-tr from-yellow-600 to-yellow-500 border-yellow-700'

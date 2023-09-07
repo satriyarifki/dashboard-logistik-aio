@@ -11,6 +11,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class InputOccupancyEditComponent {
   dateParams = this.actRoute.snapshot.queryParams['date'];
+  idParams = this.actRoute.snapshot.queryParams['id'];
   //TOOLS
   damagesBool = false;
   truckingBool = false;
@@ -31,7 +32,7 @@ export class InputOccupancyEditComponent {
   ) {
     spinner.show();
     this.truckingBool = true;
-    apiService.getWarehouseOccupancyByDate(this.dateParams).subscribe(
+    apiService.getWarehouseOccupancyById(this.idParams).subscribe(
       (data) => {
         this.occupancyApi = data;
         console.log(this.occupancyApi);

@@ -12,6 +12,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class InputKjyEditComponent {
   dateParams = this.actRoute.snapshot.queryParams['date'];
+  idParams = this.actRoute.snapshot.queryParams['id'];
   //TOOLS
   damagesBool = false;
   truckingBool = false;
@@ -38,8 +39,7 @@ export class InputKjyEditComponent {
     private spinner: NgxSpinnerService
   ) {
     spinner.show();
-    console.log(this.dateParams);
-    forkJoin(apiService.getFleetKejayanById(this.dateParams)).subscribe(
+    forkJoin(apiService.getFleetKejayanById(this.idParams)).subscribe(
       ([kejayan]) => {
         this.dataApi = kejayan;
         // console.log(this.dataApi);

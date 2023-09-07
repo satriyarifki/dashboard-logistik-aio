@@ -12,6 +12,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class InputSkbEditComponent {
   dateParams = this.actRoute.snapshot.queryParams['date'];
+  idParams = this.actRoute.snapshot.queryParams['id'];
   //TOOLS
   damagesBool = false;
   truckingBool = false;
@@ -38,8 +39,8 @@ export class InputSkbEditComponent {
     private spinner: NgxSpinnerService
   ) {
     spinner.show();
-    // console.log(this.dateParams);
-    forkJoin(apiService.getFleetSukabumiById(this.dateParams)).subscribe(
+    // console.log(this.idParams);
+    forkJoin(apiService.getFleetSukabumiById(this.idParams)).subscribe(
       ([sukabumi]) => {
         this.dataApi = sukabumi;
         // console.log(this.dataApi);

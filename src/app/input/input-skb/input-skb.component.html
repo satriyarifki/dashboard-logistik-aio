@@ -397,7 +397,7 @@
                 <td class="h-px w-px whitespace-nowrap">
                   <a
                     [routerLink]="['/input-skb/edit']"
-                    [queryParams]="{ date: item.date }"
+                    [queryParams]="{ date: item.date, id:item.id }"
                     [ngClass]="
                       item.approval != 1
                         ? ' bg-gradient-to-tr from-yellow-600 to-yellow-500 border-yellow-700'

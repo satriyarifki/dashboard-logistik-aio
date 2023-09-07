@@ -109,7 +109,7 @@ export class OccupancyComponent {
         },
       },
       titleCikarang: {
-        text: 'YCH Cibutung',
+        text: 'YCH Cibitung',
         align: 'center',
         offsetY: 35,
         style: {
