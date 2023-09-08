@@ -53,6 +53,8 @@ export class InputKjyEditComponent {
       }
     );
 
+    
+
     this.truckingBool = true;
   }
 
