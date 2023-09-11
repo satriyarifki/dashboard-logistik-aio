@@ -15,7 +15,7 @@ export class InputLn2Component {
   searchInput: any;
   itemPerPage = 10;
   createModal = false
-  arrivalBool = false
+  arrivalBool = true
   dateReport = '2023-01-22'
 
   //API

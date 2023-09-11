@@ -21,6 +21,7 @@ import { InputOccupancyEditComponent } from './input/input-occupancy-edit/input-
 import { InputKjyEditComponent } from './input/input-kjy-edit/input-kjy-edit.component';
 import { InputSkbEditComponent } from './input/input-skb-edit/input-skb-edit.component';
 import { InputLn2Component } from './input-ln2/input-ln2.component';
+import { InputLn2ArrivalCreateComponent } from './input-ln2-arrival-create/input-ln2-arrival-create.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { animation: 'HomePage' } },
@@ -48,6 +49,7 @@ const routes: Routes = [
   { path: 'input-skb', component: InputSkbComponent },
   { path: 'input-skb/edit', component: InputSkbEditComponent },
   { path: 'input-ln2', component: InputLn2Component },
+  { path: 'input-ln2/arrival-create', component: InputLn2ArrivalCreateComponent },
   { path: 'temp', component: TemperatureComponent },
   { path: 'check-ln', component: CheckLn2Component },
   { path: 'documentations', component: DocumentationsComponent },
