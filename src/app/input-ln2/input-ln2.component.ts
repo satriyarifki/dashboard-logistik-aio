@@ -16,10 +16,11 @@ export class InputLn2Component {
   itemPerPage = 10;
   createModal = false
   arrivalBool = false
-  reportLnBool = true
+  dateReport = '2023-01-22'
 
   //API
   arrivalAll: any[] = [];
+  reportLnAll: any[] = [];
 
   exportAsConfig: ExportAsConfig = {
     type: 'csv', // the type you want to download
@@ -36,9 +37,12 @@ export class InputLn2Component {
   constructor(private apiService: ApiService, private spinner: NgxSpinnerService){
     forkJoin(
       this.apiService.getLn2ArrivalAll(),
+      apiService.getReportLn2All(),
+      this.apiService.getArrivalLn2All(),
     ).subscribe(
-      ([ln2]) => {
-        this.arrivalAll = ln2;
+      ([ln2,report, arrival]) => {
+        this.arrivalAll = arrival;
+        this.reportLnAll = report;
         console.log(this.arrivalAll);
         // console.log(this.fleetSukabumi.within_time);
 
@@ -58,6 +62,9 @@ export class InputLn2Component {
     // console.log(this.config.itemsPerPage);
   }
 
+  filterReportByDay(){
+    return this.reportLnAll.filter(data => data.date == this.dateReport).reverse()
+  }
   
 
   changeCreateModal(behav: any){

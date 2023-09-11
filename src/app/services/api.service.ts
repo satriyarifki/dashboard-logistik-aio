@@ -101,4 +101,10 @@ export class ApiService {
   getLn2ArrivalAll():Observable<any>{
     return this.http.get(this.baseUrl + 'check-ln2');
   }
+  getArrivalLn2All():Observable<any>{
+    return this.http.get(this.baseUrl + 'arrival-ln2');
+  }
+  getReportLn2All():Observable<any>{
+    return this.http.get(this.baseUrl + 'report-ln2');
+  }
 }

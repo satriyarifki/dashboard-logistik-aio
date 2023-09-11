@@ -23,10 +23,28 @@
       <div
         class="h-[88vh] bg-white px-8 py-5 text-center rounded-lg overflow-hidden drop-shadow-xl"
       >
-        <div class="h-fit w-full flex justify-evenly pt-1 pb-5 px-8 text-start ">
-          <h1 [ngClass]="arrivalBool? 'bg-slate-700 text-white' : 'hover:bg-slate-100 duration-150 transition-colors text-gray-500'" class="rounded px-2 py-0.5 cursor-pointer text-xl font-semibold">Arrival Check Ln2</h1>
-          <h1 [ngClass]="arrivalBool? '' : 'bg-slate-700 text-white'" class="rounded px-2 py-0.5 cursor-pointer text-xl font-semibold">Report Update Ln2</h1>
+        <div class="h-fit w-full flex justify-evenly pt-1 pb-5 px-8 text-start">
+          <h1
+          (click)="arrivalBool = true"
+            [ngClass]="
+              arrivalBool
+                ? 'bg-slate-700 text-white'
+                : 'hover:bg-slate-100 duration-150 transition-colors text-gray-500'
+            "
+            class="rounded px-2 py-0.5 cursor-pointer text-xl font-semibold"
+          >
+            Arrival Check Ln2
+          </h1>
+          <h1
+          (click)="arrivalBool = false"
+            [ngClass]="arrivalBool ? 'hover:bg-slate-100 duration-150 transition-colors text-gray-500' : 'bg-slate-700 text-white'"
+            class="rounded px-2 py-0.5 cursor-pointer text-xl font-semibold"
+          >
+            Report Update Ln2
+          </h1>
         </div>
+
+        <!-- Arrival Check Ln2 -->
         <div
           *ngIf="arrivalBool"
           class="w-full bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden"
@@ -307,16 +325,6 @@
                     <span
                       class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
                     >
-                      Tanki
-                    </span>
-                  </div>
-                </th>
-
-                <th scope="col" class="px-6 py-3 text-left">
-                  <div class="flex items-center justify-center gap-x-2">
-                    <span
-                      class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
-                    >
                       Supplier
                     </span>
                   </div>
@@ -326,7 +334,7 @@
                     <span
                       class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
                     >
-                      07:00
+                      No Mobil
                     </span>
                   </div>
                 </th>
@@ -335,8 +343,7 @@
                     <span
                       class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
                     >
-                      Level <br />
-                      Sesudah
+                      Jenis Mobil
                     </span>
                   </div>
                 </th>
@@ -369,22 +376,18 @@
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    {{ item.checker }}
+                    {{ item.checkerId }}
                   </h1>
                 </td>
-                <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">
-                    {{ item.tanki }}
-                  </h1>
-                </td>
+                
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">{{ item.supplier }}</h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{ item.level_sebelum }}</h1>
+                  <h1 class="text-sm">{{ item.no_mobil }}</h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{ item.level_sesudah }}</h1>
+                  <h1 class="text-sm">{{ item.jenis_mobil }}</h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <a
@@ -566,7 +569,10 @@
           </div>
           <!-- End Footer -->
         </div>
+
+        <!-- Report Update Ln2 -->
         <div
+        *ngIf="!arrivalBool"
           class="w-full bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden"
         >
           <!-- Header -->
@@ -574,37 +580,55 @@
             class="px-6 py-2.5 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200"
           >
             <!-- Input -->
-            <div class="sm:col-span-1">
-              <label for="hs-as-table-product-review-search" class="sr-only"
-                >Search</label
-              >
-              <div class="relative">
-                <input
-                  type="text"
-                  id="hs-as-table-product-review-search"
-                  name="hs-as-table-product-review-search"
-                  class="py-2 px-3 pl-11 block w-full border-gray-200 shadow-sm rounded-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500"
-                  placeholder="Search"
-                  [(ngModel)]="searchInput"
-                />
-                <div
-                  class="absolute inset-y-0 left-0 flex items-center pointer-events-none pl-4"
-                >
-                  <svg
-                    class="h-4 w-4 text-gray-400"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-                    />
-                  </svg>
-                </div>
-              </div>
+            <div class="flex gap-2">
+                <div class="sm:col-span-1">
+                    <label for="hs-as-table-product-review-search" class="sr-only"
+                      >Date</label
+                    >
+                    <div class="relative">
+                      <input
+                        type="date"
+                        class="py-2 px-3  block w-full border border-gray-200 shadow-sm rounded-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                        placeholder="Date"
+                        [(ngModel)]="dateReport"
+                      />
+                      
+                    </div>
+                  </div>
+                <div class="sm:col-span-1">
+                    <label for="hs-as-table-product-review-search" class="sr-only"
+                      >Search</label
+                    >
+                    <div class="relative">
+                      <input
+                        type="text"
+                        id="hs-as-table-product-review-search"
+                        name="hs-as-table-product-review-search"
+                        class="py-2 px-3 pl-11 block w-full border border-gray-200 shadow-sm rounded-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                        placeholder="Search"
+                        [(ngModel)]="searchInput"
+                      />
+                      <div
+                        class="absolute inset-y-0 left-0 flex items-center pointer-events-none pl-4"
+                      >
+                        <svg
+                          class="h-4 w-4 text-gray-400"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  
             </div>
+            
             <!-- End Input -->
             <div>
               <a
@@ -820,17 +844,7 @@
           <table id="stockTable" class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50 text-center">
               <tr>
-                <th scope="col" class="px-6 py-3 text-left">
-                  <div class="flex items-center justify-center gap-x-2">
-                    <span
-                      class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
-                    >
-                      Date
-                    </span>
-                  </div>
-                </th>
-
-                <th scope="col" class="px-6 py-3 text-left">
+                <th rowspan="2" scope="col" class="px-6 pt-3 text-left">
                   <div class="flex items-center justify-center gap-x-2">
                     <span
                       class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
@@ -840,62 +854,135 @@
                   </div>
                 </th>
 
-                <th scope="col" class="px-6 py-3 text-left">
+                <th rowspan="2" scope="col" class="px-6 pt-3 text-left">
                   <div class="flex items-center justify-center gap-x-2">
                     <span
                       class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
                     >
-                      Tanki
+                      Jam
+                    </span>
+                  </div>
+                </th>
+                <th  colspan="2" scope="col" class="px-6 pt-3 text-left">
+                    <div class="flex items-center justify-center gap-x-2">
+                      <span
+                        class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                      >
+                        Air Product
+                      </span>
+                    </div>
+                  </th>
+                <th colspan="2" scope="col" class="px-6 pt-3 text-left">
+                  <div class="flex items-center justify-center gap-x-2">
+                    <span
+                      class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                    >
+                      Samator Soyjoy
                     </span>
                   </div>
                 </th>
 
-                <th scope="col" class="px-6 py-3 text-left">
+                <th colspan="2" scope="col" class="px-6 pt-3 text-left">
                   <div class="flex items-center justify-center gap-x-2">
                     <span
                       class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
                     >
-                      Supplier
+                      Samator TB1
                     </span>
                   </div>
                 </th>
-                <th scope="col" class="px-6 py-3 text-left">
+                <th colspan="2" scope="col" class="px-6 pt-3 text-left">
                   <div class="flex items-center justify-center gap-x-2">
                     <span
                       class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
                     >
-                      Level <br />
-                      Sebelum
+                      Samator TB2
                     </span>
                   </div>
                 </th>
-                <th scope="col" class="px-6 py-3 text-left">
-                  <div class="flex items-center justify-center gap-x-2">
-                    <span
-                      class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
-                    >
-                      Level <br />
-                      Sesudah
-                    </span>
-                  </div>
-                </th>
-
-                <th scope="col" class="px-6 py-3 text-left">
-                  <div class="flex items-center justify-center gap-x-2">
-                    <span
-                      class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
-                    >
-                      Action
-                    </span>
-                  </div>
-                </th>
+              </tr>
+              <tr>
+                
+                <th scope="col" class="px-6 pb-3 pt-1 text-left">
+                    <div class="flex items-center justify-center gap-x-2">
+                      <span
+                        class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                      >
+                        Level
+                      </span>
+                    </div>
+                  </th>
+                <th scope="col" class="px-6 pb-3 pt-1 text-left">
+                    <div class="flex items-center justify-center gap-x-2">
+                      <span
+                        class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                      >
+                        Press
+                      </span>
+                    </div>
+                  </th>
+                <th scope="col" class="px-6 pb-3 pt-1 text-left">
+                    <div class="flex items-center justify-center gap-x-2">
+                      <span
+                        class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                      >
+                        Level
+                      </span>
+                    </div>
+                  </th>
+                <th scope="col" class="px-6 pb-3 pt-1 text-left">
+                    <div class="flex items-center justify-center gap-x-2">
+                      <span
+                        class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                      >
+                        Press
+                      </span>
+                    </div>
+                  </th>
+                <th scope="col" class="px-6 pb-3 pt-1 text-left">
+                    <div class="flex items-center justify-center gap-x-2">
+                      <span
+                        class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                      >
+                        Level
+                      </span>
+                    </div>
+                  </th>
+                <th scope="col" class="px-6 pb-3 pt-1 text-left">
+                    <div class="flex items-center justify-center gap-x-2">
+                      <span
+                        class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                      >
+                        Press
+                      </span>
+                    </div>
+                  </th>
+                <th scope="col" class="px-6 pb-3 pt-1 text-left">
+                    <div class="flex items-center justify-center gap-x-2">
+                      <span
+                        class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                      >
+                        Level
+                      </span>
+                    </div>
+                  </th>
+                <th scope="col" class="px-6 pb-3 pt-1 text-left">
+                    <div class="flex items-center justify-center gap-x-2">
+                      <span
+                        class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                      >
+                        Press
+                      </span>
+                    </div>
+                  </th>
+                
               </tr>
             </thead>
 
             <tbody class="divide-y divide-gray-200">
               <tr
                 *ngFor="
-                  let item of arrivalAll
+                  let item of filterReportByDay()
                     | customFilter : searchInput
                     | paginate : config
                 "
@@ -903,48 +990,44 @@
               >
                 <td class="h-px w-px whitespace-nowrap py-2.5">
                   <h1 class="text-sm">
-                    {{ item.date | date : "mediumDate" }}
+                    <!-- {{ item.date | date : "mediumDate" }} -->
+                    {{ item.pic }}
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    {{ item.checker }}
+                    {{item.jam}}
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    {{ item.tanki }}
+                    {{item.lev_air_produk_inch_h2o}}
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{ item.supplier }}</h1>
+                  <h1 class="text-sm">
+                    {{item.pres_air_produk_bar}}
+                  </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{ item.level_sebelum }}</h1>
+                  <h1 class="text-sm">{{item.lev_samator_soyjoy_mm_h2o}}</h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{ item.level_sesudah }}</h1>
+                  <h1 class="text-sm">{{item.pres_soyjoy_bar}}</h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <a
-                    [ngClass]="
-                      item.approval != 1
-                        ? ' bg-gradient-to-tr from-yellow-600 to-yellow-500 border-yellow-700'
-                        : 'bg-gradient-to-tr from-green-600 to-green-500 border-green-700 '
-                    "
-                    class="rounded-lg relative inline-flex group items-center justify-center px-2.5 py-1.5 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg text-white"
-                  >
-                    <span
-                      class="absolute w-0 h-0 transition-all duration-200 ease-out bg-white rounded-full group-hover:w-28 group-hover:h-10 opacity-10"
-                    ></span>
-                    <span *ngIf="item.approval != 1" class="relative text-xs">
-                      Edit</span
-                    >
-                    <span *ngIf="item.approval == 1" class="relative text-xs"
-                      >Approved</span
-                    >
-                  </a>
+                  <h1 class="text-sm">{{item.lev_samator_tb1_mm_h2o}}</h1>
                 </td>
+                <td class="h-px w-px whitespace-nowrap">
+                  <h1 class="text-sm">{{item.pres_samator_tb1_bar}}</h1>
+                </td>
+                <td class="h-px w-px whitespace-nowrap">
+                  <h1 class="text-sm">{{item.lev_samator_tb2_mm_h2o}}</h1>
+                </td>
+                <td class="h-px w-px whitespace-nowrap">
+                  <h1 class="text-sm">{{item.pres_samator_tb2_bar}}</h1>
+                </td>
+                
                 <td class="h-px w-px whitespace-nowrap"></td>
                 <!-- <td class="h-px w-px whitespace-nowrap">
               
