@@ -96,4 +96,9 @@ export class ApiService {
   updateWarehouseOccupancy(id: any, body: any): Observable<any> {
     return this.http.post(this.baseUrl + 'warehouse-occu-update/' + id, body);
   }
+
+  //CHECK LN2
+  getLn2ArrivalAll():Observable<any>{
+    return this.http.get(this.baseUrl + 'check-ln2');
+  }
 }

@@ -39,6 +39,7 @@ import { CustomFilterPipe } from './pipe/custom-filter.pipe';
 import { InputOccupancyEditComponent } from './input/input-occupancy-edit/input-occupancy-edit.component';
 import { InputKjyEditComponent } from './input/input-kjy-edit/input-kjy-edit.component';
 import { InputSkbEditComponent } from './input/input-skb-edit/input-skb-edit.component';
+import { InputLn2Component } from './input-ln2/input-ln2.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { InputSkbEditComponent } from './input/input-skb-edit/input-skb-edit.com
     CustomFilterPipe,
     InputOccupancyEditComponent,
     InputKjyEditComponent,
-    InputSkbEditComponent
+    InputSkbEditComponent,
+    InputLn2Component
   ],
   imports: [
     BrowserModule,

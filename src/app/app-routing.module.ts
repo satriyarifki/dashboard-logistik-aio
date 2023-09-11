@@ -20,6 +20,7 @@ import { InputOccupancyComponent } from './input/input-occupancy/input-occupancy
 import { InputOccupancyEditComponent } from './input/input-occupancy-edit/input-occupancy-edit.component';
 import { InputKjyEditComponent } from './input/input-kjy-edit/input-kjy-edit.component';
 import { InputSkbEditComponent } from './input/input-skb-edit/input-skb-edit.component';
+import { InputLn2Component } from './input-ln2/input-ln2.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { animation: 'HomePage' } },
@@ -46,6 +47,7 @@ const routes: Routes = [
   { path: 'input-kjy/edit', component: InputKjyEditComponent },
   { path: 'input-skb', component: InputSkbComponent },
   { path: 'input-skb/edit', component: InputSkbEditComponent },
+  { path: 'input-ln2', component: InputLn2Component },
   { path: 'temp', component: TemperatureComponent },
   { path: 'check-ln', component: CheckLn2Component },
   { path: 'documentations', component: DocumentationsComponent },
