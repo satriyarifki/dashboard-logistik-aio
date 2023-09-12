@@ -107,4 +107,13 @@ export class ApiService {
   getReportLn2All():Observable<any>{
     return this.http.get(this.baseUrl + 'report-ln2');
   }
+  getKaryawan():Observable<any>{
+    return this.http.get(this.baseUrl + 'ln2-karyawan')
+  }
+  getSupplier():Observable<any>{
+    return this.http.get(this.baseUrl + 'ln2-supplier')
+  }
+  getTanki():Observable<any>{
+    return this.http.get(this.baseUrl + 'ln2-tanki')
+  }
 }

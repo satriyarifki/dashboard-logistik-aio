@@ -4,24 +4,22 @@ import { forkJoin } from 'rxjs';
 import { ApiService } from '../services/api.service';
 
 @Component({
-  selector: 'app-input-ln2-arrival-create',
-  templateUrl: './input-ln2-arrival-create.component.html',
-  styleUrls: ['./input-ln2-arrival-create.component.css'],
+  selector: 'app-input-ln2-check-create',
+  templateUrl: './input-ln2-check-create.component.html',
+  styleUrls: ['./input-ln2-check-create.component.css'],
   providers: [DatePipe]
 })
-export class InputLn2ArrivalCreateComponent {
+export class InputLn2CheckCreateComponent {
   itemLoop: number = 1;
   arrayItem: any[] = [];
   dateNow = this.datePipe.transform(new Date(),'yyyy-MM-dd')
+  satuan:any = '';
 
-  //Boolean
-    supplierValue = 1
+  //API
+  supplierApi: any[]=[]
+  tankiApi: any[]=[]
+  karyawanApi: any[]=[]
 
-   //API
-   supplierApi: any[]=[]
-   tankiApi: any[]=[]
-   karyawanApi: any[]=[]
-   
   constructor(private datePipe: DatePipe, private apiService: ApiService) {
     this.arrayItem.push('item');
     forkJoin(apiService.getSupplier(), apiService.getTanki(), apiService.getKaryawan()).subscribe(([supplier,tanki,karyawan])=>{
@@ -33,11 +31,17 @@ export class InputLn2ArrivalCreateComponent {
       console.log(this.karyawanApi);
       
     })
+    
   }
 
   plusItemLoop() {
     // this.itemLoop++;
-    this.arrayItem.push('item');
+    if (this.arrayItem.length < 4) {
+      this.arrayItem.push('item');
+    }else {
+      alert('Maximum Item is 4')
+    }
+    
     console.log(this.arrayItem);
   }
 
@@ -48,10 +52,22 @@ export class InputLn2ArrivalCreateComponent {
 
     console.log(this.arrayItem);
   }
+  changeSupplier(id:any){
+    if (id == 1) {
+      this.satuan = 'InchH₂O'
+    } else {
+      this.satuan = 'mmH₂O'
+    }
+  }
   popItemLoop() {
     // this.itemLoop--;
 
-    const t = this.arrayItem.pop();
+    if (this.arrayItem.length != 1) {
+      this.arrayItem.pop();
+    }else {
+      alert('Minimum Item is 1')
+    }
+    
 
     console.log(this.arrayItem);
   }

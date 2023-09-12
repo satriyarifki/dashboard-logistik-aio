@@ -41,7 +41,7 @@ export class InputLn2Component {
       this.apiService.getArrivalLn2All(),
     ).subscribe(
       ([ln2,report, arrival]) => {
-        this.arrivalAll = arrival;
+        this.arrivalAll = arrival.reverse();
         this.reportLnAll = report;
         console.log(this.arrivalAll);
         // console.log(this.fleetSukabumi.within_time);

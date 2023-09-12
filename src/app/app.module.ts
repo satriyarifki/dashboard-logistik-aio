@@ -41,6 +41,7 @@ import { InputKjyEditComponent } from './input/input-kjy-edit/input-kjy-edit.com
 import { InputSkbEditComponent } from './input/input-skb-edit/input-skb-edit.component';
 import { InputLn2Component } from './input-ln2/input-ln2.component';
 import { InputLn2ArrivalCreateComponent } from './input-ln2-arrival-create/input-ln2-arrival-create.component';
+import { InputLn2CheckCreateComponent } from './input-ln2-check-create/input-ln2-check-create.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { InputLn2ArrivalCreateComponent } from './input-ln2-arrival-create/input
     InputKjyEditComponent,
     InputSkbEditComponent,
     InputLn2Component,
-    InputLn2ArrivalCreateComponent
+    InputLn2ArrivalCreateComponent,
+    InputLn2CheckCreateComponent
   ],
   imports: [
     BrowserModule,
