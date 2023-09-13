@@ -116,4 +116,10 @@ export class ApiService {
   getTanki():Observable<any>{
     return this.http.get(this.baseUrl + 'ln2-tanki')
   }
+  postArrivalCreate(body:any):Observable<any>{
+    return this.http.post(this.baseUrl +'arrival-create', body)
+  }
+  postArrivalAirCreate(body:any):Observable<any>{
+    return this.http.post(this.baseUrl +'arrival-create/air', body)
+  }
 }

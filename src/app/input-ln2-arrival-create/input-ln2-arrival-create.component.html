@@ -16,7 +16,12 @@
 
           <div class="mt-5">
             <!-- Form -->
-            <form class="flex flex-wrap">
+            <form
+              *ngIf="form"
+              [formGroup]="form"
+              (ngSubmit)="onSubmit()"
+              class="flex flex-wrap"
+            >
               <div
                 class="w-2/5 h-[72vh] grid content-center rounded-lg bg-sky-100"
               >
@@ -33,7 +38,7 @@
                       >
                       <input
                         type="date"
-                        [value]="dateNow"
+                        formControlName="date"
                         class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -47,6 +52,7 @@
                       >
                       <select
                         #supp
+                        formControlName="supplierId"
                         class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       >
                         <option
@@ -64,17 +70,18 @@
                         class="block text-sm text-gray-700 font-medium"
                         >Checker</label
                       >
-                      <Select
+                      <select
+                        formControlName="checkerId"
                         class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       >
-                      <option>Choose Checker</option>
-                      <option
-                      *ngFor="let item of karyawanApi"
-                      [value]="item.id"
-                    >
-                      {{ item.nama }}
-                    </option>
-                      </Select>
+                        <option value="0">Choose Checker</option>
+                        <option
+                          *ngFor="let item of karyawanApi"
+                          [value]="item.nik"
+                        >
+                          {{ item.nama }}
+                        </option>
+                      </select>
                     </div>
                   </div>
                   <!-- End Grid -->
@@ -89,6 +96,7 @@
                       >
                       <input
                         type="text"
+                        formControlName="noMobil"
                         class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -100,6 +108,7 @@
                       >
                       <input
                         type="text"
+                        formControlName="jenisMobil"
                         class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -109,235 +118,248 @@
               </div>
 
               <!------------- Input Air Products -------------->
-              <div
-                [ngClass]="supp.value == '1' ? '' : 'hidden'"
-                class="w-3/5 h-[72vh] flex flex-col gap-3 px-5"
-              >
-                <!-- Grid -->
-                <div class="flex flex-col gap-1.5">
-                  <div class="grid grid-cols-1 justify-items-stretch gap-3">
-                    <h1
-                      class="text-md font-medium underline underline-offset-2"
-                    >
-                      Sebelum Pengisian
-                    </h1>
-                  </div>
-                  <div class="grid grid-cols-1 sm:grid-cols-11 gap-3">
-                    <div class="col-span-3">
-                      <label
-                        for="hs-firstname-hire-us-2"
-                        class="block text-sm text-gray-700 font-medium"
-                        >Nama Tanki</label
+             
+                <div
+                  formArrayName="airProduct"
+                  [ngClass]="supp.value == '1' ? '' : 'hidden'"
+                  class="w-3/5 h-[72vh] flex flex-col gap-3 px-5"
+                >
+                  <!-- Grid -->
+                  <div [formGroupName]="0" class="flex flex-col gap-1.5" >
+                    <div class="grid grid-cols-1 justify-items-stretch gap-3">
+                      <h1
+                        class="text-md font-medium underline underline-offset-2"
                       >
-                      <input
-                        type="text"
-                        disabled
-                        [value]="tankiApi[0].nama_tanki"
-                        class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-                      />
+                        Sebelum Pengisian
+                      </h1>
                     </div>
-                    <div class="col-span-2">
-                      <label
-                        for="hs-company-website-hire-us-2"
-                        class="block text-sm text-gray-700 font-medium"
-                        >Level</label
-                      >
-                      <input
-                        type="number"
-                        class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-                      />
-                    </div>
-                    <div class="col-span-2">
-                      <label
-                        for="hs-company-website-hire-us-2"
-                        class="block text-sm text-gray-700 font-medium"
-                        >Satuan</label
-                      >
-                      <input
-                        type="text"
-                        disabled
-                        [value]="supplierApi[1].uom"
-                        class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-                      />
-                    </div>
-                    <div class="col-span-2">
-                      <label
-                        for="hs-company-website-hire-us-2"
-                        class="block text-sm text-gray-700 font-medium"
-                        >Pressure</label
-                      >
-                      <input
-                        type="number"
-                        class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-                      />
-                    </div>
-                    <div class="col-span-2">
-                      <label
-                        for="hs-lastname-hire-us-2"
-                        class="block text-sm text-gray-700 font-medium"
-                        >jam</label
-                      >
-                      <input
-                        type="time"
-                        step="3600"
-                        class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="flex flex-col gap-1.5">
-                  <div class="grid grid-cols-1 justify-items-stretch gap-3">
-                    <h1
-                      class="text-md font-medium underline underline-offset-2"
-                    >
-                      Setelah Pengisian
-                    </h1>
-                  </div>
-                  <div class="grid grid-cols-1 sm:grid-cols-11 gap-3">
-                    <div class="col-span-3">
-                      <label
-                        for="hs-firstname-hire-us-2"
-                        class="block text-sm text-gray-700 font-medium"
-                        >Nama Tanki</label
-                      >
-                      <input
-                        type="text"
-                        disabled
-                        [value]="tankiApi[0].nama_tanki"
-                        class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-                      />
-                    </div>
-                    <div class="col-span-2">
-                      <label
-                        for="hs-company-website-hire-us-2"
-                        class="block text-sm text-gray-700 font-medium"
-                        >Level</label
-                      >
-                      <input
-                        type="number"
-                        class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-                      />
-                    </div>
-                    <div class="col-span-2">
-                      <label
-                        for="hs-company-website-hire-us-2"
-                        class="block text-sm text-gray-700 font-medium"
-                        >Satuan</label
-                      >
-                      <input
-                        type="text"
-                        disabled
-                        [value]="supplierApi[1].uom"
-                        class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-                      />
-                    </div>
-                    <div class="col-span-2">
-                      <label
-                        for="hs-company-website-hire-us-2"
-                        class="block text-sm text-gray-700 font-medium"
-                        >Pressure</label
-                      >
-                      <input
-                        type="number"
-                        class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-                      />
-                    </div>
-                    <div class="col-span-2">
-                      <label
-                        for="hs-lastname-hire-us-2"
-                        class="block text-sm text-gray-700 font-medium"
-                        >jam</label
-                      >
-                      <input
-                        type="time"
-                        step="3600"
-                        class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-                      />
+                    <div class="grid grid-cols-1 sm:grid-cols-11 gap-3">
+                      <div class="col-span-3">
+                        <label
+                          for="hs-firstname-hire-us-2"
+                          class="block text-sm text-gray-700 font-medium"
+                          >Nama Tanki</label
+                        >
+                        <input
+                          type="text"
+                          disabled
+                          [value]="tankiApi[0]?.nama_tanki"
+                          class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                        />
+                      </div>
+                      <div class="col-span-2">
+                        <label
+                          for="hs-company-website-hire-us-2"
+                          class="block text-sm text-gray-700 font-medium"
+                          >Level</label
+                        >
+                        <input
+                          type="number"
+                          formControlName="level"
+                          class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                        />
+                      </div>
+                      <div class="col-span-2">
+                        <label
+                          for="hs-company-website-hire-us-2"
+                          class="block text-sm text-gray-700 font-medium"
+                          >Satuan</label
+                        >
+                        <input
+                          type="text"
+                          disabled
+                          [value]="supplierApi[1]?.uom"
+                          class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                        />
+                      </div>
+                      <div class="col-span-2">
+                        <label
+                          for="hs-company-website-hire-us-2"
+                          class="block text-sm text-gray-700 font-medium"
+                          >Pressure</label
+                        >
+                        <input
+                          type="number"
+                          formControlName="press"
+                          class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                        />
+                      </div>
+                      <div class="col-span-2">
+                        <label
+                          for="hs-lastname-hire-us-2"
+                          class="block text-sm text-gray-700 font-medium"
+                          >Jam</label
+                        >
+                        <input
+                          type="time"
+                          step="3600"
+                          formControlName="jam"
+                          class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="flex flex-col gap-1.5">
-                  <div class="grid grid-cols-1 justify-items-stretch gap-3">
-                    <h1
-                      class="text-md font-medium underline underline-offset-2"
-                    >
-                      Dokumen Penerimaan
-                    </h1>
+                  <div [formGroupName]="1" class="flex flex-col gap-1.5">
+                    <div class="grid grid-cols-1 justify-items-stretch gap-3">
+                      <h1
+                        class="text-md font-medium underline underline-offset-2"
+                      >
+                        Setelah Pengisian
+                      </h1>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-11 gap-3">
+                      <div class="col-span-3">
+                        <label
+                          for="hs-firstname-hire-us-2"
+                          class="block text-sm text-gray-700 font-medium"
+                          >Nama Tanki</label
+                        >
+                        <input
+                          type="text"
+                          disabled
+                          [value]="tankiApi[0]?.nama_tanki"
+                          class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                        />
+                      </div>
+                      <div class="col-span-2">
+                        <label
+                          for="hs-company-website-hire-us-2"
+                          class="block text-sm text-gray-700 font-medium"
+                          >Level</label
+                        >
+                        <input
+                          type="number"
+                          formControlName="level"
+                          class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                        />
+                      </div>
+                      <div class="col-span-2">
+                        <label
+                          for="hs-company-website-hire-us-2"
+                          class="block text-sm text-gray-700 font-medium"
+                          >Satuan</label
+                        >
+                        <input
+                          type="text"
+                          disabled
+                          [value]="supplierApi[1]?.uom"
+                          class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                        />
+                      </div>
+                      <div class="col-span-2">
+                        <label
+                          for="hs-company-website-hire-us-2"
+                          class="block text-sm text-gray-700 font-medium"
+                          >Pressure</label
+                        >
+                        <input
+                          type="number"
+                          formControlName="press"
+                          class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                        />
+                      </div>
+                      <div class="col-span-2">
+                        <label
+                          for="hs-lastname-hire-us-2"
+                          class="block text-sm text-gray-700 font-medium"
+                          >Jam</label
+                        >
+                        <input
+                          type="time"
+                          step="3600"
+                          formControlName="jam"
+                          class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                        />
+                      </div>
+                    </div>
                   </div>
-                  <div class="grid grid-cols-1 sm:grid-cols-11 gap-3">
-                    <div class="col-span-3">
-                      <label
-                        for="hs-firstname-hire-us-2"
-                        class="block text-sm text-gray-700 font-medium"
-                        >Nama Tanki</label
+                  <div [formGroupName]="2" class="flex flex-col gap-1.5">
+                    <div class="grid grid-cols-1 justify-items-stretch gap-3">
+                      <h1
+                        class="text-md font-medium underline underline-offset-2"
                       >
-                      <input
-                        type="text"
-                        disabled
-                        [value]="tankiApi[0].nama_tanki"
-                        class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-                      />
+                        Dokumen Penerimaan
+                      </h1>
                     </div>
-                    <div class="col-span-2">
-                      <label
-                        for="hs-company-website-hire-us-2"
-                        class="block text-sm text-gray-700 font-medium"
-                        >No Surat</label
-                      >
-                      <input
-                        type="text"
-                        class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-                      />
-                    </div>
-                    <div class="col-span-2">
-                      <label
-                        for="hs-company-website-hire-us-2"
-                        class="block text-sm text-gray-700 font-medium"
-                        >No PO</label
-                      >
-                      <input
-                        type="text"
-                        class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-                      />
-                    </div>
-                    <div class="col-span-2">
-                      <label
-                        for="hs-company-website-hire-us-2"
-                        class="block text-sm text-gray-700 font-medium"
-                        >Qty</label
-                      >
-                      <input
-                        type="number"
-                        class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-                      />
-                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-11 gap-3">
+                      <div class="col-span-3">
+                        <label
+                          for="hs-firstname-hire-us-2"
+                          class="block text-sm text-gray-700 font-medium"
+                          >Nama Tanki</label
+                        >
+                        <input
+                          type="text"
+                          disabled
+                          [value]="tankiApi[0]?.nama_tanki"
+                          class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                        />
+                      </div>
+                      <div class="col-span-2">
+                        <label
+                          for="hs-company-website-hire-us-2"
+                          class="block text-sm text-gray-700 font-medium"
+                          >No Surat</label
+                        >
+                        <input
+                          type="text"
+                          formControlName="noSuratJalan"
+                          class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                        />
+                      </div>
+                      <div class="col-span-2">
+                        <label
+                          for="hs-company-website-hire-us-2"
+                          class="block text-sm text-gray-700 font-medium"
+                          >No PO</label
+                        >
+                        <input
+                          type="text"
+                          formControlName="noPo"
+                          class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                        />
+                      </div>
+                      <div class="col-span-2">
+                        <label
+                          for="hs-company-website-hire-us-2"
+                          class="block text-sm text-gray-700 font-medium"
+                          >Qty</label
+                        >
+                        <input
+                          type="number"
+                          formControlName="qty"
+                          class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                        />
+                      </div>
 
-                    <div class="col-span-2">
-                      <label
-                        for="hs-company-website-hire-us-2"
-                        class="block text-sm text-gray-700 font-medium"
-                        >Satuan</label
-                      >
-                      <input
-                        type="text"
-                        disabled
-                        [value]="supplierApi[1].uom"
-                        class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-                      />
+                      <div class="col-span-2">
+                        <label
+                          for="hs-company-website-hire-us-2"
+                          class="block text-sm text-gray-700 font-medium"
+                          >Satuan</label
+                        >
+                        <input
+                          type="text"
+                          disabled
+                          [value]="supplierApi[1]?.uom"
+                          class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <!-- End Grid -->
-              </div>
+                  <!-- End Grid -->
+                </div>
+              
 
               <!---------------- Input Samator ------------------>
               <div
+              formArrayName="samator"
                 [ngClass]="supp.value == '2' ? '' : 'hidden'"
                 class="w-3/5 h-[72vh] flex flex-col gap-3 px-5"
               >
                 <!-- Grid -->
-                <div class="flex flex-col gap-1.5">
+                <div formArrayName="0" class="flex flex-col gap-1.5" >
                   <div class="grid grid-cols-1 justify-items-stretch gap-3">
                     <h1
                       class="text-md font-medium underline underline-offset-2"
@@ -345,7 +367,7 @@
                       Sebelum Pengisian
                     </h1>
                   </div>
-                  <div class="grid grid-cols-1 sm:grid-cols-11 gap-3">
+                  <div [formGroupName]="0" class="grid grid-cols-1 sm:grid-cols-11 gap-3" >
                     <div class="col-span-3">
                       <label
                         for="hs-firstname-hire-us-2"
@@ -355,7 +377,7 @@
                       <input
                         type="text"
                         disabled
-                        [value]="tankiApi[3].nama_tanki"
+                        [value]="tankiApi[3]?.nama_tanki"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -367,6 +389,7 @@
                       >
                       <input
                         type="number"
+                        formControlName="level"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -379,7 +402,7 @@
                       <input
                         type="text"
                         disabled
-                        [value]="supplierApi[1].uom"
+                        [value]="supplierApi[1]?.uom"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -391,6 +414,7 @@
                       >
                       <input
                         type="number"
+                        formControlName="press"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -398,27 +422,29 @@
                       <label
                         for="hs-lastname-hire-us-2"
                         class="block text-sm text-gray-700 font-medium"
-                        >jam</label
+                        >Jam</label
                       >
                       <input
                         type="time"
                         step="3600"
+                        formControlName="jam"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
                   </div>
-                  <div class="grid grid-cols-1 sm:grid-cols-11 gap-3">
+                  <div [formGroupName]="1" class="grid grid-cols-1 sm:grid-cols-11 gap-3">
                     <div class="col-span-3">
                       <input
                         type="text"
                         disabled
-                        [value]="tankiApi[1].nama_tanki"
+                        [value]="tankiApi[1]?.nama_tanki"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
                     <div class="col-span-2">
                       <input
                         type="number"
+                        formControlName="level"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -426,13 +452,14 @@
                       <input
                         type="text"
                         disabled
-                        [value]="supplierApi[1].uom"
+                        [value]="supplierApi[1]?.uom"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
                     <div class="col-span-2">
                       <input
                         type="number"
+                        formControlName="press"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -440,22 +467,24 @@
                       <input
                         type="time"
                         step="3600"
+                        formControlName="jam"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
                   </div>
-                  <div class="grid grid-cols-1 sm:grid-cols-11 gap-3">
+                  <div [formGroupName]="2" class="grid grid-cols-1 sm:grid-cols-11 gap-3">
                     <div class="col-span-3">
                       <input
                         type="text"
                         disabled
-                        [value]="tankiApi[2].nama_tanki"
+                        [value]="tankiApi[2]?.nama_tanki"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
                     <div class="col-span-2">
                       <input
                         type="number"
+                        formControlName="level"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -463,13 +492,14 @@
                       <input
                         type="text"
                         disabled
-                        [value]="supplierApi[1].uom"
+                        [value]="supplierApi[1]?.uom"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
                     <div class="col-span-2">
                       <input
                         type="number"
+                        formControlName="press"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -477,12 +507,13 @@
                       <input
                         type="time"
                         step="3600"
+                        formControlName="jam"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
                   </div>
                 </div>
-                <div class="flex flex-col gap-1.5">
+                <div formArrayName="1" class="flex flex-col gap-1.5">
                   <div class="grid grid-cols-1 justify-items-stretch gap-3">
                     <h1
                       class="text-md font-medium underline underline-offset-2"
@@ -490,7 +521,7 @@
                       Setelah Pengisian
                     </h1>
                   </div>
-                  <div class="grid grid-cols-1 sm:grid-cols-11 gap-3">
+                  <div [formGroupName]="0" class="grid grid-cols-1 sm:grid-cols-11 gap-3" >
                     <div class="col-span-3">
                       <label
                         for="hs-firstname-hire-us-2"
@@ -500,7 +531,7 @@
                       <input
                         type="text"
                         disabled
-                        [value]="tankiApi[3].nama_tanki"
+                        [value]="tankiApi[3]?.nama_tanki"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -512,6 +543,7 @@
                       >
                       <input
                         type="number"
+                        formControlName="level"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -524,7 +556,7 @@
                       <input
                         type="text"
                         disabled
-                        [value]="supplierApi[1].uom"
+                        [value]="supplierApi[1]?.uom"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -536,6 +568,7 @@
                       >
                       <input
                         type="number"
+                        formControlName="press"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -543,27 +576,29 @@
                       <label
                         for="hs-lastname-hire-us-2"
                         class="block text-sm text-gray-700 font-medium"
-                        >jam</label
+                        >Jam</label
                       >
                       <input
                         type="time"
                         step="3600"
+                        formControlName="jam"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
                   </div>
-                  <div class="grid grid-cols-1 sm:grid-cols-11 gap-3">
+                  <div [formGroupName]="1" class="grid grid-cols-1 sm:grid-cols-11 gap-3">
                     <div class="col-span-3">
                       <input
                         type="text"
                         disabled
-                        [value]="tankiApi[1].nama_tanki"
+                        [value]="tankiApi[1]?.nama_tanki"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
                     <div class="col-span-2">
                       <input
                         type="number"
+                        formControlName="level"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -571,13 +606,14 @@
                       <input
                         type="text"
                         disabled
-                        [value]="supplierApi[1].uom"
+                        [value]="supplierApi[1]?.uom"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
                     <div class="col-span-2">
                       <input
                         type="number"
+                        formControlName="press"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -585,22 +621,24 @@
                       <input
                         type="time"
                         step="3600"
+                        formControlName="jam"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
                   </div>
-                  <div class="grid grid-cols-1 sm:grid-cols-11 gap-3">
+                  <div [formGroupName]="2" class="grid grid-cols-1 sm:grid-cols-11 gap-3">
                     <div class="col-span-3">
                       <input
                         type="text"
                         disabled
-                        [value]="tankiApi[2].nama_tanki"
+                        [value]="tankiApi[2]?.nama_tanki"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
                     <div class="col-span-2">
                       <input
                         type="number"
+                        formControlName="level"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -608,13 +646,14 @@
                       <input
                         type="text"
                         disabled
-                        [value]="supplierApi[1].uom"
+                        [value]="supplierApi[1]?.uom"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
                     <div class="col-span-2">
                       <input
                         type="number"
+                        formControlName="press"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -622,12 +661,13 @@
                       <input
                         type="time"
                         step="3600"
+                        formControlName="jam"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
                   </div>
                 </div>
-                <div class="flex flex-col gap-1.5">
+                <div formArrayName="2" class="flex flex-col gap-1.5">
                   <div class="grid grid-cols-1 justify-items-stretch gap-3">
                     <h1
                       class="text-md font-medium underline underline-offset-2"
@@ -635,7 +675,7 @@
                       Dokumen Penerimaan
                     </h1>
                   </div>
-                  <div class="grid grid-cols-1 sm:grid-cols-11 gap-3">
+                  <div [formGroupName]="0" class="grid grid-cols-1 sm:grid-cols-11 gap-3">
                     <div class="col-span-3">
                       <label
                         for="hs-firstname-hire-us-2"
@@ -645,7 +685,7 @@
                       <input
                         type="text"
                         disabled
-                        [value]="tankiApi[3].nama_tanki"
+                        [value]="tankiApi[3]?.nama_tanki"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -657,6 +697,7 @@
                       >
                       <input
                         type="text"
+                        formControlName="noSuratJalan"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -668,6 +709,7 @@
                       >
                       <input
                         type="text"
+                        formControlName="noPo"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -679,6 +721,7 @@
                       >
                       <input
                         type="number"
+                        formControlName="qty"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -692,35 +735,38 @@
                       <input
                         type="text"
                         disabled
-                        [value]="supplierApi[1].uom"
+                        [value]="supplierApi[1]?.uom"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
                   </div>
-                  <div class="grid grid-cols-1 sm:grid-cols-11 gap-3">
+                  <div [formGroupName]="1" class="grid grid-cols-1 sm:grid-cols-11 gap-3">
                     <div class="col-span-3">
                       <input
                         type="text"
                         disabled
-                        [value]="tankiApi[1].nama_tanki"
+                        [value]="tankiApi[1]?.nama_tanki"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
                     <div class="col-span-2">
                       <input
                         type="text"
+                        formControlName="noSuratJalan"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
                     <div class="col-span-2">
                       <input
                         type="text"
+                        formControlName="noPo"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
                     <div class="col-span-2">
                       <input
                         type="number"
+                        formControlName="qty"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -728,35 +774,38 @@
                       <input
                         type="text"
                         disabled
-                        [value]="supplierApi[1].uom"
+                        [value]="supplierApi[1]?.uom"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
                   </div>
-                  <div class="grid grid-cols-1 sm:grid-cols-11 gap-3">
+                  <div [formGroupName]="2" class="grid grid-cols-1 sm:grid-cols-11 gap-3">
                     <div class="col-span-3">
                       <input
                         type="text"
                         disabled
-                        [value]="tankiApi[2].nama_tanki"
+                        [value]="tankiApi[2]?.nama_tanki"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
                     <div class="col-span-2">
                       <input
                         type="text"
+                        formControlName="noSuratJalan"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
                     <div class="col-span-2">
                       <input
                         type="text"
+                        formControlName="noPo"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
                     <div class="col-span-2">
                       <input
                         type="number"
+                        formControlName="qty"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
@@ -764,7 +813,7 @@
                       <input
                         type="text"
                         disabled
-                        [value]="supplierApi[1].uom"
+                        [value]="supplierApi[1]?.uom"
                         class="py-1 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                       />
                     </div>
