@@ -309,17 +309,6 @@
                     </span>
                   </div>
                 </th>
-
-                <th scope="col" class="px-6 py-3 text-left">
-                  <div class="flex items-center justify-center gap-x-2">
-                    <span
-                      class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
-                    >
-                      Checker
-                    </span>
-                  </div>
-                </th>
-
                 <th scope="col" class="px-6 py-3 text-left">
                   <div class="flex items-center justify-center gap-x-2">
                     <span
@@ -334,7 +323,7 @@
                     <span
                       class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
                     >
-                      No Mobil
+                      No Polisi
                     </span>
                   </div>
                 </th>
@@ -343,7 +332,37 @@
                     <span
                       class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
                     >
-                      Jenis Mobil
+                      Checker
+                    </span>
+                  </div>
+                </th>
+
+                
+                <th scope="col" class="px-6 py-3 text-left">
+                  <div class="flex items-center justify-center gap-x-2">
+                    <span
+                      class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                    >
+                      No Surat Jalan
+                    </span>
+                  </div>
+                </th>
+
+                <th scope="col" class="px-6 py-3 text-left">
+                  <div class="flex items-center justify-center gap-x-2">
+                    <span
+                      class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                    >
+                      No PO
+                    </span>
+                  </div>
+                </th>
+                <th scope="col" class="px-6 py-3 text-left">
+                  <div class="flex items-center justify-center gap-x-2">
+                    <span
+                      class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                    >
+                      Qty
                     </span>
                   </div>
                 </th>
@@ -375,19 +394,26 @@
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">
-                    {{ item.checkerId }}
-                  </h1>
-                </td>
-                
-                <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">{{ item.supplier }}</h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">{{ item.no_mobil }}</h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{ item.jenis_mobil }}</h1>
+                  <h1 class="text-sm">
+                    {{ item.checkerId }}
+                  </h1>
+                </td>
+                
+                
+                <td class="h-px w-px whitespace-nowrap">
+                  <h1 class="text-sm">{{ item.no_surat_jalan }}</h1>
+                </td>
+                <td class="h-px w-px whitespace-nowrap">
+                  <h1 class="text-sm">{{ item.no_po }}</h1>
+                </td>
+                <td class="h-px w-px whitespace-nowrap">
+                  <h1 class="text-sm">{{ item.qty }}</h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <a
