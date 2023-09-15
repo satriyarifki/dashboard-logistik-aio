@@ -42,7 +42,7 @@ export class InputLn2ArrivalCreateComponent {
       this.tankiApi = tanki;
       this.karyawanApi = karyawan;
       this.initialForm();
-      // console.log(this.supplierApi);
+      console.log(this.supplierApi);
       // console.log(this.tankiApi);
       // console.log(this.karyawanApi);
     });
@@ -81,7 +81,7 @@ export class InputLn2ArrivalCreateComponent {
           level: [0, Validators.required],
           press: [0, Validators.required],
           jam: ['', Validators.required],
-          satuan: [this.supplierApi[0].uom, Validators.required],
+          satuan: [this.supplierApi[0]?.uom, Validators.required],
         }),
         this.formBuilder.group({
           arrivalId: ['', Validators.required],
@@ -98,21 +98,21 @@ export class InputLn2ArrivalCreateComponent {
             level: [0, Validators.required],
             press: [0, Validators.required],
             jam: ['', Validators.required],
-            satuan: [this.supplierApi[0]?.uom, Validators.required],
+            satuan: [this.supplierApi[1]?.uom, Validators.required],
           }),
           this.formBuilder.group({
             arrivalId: ['', Validators.required],
             level: [0, Validators.required],
             press: [0, Validators.required],
             jam: ['', Validators.required],
-            satuan: [this.supplierApi[0]?.uom, Validators.required],
+            satuan: [this.supplierApi[1]?.uom, Validators.required],
           }),
           this.formBuilder.group({
             arrivalId: ['', Validators.required],
             level: [0, Validators.required],
             press: [0, Validators.required],
             jam: ['', Validators.required],
-            satuan: [this.supplierApi[0]?.uom, Validators.required],
+            satuan: [this.supplierApi[1]?.uom, Validators.required],
           }),
         ]),
         this.formBuilder.array([
@@ -144,21 +144,21 @@ export class InputLn2ArrivalCreateComponent {
             noSuratJalan: ['', Validators.required],
             noPo: ['', Validators.required],
             qty: [0, Validators.required],
-            satuan: [this.supplierApi[0]?.uom, Validators.required],
+            satuan: [this.supplierApi[1]?.uom, Validators.required],
           }),
           this.formBuilder.group({
             arrivalId: ['', Validators.required],
             noSuratJalan: ['', Validators.required],
             noPo: ['', Validators.required],
             qty: [0, Validators.required],
-            satuan: [this.supplierApi[0]?.uom, Validators.required],
+            satuan: [this.supplierApi[1]?.uom, Validators.required],
           }),
           this.formBuilder.group({
             arrivalId: ['', Validators.required],
             noSuratJalan: ['', Validators.required],
             noPo: ['', Validators.required],
             qty: [0, Validators.required],
-            satuan: [this.supplierApi[0]?.uom, Validators.required],
+            satuan: [this.supplierApi[1]?.uom, Validators.required],
           }),
         ]),
       ]),

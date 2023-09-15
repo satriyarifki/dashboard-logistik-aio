@@ -25,7 +25,7 @@
       >
         <div class="h-fit w-full flex justify-evenly pt-1 pb-5 px-8 text-start">
           <h1
-          (click)="arrivalBool = true"
+            (click)="arrivalBool = true"
             [ngClass]="
               arrivalBool
                 ? 'bg-slate-700 text-white'
@@ -36,8 +36,12 @@
             Arrival Check Ln2
           </h1>
           <h1
-          (click)="arrivalBool = false"
-            [ngClass]="arrivalBool ? 'hover:bg-slate-100 duration-150 transition-colors text-gray-500' : 'bg-slate-700 text-white'"
+            (click)="arrivalBool = false"
+            [ngClass]="
+              arrivalBool
+                ? 'hover:bg-slate-100 duration-150 transition-colors text-gray-500'
+                : 'bg-slate-700 text-white'
+            "
             class="rounded px-2 py-0.5 cursor-pointer text-xl font-semibold"
           >
             Report Update Ln2
@@ -88,7 +92,8 @@
             <!-- End Input -->
             <div>
               <a
-                [routerLink]="['/input-ln2/arrival-create']" routerLinkActive="router-link-active" 
+                [routerLink]="['/input-ln2/arrival-create']"
+                routerLinkActive="router-link-active"
                 class="relative inline-flex cursor-pointer items-center justify-center px-4 py-1 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-cyan-600 rounded-full shadow-md group"
               >
                 <span
@@ -337,7 +342,6 @@
                   </div>
                 </th>
 
-                
                 <th scope="col" class="px-6 py-3 text-left">
                   <div class="flex items-center justify-center gap-x-2">
                     <span
@@ -404,8 +408,7 @@
                     {{ item.checkerId }}
                   </h1>
                 </td>
-                
-                
+
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">{{ item.no_surat_jalan }}</h1>
                 </td>
@@ -417,22 +420,14 @@
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <a
-                    [ngClass]="
-                      item.approval != 1
-                        ? ' bg-gradient-to-tr from-yellow-500 to-yellow-400 border-yellow-600'
-                        : 'bg-gradient-to-tr from-green-600 to-green-500 border-green-700 '
-                    "
-                    class="rounded-lg relative inline-flex group items-center justify-center px-2.5 py-1.5 m-1 cursor-pointer border-b-2 border-l-2 active:border-purple-600 active:shadow-none shadow-lg text-white"
+                    [routerLink]="['arrival-edit']"
+                    [queryParams]="{ id: item.id }"
+                    class="bg-gradient-to-tr from-yellow-500 to-yellow-400 border-yellow-600 rounded-lg relative inline-flex group items-center justify-center px-2.5 py-1.5 m-1 cursor-pointer border-b-2 border-l-2 active:border-purple-600 active:shadow-none shadow-lg text-white"
                   >
                     <span
                       class="absolute w-0 h-0 transition-all duration-200 ease-out bg-white rounded-full group-hover:w-28 group-hover:h-10 opacity-10"
                     ></span>
-                    <span *ngIf="item.approval != 1" class="relative text-xs">
-                      Edit</span
-                    >
-                    <span *ngIf="item.approval == 1" class="relative text-xs"
-                      >Approved</span
-                    >
+                    <span class="relative text-xs"> Edit</span>
                   </a>
                 </td>
                 <td class="h-px w-px whitespace-nowrap"></td>
@@ -598,7 +593,7 @@
 
         <!-- Report Update Ln2 -->
         <div
-        *ngIf="!arrivalBool"
+          *ngIf="!arrivalBool"
           class="w-full bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden"
         >
           <!-- Header -->
@@ -607,58 +602,57 @@
           >
             <!-- Input -->
             <div class="flex gap-2">
-                <div class="sm:col-span-1">
-                    <label for="hs-as-table-product-review-search" class="sr-only"
-                      >Date</label
+              <div class="sm:col-span-1">
+                <label for="hs-as-table-product-review-search" class="sr-only"
+                  >Date</label
+                >
+                <div class="relative">
+                  <input
+                    type="date"
+                    class="py-2 px-3 block w-full border border-gray-200 shadow-sm rounded-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                    placeholder="Date"
+                    [(ngModel)]="dateReport"
+                  />
+                </div>
+              </div>
+              <div class="sm:col-span-1">
+                <label for="hs-as-table-product-review-search" class="sr-only"
+                  >Search</label
+                >
+                <div class="relative">
+                  <input
+                    type="text"
+                    id="hs-as-table-product-review-search"
+                    name="hs-as-table-product-review-search"
+                    class="py-2 px-3 pl-11 block w-full border border-gray-200 shadow-sm rounded-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                    placeholder="Search"
+                    [(ngModel)]="searchInput"
+                  />
+                  <div
+                    class="absolute inset-y-0 left-0 flex items-center pointer-events-none pl-4"
+                  >
+                    <svg
+                      class="h-4 w-4 text-gray-400"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      viewBox="0 0 16 16"
                     >
-                    <div class="relative">
-                      <input
-                        type="date"
-                        class="py-2 px-3  block w-full border border-gray-200 shadow-sm rounded-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500"
-                        placeholder="Date"
-                        [(ngModel)]="dateReport"
+                      <path
+                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
                       />
-                      
-                    </div>
+                    </svg>
                   </div>
-                <div class="sm:col-span-1">
-                    <label for="hs-as-table-product-review-search" class="sr-only"
-                      >Search</label
-                    >
-                    <div class="relative">
-                      <input
-                        type="text"
-                        id="hs-as-table-product-review-search"
-                        name="hs-as-table-product-review-search"
-                        class="py-2 px-3 pl-11 block w-full border border-gray-200 shadow-sm rounded-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500"
-                        placeholder="Search"
-                        [(ngModel)]="searchInput"
-                      />
-                      <div
-                        class="absolute inset-y-0 left-0 flex items-center pointer-events-none pl-4"
-                      >
-                        <svg
-                          class="h-4 w-4 text-gray-400"
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          viewBox="0 0 16 16"
-                        >
-                          <path
-                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  
+                </div>
+              </div>
             </div>
-            
+
             <!-- End Input -->
             <div>
               <a
-                [routerLink]="['/input-ln2/check-create']" routerLinkActive="router-link-active" 
+                [routerLink]="['/input-ln2/check-create']"
+                routerLinkActive="router-link-active"
                 class="relative inline-flex cursor-pointer items-center justify-center px-4 py-1 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-cyan-600 rounded-full shadow-md group"
               >
                 <span
@@ -889,15 +883,15 @@
                     </span>
                   </div>
                 </th>
-                <th  colspan="2" scope="col" class="px-6 pt-3 text-left">
-                    <div class="flex items-center justify-center gap-x-2">
-                      <span
-                        class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
-                      >
-                        Air Product
-                      </span>
-                    </div>
-                  </th>
+                <th colspan="2" scope="col" class="px-6 pt-3 text-left">
+                  <div class="flex items-center justify-center gap-x-2">
+                    <span
+                      class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                    >
+                      Air Product
+                    </span>
+                  </div>
+                </th>
                 <th colspan="2" scope="col" class="px-6 pt-3 text-left">
                   <div class="flex items-center justify-center gap-x-2">
                     <span
@@ -928,80 +922,78 @@
                 </th>
               </tr>
               <tr>
-                
                 <th scope="col" class="px-6 pb-3 pt-1 text-left">
-                    <div class="flex items-center justify-center gap-x-2">
-                      <span
-                        class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
-                      >
-                        Level
-                      </span>
-                    </div>
-                  </th>
+                  <div class="flex items-center justify-center gap-x-2">
+                    <span
+                      class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                    >
+                      Level (InchH₂O)
+                    </span>
+                  </div>
+                </th>
                 <th scope="col" class="px-6 pb-3 pt-1 text-left">
-                    <div class="flex items-center justify-center gap-x-2">
-                      <span
-                        class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
-                      >
-                        Press
-                      </span>
-                    </div>
-                  </th>
+                  <div class="flex items-center justify-center gap-x-2">
+                    <span
+                      class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                    >
+                      Press (Bar)
+                    </span>
+                  </div>
+                </th>
                 <th scope="col" class="px-6 pb-3 pt-1 text-left">
-                    <div class="flex items-center justify-center gap-x-2">
-                      <span
-                        class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
-                      >
-                        Level
-                      </span>
-                    </div>
-                  </th>
+                  <div class="flex items-center justify-center gap-x-2">
+                    <span
+                      class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                    >
+                      Level (mmH₂O)
+                    </span>
+                  </div>
+                </th>
                 <th scope="col" class="px-6 pb-3 pt-1 text-left">
-                    <div class="flex items-center justify-center gap-x-2">
-                      <span
-                        class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
-                      >
-                        Press
-                      </span>
-                    </div>
-                  </th>
+                  <div class="flex items-center justify-center gap-x-2">
+                    <span
+                      class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                    >
+                      Press (Bar)
+                    </span>
+                  </div>
+                </th>
                 <th scope="col" class="px-6 pb-3 pt-1 text-left">
-                    <div class="flex items-center justify-center gap-x-2">
-                      <span
-                        class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
-                      >
-                        Level
-                      </span>
-                    </div>
-                  </th>
+                  <div class="flex items-center justify-center gap-x-2">
+                    <span
+                      class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                    >
+                      Level (mmH₂O)
+                    </span>
+                  </div>
+                </th>
                 <th scope="col" class="px-6 pb-3 pt-1 text-left">
-                    <div class="flex items-center justify-center gap-x-2">
-                      <span
-                        class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
-                      >
-                        Press
-                      </span>
-                    </div>
-                  </th>
+                  <div class="flex items-center justify-center gap-x-2">
+                    <span
+                      class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                    >
+                      Press (Bar)
+                    </span>
+                  </div>
+                </th>
                 <th scope="col" class="px-6 pb-3 pt-1 text-left">
-                    <div class="flex items-center justify-center gap-x-2">
-                      <span
-                        class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
-                      >
-                        Level
-                      </span>
-                    </div>
-                  </th>
+                  <div class="flex items-center justify-center gap-x-2">
+                    <span
+                      class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                    >
+                      Level (mmH₂O)
+                    </span>
+                  </div>
+                </th>
                 <th scope="col" class="px-6 pb-3 pt-1 text-left">
-                    <div class="flex items-center justify-center gap-x-2">
-                      <span
-                        class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
-                      >
-                        Press
-                      </span>
-                    </div>
-                  </th>
-                
+                  <div class="flex items-center justify-center gap-x-2">
+                    <span
+                      class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                    >
+                      Press (Bar)
+                    </span>
+                  </div>
+                </th>
               </tr>
             </thead>
 
@@ -1022,38 +1014,38 @@
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    {{item.jam}}
+                    {{ item.jam }}
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    {{item.lev_air_produk_inch_h2o}}
+                    {{ item.lev_air_produk_inch_h2o }}
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    {{item.pres_air_produk_bar}}
+                    {{ item.pres_air_produk_bar }}
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{item.lev_samator_soyjoy_mm_h2o}}</h1>
+                  <h1 class="text-sm">{{ item.lev_samator_soyjoy_mm_h2o }}</h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{item.pres_soyjoy_bar}}</h1>
+                  <h1 class="text-sm">{{ item.pres_soyjoy_bar }}</h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{item.lev_samator_tb1_mm_h2o}}</h1>
+                  <h1 class="text-sm">{{ item.lev_samator_tb1_mm_h2o }}</h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{item.pres_samator_tb1_bar}}</h1>
+                  <h1 class="text-sm">{{ item.pres_samator_tb1_bar }}</h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{item.lev_samator_tb2_mm_h2o}}</h1>
+                  <h1 class="text-sm">{{ item.lev_samator_tb2_mm_h2o }}</h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{item.pres_samator_tb2_bar}}</h1>
+                  <h1 class="text-sm">{{ item.pres_samator_tb2_bar }}</h1>
                 </td>
-                
+
                 <td class="h-px w-px whitespace-nowrap"></td>
                 <!-- <td class="h-px w-px whitespace-nowrap">
               

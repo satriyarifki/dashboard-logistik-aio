@@ -36,11 +36,10 @@ export class InputLn2Component {
 
   constructor(private apiService: ApiService, private spinner: NgxSpinnerService){
     forkJoin(
-      this.apiService.getLn2ArrivalAll(),
       apiService.getReportLn2All(),
       this.apiService.getArrivalLn2All(),
     ).subscribe(
-      ([ln2,report, arrival]) => {
+      ([report, arrival]) => {
         this.arrivalAll = arrival.reverse();
         this.reportLnAll = report;
         console.log(this.arrivalAll);

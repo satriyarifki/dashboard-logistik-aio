@@ -23,6 +23,7 @@ import { InputSkbEditComponent } from './input/input-skb-edit/input-skb-edit.com
 import { InputLn2Component } from './input-ln2/input-ln2.component';
 import { InputLn2ArrivalCreateComponent } from './input-ln2-arrival-create/input-ln2-arrival-create.component';
 import { InputLn2CheckCreateComponent } from './input-ln2-check-create/input-ln2-check-create.component';
+import { InputLn2ArrivalEditComponent } from './input-ln2-arrival-edit/input-ln2-arrival-edit.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { animation: 'HomePage' } },
@@ -51,6 +52,7 @@ const routes: Routes = [
   { path: 'input-skb/edit', component: InputSkbEditComponent },
   { path: 'input-ln2', component: InputLn2Component },
   { path: 'input-ln2/arrival-create', component: InputLn2ArrivalCreateComponent },
+  { path: 'input-ln2/arrival-edit', component: InputLn2ArrivalEditComponent },
   { path: 'input-ln2/check-create', component: InputLn2CheckCreateComponent },
   { path: 'temp', component: TemperatureComponent },
   { path: 'check-ln', component: CheckLn2Component },

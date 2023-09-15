@@ -107,6 +107,12 @@ export class ApiService {
   getReportLn2All():Observable<any>{
     return this.http.get(this.baseUrl + 'report-ln2');
   }
+  getArrivalLn2ById(id:any):Observable<any>{
+    return this.http.get(this.baseUrl + 'arrival-ln2/' + id);
+  }
+  getPengisianLn2ByArrivalId(id:any):Observable<any>{
+    return this.http.get(this.baseUrl + 'pengisian-ln2/' + id);
+  }
   getKaryawan():Observable<any>{
     return this.http.get(this.baseUrl + 'ln2-karyawan')
   }
@@ -119,7 +125,13 @@ export class ApiService {
   postArrivalCreate(body:any):Observable<any>{
     return this.http.post(this.baseUrl +'arrival-create', body)
   }
+  postArrivalEdit(id:any,body:any):Observable<any>{
+    return this.http.post(this.baseUrl +'arrival-edit/'+id, body)
+  }
   postArrivalAirCreate(body:any):Observable<any>{
     return this.http.post(this.baseUrl +'arrival-create/air', body)
+  }
+  postArrivalFillEdit(id:any,body:any):Observable<any>{
+    return this.http.post(this.baseUrl +'fill-ln2/edit/' + id, body)
   }
 }
