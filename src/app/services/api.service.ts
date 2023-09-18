@@ -134,4 +134,7 @@ export class ApiService {
   postArrivalFillEdit(id:any,body:any):Observable<any>{
     return this.http.post(this.baseUrl +'fill-ln2/edit/' + id, body)
   }
+  postCheckLevelCreate(body:any):Observable<any>{
+    return this.http.post(this.baseUrl +'level-ln2', body)
+  }
 }

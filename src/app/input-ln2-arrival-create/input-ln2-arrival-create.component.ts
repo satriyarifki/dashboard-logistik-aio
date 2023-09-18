@@ -167,11 +167,12 @@ export class InputLn2ArrivalCreateComponent {
 
   onSubmit() {
     // console.log(this.f['levelSebelum']);
-    // if (this.form.invalid) {
-    //   // console.log('fail');
-    //   // console.log(this.f);
-    //   return;
-    // }
+    if (this.form.invalid) {
+      // console.log('fail');
+      // console.log(this.f);
+      alert('Fill blank input!')
+      return;
+    }
 
     let bodyArrival = {
       date: this.f['date'].value,

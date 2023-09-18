@@ -43,12 +43,17 @@ export class InputLn2CheckCreateComponent {
       // console.log(this.supplierApi);
       // console.log(this.tankiApi);
       // console.log(this.karyawanApi);
+
+      console.log(this.form);
     });
-    console.log(this.form);
-    
   }
   get f() {
     return this.form.value;
+  }
+  get getItems() {
+    // console.log((this.form.controls['items'] as FormArray).controls);
+
+    return this.form.controls['items'] as FormArray;
   }
   initialForm() {
     this.form = this.formBuilder.group({
@@ -60,21 +65,55 @@ export class InputLn2CheckCreateComponent {
   }
 
   onSubmit() {
-    let body = {
-      date: this.f['date'],
-      checkerId: this.f['checkerId'],
-      jam: this.f.jam,
-      items: this.f.items
-      
-    };
-    console.log(body);
-    
+    // if (this.form.invalid) {
+    //     // console.log('fail');
+    //     alert('Fill blank input!')
+    //     return;
+    //   }
+    let items: [] = this.f.items;
+    // let body = {
+    //   date: this.f['date'],
+    //   checkerId: this.f['checkerId'],
+    //   jam: this.f.jam,
+    //   supplierId: '',
+    //   tankiId: '',
+    //   level: '',
+    //   satuan: '',
+    //   press: '',
+
+    // };
+    // console.log(body);
+    items.forEach((element: any) => {
+      let body = {
+        date: this.f['date'],
+        checkerId: this.f['checkerId'],
+        jam: this.f.jam,
+        supplierId: Number(element.supplierId),
+        tankiId: Number(element.tankiId),
+        level: element.level,
+        press: element.press,
+      };
+      this.apiService.postCheckLevelCreate(body).subscribe(
+        (data) => {
+          console.log(data);
+          console.log('success');
+        },
+        (err) => {
+          console.log(err);
+          console.log('error');
+        }
+      );
+
+      console.log(body);
+    });
+
+    // console.log(body);
   }
 
-  addItems() {
+  addItems(): FormGroup {
     return this.formBuilder.group({
-      supplierId: ['', Validators.required],
-      tankiId: ['', Validators.required],
+      supplierId: [0, Validators.required],
+      tankiId: [0, Validators.required],
       level: [0, Validators.required],
       satuan: ['', Validators.required],
       press: [0, Validators.required],
@@ -111,11 +150,11 @@ export class InputLn2CheckCreateComponent {
     // this.itemLoop--;
     this.items = this.form.get('items') as FormArray;
     if (this.items.value.length != 1) {
-      this.items.removeAt(this.items.value.length - 1)
+      this.items.removeAt(this.items.value.length - 1);
     } else {
       alert('Minimum Item is 1');
     }
 
-    console.log(this.arrayItem);
+    console.log(this.items);
   }
 }
