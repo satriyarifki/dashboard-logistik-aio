@@ -1000,7 +1000,7 @@
             <tbody class="divide-y divide-gray-200">
               <tr
                 *ngFor="
-                  let item of filterReportByDay()
+                  let item of distinctReport
                     | customFilter : searchInput
                     | paginate : config
                 "
@@ -1009,41 +1009,41 @@
                 <td class="h-px w-px whitespace-nowrap py-2.5">
                   <h1 class="text-sm">
                     <!-- {{ item.date | date : "mediumDate" }} -->
-                    {{ item.pic }}
+                    {{item.date}}
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    {{ item.jam }}
+                    {{item.jam}}
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    {{ item.lev_air_produk_inch_h2o }}
+                    {{getCheckLevelByTanki(item.jam, 1)[0]}}
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    {{ item.pres_air_produk_bar }}
+                    
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{ item.lev_samator_soyjoy_mm_h2o }}</h1>
+                  <h1 class="text-sm"></h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{ item.pres_soyjoy_bar }}</h1>
+                  <h1 class="text-sm"></h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{ item.lev_samator_tb1_mm_h2o }}</h1>
+                  <h1 class="text-sm"></h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{ item.pres_samator_tb1_bar }}</h1>
+                  <h1 class="text-sm"></h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{ item.lev_samator_tb2_mm_h2o }}</h1>
+                  <h1 class="text-sm"></h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{ item.pres_samator_tb2_bar }}</h1>
+                  <h1 class="text-sm"></h1>
                 </td>
 
                 <td class="h-px w-px whitespace-nowrap"></td>
