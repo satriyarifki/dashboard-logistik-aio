@@ -47,7 +47,11 @@ export class InputLn2Component {
         this.arrivalAll = arrival.reverse();
         this.reportLnAll = report;
         
-        console.log(this.getCheckLevelByTanki('12:00:00', 1));
+        console.log(this.getCheckLevelByTanki('2023-09-19','12:00:00', 'TB2'));
+        console.log(this.filterReportByDatetime('2023-09-19','12:00:00'))
+        console.log(report);
+        console.log(this.distinctReport);
+        
 
         // console.log(this.fleetSukabumi.within_time);
 
@@ -87,12 +91,16 @@ export class InputLn2Component {
       .reverse();
   }
 
-  getCheckLevelByTanki(jam:any,tankiId:any){
-    return this.reportLnAll.filter(data=> data.tankiId == tankiId && data.jam ==jam)
+  getCheckLevelByTanki(date:any,jam:any,tanki:any){
+    return this.reportLnAll.filter(data=> data.date == date && data.jam == jam && data.tanki.includes(tanki))[0]
   }
   get distinctReport(){
     return this.reportLnAll.filter((n,i,arr)=> arr.findIndex(r=>r.jam ===n.jam)===i)
   }
+  filterReportByDatetime(date:any,time:any){
+    return this.reportLnAll.filter(elem=> elem.date == date && elem.jam  == time)
+  }
+  
 
   groupBy(array: any, key: any) {
     // Return the end result

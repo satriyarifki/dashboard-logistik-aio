@@ -612,6 +612,7 @@
                     class="py-2 px-3 block w-full border border-gray-200 shadow-sm rounded-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                     placeholder="Date"
                     [(ngModel)]="dateReport"
+                    (change)="recallCheckLnService()"
                   />
                 </div>
               </div>
@@ -1009,42 +1010,55 @@
                 <td class="h-px w-px whitespace-nowrap py-2.5">
                   <h1 class="text-sm">
                     <!-- {{ item.date | date : "mediumDate" }} -->
-                    {{item.date}}
+                    {{ item.date }}
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    {{item.jam}}
+                    {{ item.jam }}
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    {{getCheckLevelByTanki(item.jam, 1)[0]}}
+                    {{ getCheckLevelByTanki(item.date,item.jam, 'Air')?.level || '-' }}
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    
+                    {{ getCheckLevelByTanki(item.date,item.jam, 'Air')?.pressure || '-' }}
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm"></h1>
+                  <h1 class="text-sm">
+                    {{ getCheckLevelByTanki(item.date,item.jam, 'Soyjoy')?.level || '-' }}
+                  </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm"></h1>
+                  <h1 class="text-sm">
+                    {{ getCheckLevelByTanki(item.date,item.jam, 'Soyjoy')?.pressure || '-' }}
+                  </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm"></h1>
+                  <h1 class="text-sm">
+                    {{ getCheckLevelByTanki(item.date,item.jam, 'TB1')?.level || '-' }}
+                  </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm"></h1>
+                  <h1 class="text-sm">
+                    {{ getCheckLevelByTanki(item.date,item.jam, 'TB1')?.pressure || '-' }}
+                  </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm"></h1>
+                  <h1 class="text-sm">
+                    {{ getCheckLevelByTanki(item.date,item.jam, 'TB2')?.level || '-' }}
+                  </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm"></h1>
+                  <h1 class="text-sm">
+                    {{ getCheckLevelByTanki(item.date,item.jam, 'TB2')?.pressure || '-' }}
+                  </h1>
                 </td>
+                
 
                 <td class="h-px w-px whitespace-nowrap"></td>
                 <!-- <td class="h-px w-px whitespace-nowrap">
