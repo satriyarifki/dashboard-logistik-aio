@@ -32,6 +32,7 @@ import {
 export class SidebarComponent {
   @ViewChild('MenuList') menuList!: ElementRef;
   @ViewChild('InputList') inputList!: ElementRef;
+  tooltipLogin: Boolean = false;
   tooltipHome: Boolean = false;
   tooltipDropdown: Boolean = false;
   tooltipDropdownInput: Boolean = false;
@@ -55,6 +56,14 @@ export class SidebarComponent {
     });
   }
 
+  overLogin() {
+    console.log('lo');
+    
+    this.tooltipLogin = true;
+  }
+  leaveLogin() {
+    this.tooltipLogin = false;
+  }
   overHome() {
     this.tooltipHome = true;
   }

@@ -16,7 +16,7 @@ export class InputLn2Component {
   itemPerPage = 10;
   createModal = false;
   arrivalBool = true;
-  dateReport = '2023-09-19';
+  dateReport = new Date().toISOString().slice(0,10);
 
   //API
   arrivalAll: any[] = [];
@@ -50,7 +50,7 @@ export class InputLn2Component {
         console.log(this.getCheckLevelByTanki('2023-09-19','12:00:00', 'TB2'));
         console.log(this.filterReportByDatetime('2023-09-19','12:00:00'))
         console.log(report);
-        console.log(this.distinctReport);
+        console.log(new Date().toISOString().slice(0,10));
         
 
         // console.log(this.fleetSukabumi.within_time);
