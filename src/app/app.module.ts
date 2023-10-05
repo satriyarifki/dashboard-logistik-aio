@@ -43,6 +43,7 @@ import { InputLn2Component } from './input-ln2/input-ln2.component';
 import { InputLn2ArrivalCreateComponent } from './input-ln2-arrival-create/input-ln2-arrival-create.component';
 import { InputLn2CheckCreateComponent } from './input-ln2-check-create/input-ln2-check-create.component';
 import { InputLn2ArrivalEditComponent } from './input-ln2-arrival-edit/input-ln2-arrival-edit.component';
+import { LoginComponent } from './auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { InputLn2ArrivalEditComponent } from './input-ln2-arrival-edit/input-ln2
     InputLn2Component,
     InputLn2ArrivalCreateComponent,
     InputLn2CheckCreateComponent,
-    InputLn2ArrivalEditComponent
+    InputLn2ArrivalEditComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

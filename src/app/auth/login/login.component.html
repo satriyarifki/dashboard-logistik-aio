@@ -1,0 +1,128 @@
+<div class="w-screen h-screen flex justify-center font-manrope">
+  <div
+    class="my-auto flex flex-row h-fit w-5/6 md:w-2/3 py-4 backdrop-blur-md bg-opacity-40 bg-white rounded-xl shadow-xl"
+  >
+    <div class="my-auto h-full w-full md:w-2/5 px-10 pb-3">
+      <div class="my-auto h-fit">
+        <div class="text-center md:text-start pb-4">
+          <h1 class="text-2xl font-extrabold text-sky-600 ">Selamat <span class="text-teal-500">Datang!</span> </h1>
+        </div>
+
+        <form action="">
+          <div class="grid gap-y-4">
+            <!-- Form Group -->
+            <div>
+              <label for="email" class="block text-sm font-semibold mb-2">NIK</label>
+              <div class="relative">
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="py-2 px-2.5 w-full border border-gray-300 rounded-md text-sm  focus:border-blue-500 focus:ring-blue-500"
+                  required
+                  aria-describedby="email-error"
+                />
+                <div
+                  class="hidden absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3"
+                >
+                  <svg
+                    class="h-5 w-5 text-red-500"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <p class="hidden text-xs text-red-600 mt-2" id="email-error">
+                Please include a valid email address so we can get back to you
+              </p>
+            </div>
+            <!-- End Form Group -->
+
+            <!-- Form Group -->
+            <div>
+              <div class="flex justify-between items-center">
+                <label for="password" class="block text-sm font-semibold mb-2"
+                  >Password</label
+                >
+                <!-- <a
+                  class="text-sm text-blue-600 decoration-2 hover:underline font-medium"
+                  href="../examples/html/recover-account.html"
+                  >Forgot password?</a
+                > -->
+              </div>
+              <div class="relative">
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  class="py-2 px-2.5 w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                  required
+                  aria-describedby="password-error"
+                />
+                <div
+                  class="hidden absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3"
+                >
+                  <svg
+                    class="h-5 w-5 text-red-500"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <p class="hidden text-xs text-red-600 mt-2" id="password-error">
+                8+ characters required
+              </p>
+            </div>
+            <!-- End Form Group -->
+
+            <!-- Checkbox -->
+            <!-- <div class="flex items-center">
+                    <div class="flex">
+                      <input
+                        id="remember-me"
+                        name="remember-me"
+                        type="checkbox"
+                        class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500  checked:bg-blue-500 checked:border-blue-500 focus:ring-offset-gray-800"
+                      />
+                    </div>
+                    <div class="ml-3">
+                      <label for="remember-me" class="text-sm "
+                        >Remember me</label
+                      >
+                    </div>
+                  </div> -->
+            <!-- End Checkbox -->
+
+            <button
+              type="submit"
+              class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm focus:ring-offset-gray-800"
+            >
+              Login
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="w-3/5 flex justify-center max-md:hidden">
+      <img
+        class="h-5/6 my-auto opacity-90"
+        src="assets/img/warehouse vector.png"
+        alt=""
+      />
+    </div>
+  </div>
+</div>
