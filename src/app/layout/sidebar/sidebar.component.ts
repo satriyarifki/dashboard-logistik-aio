@@ -32,16 +32,24 @@ import {
 export class SidebarComponent {
   @ViewChild('MenuList') menuList!: ElementRef;
   @ViewChild('InputList') inputList!: ElementRef;
+
+  //TOOLTIP BOOL
   tooltipLogin: Boolean = false;
   tooltipHome: Boolean = false;
   tooltipDropdown: Boolean = false;
   tooltipDropdownInput: Boolean = false;
   tooltipLink: Boolean = false;
+  tooltipToggle: Boolean = false;
+
+
   dropdown: Boolean = false;
   dropdownInput: Boolean = false;
   bounce: any;
   swing: any;
   loading = false;
+
+  //RESPONSIVE BOOL
+  sidebarBool: Boolean = false
 
   constructor(public router: Router, private eref: ElementRef) {
     this.router.events.subscribe((event) => {
@@ -64,6 +72,13 @@ export class SidebarComponent {
   leaveLogin() {
     this.tooltipLogin = false;
   }
+  overToggle(status:any){
+    if (status == 1) {
+      this.tooltipToggle = true;
+    } else {
+      this.tooltipToggle = false;
+    }
+  }
   overHome() {
     this.tooltipHome = true;
   }
@@ -74,6 +89,11 @@ export class SidebarComponent {
     if (!this.dropdown) {
       this.tooltipDropdown = true;
     }
+  }
+  changeSidebarBool(){
+    this.sidebarBool = !this.sidebarBool
+    console.log(this.sidebarBool);
+    
   }
   leaveDropdown() {
     this.tooltipDropdown = false;
