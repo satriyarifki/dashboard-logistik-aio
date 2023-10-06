@@ -65,7 +65,7 @@ export class SidebarComponent {
   }
 
   overLogin() {
-    console.log('lo');
+    // console.log('lo');
     
     this.tooltipLogin = true;
   }
@@ -92,7 +92,7 @@ export class SidebarComponent {
   }
   changeSidebarBool(){
     this.sidebarBool = !this.sidebarBool
-    console.log(this.sidebarBool);
+    // console.log(this.sidebarBool);
     
   }
   leaveDropdown() {
