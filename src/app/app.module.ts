@@ -44,6 +44,7 @@ import { InputLn2ArrivalCreateComponent } from './input-ln2-arrival-create/input
 import { InputLn2CheckCreateComponent } from './input-ln2-check-create/input-ln2-check-create.component';
 import { InputLn2ArrivalEditComponent } from './input-ln2-arrival-edit/input-ln2-arrival-edit.component';
 import { LoginComponent } from './auth/login/login.component';
+import { AlertComponent } from './layout/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { LoginComponent } from './auth/login/login.component';
     InputLn2ArrivalCreateComponent,
     InputLn2CheckCreateComponent,
     InputLn2ArrivalEditComponent,
-    LoginComponent
+    LoginComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,

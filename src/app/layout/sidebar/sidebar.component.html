@@ -8,6 +8,7 @@
     class="h-fit w-14 sm:w-16 bg-white shadow-lg rounded-lg flex justify-center py-2 mt-2 fixed z-30"
   >
     <a
+      *ngIf="onAuthCheck()"
       (mouseover)="overLogin()"
       (mouseleave)="leaveLogin()"
       [routerLink]="router.url == '/login' ? ['/'] : ['/login']"
@@ -57,13 +58,59 @@
         Login
       </div>
     </a>
+    <button
+      *ngIf="!onAuthCheck()"
+      (click)="userDropdown()"
+      type="button"
+      class="flex-shrink-0 justify-center items-center gap-2 h-[2.375rem] w-[2.375rem] rounded-full font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-xs"
+    >
+      <img
+        class="inline-block h-[2.375rem] w-[2.375rem] rounded-full ring-2 ring-white"
+        src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
+        alt="Image Description"
+      />
+    </button>
+    <div
+      *ngIf="!onAuthCheck() && userBool"
+      class="fixed left-16 top-2 transition-[opacity,margin] duration min-w-[15rem] bg-white shadow-md rounded-lg p-2 ml-2"
+    >
+      <div class="py-3 px-5 -m-2 bg-gray-100 rounded-t-lg">
+        <p class="text-sm text-gray-500">
+          Halo,
+          <span class="text-sm font-semibold text-gray-700">
+            {{ employee.lg_name }}
+          </span>
+        </p>
+      </div>
+      <div class="mt-2 py-2 first:pt-0 last:pb-0">
+        <a
+          class="flex items-center cursor-pointer gap-x-3.5 py-2 px-3 rounded-md text-sm text-red-600 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
+          (click)="signOut()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="16"
+            viewBox="0 -960 960 960"
+            width="16"
+            fill="currentColor"
+          >
+            <path
+              d="M180-120q-24 0-42-18t-18-42v-600q0-24 18-42t42-18h291v60H180v600h291v60H180Zm486-185-43-43 102-102H375v-60h348L621-612l43-43 176 176-174 174Z"
+            />
+          </svg>
+          Sign Out
+        </a>
+      </div>
+    </div>
   </div>
 
   <!-- SIDEBAR -->
   <div
     [ngClass]="
       sidebarBool
-        ? router.url == '/login'? '-translate-x-20' : ''
+        ? router.url == '/login'
+          ? '-translate-x-20'
+          : ''
         : router.url == '/login'
         ? '-translate-x-20'
         : 'max-sm:-translate-x-20'

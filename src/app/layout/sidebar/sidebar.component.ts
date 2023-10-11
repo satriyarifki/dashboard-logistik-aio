@@ -16,6 +16,7 @@ import {
   zoomIn,
   zoomOut,
 } from 'ng-animate';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -40,21 +41,27 @@ export class SidebarComponent {
   tooltipDropdownInput: Boolean = false;
   tooltipLink: Boolean = false;
   tooltipToggle: Boolean = false;
-
+  userBool: Boolean = false;
 
   dropdown: Boolean = false;
   dropdownInput: Boolean = false;
   bounce: any;
   swing: any;
   loading = false;
+  employee: any;
 
   //RESPONSIVE BOOL
-  sidebarBool: Boolean = false
+  sidebarBool: Boolean = false;
 
-  constructor(public router: Router, private eref: ElementRef) {
+  constructor(
+    public router: Router,
+    private authService: AuthService,
+    private eref: ElementRef
+  ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.dropdown = false;
+        this.userBool = false;
         // console.log('Route change Start');
       }
       if (event instanceof NavigationEnd) {
@@ -62,17 +69,21 @@ export class SidebarComponent {
         // console.log('Route change End');
       }
     });
+    if (authService.getUser().length > 0) {
+      this.employee = authService.getUser()[0];
+    }
+    console.log(this.employee);
   }
 
   overLogin() {
     // console.log('lo');
-    
+
     this.tooltipLogin = true;
   }
   leaveLogin() {
     this.tooltipLogin = false;
   }
-  overToggle(status:any){
+  overToggle(status: any) {
     if (status == 1) {
       this.tooltipToggle = true;
     } else {
@@ -90,10 +101,28 @@ export class SidebarComponent {
       this.tooltipDropdown = true;
     }
   }
-  changeSidebarBool(){
-    this.sidebarBool = !this.sidebarBool
+  onAuthCheck() {
+    // if (this.authService.getToken() != null) {
+    //   return false;
+    // }
+    if (this.authService.getCookie() != null) {
+      return false;
+    }
+    return true;
+  }
+  signOut() {
+    this.authService.signOut();
+    // this.alertService.onCallAlert('Log Out Sucessful!', AlertType.Success)
+    this.router.navigate(['/login']);
+  }
+  userDropdown() {
+    this.userBool = !this.userBool;
+    console.log(this.authService.getCookie());
+    console.log(this.authService.getUser());
+  }
+  changeSidebarBool() {
+    this.sidebarBool = !this.sidebarBool;
     // console.log(this.sidebarBool);
-    
   }
   leaveDropdown() {
     this.tooltipDropdown = false;
