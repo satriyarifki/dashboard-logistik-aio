@@ -3,6 +3,8 @@ import { ExportAsConfig } from 'ngx-export-as';
 import { PaginationControlsDirective } from 'ngx-pagination';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { forkJoin } from 'rxjs';
+import { AlertType } from '../services/alert/alert.model';
+import { AlertService } from '../services/alert/alert.service';
 import { ApiService } from '../services/api.service';
 
 @Component({
@@ -16,7 +18,7 @@ export class InputLn2Component {
   itemPerPage = 10;
   createModal = false;
   arrivalBool = true;
-  dateReport = new Date().toISOString().slice(0,10);
+  dateReport = new Date().toISOString().slice(0, 10);
 
   //API
   arrivalAll: any[] = [];
@@ -37,21 +39,22 @@ export class InputLn2Component {
 
   constructor(
     private apiService: ApiService,
-    private spinner: NgxSpinnerService
-  ) {
+    private spinner: NgxSpinnerService,
+    private alertService: AlertService
+  ) {}
+  ngOnInit() {
     forkJoin(
-      apiService.getReportLn2All(this.dateReport),
+      this.apiService.getReportLn2All(this.dateReport),
       this.apiService.getArrivalLn2All()
     ).subscribe(
       ([report, arrival]) => {
-        this.arrivalAll = arrival.reverse();
+        this.arrivalAll = arrival;
         this.reportLnAll = report;
-        
-        console.log(this.getCheckLevelByTanki('2023-09-19','12:00:00', 'TB2'));
-        console.log(this.filterReportByDatetime('2023-09-19','12:00:00'))
-        console.log(report);
-        console.log(new Date().toISOString().slice(0,10));
-        
+
+        // console.log(this.getCheckLevelByTanki('2023-09-19', '12:00:00', 'TB2'));
+        // console.log(this.filterReportByDatetime('2023-09-19', '12:00:00'));
+        // console.log(report);
+        // console.log(new Date().toISOString().slice(0, 10));
 
         // console.log(this.fleetSukabumi.within_time);
 
@@ -68,11 +71,25 @@ export class InputLn2Component {
     );
   }
 
+  deleteArrival(id: number) {
+    this.apiService.deleteArrivalLn2(id).subscribe(
+      (data) => {
+        console.log(data);
+        this.alertService.onCallAlert('Delete Success!', AlertType.Success);
+        this.ngOnInit();
+      },
+      (err) => {
+        console.log(err);
+        this.alertService.onCallAlert('Delete Failed!', AlertType.Error);
+      }
+    );
+  }
+
   recallCheckLnService() {
     this.apiService.getReportLn2All(this.dateReport).subscribe(
       (data) => {
         this.reportLnAll = data;
-        this.array = Object.entries(this.groupBy(this.reportLnAll, 'jam'))
+        this.array = Object.entries(this.groupBy(this.reportLnAll, 'jam'));
       },
       (err) => {
         console.log(err);
@@ -91,24 +108,30 @@ export class InputLn2Component {
       .reverse();
   }
 
-  getCheckLevelByTanki(date:any,jam:any,tanki:any){
-    return this.reportLnAll.filter(data=> data.date == date && data.jam == jam && data.tanki.includes(tanki))[0]
+  getCheckLevelByTanki(date: any, jam: any, tanki: any) {
+    return this.reportLnAll.filter(
+      (data) =>
+        data.date == date && data.jam == jam && data.tanki.includes(tanki)
+    )[0];
   }
-  get distinctReport(){
-    return this.reportLnAll.filter((n,i,arr)=> arr.findIndex(r=>r.jam ===n.jam)===i)
+  get distinctReport() {
+    return this.reportLnAll.filter(
+      (n, i, arr) => arr.findIndex((r) => r.jam === n.jam) === i
+    );
   }
-  filterReportByDatetime(date:any,time:any){
-    return this.reportLnAll.filter(elem=> elem.date == date && elem.jam  == time)
+  filterReportByDatetime(date: any, time: any) {
+    return this.reportLnAll.filter(
+      (elem) => elem.date == date && elem.jam == time
+    );
   }
-  
 
   groupBy(array: any, key: any) {
     // Return the end result
-    let i = 0
+    let i = 0;
     let arr: any[] = [];
     return array.reduce((result: any, currentValue: any) => {
       // If an array already present for key, push it to the array. Else create an array and push the object
-      i+=1
+      i += 1;
       // if (result == currentValue[key]) {
       //   arr[arr.length - 1].push(currentValue);
       // } else {
@@ -116,7 +139,7 @@ export class InputLn2Component {
       //   arr[arr.length - 1].push(currentValue);
       // }
       // result = currentValue[key];
-      
+
       console.log(arr);
       (result[currentValue[key]] = result[currentValue[key]] || []).push(
         currentValue

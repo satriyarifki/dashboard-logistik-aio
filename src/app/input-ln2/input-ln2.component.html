@@ -429,6 +429,15 @@
                     ></span>
                     <span class="relative text-xs"> Edit</span>
                   </a>
+                  <a
+                    (click)="deleteArrival(item.id)"
+                    class="bg-gradient-to-tr from-red-500 to-red-400 border-red-600 rounded-lg relative inline-flex group items-center justify-center px-2.5 py-1.5 m-1 cursor-pointer border-b-2 border-l-2 active:border-purple-600 active:shadow-none shadow-lg text-white"
+                  >
+                    <span
+                      class="absolute w-0 h-0 transition-all duration-200 ease-out bg-white rounded-full group-hover:w-28 group-hover:h-10 opacity-10"
+                    ></span>
+                    <span class="relative text-xs"> Del</span>
+                  </a>
                 </td>
                 <td class="h-px w-px whitespace-nowrap"></td>
                 <!-- <td class="h-px w-px whitespace-nowrap">
@@ -1020,45 +1029,68 @@
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    {{ getCheckLevelByTanki(item.date,item.jam, 'Air')?.level || '-' }}
+                    {{
+                      getCheckLevelByTanki(item.date, item.jam, "Air")?.level ||
+                        "-"
+                    }}
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    {{ getCheckLevelByTanki(item.date,item.jam, 'Air')?.pressure || '-' }}
+                    {{
+                      getCheckLevelByTanki(item.date, item.jam, "Air")
+                        ?.pressure || "-"
+                    }}
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    {{ getCheckLevelByTanki(item.date,item.jam, 'Soyjoy')?.level || '-' }}
+                    {{
+                      getCheckLevelByTanki(item.date, item.jam, "Soyjoy")
+                        ?.level || "-"
+                    }}
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    {{ getCheckLevelByTanki(item.date,item.jam, 'Soyjoy')?.pressure || '-' }}
+                    {{
+                      getCheckLevelByTanki(item.date, item.jam, "Soyjoy")
+                        ?.pressure || "-"
+                    }}
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    {{ getCheckLevelByTanki(item.date,item.jam, 'TB1')?.level || '-' }}
+                    {{
+                      getCheckLevelByTanki(item.date, item.jam, "TB1")?.level ||
+                        "-"
+                    }}
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    {{ getCheckLevelByTanki(item.date,item.jam, 'TB1')?.pressure || '-' }}
+                    {{
+                      getCheckLevelByTanki(item.date, item.jam, "TB1")
+                        ?.pressure || "-"
+                    }}
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    {{ getCheckLevelByTanki(item.date,item.jam, 'TB2')?.level || '-' }}
+                    {{
+                      getCheckLevelByTanki(item.date, item.jam, "TB2")?.level ||
+                        "-"
+                    }}
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    {{ getCheckLevelByTanki(item.date,item.jam, 'TB2')?.pressure || '-' }}
+                    {{
+                      getCheckLevelByTanki(item.date, item.jam, "TB2")
+                        ?.pressure || "-"
+                    }}
                   </h1>
                 </td>
-                
 
                 <td class="h-px w-px whitespace-nowrap"></td>
                 <!-- <td class="h-px w-px whitespace-nowrap">

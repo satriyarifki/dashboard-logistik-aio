@@ -1,7 +1,10 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
+import { AlertType } from '../services/alert/alert.model';
+import { AlertService } from '../services/alert/alert.service';
 import { ApiService } from '../services/api.service';
 
 @Component({
@@ -29,7 +32,9 @@ export class InputLn2ArrivalCreateComponent {
   constructor(
     private datePipe: DatePipe,
     private apiService: ApiService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private alertService: AlertService
   ) {
     this.arrayItem.push('item');
 
@@ -69,7 +74,6 @@ export class InputLn2ArrivalCreateComponent {
       jenisMobil: ['', Validators.required],
       airProduct: this.formBuilder.array([
         this.formBuilder.group({
-          arrivalId: ['', Validators.required],
           tankiId: [this.tankiApi[0].id, Validators.required],
           level: [0, Validators.required],
           press: [0, Validators.required],
@@ -77,14 +81,12 @@ export class InputLn2ArrivalCreateComponent {
           satuan: [this.supplierApi[0]?.uom, Validators.required],
         }),
         this.formBuilder.group({
-          arrivalId: ['', Validators.required],
           level: [0, Validators.required],
           press: [0, Validators.required],
           jam: ['', Validators.required],
           satuan: [this.supplierApi[0]?.uom, Validators.required],
         }),
         this.formBuilder.group({
-          arrivalId: ['', Validators.required],
           noSuratJalan: ['', Validators.required],
           noPo: ['', Validators.required],
           qty: [0, Validators.required],
@@ -94,21 +96,18 @@ export class InputLn2ArrivalCreateComponent {
       samator: this.formBuilder.array([
         this.formBuilder.array([
           this.formBuilder.group({
-            arrivalId: ['', Validators.required],
             level: [0, Validators.required],
             press: [0, Validators.required],
             jam: ['', Validators.required],
             satuan: [this.supplierApi[1]?.uom, Validators.required],
           }),
           this.formBuilder.group({
-            arrivalId: ['', Validators.required],
             level: [0, Validators.required],
             press: [0, Validators.required],
             jam: ['', Validators.required],
             satuan: [this.supplierApi[1]?.uom, Validators.required],
           }),
           this.formBuilder.group({
-            arrivalId: ['', Validators.required],
             level: [0, Validators.required],
             press: [0, Validators.required],
             jam: ['', Validators.required],
@@ -117,21 +116,18 @@ export class InputLn2ArrivalCreateComponent {
         ]),
         this.formBuilder.array([
           this.formBuilder.group({
-            arrivalId: ['', Validators.required],
             level: [0, Validators.required],
             press: [0, Validators.required],
             jam: ['', Validators.required],
             satuan: [this.supplierApi[0].uom, Validators.required],
           }),
           this.formBuilder.group({
-            arrivalId: ['', Validators.required],
             level: [0, Validators.required],
             press: [0, Validators.required],
             jam: ['', Validators.required],
             satuan: [this.supplierApi[0].uom, Validators.required],
           }),
           this.formBuilder.group({
-            arrivalId: ['', Validators.required],
             level: [0, Validators.required],
             press: [0, Validators.required],
             jam: ['', Validators.required],
@@ -140,21 +136,18 @@ export class InputLn2ArrivalCreateComponent {
         ]),
         this.formBuilder.array([
           this.formBuilder.group({
-            arrivalId: ['', Validators.required],
             noSuratJalan: ['', Validators.required],
             noPo: ['', Validators.required],
             qty: [0, Validators.required],
             satuan: [this.supplierApi[1]?.uom, Validators.required],
           }),
           this.formBuilder.group({
-            arrivalId: ['', Validators.required],
             noSuratJalan: ['', Validators.required],
             noPo: ['', Validators.required],
             qty: [0, Validators.required],
             satuan: [this.supplierApi[1]?.uom, Validators.required],
           }),
           this.formBuilder.group({
-            arrivalId: ['', Validators.required],
             noSuratJalan: ['', Validators.required],
             noPo: ['', Validators.required],
             qty: [0, Validators.required],
@@ -167,10 +160,28 @@ export class InputLn2ArrivalCreateComponent {
 
   onSubmit() {
     // console.log(this.f['levelSebelum']);
-    if (this.form.invalid) {
+    if (
+      this.f['supplierId'].value == 1 &&
+      (this.form.controls['date'].invalid ||
+        this.form.controls['checkerId'].invalid ||
+        this.form.controls['supplierId'].invalid ||
+        this.form.controls['noMobil'].invalid ||
+        this.form.controls['jenisMobil'].invalid ||
+        this.form.controls['airProduct'].invalid)
+    ) {
       // console.log('fail');
-      // console.log(this.f);
-      alert('Fill blank input!')
+      this.alertService.onCallAlert('Fill Blank Input!', AlertType.Warning);
+      return;
+    } else if (
+      this.f['supplierId'].value == 2 &&
+      (this.form.controls['date'].invalid ||
+        this.form.controls['checkerId'].invalid ||
+        this.form.controls['supplierId'].invalid ||
+        this.form.controls['noMobil'].invalid ||
+        this.form.controls['jenisMobil'].invalid ||
+        this.form.controls['samator'].invalid)
+    ) {
+      this.alertService.onCallAlert('Fill Blank Input!', AlertType.Warning);
       return;
     }
 
@@ -251,34 +262,54 @@ export class InputLn2ArrivalCreateComponent {
           this.apiService.postArrivalAirCreate(bodyAirArrival).subscribe(
             (elem) => {
               console.log(elem);
+              this.alertService.onCallAlert(
+                'Submit Edit Success!',
+                AlertType.Success
+              );
+              this.router.navigate(['input-ln2']);
             },
             (er) => {
               console.log(er);
+              this.alertService.onCallAlert(
+                'Submit Edit Failed!',
+                AlertType.Error
+              );
             }
           );
         },
         (err) => {
           console.log(err);
+          this.alertService.onCallAlert('Submit Edit Failed!', AlertType.Error);
         }
       );
     } else if (this.f['supplierId'].value == 2) {
       this.apiService.postArrivalCreate(bodyArrival).subscribe(
         (data) => {
           console.log(data);
-          bodySamatorArrival.forEach((element,index) => {
+          bodySamatorArrival.forEach((element, index) => {
             bodySamatorArrival[index].arrivalId = data[0];
             this.apiService.postArrivalAirCreate(element).subscribe(
               (elem) => {
                 console.log(elem);
+                this.alertService.onCallAlert(
+                  'Submit Edit Success!',
+                  AlertType.Success
+                );
+                this.router.navigate(['input-ln2']);
               },
               (er) => {
                 console.log(er);
+                this.alertService.onCallAlert(
+                  'Submit Edit Failed!',
+                  AlertType.Error
+                );
               }
             );
           });
         },
         (err) => {
           console.log(err);
+          this.alertService.onCallAlert('Submit Edit Failed!', AlertType.Error);
         }
       );
     }

@@ -1,8 +1,10 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
+import { AlertType } from '../services/alert/alert.model';
+import { AlertService } from '../services/alert/alert.service';
 import { ApiService } from '../services/api.service';
 
 @Component({
@@ -36,7 +38,9 @@ export class InputLn2ArrivalEditComponent {
     private datePipe: DatePipe,
     private apiService: ApiService,
     private formBuilder: FormBuilder,
-    private actRoute: ActivatedRoute
+    private actRoute: ActivatedRoute,
+    private alertService: AlertService,
+    private router: Router
   ) {
     this.arrayItem.push('item');
 
@@ -114,7 +118,10 @@ export class InputLn2ArrivalEditComponent {
         }),
         this.formBuilder.group({
           arrivalId: [this.airProductApi[0]?.arrivalId, Validators.required],
-          noSuratJalan: [this.airProductApi[0]?.no_surat_jalan, Validators.required],
+          noSuratJalan: [
+            this.airProductApi[0]?.no_surat_jalan,
+            Validators.required,
+          ],
           noPo: [this.airProductApi[0]?.no_po, Validators.required],
           qty: [this.airProductApi[0]?.qty, Validators.required],
           satuan: [this.supplierApi[0]?.uom, Validators.required],
@@ -123,7 +130,7 @@ export class InputLn2ArrivalEditComponent {
       samator: this.formBuilder.array([
         this.formBuilder.array([
           this.formBuilder.group({
-            arrivalId: [this.samatorApi[0]?.arrivalId , Validators.required],
+            arrivalId: [this.samatorApi[0]?.arrivalId, Validators.required],
             level: [this.samatorApi[0]?.level_sebelum, Validators.required],
             press: [this.samatorApi[0]?.press_sebelum, Validators.required],
             jam: [this.samatorApi[0]?.jam_sebelum, Validators.required],
@@ -170,21 +177,30 @@ export class InputLn2ArrivalEditComponent {
         this.formBuilder.array([
           this.formBuilder.group({
             arrivalId: [this.samatorApi[0]?.arrivalId, Validators.required],
-            noSuratJalan: [this.samatorApi[0]?.no_surat_jalan, Validators.required],
+            noSuratJalan: [
+              this.samatorApi[0]?.no_surat_jalan,
+              Validators.required,
+            ],
             noPo: [this.samatorApi[0]?.no_po, Validators.required],
             qty: [this.samatorApi[0]?.qty, Validators.required],
             satuan: [this.supplierApi[0]?.uom, Validators.required],
           }),
           this.formBuilder.group({
             arrivalId: [this.samatorApi[1]?.arrivalId, Validators.required],
-            noSuratJalan: [this.samatorApi[1]?.no_surat_jalan, Validators.required],
+            noSuratJalan: [
+              this.samatorApi[1]?.no_surat_jalan,
+              Validators.required,
+            ],
             noPo: [this.samatorApi[1]?.no_po, Validators.required],
             qty: [this.samatorApi[1]?.qty, Validators.required],
             satuan: [this.supplierApi[0]?.uom, Validators.required],
           }),
           this.formBuilder.group({
             arrivalId: [this.samatorApi[2]?.arrivalId, Validators.required],
-            noSuratJalan: [this.samatorApi[2]?.no_surat_jalan, Validators.required],
+            noSuratJalan: [
+              this.samatorApi[2]?.no_surat_jalan,
+              Validators.required,
+            ],
             noPo: [this.samatorApi[2]?.no_po, Validators.required],
             qty: [this.samatorApi[2]?.qty, Validators.required],
             satuan: [this.supplierApi[0]?.uom, Validators.required],
@@ -273,43 +289,77 @@ export class InputLn2ArrivalEditComponent {
     console.log(this.samatorApi);
 
     if (this.f['supplierId'].value == 1) {
-      this.apiService.postArrivalEdit(this.arrivalApi.id,bodyArrival).subscribe(
-        (data) => {
-          console.log(data);
-          bodyAirArrival.arrivalId = data[0];
-          this.apiService.postArrivalFillEdit(this.airProductApi[0].id, bodyAirArrival).subscribe(
-            (elem) => {
-              console.log(elem);
-            },
-            (er) => {
-              console.log(er);
-            }
-          );
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-    } else if (this.f['supplierId'].value == 2) {
-      this.apiService.postArrivalEdit(this.arrivalApi.id, bodyArrival).subscribe(
-        (data) => {
-          console.log(data);
-          bodySamatorArrival.forEach((element, index) => {
-            bodySamatorArrival[index].arrivalId = data[0];
-            this.apiService.postArrivalFillEdit(this.samatorApi[index].id,element).subscribe(
-              (elem) => {
-                console.log(elem);
-              },
-              (er) => {
-                console.log(er);
-              }
+      this.apiService
+        .postArrivalEdit(this.arrivalApi.id, bodyArrival)
+        .subscribe(
+          (data) => {
+            console.log(data);
+            bodyAirArrival.arrivalId = data[0];
+            this.apiService
+              .postArrivalFillEdit(this.airProductApi[0].id, bodyAirArrival)
+              .subscribe(
+                (elem) => {
+                  console.log(elem);
+                  this.alertService.onCallAlert(
+                    'Submit Edit Success!',
+                    AlertType.Success
+                  );
+                  this.router.navigate(['input-ln2']);
+                },
+                (er) => {
+                  this.alertService.onCallAlert(
+                    'Submit Edit Failed!',
+                    AlertType.Error
+                  );
+                  console.log(er);
+                }
+              );
+          },
+          (err) => {
+            console.log(err);
+            this.alertService.onCallAlert(
+              'Submit Edit Failed!',
+              AlertType.Error
             );
-          });
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+          }
+        );
+    } else if (this.f['supplierId'].value == 2) {
+      this.apiService
+        .postArrivalEdit(this.arrivalApi.id, bodyArrival)
+        .subscribe(
+          (data) => {
+            console.log(data);
+            bodySamatorArrival.forEach((element, index) => {
+              bodySamatorArrival[index].arrivalId = data[0];
+              this.apiService
+                .postArrivalFillEdit(this.samatorApi[index].id, element)
+                .subscribe(
+                  (elem) => {
+                    console.log(elem);
+                    this.alertService.onCallAlert(
+                      'Submit Edit Success!',
+                      AlertType.Success
+                    );
+                    this.router.navigate(['input-ln2']);
+                  },
+                  (er) => {
+                    console.log(er);
+                    this.alertService.onCallAlert(
+                      'Submit Edit Failed!',
+                      AlertType.Error
+                    );
+                  }
+                );
+            });
+          },
+          (err) => {
+            console.log(err);
+            this.alertService.onCallAlert(
+              'Submit Edit Failed!',
+              AlertType.Error
+            );
+          }
+        );
     }
   }
 

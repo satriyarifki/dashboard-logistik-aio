@@ -25,6 +25,8 @@ import { InputLn2ArrivalCreateComponent } from './input-ln2-arrival-create/input
 import { InputLn2CheckCreateComponent } from './input-ln2-check-create/input-ln2-check-create.component';
 import { InputLn2ArrivalEditComponent } from './input-ln2-arrival-edit/input-ln2-arrival-edit.component';
 import { LoginComponent } from './auth/login/login.component';
+import { OutAuthGuard } from './services/guard/out-auth.guard';
+import { OnAuthGuard } from './services/guard/on-auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { animation: 'HomePage' } },
@@ -34,7 +36,7 @@ const routes: Routes = [
     component: OccupancyComponent,
     data: { animation: 'OccuPage' },
   },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate: [OutAuthGuard] },
   { path: 'inven-accuracy', component: InvenAccuracyComponent },
   // { path: 'trucking/kejayan', component: TruckingKejayanComponent },
   { path: 'delivery-destination/kejayan', component: DelDesKejayanComponent },
@@ -46,19 +48,56 @@ const routes: Routes = [
     path: 'kejayan-Sukabumi-avg-handling-load',
     component: AvgHandlingLoadComponent,
   },
-  { path: 'input-occupancy', component: InputOccupancyComponent },
-  { path: 'input-occupancy/edit', component: InputOccupancyEditComponent },
-  { path: 'input-kjy', component: InputKjyComponent },
-  { path: 'input-kjy/edit', component: InputKjyEditComponent },
-  { path: 'input-skb', component: InputSkbComponent },
-  { path: 'input-skb/edit', component: InputSkbEditComponent },
-  { path: 'input-ln2', component: InputLn2Component },
+  {
+    path: 'input-occupancy',
+    component: InputOccupancyComponent,
+    canActivate: [OnAuthGuard],
+  },
+  {
+    path: 'input-occupancy/edit',
+    component: InputOccupancyEditComponent,
+    canActivate: [OnAuthGuard],
+  },
+  {
+    path: 'input-kjy',
+    component: InputKjyComponent,
+    canActivate: [OnAuthGuard],
+  },
+  {
+    path: 'input-kjy/edit',
+    component: InputKjyEditComponent,
+    canActivate: [OnAuthGuard],
+  },
+  {
+    path: 'input-skb',
+    component: InputSkbComponent,
+    canActivate: [OnAuthGuard],
+  },
+  {
+    path: 'input-skb/edit',
+    component: InputSkbEditComponent,
+    canActivate: [OnAuthGuard],
+  },
+  {
+    path: 'input-ln2',
+    component: InputLn2Component,
+    canActivate: [OnAuthGuard],
+  },
   {
     path: 'input-ln2/arrival-create',
     component: InputLn2ArrivalCreateComponent,
+    canActivate: [OnAuthGuard],
   },
-  { path: 'input-ln2/arrival-edit', component: InputLn2ArrivalEditComponent },
-  { path: 'input-ln2/check-create', component: InputLn2CheckCreateComponent },
+  {
+    path: 'input-ln2/arrival-edit',
+    component: InputLn2ArrivalEditComponent,
+    canActivate: [OnAuthGuard],
+  },
+  {
+    path: 'input-ln2/check-create',
+    component: InputLn2CheckCreateComponent,
+    canActivate: [OnAuthGuard],
+  },
   { path: 'temp', component: TemperatureComponent },
   { path: 'check-ln', component: CheckLn2Component },
   { path: 'documentations', component: DocumentationsComponent },

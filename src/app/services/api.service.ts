@@ -83,6 +83,11 @@ export class ApiService {
     return this.http.post(this.baseUrl + 'fleet-skb/handling/' + id, body);
   }
 
+  //DELETE
+  deleteArrivalLn2(id: any): Observable<any> {
+    return this.http.delete(this.baseUrl + 'del/arrival/' + id);
+  }
+  
   // WAREHOUSE
   getWarehouseOccupancy(): Observable<any> {
     return this.http.get(this.baseUrl + 'warehouse-occu');
