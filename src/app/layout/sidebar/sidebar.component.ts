@@ -17,6 +17,9 @@ import {
   zoomOut,
 } from 'ng-animate';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { AlertComponent } from '../alert/alert.component';
+import { AlertType } from 'src/app/services/alert/alert.model';
+import { AlertService } from 'src/app/services/alert/alert.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -56,22 +59,25 @@ export class SidebarComponent {
   constructor(
     public router: Router,
     private authService: AuthService,
+    private alertService:AlertService,
     private eref: ElementRef
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.dropdown = false;
         this.userBool = false;
+
         // console.log('Route change Start');
       }
       if (event instanceof NavigationEnd) {
         this.loading = false;
+        if (authService.getUser().length > 0) {
+          this.employee = authService.getUser()[0];
+        }
         // console.log('Route change End');
       }
     });
-    if (authService.getUser().length > 0) {
-      this.employee = authService.getUser()[0];
-    }
+
     console.log(this.employee);
   }
 
@@ -112,7 +118,7 @@ export class SidebarComponent {
   }
   signOut() {
     this.authService.signOut();
-    // this.alertService.onCallAlert('Log Out Sucessful!', AlertType.Success)
+    this.alertService.onCallAlert('Log Out Sucessful!', AlertType.Success)
     this.router.navigate(['/login']);
   }
   userDropdown() {
@@ -161,6 +167,7 @@ export class SidebarComponent {
       this.dropdown = false;
     }
     if (
+      !this.onAuthCheck() &&
       !this.inputList.nativeElement.contains(event.target) &&
       this.dropdownInput
     ) {

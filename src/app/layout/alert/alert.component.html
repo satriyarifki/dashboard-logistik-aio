@@ -1,1 +1,141 @@
-<p>alert works!</p>
+<!-- <div
+*ngIf="show"
+  class="fixed w-screen h-screen flex justify-center bg-slate-300 bg-opacity-40 z-[100]"
+>
+  
+</div> -->
+<div
+  [@ZoomInOutAnimation]
+  *ngIf="show"
+  role="alert"
+  [ngClass]="
+    type == alertType.Success
+      ? 'bg-green-200'
+      : type == alertType.Error
+      ? 'bg-red-200'
+      : type == alertType.Warning
+      ? 'bg-yellow-200'
+      : 'bg-blue-200'
+  "
+  class="fixed z-[100] left-[10%] sm:left-[25%] md:left-[35%] right-[10%] sm:right-[25%] md:right-[35%] rounded-xl my-6 h-fit w-[80%] sm:w-[50%] md:w-[30%]  p-3 shadow-xl font-outfit"
+>
+  <div class="flex items-start gap-4">
+    <svg
+      *ngIf="type == alertType.Success"
+      class="h-6 w-6 stroke-green-600 my-auto"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+      />
+    </svg>
+
+    <svg
+      *ngIf="type == alertType.Info"
+      class="fill-blue-600 my-auto"
+      xmlns="http://www.w3.org/2000/svg"
+      height="24"
+      viewBox="0 -960 960 960"
+      width="24"
+    >
+      <path
+        d="M480-80q-34 0-57.5-23.5T399-161h162q0 34-23.5 57.5T480-80ZM318-223v-60h324v60H318Zm5-121q-66-43-104.5-107.5T180-597q0-122 89-211t211-89q122 0 211 89t89 211q0 81-38 145.5T637-344H323Zm22-60h271q48-32 76-83t28-110q0-99-70.5-169.5T480-837q-99 0-169.5 70.5T240-597q0 59 28 110t77 83Zm135 0Z"
+      />
+    </svg>
+
+    <svg
+      *ngIf="type == alertType.Error"
+      class="fill-red-600 my-auto"
+      xmlns="http://www.w3.org/2000/svg"
+      height="24"
+      viewBox="0 -960 960 960"
+      width="24"
+    >
+      <path
+        d="M479.982-280q14.018 0 23.518-9.482 9.5-9.483 9.5-23.5 0-14.018-9.482-23.518-9.483-9.5-23.5-9.5-14.018 0-23.518 9.482-9.5 9.483-9.5 23.5 0 14.018 9.482 23.518 9.483 9.5 23.5 9.5ZM453-433h60v-253h-60v253Zm27.266 353q-82.734 0-155.5-31.5t-127.266-86q-54.5-54.5-86-127.341Q80-397.681 80-480.5q0-82.819 31.5-155.659Q143-709 197.5-763t127.341-85.5Q397.681-880 480.5-880q82.819 0 155.659 31.5Q709-817 763-763t85.5 127Q880-563 880-480.266q0 82.734-31.5 155.5T763-197.684q-54 54.316-127 86Q563-80 480.266-80Zm.234-60Q622-140 721-239.5t99-241Q820-622 721.188-721 622.375-820 480-820q-141 0-240.5 98.812Q140-622.375 140-480q0 141 99.5 240.5t241 99.5Zm-.5-340Z"
+      />
+    </svg>
+
+    <svg
+      *ngIf="type == alertType.Warning"
+      class="fill-yellow-600 my-auto"
+      xmlns="http://www.w3.org/2000/svg"
+      height="24"
+      viewBox="0 -960 960 960"
+      width="24"
+    >
+      <path
+        d="m40-120 440-760 440 760H40Zm104-60h672L480-760 144-180Zm340.175-57q12.825 0 21.325-8.675 8.5-8.676 8.5-21.5 0-12.825-8.675-21.325-8.676-8.5-21.5-8.5-12.825 0-21.325 8.675-8.5 8.676-8.5 21.5 0 12.825 8.675 21.325 8.676 8.5 21.5 8.5ZM454-348h60v-224h-60v224Zm26-122Z"
+      />
+    </svg>
+
+    <div class="flex-1">
+      <!-- <strong
+        [ngClass]="
+          type == alertType.Success
+            ? 'text-green-900'
+            : type == alertType.Error
+            ? 'text-red-900'
+            : type == alertType.Warning
+            ? 'text-yellow-900'
+            : 'text-blue-900'
+        "
+        class="block text-lg font-semibold"
+      >
+        {{ alertType[type] }}
+      </strong> -->
+
+      <p
+        [ngClass]="
+          type == alertType.Success
+            ? 'text-green-700'
+            : type == alertType.Error
+            ? 'text-red-700'
+            : type == alertType.Warning
+            ? 'text-yellow-700'
+            : 'text-blue-700'
+        "
+        class=" text-base font-medium"
+      >
+        {{ message }}
+      </p>
+    </div>
+
+    <button
+      (click)="closeAlert()"
+      class="text-gray-500 transition hover:text-gray-600"
+    >
+      <span class="sr-only">Dismiss popup</span>
+
+      <svg
+        [ngClass]="
+          type == alertType.Success
+            ? 'text-green-700'
+            : type == alertType.Error
+            ? 'text-red-700'
+            : type == alertType.Warning
+            ? 'text-yellow-700'
+            : 'text-blue-700'
+        "
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="h-6 w-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
+  </div>
+</div>

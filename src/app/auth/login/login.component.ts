@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertType } from 'src/app/services/alert/alert.model';
+import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -16,8 +18,10 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
   ) {
+    // this.alertService.onCallAlert('Login Success', AlertType.Success);
     this.form = this.formBuilder.group({
       nik: ['', Validators.required],
       password: ['', Validators.required],
@@ -45,20 +49,19 @@ export class LoginComponent {
           this.authService.saveUser(data.user);
 
           console.log('Sign In Success');
-          // this.alertService.onCallAlert('Login Success', AlertType.Success);
+          this.alertService.onCallAlert('Login Success', AlertType.Success);
 
-          // this.alertService.onCallAlert('Login Success', AlertType.Success);
           this.reloadPage();
         },
         (err) => {
           if (err.statusText == 'Unauthorized') {
             console.log('Email or Pass Invalid');
-            // this.alertService.onCallAlert(
-            //   'Email or Password Invalid',
-            //   AlertType.Error
-            // );
+            this.alertService.onCallAlert(
+              'Email or Password Invalid',
+              AlertType.Error
+            );
           } else {
-            // this.alertService.onCallAlert('Login Failed', AlertType.Error);
+            this.alertService.onCallAlert('Login Failed', AlertType.Error);
             console.log('Sign In Failed');
           }
 

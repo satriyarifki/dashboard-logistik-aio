@@ -1,7 +1,10 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
+import { AlertType } from '../services/alert/alert.model';
+import { AlertService } from '../services/alert/alert.service';
 import { ApiService } from '../services/api.service';
 
 @Component({
@@ -27,8 +30,10 @@ export class InputLn2CheckCreateComponent {
 
   constructor(
     private datePipe: DatePipe,
+    private router: Router,
     private apiService: ApiService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private alertService: AlertService
   ) {
     this.initialForm();
     this.plusItemLoop();
@@ -64,6 +69,14 @@ export class InputLn2CheckCreateComponent {
     });
   }
 
+  filterTanki(supplierId: number) {
+    if (supplierId == 1) {
+      return this.tankiApi.filter((data) => data.id == 1);
+    } else {
+      return this.tankiApi.filter((data) => data.id != 1);
+    }
+  }
+
   onSubmit() {
     // if (this.form.invalid) {
     //     // console.log('fail');
@@ -97,10 +110,13 @@ export class InputLn2CheckCreateComponent {
         (data) => {
           console.log(data);
           console.log('success');
+          this.alertService.onCallAlert('Submit Success!', AlertType.Success);
+          this.router.navigate(['/input-ln2']);
         },
         (err) => {
           console.log(err);
           console.log('error');
+          this.alertService.onCallAlert('Submit Failed!', AlertType.Error);
         }
       );
 
@@ -139,11 +155,15 @@ export class InputLn2CheckCreateComponent {
 
     console.log(this.arrayItem);
   }
-  changeSupplier(id: any) {
+  filterSatuan(id: any) {
+    console.log();
+
     if (id == 1) {
-      this.satuan = 'InchH₂O';
+      return 'InchH₂O';
+    } else if (id == 2) {
+      return 'mmH₂O';
     } else {
-      this.satuan = 'mmH₂O';
+      return '';
     }
   }
   popItemLoop() {

@@ -119,9 +119,9 @@
                 >
                   <!-- Grid -->
                   <!-- {{this.f.items.length}} -->
-                  <div >
+                  <div>
                     <div
-                    *ngFor="let item of getItems.controls; index as i"
+                      *ngFor="let item of getItems.controls; index as i"
                       class="flex items-end gap-x-4 lg:gap-6"
                       [formGroupName]="i"
                     >
@@ -136,7 +136,7 @@
                           formControlName="supplierId"
                           class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                         >
-                          <option value="0">Choose Supplier</option>
+                          <!-- <option value="0">Choose Supplier</option> -->
                           <option
                             *ngFor="let item of supplierApi"
                             [value]="item.id"
@@ -149,16 +149,20 @@
                         <label
                           for="tankiId"
                           class="block text-sm text-gray-700 font-medium"
-                          >Nama Tanki</label
+                          >Nama Tanki </label
                         >
                         <select
                           id="tankiId"
                           formControlName="tankiId"
                           class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                         >
-                          <option value="0">Choose Tanki</option>
+                          <option value="0" class="text-gray-300">Choose Tanki</option>
                           <option
-                            *ngFor="let item of tankiApi"
+                            *ngFor="
+                              let item of filterTanki(
+                                this.getItems.value[i].supplierId
+                              )
+                            "
                             [value]="item.id"
                           >
                             {{ item.nama_tanki }}
@@ -190,7 +194,7 @@
                           id="satuan"
                           type="text"
                           disabled
-                          [value]="satuan"
+                          [value]="filterSatuan(this.getItems.value[i].supplierId)"
                           class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                         />
                       </div>
