@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { forkJoin } from 'rxjs';
 import { CheckLnChart, ColumnLnYesterday } from '../ApexChart';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-check-ln2',
@@ -7,9 +10,15 @@ import { CheckLnChart, ColumnLnYesterday } from '../ApexChart';
   styleUrls: ['./check-ln2.component.css'],
 })
 export class CheckLn2Component {
+  //CHART
   public checkLnChart!: Partial<CheckLnChart> | any;
   public lnYesterday: Partial<ColumnLnYesterday> | any;
+
+  //TOOLS
   time: any;
+
+  //API
+  newestLevel: any[] = [];
 
   getCurrentDate() {
     this.time = new Date();
@@ -18,18 +27,35 @@ export class CheckLn2Component {
     }, 1000);
   }
 
-  constructor() {
+  constructor(
+    private apiService: ApiService,
+    private spinner: NgxSpinnerService
+  ) {
+    spinner.show();
     this.getCurrentDate();
-    this.chart();
+    forkJoin(apiService.getCheckLevelNewest()).subscribe(
+      (res) => {
+        this.newestLevel = res[0];
+        console.log(this.newestLevel);
+        this.chart();
+        spinner.hide();
+      },
+      (err) => {
+        spinner.hide();
+        console.log(err);
+      }
+    );
   }
 
   chart() {
+    console.log(this.newestLevel[0].level);
+    
     this.checkLnChart = {
       series: [
         {
           name: ['Level Ln2'],
           type: 'column',
-          data: [4983, 5552, 2320],
+          data: [this.newestLevel[1].level, this.newestLevel[2].level, this.newestLevel[3].level],
         },
         {
           name: 'Std Level Refill',
@@ -41,7 +67,7 @@ export class CheckLn2Component {
         {
           name: 'Level Ln2',
           type: 'column',
-          data: [180],
+          data: [this.newestLevel[0].level],
         },
         {
           name: 'Std Level Refill',

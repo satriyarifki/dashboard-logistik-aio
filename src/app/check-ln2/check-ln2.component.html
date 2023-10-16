@@ -1,22 +1,20 @@
-<!-- <ngx-loading
-  [show]="loading"
-  [config]="{ backdropBorderRadius: '3px' }"
-></ngx-loading>
 <ngx-spinner
   color="white"
   type="square-jelly-box"
   [fullScreen]="true"
   size="medium"
   ><p style="color: white">Loading...</p></ngx-spinner
-> -->
+>
 <div class="py-12 md:py-0 my-2 md:pl-[4.5rem] w-full">
   <div class="flex flex-wrap mx-auto">
     <div class="px-2 w-full">
       <div
         class="h-fit flex justify-between flex-wrap bg-white px-2 md:px-8 py-2 text-center rounded-lg overflow-hidden relative drop-shadow-xl"
       >
-        <span class="flex items-center justify-start w-1/3 ">
-          <h1 class="font-quicksand font-semibold max-sm:px-3 text-sm md:text-lg text-red-400">
+        <span class="flex items-center justify-start w-1/3">
+          <h1
+            class="font-quicksand font-semibold max-sm:px-3 text-sm md:text-lg text-red-400"
+          >
             (Not Connected)
           </h1>
         </span>
@@ -25,7 +23,9 @@
           Check Ln 2
         </h1>
         <span class="flex items-center justify-end w-1/3">
-          <h1 class="font-quicksand font-semibold text-sm md:text-lg text-sky-900">
+          <h1
+            class="font-quicksand font-semibold text-sm md:text-lg text-sky-900"
+          >
             {{ time | date : "mediumTime" }}
           </h1></span
         >
@@ -47,16 +47,17 @@
         </div>
         <div class="w-full">
           <apx-chart
-            [series]="checkLnChart.series"
-            [chart]="checkLnChart.chart"
-            [yaxis]="checkLnChart.yaxis"
-            [xaxis]="checkLnChart.xaxis"
-            [labels]="checkLnChart.labels"
-            [stroke]="checkLnChart.stroke"
-            [plotOptions]="checkLnChart.plotOptions"
-            [title]="checkLnChart.title"
-            [dataLabels]="checkLnChart.dataLabels"
-            [colors]="checkLnChart.colors"
+            *ngIf="checkLnChart"
+            [series]="checkLnChart?.series"
+            [chart]="checkLnChart?.chart"
+            [yaxis]="checkLnChart?.yaxis"
+            [xaxis]="checkLnChart?.xaxis"
+            [labels]="checkLnChart?.labels"
+            [stroke]="checkLnChart?.stroke"
+            [plotOptions]="checkLnChart?.plotOptions"
+            [title]="checkLnChart?.title"
+            [dataLabels]="checkLnChart?.dataLabels"
+            [colors]="checkLnChart?.colors"
           ></apx-chart>
         </div>
       </div>
@@ -78,16 +79,17 @@
         </div>
         <div class="w-full">
           <apx-chart
-            [series]="checkLnChart.series2"
-            [chart]="checkLnChart.chart"
-            [yaxis]="checkLnChart.yaxis2"
-            [xaxis]="checkLnChart.xaxis"
-            [plotOptions]="checkLnChart.plotOptions"
-            [labels]="checkLnChart.labels2"
-            [stroke]="checkLnChart.stroke2"
-            [title]="checkLnChart.title"
-            [dataLabels]="checkLnChart.dataLabels"
-            [colors]="checkLnChart.colors"
+            *ngIf="checkLnChart"
+            [series]="checkLnChart?.series2"
+            [chart]="checkLnChart?.chart"
+            [yaxis]="checkLnChart?.yaxis2"
+            [xaxis]="checkLnChart?.xaxis"
+            [plotOptions]="checkLnChart?.plotOptions"
+            [labels]="checkLnChart?.labels2"
+            [stroke]="checkLnChart?.stroke2"
+            [title]="checkLnChart?.title"
+            [dataLabels]="checkLnChart?.dataLabels"
+            [colors]="checkLnChart?.colors"
           ></apx-chart>
         </div>
       </div>
@@ -110,17 +112,18 @@
         </div>
         <div class="w-full">
           <apx-chart
-            [series]="lnYesterday.series"
-            [chart]="lnYesterday.chart"
-            [xaxis]="lnYesterday.xaxis"
-            [stroke]="lnYesterday.stroke"
-            [dataLabels]="lnYesterday.dataLabels"
-            [yaxis]="lnYesterday.yaxis"
-            [labels]="lnYesterday.labels"
-            [legend]="lnYesterday.legend"
-            [markers]="lnYesterday.markers"
-            [tooltip]="lnYesterday.tooltip"
-            [colors]="lnYesterday.colors"
+            *ngIf="lnYesterday"
+            [series]="lnYesterday?.series"
+            [chart]="lnYesterday?.chart"
+            [xaxis]="lnYesterday?.xaxis"
+            [stroke]="lnYesterday?.stroke"
+            [dataLabels]="lnYesterday?.dataLabels"
+            [yaxis]="lnYesterday?.yaxis"
+            [labels]="lnYesterday?.labels"
+            [legend]="lnYesterday?.legend"
+            [markers]="lnYesterday?.markers"
+            [tooltip]="lnYesterday?.tooltip"
+            [colors]="lnYesterday?.colors"
           ></apx-chart>
         </div>
       </div>
@@ -143,17 +146,18 @@
         </div>
         <div class="w-full">
           <apx-chart
-            [series]="lnYesterday.series3"
-            [chart]="lnYesterday.chart"
-            [xaxis]="lnYesterday.xaxis2"
-            [stroke]="lnYesterday.stroke"
-            [dataLabels]="lnYesterday.dataLabels"
-            [yaxis]="lnYesterday.yaxis2"
-            [labels]="lnYesterday.labels"
-            [legend]="lnYesterday.legend"
-            [markers]="lnYesterday.markers"
-            [tooltip]="lnYesterday.tooltip"
-            [colors]="lnYesterday.colors2"
+            *ngIf="lnYesterday"
+            [series]="lnYesterday?.series3"
+            [chart]="lnYesterday?.chart"
+            [xaxis]="lnYesterday?.xaxis2"
+            [stroke]="lnYesterday?.stroke"
+            [dataLabels]="lnYesterday?.dataLabels"
+            [yaxis]="lnYesterday?.yaxis2"
+            [labels]="lnYesterday?.labels"
+            [legend]="lnYesterday?.legend"
+            [markers]="lnYesterday?.markers"
+            [tooltip]="lnYesterday?.tooltip"
+            [colors]="lnYesterday?.colors2"
           ></apx-chart>
         </div>
       </div>
@@ -176,17 +180,18 @@
         </div>
         <div class="w-full">
           <apx-chart
-            [series]="lnYesterday.series2"
-            [chart]="lnYesterday.chart"
-            [xaxis]="lnYesterday.xaxis"
-            [stroke]="lnYesterday.stroke"
-            [dataLabels]="lnYesterday.dataLabels"
-            [yaxis]="lnYesterday.yaxis2"
-            [labels]="lnYesterday.labels"
-            [legend]="lnYesterday.legend"
-            [markers]="lnYesterday.markers"
-            [tooltip]="lnYesterday.tooltip"
-            [colors]="lnYesterday.colors3"
+            *ngIf="lnYesterday"
+            [series]="lnYesterday?.series2"
+            [chart]="lnYesterday?.chart"
+            [xaxis]="lnYesterday?.xaxis"
+            [stroke]="lnYesterday?.stroke"
+            [dataLabels]="lnYesterday?.dataLabels"
+            [yaxis]="lnYesterday?.yaxis2"
+            [labels]="lnYesterday?.labels"
+            [legend]="lnYesterday?.legend"
+            [markers]="lnYesterday?.markers"
+            [tooltip]="lnYesterday?.tooltip"
+            [colors]="lnYesterday?.colors3"
           ></apx-chart>
         </div>
       </div>
@@ -209,17 +214,18 @@
         </div>
         <div class="w-full">
           <apx-chart
-            [series]="lnYesterday.series4"
-            [chart]="lnYesterday.chart"
-            [xaxis]="lnYesterday.xaxis"
-            [stroke]="lnYesterday.stroke"
-            [dataLabels]="lnYesterday.dataLabels"
-            [yaxis]="lnYesterday.yaxis2"
-            [labels]="lnYesterday.labels"
-            [legend]="lnYesterday.legend"
-            [markers]="lnYesterday.markers"
-            [tooltip]="lnYesterday.tooltip"
-            [colors]="lnYesterday.colors4"
+            *ngIf="lnYesterday"
+            [series]="lnYesterday?.series4"
+            [chart]="lnYesterday?.chart"
+            [xaxis]="lnYesterday?.xaxis"
+            [stroke]="lnYesterday?.stroke"
+            [dataLabels]="lnYesterday?.dataLabels"
+            [yaxis]="lnYesterday?.yaxis2"
+            [labels]="lnYesterday?.labels"
+            [legend]="lnYesterday?.legend"
+            [markers]="lnYesterday?.markers"
+            [tooltip]="lnYesterday?.tooltip"
+            [colors]="lnYesterday?.colors4"
           ></apx-chart>
         </div>
       </div>
@@ -321,15 +327,15 @@
         >
           <div id="chart" class="w-full">
             <apx-chart
-              [series]="checkLnChart.series"
-              [chart]="checkLnChart.chart"
-              [xaxis]="checkLnChart.xaxis"
-              [dataLabels]="checkLnChart.dataLabels"
-              [grid]="checkLnChart.grid"
-              [stroke]="checkLnChart.stroke"
-              [title]="checkLnChart.titleSukabumi"
-              [markers]="checkLnChart.markers"
-              [yaxis]="checkLnChart.yaxis"
+              [series]="checkLnChart?.series"
+              [chart]="checkLnChart?.chart"
+              [xaxis]="checkLnChart?.xaxis"
+              [dataLabels]="checkLnChart?.dataLabels"
+              [grid]="checkLnChart?.grid"
+              [stroke]="checkLnChart?.stroke"
+              [title]="checkLnChart?.titleSukabumi"
+              [markers]="checkLnChart?.markers"
+              [yaxis]="checkLnChart?.yaxis"
 
             ></apx-chart>
           </div>
