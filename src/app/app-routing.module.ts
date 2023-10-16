@@ -27,6 +27,8 @@ import { InputLn2ArrivalEditComponent } from './input-ln2-arrival-edit/input-ln2
 import { LoginComponent } from './auth/login/login.component';
 import { OutAuthGuard } from './services/guard/out-auth.guard';
 import { OnAuthGuard } from './services/guard/on-auth.guard';
+import { InputOccupancyRmpmComponent } from './occupancy-rmpm/input-occupancy-rmpm/input-occupancy-rmpm.component';
+import { InputOccupancyRmpmCreateComponent } from './occupancy-rmpm/input-occupancy-rmpm-create/input-occupancy-rmpm-create.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { animation: 'HomePage' } },
@@ -98,6 +100,12 @@ const routes: Routes = [
     component: InputLn2CheckCreateComponent,
     canActivate: [OnAuthGuard],
   },
+  {
+    path: 'input-rmpm-occupancy',
+    component: InputOccupancyRmpmComponent,
+    canActivate: [OnAuthGuard],
+  },
+  { path: 'input-rmpm-occupancy/create', component: InputOccupancyRmpmCreateComponent },
   { path: 'temp', component: TemperatureComponent },
   { path: 'check-ln', component: CheckLn2Component },
   { path: 'documentations', component: DocumentationsComponent },

@@ -45,6 +45,9 @@ import { InputLn2CheckCreateComponent } from './input-ln2-check-create/input-ln2
 import { InputLn2ArrivalEditComponent } from './input-ln2-arrival-edit/input-ln2-arrival-edit.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AlertComponent } from './layout/alert/alert.component';
+import { OccupancyRmpmComponent } from './occupancy-rmpm/occupancy-rmpm.component';
+import { InputOccupancyRmpmComponent } from './occupancy-rmpm/input-occupancy-rmpm/input-occupancy-rmpm.component';
+import { InputOccupancyRmpmCreateComponent } from './occupancy-rmpm/input-occupancy-rmpm-create/input-occupancy-rmpm-create.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +80,10 @@ import { AlertComponent } from './layout/alert/alert.component';
     InputLn2CheckCreateComponent,
     InputLn2ArrivalEditComponent,
     LoginComponent,
-    AlertComponent
+    AlertComponent,
+    OccupancyRmpmComponent,
+    InputOccupancyRmpmComponent,
+    InputOccupancyRmpmCreateComponent
   ],
   imports: [
     BrowserModule,

@@ -142,4 +142,15 @@ export class ApiService {
   postCheckLevelCreate(body:any):Observable<any>{
     return this.http.post(this.baseUrl +'level-ln2', body)
   }
+  getCheckLevelNewest():Observable<any>{
+    return this.http.get(this.baseUrl +'check-level/newest')
+  }
+
+  //RMPM Occupancy
+  getRmpmOccupancyView():Observable<any>{
+    return this.http.get(this.baseUrl +'rmpm-view')
+  }
+  getRmpmStorage():Observable<any>{
+    return this.http.get(this.baseUrl +'rmpm/storage')
+  }
 }
