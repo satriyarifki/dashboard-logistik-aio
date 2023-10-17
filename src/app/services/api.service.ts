@@ -153,4 +153,7 @@ export class ApiService {
   getRmpmStorage():Observable<any>{
     return this.http.get(this.baseUrl +'rmpm/storage')
   }
+  postRmpmCreate(body:any):Observable<any>{
+    return this.http.post(this.baseUrl +'rmpm-create',body)
+  }
 }
