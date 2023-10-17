@@ -150,6 +150,9 @@ export class ApiService {
   getRmpmOccupancyView():Observable<any>{
     return this.http.get(this.baseUrl +'rmpm-view')
   }
+  getRmpmOccupancyViewGroup():Observable<any>{
+    return this.http.get(this.baseUrl +'rmpm-view/group')
+  }
   getRmpmStorage():Observable<any>{
     return this.http.get(this.baseUrl +'rmpm/storage')
   }

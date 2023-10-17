@@ -115,11 +115,11 @@
                     <span
                       class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
                     >
-                      Storage Name
+                      Time
                     </span>
                   </div>
                 </th>
-                <th scope="col" class="px-6 py-3 text-left">
+                <!-- <th scope="col" class="px-6 py-3 text-left">
                   <div class="flex items-center justify-center gap-x-2">
                     <span
                       class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
@@ -127,13 +127,13 @@
                       Temp
                     </span>
                   </div>
-                </th>
+                </th> -->
                 <th scope="col" class="px-6 py-3 text-left">
                   <div class="flex items-center justify-center gap-x-2">
                     <span
                       class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
                     >
-                      Capacity
+                      Submit Date
                     </span>
                   </div>
                 </th>
@@ -143,7 +143,7 @@
                     <span
                       class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
                     >
-                      Used
+                      Total Storage
                     </span>
                   </div>
                 </th>
@@ -162,7 +162,7 @@
             <tbody class="divide-y divide-gray-200">
               <tr
                 *ngFor="
-                  let item of rmpmViewApi
+                  let item of rmpmViewGroupApi
                     | customFilter : searchInput
                     | paginate : config
                 "
@@ -170,13 +170,13 @@
               >
                 <td class="h-px w-px whitespace-nowrap py-2.5">
                   <h1 class="text-sm">
-                    {{ item.created_at | date : "mediumDate" }}
+                    {{ item.date | date : "mediumDate" }}
                   </h1>
                 </td>
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{ item.name }}</h1>
+                  <h1 class="text-sm">{{ item.time }}</h1>
                 </td>
-                <td class="h-px w-px whitespace-nowrap">
+                <!-- <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
                     <span *ngIf="item.min_temp"
                       >{{ item.min_temp }}°C ± {{ item.max_temp }}°C</span
@@ -187,15 +187,15 @@
                       <span *ngIf="item.max_temp != 35"> ≤ {{ item.max_temp }}°C</span>
                     </span>
                   </h1>
-                </td>
+                </td> -->
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    {{ item.capacity }}
+                    {{ item.created_at | date : 'medium' }}
                   </h1>
                 </td>
 
                 <td class="h-px w-px whitespace-nowrap">
-                  <h1 class="text-sm">{{ item.used }}</h1>
+                  <h1 class="text-sm">{{ item.count }}</h1>
                 </td>
                 
                 <td class="h-px w-px whitespace-nowrap">

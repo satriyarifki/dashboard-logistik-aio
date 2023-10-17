@@ -17,6 +17,7 @@ export class InputOccupancyRmpmComponent {
 
   //API
   rmpmViewApi: any[] = [];
+  rmpmViewGroupApi: any[] = [];
 
   exportAsConfig: ExportAsConfig = {
     type: 'csv', // the type you want to download
@@ -30,9 +31,10 @@ export class InputOccupancyRmpmComponent {
     totalItems: this.rmpmViewApi.length,
   };
   constructor(private apiService: ApiService) {
-    forkJoin(apiService.getRmpmOccupancyView()).subscribe((res) => {
+    forkJoin(apiService.getRmpmOccupancyView(),apiService.getRmpmOccupancyViewGroup()).subscribe((res) => {
       this.rmpmViewApi = res[0];
-      console.log(res[0]);
+      this.rmpmViewGroupApi = res[1];
+      console.log(res[1]);
     });
   }
 
