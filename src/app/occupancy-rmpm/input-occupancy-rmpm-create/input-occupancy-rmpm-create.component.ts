@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { forkJoin } from 'rxjs';
 import { AlertType } from 'src/app/services/alert/alert.model';
 import { AlertService } from 'src/app/services/alert/alert.service';
@@ -23,14 +25,22 @@ export class InputOccupancyRmpmCreateComponent {
   constructor(
     private apiService: ApiService,
     private formBuilder: FormBuilder,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private router:Router,
+    private spinner:NgxSpinnerService
   ) {
+    spinner.show()
     this.initialForm();
     forkJoin(apiService.getRmpmStorage()).subscribe((res) => {
       this.rmpmStorageApi = res[0];
-      console.log(res[0]);
       this.fillFormItems();
-      console.log(this.f);
+      // console.log(res[0;
+      // console.log(this.f);
+      spinner.hide()
+    },(err)=>{
+      console.log(err);
+      spinner.hide()
+      alertService.onCallAlert('Data Cannot Loaded!',AlertType.Error)
     });
   }
 
@@ -62,6 +72,8 @@ export class InputOccupancyRmpmCreateComponent {
   }
 
   onSubmit() {
+    // console.log(this.f);
+    
     if (this.form.invalid) {
       this.alertService.onCallAlert('Fill Blank Input!',AlertType.Warning)
       return;
@@ -70,6 +82,7 @@ export class InputOccupancyRmpmCreateComponent {
     this.apiService.postRmpmCreate(this.f).subscribe(
       (data) => {
         this.alertService.onCallAlert('Create Successfuly!', AlertType.Success);
+        this.router.navigate(['input-rmpm-occupancy'])
       },
       (err) => {
         console.log(err);

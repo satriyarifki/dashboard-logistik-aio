@@ -48,6 +48,7 @@ import { AlertComponent } from './layout/alert/alert.component';
 import { OccupancyRmpmComponent } from './occupancy-rmpm/occupancy-rmpm.component';
 import { InputOccupancyRmpmComponent } from './occupancy-rmpm/input-occupancy-rmpm/input-occupancy-rmpm.component';
 import { InputOccupancyRmpmCreateComponent } from './occupancy-rmpm/input-occupancy-rmpm-create/input-occupancy-rmpm-create.component';
+import { InputOccupancyRmpmEditComponent } from './occupancy-rmpm/input-occupancy-rmpm-edit/input-occupancy-rmpm-edit.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { InputOccupancyRmpmCreateComponent } from './occupancy-rmpm/input-occupa
     AlertComponent,
     OccupancyRmpmComponent,
     InputOccupancyRmpmComponent,
-    InputOccupancyRmpmCreateComponent
+    InputOccupancyRmpmCreateComponent,
+    InputOccupancyRmpmEditComponent
   ],
   imports: [
     BrowserModule,

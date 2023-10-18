@@ -15,7 +15,7 @@
         <div class="max-w-7xl my-4 mx-auto">
           <div class="text-center space-y-2">
             <h1 class="text-1xl font-bold text-gray-800 sm:text-3xl">
-              Create Occupancy RMPM
+              Edit Occupancy RMPM
             </h1>
             <hr class="w-3/4 mx-auto" />
           </div>
@@ -38,7 +38,8 @@
                     <input
                       id="date"
                       type="date"
-                      formControlName="date"
+                      [value]="f.date"
+                      disabled
                       class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                     />
                   </div>
@@ -52,7 +53,8 @@
                       id="jam"
                       type="time"
                       step="3600"
-                      formControlName="time"
+                      [value]="f.time"
+                      disabled
                       class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
                     />
                   </div>
@@ -81,11 +83,11 @@
                         >Storage Name
                       </label>
                       <!-- <input
-                      id="level"
-                      type="text"
-                      min="0"
-                      class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-                    /> -->
+                        id="level"
+                        type="text"
+                        min="0"
+                        class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                      /> -->
                       <div
                         [ngClass]="i == 0 ? 'h-2/3' : 'h-full'"
                         class="flex items-center justify-between"
@@ -119,11 +121,11 @@
                         >Capacity
                       </label>
                       <!-- <input
-                      id="level"
-                      type="text"
-                      min="0"
-                      class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-                    /> -->
+                        id="level"
+                        type="text"
+                        min="0"
+                        class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                      /> -->
                       <div
                         [ngClass]="i == 0 ? 'h-2/3' : 'h-full'"
                         class="flex items-center justify-center w-full"
@@ -154,11 +156,11 @@
                         >Storage Name
                       </label>
                       <!-- <input
-                      id="level"
-                      type="text"
-                      min="0"
-                      class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-                    /> -->
+                        id="level"
+                        type="text"
+                        min="0"
+                        class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                      /> -->
                       <div
                         [ngClass]="i == 0 ? 'h-2/3' : 'h-full'"
                         class="flex items-center justify-between"
@@ -192,11 +194,11 @@
                         >Capacity
                       </label>
                       <!-- <input
-                      id="level"
-                      type="text"
-                      min="0"
-                      class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-                    /> -->
+                        id="level"
+                        type="text"
+                        min="0"
+                        class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                      /> -->
                       <div
                         [ngClass]="i == 0 ? 'h-2/3' : 'h-full'"
                         class="flex items-center justify-center w-full"
@@ -227,11 +229,11 @@
                         >Storage Name
                       </label>
                       <!-- <input
-                      id="level"
-                      type="text"
-                      min="0"
-                      class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-                    /> -->
+                        id="level"
+                        type="text"
+                        min="0"
+                        class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                      /> -->
                       <div
                         [ngClass]="i == 0 ? 'h-2/3' : 'h-full'"
                         class="flex items-center justify-between"
@@ -265,11 +267,11 @@
                         >Capacity
                       </label>
                       <!-- <input
-                      id="level"
-                      type="text"
-                      min="0"
-                      class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-                    /> -->
+                        id="level"
+                        type="text"
+                        min="0"
+                        class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                      /> -->
                       <div
                         [ngClass]="i == 0 ? 'h-2/3' : 'h-full'"
                         class="flex items-center justify-center w-full"
@@ -292,7 +294,7 @@
                   type="submit"
                   class="w-1/5 inline-flex justify-center items-center gap-x-3 text-center bg-sky-600 hover:bg-sky-700 border border-transparent text-sm lg:text-base text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-sky-600 focus:ring-offset-2 focus:ring-offset-white transition py-1.5 px-4"
                 >
-                  Add
+                  Save
                 </button>
                 <button
                   [routerLink]="['/input-rmpm-occupancy']"

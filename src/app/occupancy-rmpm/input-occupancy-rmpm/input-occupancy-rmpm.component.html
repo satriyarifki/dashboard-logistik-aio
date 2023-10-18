@@ -190,18 +190,18 @@
                 </td> -->
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">
-                    {{ item.created_at | date : 'medium' }}
+                    {{ item.created_at | date : "medium" }}
                   </h1>
                 </td>
 
                 <td class="h-px w-px whitespace-nowrap">
                   <h1 class="text-sm">{{ item.count }}</h1>
                 </td>
-                
+
                 <td class="h-px w-px whitespace-nowrap">
                   <a
-                    [routerLink]="['arrival-edit']"
-                    [queryParams]="{ id: item.id }"
+                    [routerLink]="['edit']"
+                    [queryParams]="{ date: item.date, time: item.time }"
                     class="bg-gradient-to-tr from-yellow-500 to-yellow-400 border-yellow-600 rounded-lg relative inline-flex group items-center justify-center px-2.5 py-1.5 m-1 cursor-pointer border-b-2 border-l-2 active:border-purple-600 active:shadow-none shadow-lg text-white"
                   >
                     <span
@@ -210,6 +210,7 @@
                     <span class="relative text-xs"> Edit</span>
                   </a>
                   <a
+                  (click)="deleteRmpm({ date: item.date, time: item.time })"
                     class="bg-gradient-to-tr from-red-500 to-red-400 border-red-600 rounded-lg relative inline-flex group items-center justify-center px-2.5 py-1.5 m-1 cursor-pointer border-b-2 border-l-2 active:border-purple-600 active:shadow-none shadow-lg text-white"
                   >
                     <span

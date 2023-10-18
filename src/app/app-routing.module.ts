@@ -29,6 +29,7 @@ import { OutAuthGuard } from './services/guard/out-auth.guard';
 import { OnAuthGuard } from './services/guard/on-auth.guard';
 import { InputOccupancyRmpmComponent } from './occupancy-rmpm/input-occupancy-rmpm/input-occupancy-rmpm.component';
 import { InputOccupancyRmpmCreateComponent } from './occupancy-rmpm/input-occupancy-rmpm-create/input-occupancy-rmpm-create.component';
+import { InputOccupancyRmpmEditComponent } from './occupancy-rmpm/input-occupancy-rmpm-edit/input-occupancy-rmpm-edit.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { animation: 'HomePage' } },
@@ -106,6 +107,7 @@ const routes: Routes = [
     canActivate: [OnAuthGuard],
   },
   { path: 'input-rmpm-occupancy/create', component: InputOccupancyRmpmCreateComponent },
+  { path: 'input-rmpm-occupancy/edit', component: InputOccupancyRmpmEditComponent },
   { path: 'temp', component: TemperatureComponent },
   { path: 'check-ln', component: CheckLn2Component },
   { path: 'documentations', component: DocumentationsComponent },

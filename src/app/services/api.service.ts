@@ -87,12 +87,12 @@ export class ApiService {
   deleteArrivalLn2(id: any): Observable<any> {
     return this.http.delete(this.baseUrl + 'del/arrival/' + id);
   }
-  
+
   // WAREHOUSE
   getWarehouseOccupancy(): Observable<any> {
     return this.http.get(this.baseUrl + 'warehouse-occu');
   }
-  getWarehouseOccupancyById(id:any): Observable<any> {
+  getWarehouseOccupancyById(id: any): Observable<any> {
     return this.http.get(this.baseUrl + 'warehouse-occu/' + id);
   }
   getWarehouseOccupancyAll(): Observable<any> {
@@ -103,60 +103,76 @@ export class ApiService {
   }
 
   //CHECK LN2
-  getLn2ArrivalAll():Observable<any>{
+  getLn2ArrivalAll(): Observable<any> {
     return this.http.get(this.baseUrl + 'check-ln2');
   }
-  getArrivalLn2All():Observable<any>{
+  getArrivalLn2All(): Observable<any> {
     return this.http.get(this.baseUrl + 'arrival-ln2');
   }
-  getReportLn2All(date:any):Observable<any>{
-    return this.http.get(this.baseUrl + 'report-ln2/'+date,);
+  getReportLn2All(date: any): Observable<any> {
+    return this.http.get(this.baseUrl + 'report-ln2/' + date);
   }
-  getArrivalLn2ById(id:any):Observable<any>{
+  getArrivalLn2ById(id: any): Observable<any> {
     return this.http.get(this.baseUrl + 'arrival-ln2/' + id);
   }
-  getPengisianLn2ByArrivalId(id:any):Observable<any>{
+  getPengisianLn2ByArrivalId(id: any): Observable<any> {
     return this.http.get(this.baseUrl + 'pengisian-ln2/' + id);
   }
-  getKaryawan():Observable<any>{
-    return this.http.get(this.baseUrl + 'ln2-karyawan')
+  getKaryawan(): Observable<any> {
+    return this.http.get(this.baseUrl + 'ln2-karyawan');
   }
-  getSupplier():Observable<any>{
-    return this.http.get(this.baseUrl + 'ln2-supplier')
+  getSupplier(): Observable<any> {
+    return this.http.get(this.baseUrl + 'ln2-supplier');
   }
-  getTanki():Observable<any>{
-    return this.http.get(this.baseUrl + 'ln2-tanki')
+  getTanki(): Observable<any> {
+    return this.http.get(this.baseUrl + 'ln2-tanki');
   }
-  postArrivalCreate(body:any):Observable<any>{
-    return this.http.post(this.baseUrl +'arrival-create', body)
+  postArrivalCreate(body: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'arrival-create', body);
   }
-  postArrivalEdit(id:any,body:any):Observable<any>{
-    return this.http.post(this.baseUrl +'arrival-edit/'+id, body)
+  postArrivalEdit(id: any, body: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'arrival-edit/' + id, body);
   }
-  postArrivalAirCreate(body:any):Observable<any>{
-    return this.http.post(this.baseUrl +'arrival-create/air', body)
+  postArrivalAirCreate(body: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'arrival-create/air', body);
   }
-  postArrivalFillEdit(id:any,body:any):Observable<any>{
-    return this.http.post(this.baseUrl +'fill-ln2/edit/' + id, body)
+  postArrivalFillEdit(id: any, body: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'fill-ln2/edit/' + id, body);
   }
-  postCheckLevelCreate(body:any):Observable<any>{
-    return this.http.post(this.baseUrl +'level-ln2', body)
+  postCheckLevelCreate(body: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'level-ln2', body);
   }
-  getCheckLevelNewest():Observable<any>{
-    return this.http.get(this.baseUrl +'check-level/newest')
+  getCheckLevelNewest(): Observable<any> {
+    return this.http.get(this.baseUrl + 'check-level/newest');
   }
 
   //RMPM Occupancy
-  getRmpmOccupancyView():Observable<any>{
-    return this.http.get(this.baseUrl +'rmpm-view')
+  getRmpmOccupancy(): Observable<any> {
+    return this.http.get(this.baseUrl + 'rmpm');
   }
-  getRmpmOccupancyViewGroup():Observable<any>{
-    return this.http.get(this.baseUrl +'rmpm-view/group')
+  getRmpmOccupancyByDateTime(params: any): Observable<any> {
+    return this.http.get(
+      this.baseUrl + 'rmpm/' + params.date + '/' + params.time
+    );
   }
-  getRmpmStorage():Observable<any>{
-    return this.http.get(this.baseUrl +'rmpm/storage')
+  getRmpmOccupancyView(): Observable<any> {
+    return this.http.get(this.baseUrl + 'rmpm-view');
   }
-  postRmpmCreate(body:any):Observable<any>{
-    return this.http.post(this.baseUrl +'rmpm-create',body)
+  getRmpmOccupancyViewGroup(): Observable<any> {
+    return this.http.get(this.baseUrl + 'rmpm-view/group');
+  }
+  getRmpmStorage(): Observable<any> {
+    return this.http.get(this.baseUrl + 'rmpm/storage');
+  }
+  postRmpmCreate(body: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'rmpm-create', body);
+  }
+  postRmpmUpdate(body: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'rmpm-update', body);
+  }
+  deleteRmpm(params: any): Observable<any> {
+    return this.http.delete(
+      this.baseUrl + 'rmpm-del/' + params.date + '/' + params.time
+    );
   }
 }
