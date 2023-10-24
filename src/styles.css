@@ -19,6 +19,19 @@ body {
   height: 100vh;
 }
 
+body::-webkit-scrollbar {
+  width: 0.5em;
+}
+ 
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(3, 112, 96, 0.3);
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: rgb(117, 160, 165);
+  outline: 1px solid slategrey;
+}
+
 @keyframes gradient {
   0% {
     background-position: 0% 50%;

@@ -192,7 +192,7 @@ export class InputLn2ArrivalCreateComponent {
       no_mobil: this.f['noMobil'].value,
       jenis_mobil: this.f['jenisMobil'].value,
     };
-    console.log(this.fSam[0]);
+    // console.log(this.fSam[0]);
 
     let bodyAirArrival = {
       arrivalId: 0,

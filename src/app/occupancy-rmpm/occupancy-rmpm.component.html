@@ -1,1 +1,143 @@
-<p>occupancy-rmpm works!</p>
+<ngx-spinner
+  color="white"
+  type="square-jelly-box"
+  [fullScreen]="true"
+  size="medium"
+  ><p style="color: white">Loading...</p></ngx-spinner
+>
+<div class="py-12 md:py-0 my-2 md:pl-[4.5rem] w-full">
+  <div class="flex flex-wrap mx-auto">
+    <div class="px-2 w-full">
+      <div
+        class="h-fit flex justify-between flex-wrap bg-white px-2 md:px-8 py-2 text-center rounded-lg overflow-hidden relative drop-shadow-xl"
+      >
+        <span class="flex items-center justify-start w-1/3">
+          <h1
+            class="font-quicksand font-semibold max-sm:px-3 text-sm md:text-lg text-sky-900"
+          >
+            {{ time | date : "fullDate" }}
+          </h1>
+        </span>
+
+        <h1 class="font-manrope font-[700] text-lg md:text-3xl w-1/3">
+          Occupancy RMPM
+        </h1>
+        <span class="flex items-center justify-end w-1/3">
+          <h1
+            class="font-quicksand font-semibold text-sm md:text-lg text-sky-900"
+          >
+            {{ time | date : "mediumTime" }}
+          </h1></span
+        >
+      </div>
+    </div>
+    <div class="grow p-2 lg:w-6/12">
+      <div
+        class="h-full flex justify-center flex-wrap bg-white px-5 py-5 space-y-4 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <div class="px-5 w-full flex flex-wrap items-center">
+          <h1 class="text-lg w-fit font-manrope font-[700] text-start h-fit">
+            Occupancy Soyjoy
+          </h1>
+          <h1
+            class="text-sm w-fit font-manrope font-semibold h-fit text-start text-gray-500"
+          ></h1>
+        </div>
+        <div class="w-full rounded-lg">
+          <table
+            class="w-full text-sm text-left text-gray-800 font-medium"
+          >
+            <thead
+              class="text-xs text-gray-700 uppercase bg-gray-100 "
+            >
+              <tr>
+                <th scope="col" class="px-3 py-2 text-center">Storage</th>
+                <th scope="col" class="px-3 py-2 text-center">Temp</th>
+                <th scope="col" class="px-3 py-2 text-center">Capacity</th>
+                <th scope="col" class="px-3 py-2 text-center">Used</th>
+                <th scope="col" class="px-3 py-2 text-center">Percent</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let item of soyjoyOccu"
+                class="bg-white border-gray-200 border-b"
+              >
+                <td class="px-3 py-2 text-center">{{ item.name }}</td>
+                <td class="px-3 py-2 text-center">
+                  <span *ngIf="item.min_temp"
+                    >{{ item.min_temp }}°C ± {{ item.max_temp }}°C</span
+                  ><span *ngIf="!item.min_temp">
+                    <span *ngIf="item.max_temp == 35">
+                      < {{ item.max_temp }}°C</span
+                    >
+                    <span *ngIf="item.max_temp != 35">
+                      ≤ {{ item.max_temp }}°C</span
+                    >
+                  </span>
+                </td>
+                <td class="px-3 py-2 text-center text-slate-900 font-medium">{{item.capacity}}</td>
+                <td class="px-3 py-2 text-center text-slate-900 font-medium">{{item.used}}</td>
+                <td class="px-3 py-2 text-center bg-lime-100">{{numberToPercent(item.used,item.capacity)}} %</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="grow p-2 lg:w-6/12">
+      <div
+        class="h-full  flex-wrap bg-white px-5 py-5 space-y-4 rounded-lg  text-center relative drop-shadow-xl"
+      >
+        <div class="px-5 w-full flex flex-wrap items-center h-fit">
+          <h1 class="text-lg w-fit font-manrope font-[700] text-start h-fit">
+            Occupancy Pocari
+          </h1>
+          <h1
+            class="text-sm w-fit font-manrope font-semibold h-fit text-start text-gray-500"
+          ></h1>
+        </div>
+        <div class="w-full">
+            <table
+            class="w-full text-sm text-left text-gray-800 font-medium"
+          >
+            <thead
+              class="text-xs text-gray-700 uppercase bg-gray-100 "
+            >
+              <tr>
+                <th scope="col" class="px-3 py-2 text-center">Storage</th>
+                <th scope="col" class="px-3 py-2 text-center">Temp</th>
+                <th scope="col" class="px-3 py-2 text-center">Capacity</th>
+                <th scope="col" class="px-3 py-2 text-center">Used</th>
+                <th scope="col" class="px-3 py-2 text-center">Percent</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let item of pocariOccu"
+                class="bg-white border-gray-200 border-b"
+              >
+                <td class="px-3 py-2 text-center">{{ item.name }}</td>
+                <td class="px-3 py-2 text-center">
+                  <span *ngIf="item.min_temp"
+                    >{{ item.min_temp }}°C ± {{ item.max_temp }}°C</span
+                  ><span *ngIf="!item.min_temp">
+                    <span *ngIf="item.max_temp == 35">
+                      < {{ item.max_temp }}°C</span
+                    >
+                    <span *ngIf="item.max_temp != 35">
+                      ≤ {{ item.max_temp }}°C</span
+                    >
+                  </span>
+                </td>
+                <td class="px-3 py-2 text-center text-slate-900 font-medium">{{item.capacity}}</td>
+                <td class="px-3 py-2 text-center text-slate-900 font-medium">{{item.used}}</td>
+                <td class="px-3 py-2 text-center bg-lime-100">{{numberToPercent(item.used,item.capacity)}} %</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

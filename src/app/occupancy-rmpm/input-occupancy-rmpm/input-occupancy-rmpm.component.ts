@@ -16,11 +16,16 @@ export class InputOccupancyRmpmComponent {
   //TOOLS
   @ViewChild('p', { static: true }) pa: PaginationControlsDirective | any;
   searchInput: any;
+  searchInputStorage: any;
   itemPerPage = 10;
+  itemPerPageStorage = 7;
+  storageEditBool = false;
+  storageId:number = 0;
 
   //API
   rmpmViewApi: any[] = [];
   rmpmViewGroupApi: any[] = [];
+  rmpmStorageApi: any[] = [];
 
   exportAsConfig: ExportAsConfig = {
     type: 'csv', // the type you want to download
@@ -33,6 +38,12 @@ export class InputOccupancyRmpmComponent {
     currentPage: 1,
     totalItems: this.rmpmViewGroupApi.length,
   };
+  configStorage = {
+    id: 'customStorage',
+    itemsPerPage: this.itemPerPageStorage,
+    currentPage: 1,
+    totalItems: this.rmpmStorageApi.length,
+  };
   constructor(
     private apiService: ApiService,
     private alertService: AlertService,
@@ -44,12 +55,14 @@ export class InputOccupancyRmpmComponent {
     this.spinner.show();
     forkJoin(
       this.apiService.getRmpmOccupancyView(),
-      this.apiService.getRmpmOccupancyViewGroup()
+      this.apiService.getRmpmOccupancyViewGroup(),
+      this.apiService.getRmpmStorage(),
     ).subscribe(
       (res) => {
         this.rmpmViewApi = res[0];
         this.rmpmViewGroupApi = res[1];
-        // console.log(res[1]);
+        this.rmpmStorageApi = res[2]
+        console.log(res[2]);
         this.spinner.hide();
       },
       (err) => {
@@ -77,5 +90,27 @@ export class InputOccupancyRmpmComponent {
   changeItemPerPageSelect(value: any) {
     this.config.itemsPerPage = value;
     // console.log(this.config.itemsPerPage);
+  }
+  changeItemPerPageSelectStorage(value: any) {
+    this.configStorage.itemsPerPage = value;
+    // console.log(this.config.itemsPerPage);
+  }
+
+  storageById(id:number){
+    return this.rmpmStorageApi.filter(data=>data.id == id)[0]
+  }
+
+  changeStorageModal(id:number){
+    console.log(id);
+    
+    if (id != 0) {
+      this.storageId = id;
+      this.storageEditBool = true
+    } else {
+      this.storageId = 0;
+      this.storageEditBool = false
+    }
+    
+
   }
 }

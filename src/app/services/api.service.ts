@@ -158,6 +158,9 @@ export class ApiService {
   getRmpmOccupancyView(): Observable<any> {
     return this.http.get(this.baseUrl + 'rmpm-view');
   }
+  getRmpmOccupancyViewLast(): Observable<any> {
+    return this.http.get(this.baseUrl + 'rmpm-view/last');
+  }
   getRmpmOccupancyViewGroup(): Observable<any> {
     return this.http.get(this.baseUrl + 'rmpm-view/group');
   }
