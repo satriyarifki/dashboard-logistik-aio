@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ExportAsConfig } from 'ngx-export-as';
 import { PaginationControlsDirective } from 'ngx-pagination';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -26,6 +27,15 @@ export class InputOccupancyRmpmComponent {
   rmpmViewApi: any[] = [];
   rmpmViewGroupApi: any[] = [];
   rmpmStorageApi: any[] = [];
+
+  //Form
+  formEdit = new FormGroup({
+    id: new FormControl(0,[Validators.required]),
+    name: new FormControl('',[Validators.required]),
+    min_temp: new FormControl(null),
+    max_temp: new FormControl(0,[Validators.required]),
+    capacity: new FormControl(0,[Validators.required])
+  })
 
   exportAsConfig: ExportAsConfig = {
     type: 'csv', // the type you want to download
@@ -87,6 +97,22 @@ export class InputOccupancyRmpmComponent {
     );
   }
 
+  onSave(){
+    this.apiService.postRmpmStorageUpdate(this.fEdit).subscribe(data=>{
+      console.log(data);
+      this.alertService.onCallAlert('Edit Success!',AlertType.Success)
+      this.ngOnInit()
+      this.storageEditBool = false
+    })
+  }
+
+  get fEdit(){
+    return this.formEdit.value
+  }
+  setFormEdit(name:'id'|'name'|'min_temp'|'max_temp'|'capacity',value:any){
+    this.formEdit.controls[name].setValue(value)
+  }
+
   changeItemPerPageSelect(value: any) {
     this.config.itemsPerPage = value;
     // console.log(this.config.itemsPerPage);
@@ -100,17 +126,29 @@ export class InputOccupancyRmpmComponent {
     return this.rmpmStorageApi.filter(data=>data.id == id)[0]
   }
 
-  changeStorageModal(id:number){
+  changeStorageModal(id:number,item:any){
     console.log(id);
     
     if (id != 0) {
+      this.setFormEdit('id',item.id)
+      this.setFormEdit('name',item.name)
+      this.setFormEdit('min_temp',item.min_temp)
+      this.setFormEdit('max_temp',item.max_temp)
+      this.setFormEdit('capacity',item.capacity)
       this.storageId = id;
       this.storageEditBool = true
+      console.log(this.fEdit['capacity']);
+      
+      // console.log(item);
+      
     } else {
       this.storageId = 0;
       this.storageEditBool = false
+      this.fEdit['id'] = 0
+      this.fEdit['name'] = ''
+      this.fEdit['min_temp'] = null
+      this.fEdit['max_temp'] = 0
+      this.fEdit['capacity'] = 0
     }
-    
-
   }
 }
