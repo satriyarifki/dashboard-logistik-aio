@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { AlertType } from '../services/alert/alert.model';
@@ -8,16 +8,17 @@ import { AlertService } from '../services/alert/alert.service';
 import { ApiService } from '../services/api.service';
 
 @Component({
-  selector: 'app-input-ln2-check-create',
-  templateUrl: './input-ln2-check-create.component.html',
-  styleUrls: ['./input-ln2-check-create.component.css'],
-  providers: [DatePipe],
+  selector: 'app-input-ln2-check-edit',
+  templateUrl: './input-ln2-check-edit.component.html',
+  styleUrls: ['./input-ln2-check-edit.component.css'],
 })
-export class InputLn2CheckCreateComponent {
+export class InputLn2CheckEditComponent {
   itemLoop: number = 1;
   arrayItem: any[] = [];
   dateNow = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
   satuan: any = '';
+
+  params = history.state;
 
   //Form
   form!: FormGroup;
@@ -35,6 +36,9 @@ export class InputLn2CheckCreateComponent {
     private formBuilder: FormBuilder,
     private alertService: AlertService
   ) {
+    // console.log(this.params);
+    // console.log(String(this.params.data.jam));
+
     this.initialForm();
     this.plusItemLoop();
     forkJoin(
@@ -62,9 +66,9 @@ export class InputLn2CheckCreateComponent {
   }
   initialForm() {
     this.form = this.formBuilder.group({
-      date: [this.dateNow, Validators.required],
-      jam: ['', Validators.required],
-      checkerId: [0, Validators.required],
+      date: [this.params.data[0].date, Validators.required],
+      jam: [this.params.data[0].jam, Validators.required],
+      checkerId: [this.params.data[0].checkerId, Validators.required],
       items: this.formBuilder.array([]),
     });
   }
@@ -78,86 +82,53 @@ export class InputLn2CheckCreateComponent {
   }
 
   onSubmit() {
-    // if (this.form.invalid) {
-    //     // console.log('fail');
-    //     alert('Fill blank input!')
-    //     return;
-    //   }
     let items: [] = this.f.items;
-    // let body = {
-    //   date: this.f['date'],
-    //   checkerId: this.f['checkerId'],
-    //   jam: this.f.jam,
-    //   supplierId: '',
-    //   tankiId: '',
-    //   level: '',
-    //   satuan: '',
-    //   press: '',
-
-    // };
-    // console.log(body);
-    items.forEach((element: any) => {
-      let body = {
-        date: this.f['date'],
-        checkerId: this.f['checkerId'],
-        jam: this.f.jam,
-        supplierId: Number(element.supplierId),
-        tankiId: Number(element.tankiId),
-        level: element.level,
-        press: element.press,
-      };
-      this.apiService.postCheckLevelCreate(body).subscribe(
-        (data) => {
-          console.log(data);
-          console.log('success');
-          this.alertService.onCallAlert('Submit Success!', AlertType.Success);
-          this.router.navigate(['/input-ln2']);
-        },
-        (err) => {
-          console.log(err);
-          console.log('error');
-          this.alertService.onCallAlert('Submit Failed!', AlertType.Error);
-        }
-      );
-
-      // console.log(body);
-    });
+    // console.log(this.f);
+    this.apiService.postCheckLevelEdit(this.f).subscribe(
+      (data) => {
+        // console.log(data);
+        this.alertService.onCallAlert('Submit Edit Success!', AlertType.Success);
+        this.router.navigate(['/input-ln2']);
+      },
+      (err) => {
+        console.log(err);
+        this.alertService.onCallAlert('Submit Edit Failed!', AlertType.Error);
+      }
+    );
 
     // console.log(body);
   }
 
-  addItems(): FormGroup {
-    return this.formBuilder.group({
-      supplierId: [0, Validators.required],
-      tankiId: [0, Validators.required],
-      level: [0, Validators.required],
-      satuan: ['', Validators.required],
-      press: [0, Validators.required],
-    });
-  }
+
 
   plusItemLoop() {
     // this.itemLoop++;
+
     this.items = this.form.get('items') as FormArray;
-    if (this.items.value.length < 4) {
-      this.items.push(this.addItems());
-    } else {
-      alert('Maximum Item is 4');
-    }
+    this.params.data.forEach((element: any) => {
+      this.items.push(
+        this.formBuilder.group({
+          id: [element.id, Validators.required],
+          supplierId: [element.supplierId, Validators.required],
+          tankiId: [element.tankiId, Validators.required],
+          level: [element.level, Validators.required],
+          satuan: ['', Validators.required],
+          press: [element.pressure, Validators.required],
+        })
+      );
+    });
 
     // console.log(this.items);
   }
 
   deleteItemLoop(index: number) {
     // this.itemLoop--;
-    console.log(index);
+    // console.log(index);
     const t = this.arrayItem.splice(index, index);
 
-    // console.log(this.arrayItem);
+    console.log(this.arrayItem);
   }
   filterSatuan(id: any) {
-    console.log();
-
     if (id == 1) {
       return 'InchH₂O';
     } else if (id == 2) {

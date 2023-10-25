@@ -31,6 +31,7 @@ import { InputOccupancyRmpmComponent } from './occupancy-rmpm/input-occupancy-rm
 import { InputOccupancyRmpmCreateComponent } from './occupancy-rmpm/input-occupancy-rmpm-create/input-occupancy-rmpm-create.component';
 import { InputOccupancyRmpmEditComponent } from './occupancy-rmpm/input-occupancy-rmpm-edit/input-occupancy-rmpm-edit.component';
 import { OccupancyRmpmComponent } from './occupancy-rmpm/occupancy-rmpm.component';
+import { InputLn2CheckEditComponent } from './input-ln2-check-edit/input-ln2-check-edit.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { animation: 'HomePage' } },
@@ -100,6 +101,11 @@ const routes: Routes = [
   {
     path: 'input-ln2/check-create',
     component: InputLn2CheckCreateComponent,
+    canActivate: [OnAuthGuard],
+  },
+  {
+    path: 'input-ln2/check-edit',
+    component: InputLn2CheckEditComponent,
     canActivate: [OnAuthGuard],
   },
   {

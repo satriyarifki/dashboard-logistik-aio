@@ -53,7 +53,7 @@ export class InputLn2Component {
 
         // console.log(this.getCheckLevelByTanki('2023-09-19', '12:00:00', 'TB2'));
         // console.log(this.filterReportByDatetime('2023-09-19', '12:00:00'));
-        // console.log(report);
+        console.log(report);
         // console.log(new Date().toISOString().slice(0, 10));
 
         // console.log(this.fleetSukabumi.within_time);
@@ -73,6 +73,19 @@ export class InputLn2Component {
 
   deleteArrival(id: number) {
     this.apiService.deleteArrivalLn2(id).subscribe(
+      (data) => {
+        console.log(data);
+        this.alertService.onCallAlert('Delete Success!', AlertType.Success);
+        this.ngOnInit();
+      },
+      (err) => {
+        console.log(err);
+        this.alertService.onCallAlert('Delete Failed!', AlertType.Error);
+      }
+    );
+  }
+  deleteCheckLevel(date:any,jam:any) {
+    this.apiService.deleteCheckLn2(date,jam).subscribe(
       (data) => {
         console.log(data);
         this.alertService.onCallAlert('Delete Success!', AlertType.Success);

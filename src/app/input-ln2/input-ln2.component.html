@@ -603,7 +603,7 @@
         <!-- Report Update Ln2 -->
         <div
           *ngIf="!arrivalBool"
-          class="w-full bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden"
+          class="w-full bg-white border border-gray-200 rounded-xl shadow-sm overflow-x-auto"
         >
           <!-- Header -->
           <div
@@ -1092,7 +1092,27 @@
                   </h1>
                 </td>
 
-                <td class="h-px w-px whitespace-nowrap"></td>
+                <td class="h-px w-px whitespace-nowrap">
+                  <a
+                    [routerLink]="['check-edit']"
+                    [state]="{data:filterReportByDatetime(item.date,item.jam)}"
+                    class="bg-gradient-to-tr from-yellow-500 to-yellow-400 border-yellow-600 rounded-lg relative inline-flex group items-center justify-center px-2.5 py-1.5 m-1 cursor-pointer border-b-2 border-l-2 active:border-purple-600 active:shadow-none shadow-lg text-white"
+                  >
+                    <span
+                      class="absolute w-0 h-0 transition-all duration-200 ease-out bg-white rounded-full group-hover:w-28 group-hover:h-10 opacity-10"
+                    ></span>
+                    <span class="relative text-xs"> Edit</span>
+                  </a>
+                  <a
+                    (click)="deleteCheckLevel(item.date,item.jam)"
+                    class="bg-gradient-to-tr from-red-500 to-red-400 border-red-600 rounded-lg relative inline-flex group items-center justify-center px-2.5 py-1.5 m-1 cursor-pointer border-b-2 border-l-2 active:border-purple-600 active:shadow-none shadow-lg text-white"
+                  >
+                    <span
+                      class="absolute w-0 h-0 transition-all duration-200 ease-out bg-white rounded-full group-hover:w-28 group-hover:h-10 opacity-10"
+                    ></span>
+                    <span class="relative text-xs"> Del</span>
+                  </a>
+                </td>
                 <!-- <td class="h-px w-px whitespace-nowrap">
               
               <h1 class="text-sm">{{ item.shift_remark }}</h1>

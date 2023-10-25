@@ -87,6 +87,9 @@ export class ApiService {
   deleteArrivalLn2(id: any): Observable<any> {
     return this.http.delete(this.baseUrl + 'del/arrival/' + id);
   }
+  deleteCheckLn2(date:any,jam:any): Observable<any> {
+    return this.http.delete(this.baseUrl + 'del/check-ln2/' + date+'/'+jam);
+  }
 
   // WAREHOUSE
   getWarehouseOccupancy(): Observable<any> {
@@ -142,6 +145,9 @@ export class ApiService {
   postCheckLevelCreate(body: any): Observable<any> {
     return this.http.post(this.baseUrl + 'level-ln2', body);
   }
+  postCheckLevelEdit(body: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'level-ln2/update', body);
+  }
   getCheckLevelNewest(): Observable<any> {
     return this.http.get(this.baseUrl + 'check-level/newest');
   }
@@ -169,6 +175,9 @@ export class ApiService {
   }
   postRmpmCreate(body: any): Observable<any> {
     return this.http.post(this.baseUrl + 'rmpm-create', body);
+  }
+  postRmpmStorageUpdate(body: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'rmpm-update/storage', body);
   }
   postRmpmUpdate(body: any): Observable<any> {
     return this.http.post(this.baseUrl + 'rmpm-update', body);

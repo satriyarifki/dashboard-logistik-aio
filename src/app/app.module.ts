@@ -49,6 +49,8 @@ import { OccupancyRmpmComponent } from './occupancy-rmpm/occupancy-rmpm.componen
 import { InputOccupancyRmpmComponent } from './occupancy-rmpm/input-occupancy-rmpm/input-occupancy-rmpm.component';
 import { InputOccupancyRmpmCreateComponent } from './occupancy-rmpm/input-occupancy-rmpm-create/input-occupancy-rmpm-create.component';
 import { InputOccupancyRmpmEditComponent } from './occupancy-rmpm/input-occupancy-rmpm-edit/input-occupancy-rmpm-edit.component';
+import { InputLn2CheckEditComponent } from './input-ln2-check-edit/input-ln2-check-edit.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -85,7 +87,8 @@ import { InputOccupancyRmpmEditComponent } from './occupancy-rmpm/input-occupanc
     OccupancyRmpmComponent,
     InputOccupancyRmpmComponent,
     InputOccupancyRmpmCreateComponent,
-    InputOccupancyRmpmEditComponent
+    InputOccupancyRmpmEditComponent,
+    InputLn2CheckEditComponent
   ],
   imports: [
     BrowserModule,
@@ -105,6 +108,7 @@ import { InputOccupancyRmpmEditComponent } from './occupancy-rmpm/input-occupanc
     ReactiveFormsModule
   ],
   providers: [
+    DatePipe,
     // { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
