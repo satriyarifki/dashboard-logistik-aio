@@ -7,6 +7,7 @@ import { forkJoin } from 'rxjs';
 import { AlertType } from 'src/app/services/alert/alert.model';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { ApiService } from 'src/app/services/api.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-input-occupancy-rmpm',
@@ -20,6 +21,7 @@ export class InputOccupancyRmpmComponent {
   searchInputStorage: any;
   itemPerPage = 10;
   itemPerPageStorage = 7;
+  storageCreateBool = false;
   storageEditBool = false;
   storageId:number = 0;
 
@@ -27,6 +29,7 @@ export class InputOccupancyRmpmComponent {
   rmpmViewApi: any[] = [];
   rmpmViewGroupApi: any[] = [];
   rmpmStorageApi: any[] = [];
+  userData:any
 
   //Form
   formEdit = new FormGroup({
@@ -57,8 +60,10 @@ export class InputOccupancyRmpmComponent {
   constructor(
     private apiService: ApiService,
     private alertService: AlertService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private authService:AuthService
   ) {
+    this.userData = authService.getUser()[0]
     
   }
   ngOnInit(){
@@ -99,10 +104,24 @@ export class InputOccupancyRmpmComponent {
 
   onSave(){
     this.apiService.postRmpmStorageUpdate(this.fEdit).subscribe(data=>{
-      console.log(data);
-      this.alertService.onCallAlert('Edit Success!',AlertType.Success)
+      // console.log(data);
+      this.alertService.onCallAlert('Edit Storage Success!',AlertType.Success)
       this.ngOnInit()
       this.storageEditBool = false
+    }, err => {
+      console.log(err);
+      this.alertService.onCallAlert('Edit Storage Failed!',AlertType.Error)
+    })
+  }
+  onCreate(){
+    this.apiService.postRmpmStorageCreate(this.fEdit).subscribe(data=>{
+      // console.log(data);
+      this.alertService.onCallAlert('Create Success!',AlertType.Success)
+      this.ngOnInit()
+      this.storageCreateBool = false
+    }, err => {
+      console.log(err);
+      this.alertService.onCallAlert('Create Storage Failed!',AlertType.Error)
     })
   }
 
@@ -126,7 +145,7 @@ export class InputOccupancyRmpmComponent {
     return this.rmpmStorageApi.filter(data=>data.id == id)[0]
   }
 
-  changeStorageModal(id:number,item:any){
+  changeStorageEditModal(id:number,item:any){
     console.log(id);
     
     if (id != 0) {
@@ -144,11 +163,23 @@ export class InputOccupancyRmpmComponent {
     } else {
       this.storageId = 0;
       this.storageEditBool = false
-      this.fEdit['id'] = 0
-      this.fEdit['name'] = ''
-      this.fEdit['min_temp'] = null
-      this.fEdit['max_temp'] = 0
-      this.fEdit['capacity'] = 0
+      this.setFormEdit('id',0)
+      this.setFormEdit('name','')
+      this.setFormEdit('min_temp',null)
+      this.setFormEdit('max_temp',0)
+      this.setFormEdit('capacity',0)
+    }
+  }
+  changeStorageCreateModal(id:number){
+    if (id != 0) {
+      this.storageCreateBool = true
+    } else {
+      this.storageCreateBool = false
+      this.setFormEdit('id',0)
+      this.setFormEdit('name','')
+      this.setFormEdit('min_temp',null)
+      this.setFormEdit('max_temp',0)
+      this.setFormEdit('capacity',0)
     }
   }
 }
