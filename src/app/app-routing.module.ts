@@ -32,6 +32,9 @@ import { InputOccupancyRmpmCreateComponent } from './occupancy-rmpm/input-occupa
 import { InputOccupancyRmpmEditComponent } from './occupancy-rmpm/input-occupancy-rmpm-edit/input-occupancy-rmpm-edit.component';
 import { OccupancyRmpmComponent } from './occupancy-rmpm/occupancy-rmpm.component';
 import { InputLn2CheckEditComponent } from './input-ln2-check-edit/input-ln2-check-edit.component';
+import { InputOccupancyRmpmViewComponent } from './occupancy-rmpm/input-occupancy-rmpm-view/input-occupancy-rmpm-view.component';
+import { InputLn2ArrivalViewComponent } from './check-ln2/input-ln2-arrival-view/input-ln2-arrival-view.component';
+import { InputLn2CheckViewComponent } from './check-ln2/input-ln2-check-view/input-ln2-check-view.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { animation: 'HomePage' } },
@@ -99,6 +102,11 @@ const routes: Routes = [
     canActivate: [OnAuthGuard],
   },
   {
+    path: 'input-ln2/arrival-view',
+    component: InputLn2ArrivalViewComponent,
+    canActivate: [OnAuthGuard],
+  },
+  {
     path: 'input-ln2/check-create',
     component: InputLn2CheckCreateComponent,
     canActivate: [OnAuthGuard],
@@ -109,12 +117,18 @@ const routes: Routes = [
     canActivate: [OnAuthGuard],
   },
   {
+    path: 'input-ln2/check-view',
+    component: InputLn2CheckViewComponent,
+    canActivate: [OnAuthGuard],
+  },
+  {
     path: 'input-rmpm-occupancy',
     component: InputOccupancyRmpmComponent,
     canActivate: [OnAuthGuard],
   },
   { path: 'input-rmpm-occupancy/create', component: InputOccupancyRmpmCreateComponent,canActivate: [OnAuthGuard], },
   { path: 'input-rmpm-occupancy/edit', component: InputOccupancyRmpmEditComponent,canActivate: [OnAuthGuard], },
+  { path: 'input-rmpm-occupancy/view', component: InputOccupancyRmpmViewComponent,canActivate: [OnAuthGuard], },
   { path: 'temp', component: TemperatureComponent },
   { path: 'check-ln', component: CheckLn2Component },
   { path: 'occu-rmpm', component: OccupancyRmpmComponent },

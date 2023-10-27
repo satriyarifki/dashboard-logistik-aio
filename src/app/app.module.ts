@@ -51,6 +51,9 @@ import { InputOccupancyRmpmCreateComponent } from './occupancy-rmpm/input-occupa
 import { InputOccupancyRmpmEditComponent } from './occupancy-rmpm/input-occupancy-rmpm-edit/input-occupancy-rmpm-edit.component';
 import { InputLn2CheckEditComponent } from './input-ln2-check-edit/input-ln2-check-edit.component';
 import { DatePipe } from '@angular/common';
+import { InputOccupancyRmpmViewComponent } from './occupancy-rmpm/input-occupancy-rmpm-view/input-occupancy-rmpm-view.component';
+import { InputLn2ArrivalViewComponent } from './check-ln2/input-ln2-arrival-view/input-ln2-arrival-view.component';
+import { InputLn2CheckViewComponent } from './check-ln2/input-ln2-check-view/input-ln2-check-view.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +91,10 @@ import { DatePipe } from '@angular/common';
     InputOccupancyRmpmComponent,
     InputOccupancyRmpmCreateComponent,
     InputOccupancyRmpmEditComponent,
-    InputLn2CheckEditComponent
+    InputLn2CheckEditComponent,
+    InputOccupancyRmpmViewComponent,
+    InputLn2ArrivalViewComponent,
+    InputLn2CheckViewComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,237 @@
+<!-- Hire Us -->
+<div class="py-0 my-2 md:pl-[4.5rem] w-full font-manrope font-medium">
+    <div class="flex flex-wrap mx-auto">
+      <div class="px-2 w-full space-y-3">
+        <div
+          class="h-[95vh] relative bg-white px-8 py-5 rounded-lg overflow-hidden drop-shadow-xl"
+        >
+        <a
+          [routerLink]="['/input-ln2']"
+          class="absolute right-2 top-2 w-1/5 md:w-1/12 inline-flex justify-center items-center gap-x-3 text-center bg-white hover:bg-sky-100 border border-sky-300 text-sm lg:text-base text-sky-600 font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-sky-600 focus:ring-offset-2 focus:ring-offset-white transition py-1 px-3"
+        >
+          Back
+        </a>
+          <div class="max-w-5xl my-4 mx-auto">
+            <div class="text-center">
+              <h1 class="text-2xl font-bold text-gray-800 sm:text-4xl">
+                View Check Level Ln2
+              </h1>
+            </div>
+  
+            <div class="mt-5">
+              <!-- Form -->
+              <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="grid gap-2 mx-24">
+                  <!-- Grid -->
+                  <div
+                    class="grid grid-cols-1 justify-items-stretch gap-4 lg:gap-6"
+                  >
+                    <div class="w-1/2 justify-self-center">
+                      <label
+                        for="date"
+                        class="block text-sm text-gray-700 font-medium"
+                        >Date</label
+                      >
+                      <input
+                        id="date"
+                        type="text"
+                        formControlName="date"
+                        class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                      />
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+                    <div class="">
+                      <label
+                        for="jam"
+                        class="block text-sm text-gray-700 font-medium"
+                        >Jam</label
+                      >
+                      <input
+                        id="jam"
+                        type="time"
+                        step="3600"
+                        formControlName="jam"
+                        class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                      />
+                    </div>
+  
+                    <div>
+                      <label
+                        for="checker"
+                        class="block text-sm text-gray-700 font-medium"
+                        >Checker</label
+                      >
+                      <select
+                        id="checker"
+                        formControlName="checkerId"
+                        class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                      >
+                        <option value="0">Choose Checker</option>
+                        <option
+                          *ngFor="let item of karyawanApi"
+                          [value]="item.nik"
+                        >
+                          {{ item.nama }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <!-- End Grid -->
+  
+                  <!-- Grid -->
+  
+                  <!-- End Grid -->
+                </div>
+                <div class="my-5 rounded-lg border">
+                  
+                  <div
+                    formArrayName="items"
+                    class="grid gap-x-3 gap-y-3 lg:gap-x-6 py-3 px-5"
+                  >
+                    <!-- Grid -->
+                    <!-- {{this.f.items.length}} -->
+                    <div class="space-y-3">
+                      <div
+                        *ngFor="let item of params.data; index as i"
+                        class="flex flex-wrap items-end gap-2 max-md:px-2 max-md:py-1 md:gap-3 border"
+                        [formGroupName]="i"
+                      >
+                        <div class="w-[48%] md:w-3/12">
+                          <label
+                            for="supplierId"
+                            class="block text-sm text-gray-700 font-medium"
+                            >Supplier
+                          </label>
+                          <!-- <input
+                            id="satuan"
+                            type="text"
+                            disabled
+                            [value]="item.supplier"
+                            class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                          /> -->
+                          <select
+                            id="supplierId"
+                            formControlName="supplierId"
+                            class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                          >
+                            <option value="0">Choose Supplier</option>
+                            <option
+                              *ngFor="let item of supplierApi"
+                              [value]="item.id"
+                            >
+                              {{ item.nama_supplier }}
+                            </option>
+                          </select>
+                        </div>
+                        <div class="w-[48%] md:w-3/12">
+                          <label
+                            for="tankiId"
+                            class="block text-sm text-gray-700 font-medium"
+                            >Nama Tanki </label
+                          >
+                          <!-- <input
+                            id="satuan"
+                            type="text"
+                            disabled
+                            [value]="item.tanki"
+                            class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                          /> -->
+                          <select
+                            id="tankiId"
+                            formControlName="tankiId"
+                            class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                          >
+                            <option value="0" class="text-gray-300">Choose Tanki</option>
+                            <option
+                              *ngFor="
+                                let item of filterTanki(
+                                  this.getItems.value[i].supplierId
+                                )
+                              "
+                              [value]="item.id"
+                            >
+                              {{ item.nama_tanki }}
+                            </option>
+                          </select>
+                        </div>
+                        <div class="w-[31%] md:w-[14%]">
+                          <label
+                            for="level"
+                            class="block text-sm text-gray-700 font-medium"
+                            >Level
+                          </label>
+                          <input
+                            id="level"
+                            formControlName="level"
+                            type="text"
+                            min="0"
+                            class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                          />
+                        </div>
+  
+                        <div class="w-[31%] md:w-[14%]">
+                          <label
+                            for="satuan"
+                            class="block text-sm text-gray-700 font-medium"
+                            >Satuan</label
+                          >
+                          <input
+                            id="satuan"
+                            type="text"
+                            disabled
+                            [value]="filterSatuan(this.getItems.value[i].supplierId)"
+                            class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                          />
+                        </div>
+                        <div class="w-[31%] md:w-[14%]">
+                          <label
+                            for="press"
+                            class="block text-sm text-gray-700 font-medium"
+                            >Pressure</label
+                          >
+                          <input
+                            id="press"
+                            formControlName="press"
+                            type="text"
+                            min="0"
+                            class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+                          />
+                        </div>
+  
+                        <!-- <div class="">
+                      <a
+                        (click)="deleteItemLoop(i)"
+                        aria-label="delete"
+                        class="inline-block rounded-xl border border-red-600 p-2 text-red-600 hover:bg-red-600 hover:text-white focus:outline-none focus:ring active:bg-red-500"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="24"
+                          viewBox="0 -960 960 960"
+                          width="24"
+                          fill="currentColor"
+                        >
+                          <path d="M200-450v-60h560v60H200Z" />
+                        </svg>
+                      </a>
+                    </div> -->
+                      </div>
+                    </div>
+  
+                    <!-- End Grid -->
+                  </div>
+                </div>
+  
+                <!-- End Grid -->
+              </form>
+              <!-- End Form -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- End Hire Us -->
+  

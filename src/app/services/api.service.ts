@@ -124,6 +124,12 @@ export class ApiService {
   getKaryawan(): Observable<any> {
     return this.http.get(this.baseUrl + 'ln2-karyawan');
   }
+  postKaryawanCreate(body:any): Observable<any> {
+    return this.http.post(this.baseUrl + 'ln2-karyawan/create',body);
+  }
+  deleteKaryawanCreate(nik:any): Observable<any> {
+    return this.http.delete(this.baseUrl + 'ln2-karyawan/delete/'+nik);
+  }
   getSupplier(): Observable<any> {
     return this.http.get(this.baseUrl + 'ln2-supplier');
   }
@@ -175,6 +181,9 @@ export class ApiService {
   }
   postRmpmCreate(body: any): Observable<any> {
     return this.http.post(this.baseUrl + 'rmpm-create', body);
+  }
+  postRmpmStorageCreate(body: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'rmpm-create/storage', body);
   }
   postRmpmStorageUpdate(body: any): Observable<any> {
     return this.http.post(this.baseUrl + 'rmpm-update/storage', body);

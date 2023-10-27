@@ -211,7 +211,7 @@
                     <a
                       [routerLink]="['view']"
                       [queryParams]="{ date: item.date, time: item.time }"
-                      class="bg-gradient-to-tr from-yellow-500 to-yellow-400 border-yellow-600 rounded-lg relative inline-flex group items-center justify-center px-2.5 py-1.5 m-1 cursor-pointer border-b-2 border-l-2 active:border-purple-600 active:shadow-none shadow-lg text-white"
+                      class="bg-gradient-to-tr from-indigo-500 to-indigo-400 border-indigo-600 rounded-lg relative inline-flex group items-center justify-center px-2.5 py-1.5 m-1 cursor-pointer border-b-2 border-l-2 active:border-purple-600 active:shadow-none shadow-lg text-white"
                     >
                       <span
                         class="absolute w-0 h-0 transition-all duration-200 ease-out bg-white rounded-full group-hover:w-28 group-hover:h-10 opacity-10"
@@ -737,6 +737,7 @@
   </div>
 </div>
 
+<!-- Storage Create Modal -->
 <div
   *ngIf="storageCreateBool"
   class="fixed z-50 top-0 w-full h-full flex justify-center items-stretch bg-gray-500 bg-opacity-40"
@@ -814,6 +815,8 @@
     </form>
   </div>
 </div>
+
+<!-- Storage Edit Modal -->
 <div
   *ngIf="storageEditBool"
   class="fixed z-50 top-0 w-full h-full flex justify-center items-stretch bg-gray-500 bg-opacity-40"

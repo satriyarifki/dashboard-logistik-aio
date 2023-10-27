@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ExportAsConfig } from 'ngx-export-as';
 import { PaginationControlsDirective } from 'ngx-pagination';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -6,6 +7,7 @@ import { forkJoin } from 'rxjs';
 import { AlertType } from '../services/alert/alert.model';
 import { AlertService } from '../services/alert/alert.service';
 import { ApiService } from '../services/api.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-input-ln2',
@@ -15,15 +17,20 @@ import { ApiService } from '../services/api.service';
 export class InputLn2Component {
   @ViewChild('p', { static: true }) pa: PaginationControlsDirective | any;
   searchInput: any;
+  searchInputKaryawan: any;
   itemPerPage = 10;
+  itemPerPageKaryawan = 7;
   createModal = false;
   arrivalBool = true;
+  karyawanCreateBool = false;
   dateReport = new Date().toISOString().slice(0, 10);
 
   //API
   arrivalAll: any[] = [];
   reportLnAll: any[] = [];
+  karyawanAll: any[] = [];
   array: any[] = [];
+  userData:any
 
   exportAsConfig: ExportAsConfig = {
     type: 'csv', // the type you want to download
@@ -36,28 +43,40 @@ export class InputLn2Component {
     currentPage: 1,
     totalItems: this.arrivalAll.length,
   };
+  configKaryawan = {
+    id: 'customKaryawan',
+    itemsPerPage: this.itemPerPageKaryawan,
+    currentPage: 1,
+    totalItems: this.karyawanAll.length,
+  };
+
+  formKar = new FormGroup({
+    nik: new FormControl('',[Validators.required]),
+    nama: new FormControl('',[Validators.required]),
+    bagian: new FormControl('',[Validators.required]),
+    company: new FormControl('',[Validators.required]),
+    status: new FormControl('',[Validators.required])
+  })
 
   constructor(
     private apiService: ApiService,
     private spinner: NgxSpinnerService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private authService: AuthService
   ) {}
   ngOnInit() {
+    // console.log(this.authService.getUser()[0].role);
+    this.userData = this.authService.getUser()[0]
+    
     forkJoin(
       this.apiService.getReportLn2All(this.dateReport),
-      this.apiService.getArrivalLn2All()
+      this.apiService.getArrivalLn2All(),
+      this.apiService.getKaryawan()
     ).subscribe(
-      ([report, arrival]) => {
+      ([report, arrival,karyawan]) => {
         this.arrivalAll = arrival;
         this.reportLnAll = report;
-
-        // console.log(this.getCheckLevelByTanki('2023-09-19', '12:00:00', 'TB2'));
-        // console.log(this.filterReportByDatetime('2023-09-19', '12:00:00'));
-        console.log(report);
-        // console.log(new Date().toISOString().slice(0, 10));
-
-        // console.log(this.fleetSukabumi.within_time);
-
+        this.karyawanAll = karyawan
         this.spinner.hide();
       },
       (err) => {
@@ -114,6 +133,10 @@ export class InputLn2Component {
     this.config.itemsPerPage = value;
     // console.log(this.config.itemsPerPage);
   }
+  changeItemPerPageSelectKaryawan(value: any) {
+    this.configKaryawan.itemsPerPage = value;
+    // console.log(this.config.itemsPerPage);
+  }
 
   filterReportByDay() {
     return this.reportLnAll
@@ -153,7 +176,7 @@ export class InputLn2Component {
       // }
       // result = currentValue[key];
 
-      console.log(arr);
+      // console.log(arr);
       (result[currentValue[key]] = result[currentValue[key]] || []).push(
         currentValue
       );
@@ -169,5 +192,52 @@ export class InputLn2Component {
 
   changeCreateModal(behav: any) {
     this.createModal = behav;
+  }
+
+  get fKar(){
+    return this.formKar.value
+  }
+  setFormKar(name:'nik'|'nama'|'bagian'|'company'|'status',value:any){
+    this.formKar.controls[name].setValue(value)
+  }
+
+  changeKaryawanCreateModal(id:number){
+    if (id != 0) {
+      this.karyawanCreateBool = true
+    } else {
+      this.karyawanCreateBool = false
+      this.setFormKar('nik','')
+      this.setFormKar('nama','')
+      this.setFormKar('bagian','')
+      this.setFormKar('company','')
+      this.setFormKar('status','')
+    }
+  }
+
+  onCreateKar(){
+    
+    this.apiService.postKaryawanCreate(this.fKar).subscribe(data=>{
+      // console.log(data);
+      this.alertService.onCallAlert('Create Karyawan Success!',AlertType.Success)
+      this.ngOnInit()
+      this.changeKaryawanCreateModal(0)
+    }, err => {
+      console.log(err);
+      this.alertService.onCallAlert('Create Karyawan Failed!',AlertType.Error)
+    })
+  }
+
+  deleteKar(params:any) {
+    this.apiService.deleteKaryawanCreate(params).subscribe(
+      (data) => {
+        // console.log(data);
+        this.alertService.onCallAlert('Delete Karyawan Success!', AlertType.Success);
+        this.ngOnInit()
+      },
+      (err) => {
+        console.log(err);
+        this.alertService.onCallAlert('Delete Karyawan Failed!', AlertType.Error);
+      }
+    );
   }
 }
