@@ -127,6 +127,9 @@ export class ApiService {
   postKaryawanCreate(body:any): Observable<any> {
     return this.http.post(this.baseUrl + 'ln2-karyawan/create',body);
   }
+  postKaryawanEdit(body:any): Observable<any> {
+    return this.http.post(this.baseUrl + 'ln2-karyawan/update',body);
+  }
   deleteKaryawanCreate(nik:any): Observable<any> {
     return this.http.delete(this.baseUrl + 'ln2-karyawan/delete/'+nik);
   }

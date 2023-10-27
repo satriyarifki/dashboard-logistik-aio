@@ -23,6 +23,7 @@ export class InputLn2Component {
   createModal = false;
   arrivalBool = true;
   karyawanCreateBool = false;
+  karyawanEditBool = false;
   dateReport = new Date().toISOString().slice(0, 10);
 
   //API
@@ -199,6 +200,15 @@ export class InputLn2Component {
   }
   setFormKar(name:'nik'|'nama'|'bagian'|'company'|'status',value:any){
     this.formKar.controls[name].setValue(value)
+    if (name == 'nik' && value != '') {
+      console.log('dis');
+      
+      this.formKar.controls[name].disable()
+    } else if (name == 'nik' && value == '') {
+      console.log('end');
+      this.formKar.controls[name].enable()
+    }
+    
   }
 
   changeKaryawanCreateModal(id:number){
@@ -213,9 +223,25 @@ export class InputLn2Component {
       this.setFormKar('status','')
     }
   }
+  changeKaryawanEditModal(id:number,item:any){
+    if (id != 0) {
+      this.setFormKar('nik',item.nik)
+      this.setFormKar('nama',item.nama)
+      this.setFormKar('bagian',item.bagian)
+      this.setFormKar('company',item.company)
+      this.setFormKar('status',item.status)
+      this.karyawanEditBool = true
+    } else {
+      this.karyawanEditBool = false
+      this.setFormKar('nik','')
+      this.setFormKar('nama','')
+      this.setFormKar('bagian','')
+      this.setFormKar('company','')
+      this.setFormKar('status','')
+    }
+  }
 
   onCreateKar(){
-    
     this.apiService.postKaryawanCreate(this.fKar).subscribe(data=>{
       // console.log(data);
       this.alertService.onCallAlert('Create Karyawan Success!',AlertType.Success)
@@ -224,6 +250,19 @@ export class InputLn2Component {
     }, err => {
       console.log(err);
       this.alertService.onCallAlert('Create Karyawan Failed!',AlertType.Error)
+    })
+  }
+  onEditKar(){
+    this.formKar.controls['nik'].enable()
+    
+    this.apiService.postKaryawanEdit(this.fKar).subscribe(data=>{
+      // console.log(data);
+      this.alertService.onCallAlert('Edit Karyawan Success!',AlertType.Success)
+      this.ngOnInit()
+      this.changeKaryawanEditModal(0,null)
+    }, err => {
+      console.log(err);
+      this.alertService.onCallAlert('Edit Karyawan Failed!',AlertType.Error)
     })
   }
 
