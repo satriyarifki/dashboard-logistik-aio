@@ -75,7 +75,9 @@ export class InputOccupancyRmpmCreateComponent {
     // console.log(this.f);
     
     if (this.form.invalid) {
-      this.alertService.onCallAlert('Fill Blank Input!',AlertType.Warning)
+      console.log(this.form);
+      
+      this.alertService.onCallAlert('Date or Jam cannot blank!',AlertType.Warning)
       return;
     }
 
