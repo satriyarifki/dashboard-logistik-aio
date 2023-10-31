@@ -123,8 +123,8 @@ export class SidebarComponent {
   }
   userDropdown() {
     this.userBool = !this.userBool;
-    console.log(this.authService.getCookie());
-    console.log(this.authService.getUser());
+    // console.log(this.authService.getCookie());
+    // console.log(this.authService.getUser());
   }
   changeSidebarBool() {
     this.sidebarBool = !this.sidebarBool;

@@ -1394,6 +1394,15 @@
                       </span>
                     </div>
                   </th>
+                  <th scope="col" class="px-6 py-3 text-left">
+                    <div class="flex items-center justify-center gap-x-2">
+                      <span
+                        class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                      >
+                        Status
+                      </span>
+                    </div>
+                  </th>
                   <th
                     *ngIf="userData.role == 1"
                     scope="col"
@@ -1435,6 +1444,9 @@
   
                   <td class="h-px w-px whitespace-nowrap">
                     <h1 class="text-sm">{{ item.company }}</h1>
+                  </td>
+                  <td class="h-px w-px whitespace-nowrap">
+                    <h1 class="text-sm">{{ item.status }}</h1>
                   </td>
   
                   <td class="h-px w-px whitespace-nowrap">

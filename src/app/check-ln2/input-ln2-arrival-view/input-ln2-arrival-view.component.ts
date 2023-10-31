@@ -64,7 +64,7 @@ export class InputLn2ArrivalViewComponent {
         this.arrivalApi.date,
         'yyyy-MM-dd'
       );
-      console.log(this.arrivalApi);
+      // console.log(this.arrivalApi);
 
       this.initialForm();
       // console.log(this.supplierApi);

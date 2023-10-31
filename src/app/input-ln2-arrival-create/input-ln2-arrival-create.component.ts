@@ -47,7 +47,7 @@ export class InputLn2ArrivalCreateComponent {
       this.tankiApi = tanki;
       this.karyawanApi = karyawan;
       this.initialForm();
-      console.log(this.supplierApi);
+      // console.log(this.supplierApi);
       // console.log(this.tankiApi);
       // console.log(this.karyawanApi);
     });
@@ -166,8 +166,9 @@ export class InputLn2ArrivalCreateComponent {
         this.form.controls['checkerId'].invalid ||
         this.form.controls['supplierId'].invalid ||
         this.form.controls['noMobil'].invalid ||
-        this.form.controls['jenisMobil'].invalid ||
-        this.form.controls['airProduct'].invalid)
+        this.form.controls['jenisMobil'].invalid 
+        // this.form.controls['airProduct'].invalid
+        )
     ) {
       // console.log('fail');
       this.alertService.onCallAlert('Fill Blank Input!', AlertType.Warning);
@@ -178,8 +179,9 @@ export class InputLn2ArrivalCreateComponent {
         this.form.controls['checkerId'].invalid ||
         this.form.controls['supplierId'].invalid ||
         this.form.controls['noMobil'].invalid ||
-        this.form.controls['jenisMobil'].invalid ||
-        this.form.controls['samator'].invalid)
+        this.form.controls['jenisMobil'].invalid 
+        // this.form.controls['samator'].invalid
+        )
     ) {
       this.alertService.onCallAlert('Fill Blank Input!', AlertType.Warning);
       return;
@@ -252,7 +254,7 @@ export class InputLn2ArrivalCreateComponent {
         satuan: this.fSam[2].value[2].satuan,
       },
     ];
-    console.log(bodySamatorArrival);
+    // console.log(bodySamatorArrival);
 
     if (this.f['supplierId'].value == 1) {
       this.apiService.postArrivalCreate(bodyArrival).subscribe(
@@ -261,7 +263,7 @@ export class InputLn2ArrivalCreateComponent {
           bodyAirArrival.arrivalId = data[0];
           this.apiService.postArrivalAirCreate(bodyAirArrival).subscribe(
             (elem) => {
-              console.log(elem);
+              // console.log(elem);
               this.alertService.onCallAlert(
                 'Submit Edit Success!',
                 AlertType.Success
@@ -270,6 +272,7 @@ export class InputLn2ArrivalCreateComponent {
             },
             (er) => {
               console.log(er);
+              
               this.alertService.onCallAlert(
                 'Submit Edit Failed!',
                 AlertType.Error
@@ -279,7 +282,12 @@ export class InputLn2ArrivalCreateComponent {
         },
         (err) => {
           console.log(err);
-          this.alertService.onCallAlert('Submit Edit Failed!', AlertType.Error);
+          if (err.error.error.includes('nik')) {
+            this.alertService.onCallAlert('Checker Must Filled!', AlertType.Warning);
+          } else {
+            this.alertService.onCallAlert('Submit Edit Failed!', AlertType.Error);
+
+          }
         }
       );
     } else if (this.f['supplierId'].value == 2) {
@@ -290,7 +298,7 @@ export class InputLn2ArrivalCreateComponent {
             bodySamatorArrival[index].arrivalId = data[0];
             this.apiService.postArrivalAirCreate(element).subscribe(
               (elem) => {
-                console.log(elem);
+                // console.log(elem);
                 this.alertService.onCallAlert(
                   'Submit Edit Success!',
                   AlertType.Success
@@ -309,7 +317,12 @@ export class InputLn2ArrivalCreateComponent {
         },
         (err) => {
           console.log(err);
-          this.alertService.onCallAlert('Submit Edit Failed!', AlertType.Error);
+          if (err.error.error.includes('nik')) {
+            console.log('nik');
+            this.alertService.onCallAlert('Checker Must Filled!', AlertType.Warning);
+          } else {
+            this.alertService.onCallAlert('Submit Edit Failed!', AlertType.Error);
+          }
         }
       );
     }

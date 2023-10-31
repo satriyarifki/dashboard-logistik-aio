@@ -43,7 +43,7 @@ export class LoginComponent {
       .login(this.f['nik'].value, this.f['password'].value)
       .subscribe(
         (data) => {
-          console.log(data);
+          // console.log(data);
 
           this.authService.saveToken(data.token);
           this.authService.saveUser(data.user);

@@ -77,7 +77,7 @@ export class InputOccupancyRmpmComponent {
         this.rmpmViewApi = res[0];
         this.rmpmViewGroupApi = res[1];
         this.rmpmStorageApi = res[2]
-        console.log(res[2]);
+        // console.log(res[2]);
         this.spinner.hide();
       },
       (err) => {
