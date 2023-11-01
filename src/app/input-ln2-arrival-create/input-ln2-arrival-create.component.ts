@@ -213,7 +213,7 @@ export class InputLn2ArrivalCreateComponent {
     let bodySamatorArrival = [
       {
         arrivalId: 0,
-        tankiId: this.tankiApi[1].id,
+        tankiId: this.tankiApi[3].id,
         level_sebelum: this.fSam[0].value[0].level,
         press_sebelum: this.fSam[0].value[0].press,
         jam_sebelum: this.fSam[0].value[0].jam,
@@ -227,7 +227,7 @@ export class InputLn2ArrivalCreateComponent {
       },
       {
         arrivalId: 0,
-        tankiId: this.tankiApi[2].id,
+        tankiId: this.tankiApi[1].id,
         level_sebelum: this.fSam[0].value[1].level,
         press_sebelum: this.fSam[0].value[1].press,
         jam_sebelum: this.fSam[0].value[1].jam,
@@ -241,7 +241,7 @@ export class InputLn2ArrivalCreateComponent {
       },
       {
         arrivalId: 0,
-        tankiId: this.tankiApi[3].id,
+        tankiId: this.tankiApi[2].id,
         level_sebelum: this.fSam[0].value[2].level,
         press_sebelum: this.fSam[0].value[2].press,
         jam_sebelum: this.fSam[0].value[2].jam,
@@ -291,6 +291,8 @@ export class InputLn2ArrivalCreateComponent {
         }
       );
     } else if (this.f['supplierId'].value == 2) {
+      console.log(bodySamatorArrival);
+      
       this.apiService.postArrivalCreate(bodyArrival).subscribe(
         (data) => {
           console.log(data);

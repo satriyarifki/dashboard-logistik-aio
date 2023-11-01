@@ -68,6 +68,8 @@ export class InputLn2Component {
   ngOnInit() {
     // console.log(this.authService.getUser()[0].role);
     this.userData = this.authService.getUser()[0]
+    // console.log(this.userData);
+    
     
     forkJoin(
       this.apiService.getReportLn2All(this.dateReport),

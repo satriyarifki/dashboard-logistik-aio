@@ -56,10 +56,12 @@ export class InputLn2ArrivalEditComponent {
       this.karyawanApi = karyawan;
       this.pengisianApi = pengisian;
       this.arrivalApi = arrival;
-      if (pengisian.length > 1) {
-        this.samatorApi = pengisian;
+      // console.log(this.pengisianApi);
+      this.pengisianApi.sort((a, b) => parseFloat(a.tankiId) - parseFloat(b.tankiId));
+      if (this.pengisianApi.length > 1) {
+        this.samatorApi = this.pengisianApi;
       } else {
-        this.airProductApi = pengisian;
+        this.airProductApi = this.pengisianApi;
       }
       this.dateArrival = this.datePipe.transform(
         this.arrivalApi.date,
@@ -89,7 +91,8 @@ export class InputLn2ArrivalEditComponent {
   initialForm() {
     let airProductData: any[] = [];
     let samatorData: any[] = [];
-    // console.log(this.pengisianApi.length);
+    // console.log(this.pengisianApi);
+    
 
     this.form = this.formBuilder.group({
       date: [this.dateArrival, Validators.required],
@@ -130,6 +133,13 @@ export class InputLn2ArrivalEditComponent {
       samator: this.formBuilder.array([
         this.formBuilder.array([
           this.formBuilder.group({
+            arrivalId: [this.samatorApi[2]?.arrivalId, Validators.required],
+            level: [this.samatorApi[2]?.level_sebelum, Validators.required],
+            press: [this.samatorApi[2]?.press_sebelum, Validators.required],
+            jam: [this.samatorApi[2]?.jam_sebelum, Validators.required],
+            satuan: [this.supplierApi[0]?.uom, Validators.required],
+          }),
+          this.formBuilder.group({
             arrivalId: [this.samatorApi[0]?.arrivalId, Validators.required],
             level: [this.samatorApi[0]?.level_sebelum, Validators.required],
             press: [this.samatorApi[0]?.press_sebelum, Validators.required],
@@ -143,38 +153,41 @@ export class InputLn2ArrivalEditComponent {
             jam: [this.samatorApi[1]?.jam_sebelum, Validators.required],
             satuan: [this.supplierApi[0]?.uom, Validators.required],
           }),
-          this.formBuilder.group({
-            arrivalId: [this.samatorApi[2]?.arrivalId, Validators.required],
-            level: [this.samatorApi[2]?.level_sebelum, Validators.required],
-            press: [this.samatorApi[2]?.press_sebelum, Validators.required],
-            jam: [this.samatorApi[2]?.jam_sebelum, Validators.required],
-            satuan: [this.supplierApi[0]?.uom, Validators.required],
-          }),
         ]),
         this.formBuilder.array([
+          this.formBuilder.group({
+            arrivalId: [this.samatorApi[2]?.arrivalId, Validators.required],
+            level: [this.samatorApi[2]?.level_sesudah, Validators.required],
+            press: [this.samatorApi[2]?.press_sesudah, Validators.required],
+            jam: [this.samatorApi[2]?.jam_sesudah, Validators.required],
+            satuan: [this.supplierApi[0]?.uom, Validators.required],
+          }),
           this.formBuilder.group({
             arrivalId: [this.samatorApi[0]?.arrivalId, Validators.required],
             level: [this.samatorApi[0]?.level_sesudah, Validators.required],
             press: [this.samatorApi[0]?.press_sesudah, Validators.required],
             jam: [this.samatorApi[0]?.jam_sesudah, Validators.required],
-            satuan: [this.supplierApi[0].uom, Validators.required],
+            satuan: [this.supplierApi[0]?.uom, Validators.required],
           }),
           this.formBuilder.group({
             arrivalId: [this.samatorApi[1]?.arrivalId, Validators.required],
             level: [this.samatorApi[1]?.level_sesudah, Validators.required],
             press: [this.samatorApi[1]?.press_sesudah, Validators.required],
             jam: [this.samatorApi[1]?.jam_sesudah, Validators.required],
-            satuan: [this.supplierApi[0].uom, Validators.required],
-          }),
-          this.formBuilder.group({
-            arrivalId: [this.samatorApi[2]?.arrivalId, Validators.required],
-            level: [this.samatorApi[2]?.level_sesudah, Validators.required],
-            press: [this.samatorApi[2]?.press_sesudah, Validators.required],
-            jam: [this.samatorApi[2]?.jam_sesudah, Validators.required],
-            satuan: [this.supplierApi[0].uom, Validators.required],
+            satuan: [this.supplierApi[0]?.uom, Validators.required],
           }),
         ]),
         this.formBuilder.array([
+          this.formBuilder.group({
+            arrivalId: [this.samatorApi[2]?.arrivalId, Validators.required],
+            noSuratJalan: [
+              this.samatorApi[2]?.no_surat_jalan,
+              Validators.required,
+            ],
+            noPo: [this.samatorApi[2]?.no_po, Validators.required],
+            qty: [this.samatorApi[2]?.qty, Validators.required],
+            satuan: [this.supplierApi[0]?.uom, Validators.required],
+          }),
           this.formBuilder.group({
             arrivalId: [this.samatorApi[0]?.arrivalId, Validators.required],
             noSuratJalan: [
@@ -193,16 +206,6 @@ export class InputLn2ArrivalEditComponent {
             ],
             noPo: [this.samatorApi[1]?.no_po, Validators.required],
             qty: [this.samatorApi[1]?.qty, Validators.required],
-            satuan: [this.supplierApi[0]?.uom, Validators.required],
-          }),
-          this.formBuilder.group({
-            arrivalId: [this.samatorApi[2]?.arrivalId, Validators.required],
-            noSuratJalan: [
-              this.samatorApi[2]?.no_surat_jalan,
-              Validators.required,
-            ],
-            noPo: [this.samatorApi[2]?.no_po, Validators.required],
-            qty: [this.samatorApi[2]?.qty, Validators.required],
             satuan: [this.supplierApi[0]?.uom, Validators.required],
           }),
         ]),

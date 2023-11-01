@@ -11,6 +11,7 @@ import { ApiService } from '../services/api.service';
 export class OccupancyRmpmComponent {
   //TOOLS
   time: any;
+  datetimeUpdate: any;
 
   //API
   occuLastApi: any[] = [];
@@ -26,6 +27,14 @@ export class OccupancyRmpmComponent {
     this.getCurrentDate();
     forkJoin(apiService.getRmpmOccupancyViewLast()).subscribe((data) => {
       this.occuLastApi = data[0];
+      let d = new Date(this.occuLastApi[0]?.date)
+      d.setHours(this.occuLastApi[0]?.time.slice(0,2))
+      this.datetimeUpdate = d
+      console.log(this.occuLastApi[0]);
+      console.log(d);
+      
+      console.log(this.occuLastApi[0]?.time.slice(0,2));
+      
       spinner.hide()
     },err => {
       console.log(err);
@@ -51,6 +60,6 @@ export class OccupancyRmpmComponent {
   }
 
   numberToPercent(used:number, cap:number){
-    return Number((used/cap).toFixed(3))*100
+    return (Number((used/cap))*100)
   }
 }

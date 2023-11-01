@@ -61,6 +61,8 @@ export class LoginComponent {
               AlertType.Error
             );
           } else {
+            console.log(err);
+            
             this.alertService.onCallAlert('Login Failed', AlertType.Error);
             console.log('Sign In Failed');
           }

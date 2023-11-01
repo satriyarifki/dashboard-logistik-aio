@@ -35,7 +35,7 @@ export class InputOccupancyRmpmCreateComponent {
       this.rmpmStorageApi = res[0];
       this.fillFormItems();
       // console.log(res[0;
-      // console.log(this.f);
+      console.log(this.f);
       spinner.hide()
     },(err)=>{
       console.log(err);
@@ -75,7 +75,7 @@ export class InputOccupancyRmpmCreateComponent {
     // console.log(this.f);
     
     if (this.form.invalid) {
-      console.log(this.form);
+      // console.log(this.form);
       
       this.alertService.onCallAlert('Date or Jam cannot blank!',AlertType.Warning)
       return;
@@ -94,6 +94,8 @@ export class InputOccupancyRmpmCreateComponent {
   }
 
   filterStorageByType(params:String){
+    console.log(this.rmpmStorageApi.filter(data=>data.type == params));
+    
     return this.rmpmStorageApi.filter(data=>data.type == params)
   }
 }

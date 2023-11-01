@@ -35,21 +35,20 @@
       <div
         class="h-full flex justify-center flex-wrap bg-white px-5 py-5 space-y-4 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
       >
-        <div class="px-5 w-full flex flex-wrap items-center">
+        <div class="px-5 w-full flex flex-wrap justify-between items-center">
           <h1 class="text-lg w-fit font-manrope font-[700] text-start h-fit">
             Occupancy Soyjoy
           </h1>
           <h1
-            class="text-sm w-fit font-manrope font-semibold h-fit text-start text-gray-500"
-          ></h1>
+            class="text-sm w-fit font-manrope font-semibold h-fit text-end text-gray-500"
+          >
+            {{ datetimeUpdate | date : "longDate" }} <br />
+            {{ datetimeUpdate | date : "shortTime" }}
+          </h1>
         </div>
         <div class="w-full rounded-lg">
-          <table
-            class="w-full text-sm text-left text-gray-800 font-medium"
-          >
-            <thead
-              class="text-xs text-gray-700 uppercase bg-gray-100 "
-            >
+          <table class="w-full text-sm text-left text-gray-800 font-medium">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-100">
               <tr>
                 <th scope="col" class="px-3 py-2 text-center">Storage</th>
                 <th scope="col" class="px-3 py-2 text-center">Temp</th>
@@ -76,9 +75,24 @@
                     >
                   </span>
                 </td>
-                <td class="px-3 py-2 text-center text-slate-900 font-medium">{{item.capacity}}</td>
-                <td class="px-3 py-2 text-center text-slate-900 font-medium">{{item.used}}</td>
-                <td class="px-3 py-2 text-center bg-lime-100">{{numberToPercent(item.used,item.capacity)}} %</td>
+                <td class="px-3 py-2 text-center text-slate-900 font-medium">
+                  {{ item.capacity }}
+                </td>
+                <td class="px-3 py-2 text-center text-slate-900 font-medium">
+                  {{ item.used }}
+                </td>
+                <td
+                  class="px-3 py-2 text-center"
+                  [ngClass]="
+                    numberToPercent(item.used, item.capacity) >= 100
+                      ? 'bg-red-500 text-white'
+                      : numberToPercent(item.used, item.capacity) >= 85
+                      ? 'bg-yellow-200'
+                      : 'bg-lime-200'
+                  "
+                >
+                  {{ numberToPercent(item.used, item.capacity).toFixed(1) }} %
+                </td>
               </tr>
             </tbody>
           </table>
@@ -87,23 +101,24 @@
     </div>
     <div class="grow p-2 lg:w-6/12">
       <div
-        class="h-full  flex-wrap bg-white px-5 py-5 space-y-4 rounded-lg  text-center relative drop-shadow-xl"
+        class="h-full flex-wrap bg-white px-5 py-5 space-y-4 rounded-lg text-center relative drop-shadow-xl"
       >
-        <div class="px-5 w-full flex flex-wrap items-center h-fit">
+        <div
+          class="px-5 w-full flex flex-wrap justify-between items-center h-fit"
+        >
           <h1 class="text-lg w-fit font-manrope font-[700] text-start h-fit">
             Occupancy Pocari
           </h1>
           <h1
-            class="text-sm w-fit font-manrope font-semibold h-fit text-start text-gray-500"
-          ></h1>
+            class="text-sm w-fit font-manrope font-semibold h-fit text-end text-gray-500"
+          >
+            {{ datetimeUpdate | date : "longDate" }} <br />
+            {{ datetimeUpdate | date : "shortTime" }}
+          </h1>
         </div>
         <div class="w-full">
-            <table
-            class="w-full text-sm text-left text-gray-800 font-medium"
-          >
-            <thead
-              class="text-xs text-gray-700 uppercase bg-gray-100 "
-            >
+          <table class="w-full text-sm text-left text-gray-800 font-medium">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-100">
               <tr>
                 <th scope="col" class="px-3 py-2 text-center">Storage</th>
                 <th scope="col" class="px-3 py-2 text-center">Temp</th>
@@ -130,9 +145,24 @@
                     >
                   </span>
                 </td>
-                <td class="px-3 py-2 text-center text-slate-900 font-medium">{{item.capacity}}</td>
-                <td class="px-3 py-2 text-center text-slate-900 font-medium">{{item.used}}</td>
-                <td class="px-3 py-2 text-center bg-lime-100">{{numberToPercent(item.used,item.capacity)}} %</td>
+                <td class="px-3 py-2 text-center text-slate-900 font-medium">
+                  {{ item.capacity }}
+                </td>
+                <td class="px-3 py-2 text-center text-slate-900 font-medium">
+                  {{ item.used }}
+                </td>
+                <td
+                  class="px-3 py-2 text-center"
+                  [ngClass]="
+                    numberToPercent(item.used, item.capacity) >= 100
+                      ? 'bg-red-500 text-white'
+                      : numberToPercent(item.used, item.capacity) >= 85
+                      ? 'bg-yellow-200'
+                      : 'bg-lime-200'
+                  "
+                >
+                  {{ numberToPercent(item.used, item.capacity).toFixed(1) }} %
+                </td>
               </tr>
             </tbody>
           </table>

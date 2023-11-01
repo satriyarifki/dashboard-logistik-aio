@@ -62,6 +62,7 @@ export class SidebarComponent {
     private alertService:AlertService,
     private eref: ElementRef
   ) {
+    authService.getUser()
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.dropdown = false;

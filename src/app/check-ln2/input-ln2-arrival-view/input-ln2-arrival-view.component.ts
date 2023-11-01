@@ -55,11 +55,14 @@ export class InputLn2ArrivalViewComponent {
       this.karyawanApi = karyawan;
       this.pengisianApi = pengisian;
       this.arrivalApi = arrival;
-      if (pengisian.length > 1) {
-        this.samatorApi = pengisian;
+      this.pengisianApi.sort((a, b) => parseFloat(a.tankiId) - parseFloat(b.tankiId));
+      if (this.pengisianApi.length > 1) {
+        this.samatorApi = this.pengisianApi;
       } else {
-        this.airProductApi = pengisian;
+        this.airProductApi = this.pengisianApi;
       }
+      // console.log(this.pengisianApi);
+      
       this.dateArrival = this.datePipe.transform(
         this.arrivalApi.date,
         'yyyy-MM-dd'
@@ -132,6 +135,13 @@ export class InputLn2ArrivalViewComponent {
       samator: this.formBuilder.array([
         this.formBuilder.array([
           this.formBuilder.group({
+            arrivalId: [{value:this.samatorApi[2]?.arrivalId,disabled:true}, Validators.required],
+            level: [{value:this.samatorApi[2]?.level_sebelum,disabled:true}, Validators.required],
+            press: [{value:this.samatorApi[2]?.press_sebelum,disabled:true}, Validators.required],
+            jam: [{value:this.samatorApi[2]?.jam_sebelum,disabled:true}, Validators.required],
+            satuan: [{value:this.supplierApi[0]?.uom,disabled:true}, Validators.required],
+          }),
+          this.formBuilder.group({
             arrivalId: [{value:this.samatorApi[0]?.arrivalId,disabled:true}, Validators.required],
             level: [{value:this.samatorApi[0]?.level_sebelum,disabled:true}, Validators.required],
             press: [{value:this.samatorApi[0]?.press_sebelum,disabled:true}, Validators.required],
@@ -145,15 +155,15 @@ export class InputLn2ArrivalViewComponent {
             jam: [{value:this.samatorApi[1]?.jam_sebelum,disabled:true}, Validators.required],
             satuan: [{value:this.supplierApi[0]?.uom,disabled:true}, Validators.required],
           }),
-          this.formBuilder.group({
-            arrivalId: [{value:this.samatorApi[2]?.arrivalId,disabled:true}, Validators.required],
-            level: [{value:this.samatorApi[2]?.level_sebelum,disabled:true}, Validators.required],
-            press: [{value:this.samatorApi[2]?.press_sebelum,disabled:true}, Validators.required],
-            jam: [{value:this.samatorApi[2]?.jam_sebelum,disabled:true}, Validators.required],
-            satuan: [{value:this.supplierApi[0]?.uom,disabled:true}, Validators.required],
-          }),
         ]),
         this.formBuilder.array([
+          this.formBuilder.group({
+            arrivalId: [{value:this.samatorApi[2]?.arrivalId,disabled:true}, Validators.required],
+            level: [{value:this.samatorApi[2]?.level_sesudah,disabled:true}, Validators.required],
+            press: [{value:this.samatorApi[2]?.press_sesudah,disabled:true}, Validators.required],
+            jam: [{value:this.samatorApi[2]?.jam_sesudah,disabled:true}, Validators.required],
+            satuan: [{value:this.supplierApi[0].uom,disabled:true}, Validators.required],
+          }),
           this.formBuilder.group({
             arrivalId: [{value:this.samatorApi[0]?.arrivalId,disabled:true}, Validators.required],
             level: [{value:this.samatorApi[0]?.level_sesudah,disabled:true}, Validators.required],
@@ -168,15 +178,18 @@ export class InputLn2ArrivalViewComponent {
             jam: [{value:this.samatorApi[1]?.jam_sesudah,disabled:true}, Validators.required],
             satuan: [{value:this.supplierApi[0].uom,disabled:true}, Validators.required],
           }),
-          this.formBuilder.group({
-            arrivalId: [{value:this.samatorApi[2]?.arrivalId,disabled:true}, Validators.required],
-            level: [{value:this.samatorApi[2]?.level_sesudah,disabled:true}, Validators.required],
-            press: [{value:this.samatorApi[2]?.press_sesudah,disabled:true}, Validators.required],
-            jam: [{value:this.samatorApi[2]?.jam_sesudah,disabled:true}, Validators.required],
-            satuan: [{value:this.supplierApi[0].uom,disabled:true}, Validators.required],
-          }),
         ]),
         this.formBuilder.array([
+          this.formBuilder.group({
+            arrivalId: [{value:this.samatorApi[2]?.arrivalId,disabled:true}, Validators.required],
+            noSuratJalan: [
+              this.samatorApi[2]?.no_surat_jalan,
+              Validators.required,
+            ],
+            noPo: [{value:this.samatorApi[2]?.no_po,disabled:true}, Validators.required],
+            qty: [{value:this.samatorApi[2]?.qty,disabled:true}, Validators.required],
+            satuan: [{value:this.supplierApi[0]?.uom,disabled:true}, Validators.required],
+          }),
           this.formBuilder.group({
             arrivalId: [{value:this.samatorApi[0]?.arrivalId,disabled:true}, Validators.required],
             noSuratJalan: [
@@ -195,16 +208,6 @@ export class InputLn2ArrivalViewComponent {
             ],
             noPo: [{value:this.samatorApi[1]?.no_po,disabled:true}, Validators.required],
             qty: [{value:this.samatorApi[1]?.qty,disabled:true}, Validators.required],
-            satuan: [{value:this.supplierApi[0]?.uom,disabled:true}, Validators.required],
-          }),
-          this.formBuilder.group({
-            arrivalId: [{value:this.samatorApi[2]?.arrivalId,disabled:true}, Validators.required],
-            noSuratJalan: [
-              this.samatorApi[2]?.no_surat_jalan,
-              Validators.required,
-            ],
-            noPo: [{value:this.samatorApi[2]?.no_po,disabled:true}, Validators.required],
-            qty: [{value:this.samatorApi[2]?.qty,disabled:true}, Validators.required],
             satuan: [{value:this.supplierApi[0]?.uom,disabled:true}, Validators.required],
           }),
         ]),

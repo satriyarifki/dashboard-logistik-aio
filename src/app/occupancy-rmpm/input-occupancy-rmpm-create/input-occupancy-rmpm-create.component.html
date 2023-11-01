@@ -175,7 +175,7 @@
                         [ngClass]="i == 0 ? 'h-2/3' : 'h-full'"
                         class="flex items-center justify-between"
                       >
-                        <p class="text-[15px]">{{ item.name }}</p>
+                        <p class="text-[15px]">{{ item.id + item.name }}</p>
                         <p>:</p>
                       </div>
                     </div>
@@ -215,7 +215,7 @@
                         <p
                           class="p-1.5 text-[15px] text-center rounded-lg bg-danger-100"
                         >
-                          {{ item.capacity }}
+                          {{ item.capacity + ' ' + f.items[item.id-2].storageId}}
                         </p>
                       </div>
                     </div>

@@ -47,7 +47,7 @@ export class InputOccupancyRmpmViewComponent {
         this.rmpmStorageApi = res[0];
         this.rmpmByDatetimeApi = res[1];
         this.fillFormItems();
-        // console.log(this.f);
+        console.log(this.f);
         // console.log(res[1]);
         spinner.hide();
       },
@@ -108,6 +108,8 @@ export class InputOccupancyRmpmViewComponent {
   }
 
   filterStorageByType(params: String) {
+    console.log(this.rmpmStorageApi.filter((data) => data.type == params));
+    
     return this.rmpmStorageApi.filter((data) => data.type == params);
   }
 }
