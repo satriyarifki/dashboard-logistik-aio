@@ -30,10 +30,10 @@ export class OccupancyRmpmComponent {
       let d = new Date(this.occuLastApi[0]?.date)
       d.setHours(this.occuLastApi[0]?.time.slice(0,2))
       this.datetimeUpdate = d
-      console.log(this.occuLastApi[0]);
-      console.log(d);
+      // console.log(this.occuLastApi[0]);
+      // console.log(d);
       
-      console.log(this.occuLastApi[0]?.time.slice(0,2));
+      // console.log(this.occuLastApi[0]?.time.slice(0,2));
       
       spinner.hide()
     },err => {
@@ -43,23 +43,37 @@ export class OccupancyRmpmComponent {
   }
 
   get soyjoyOccu() {
-    return this.occuLastApi.filter(
+    const occu = this.occuLastApi.filter(
       (data) =>
         data.type == 'Soyjoy' ||
         data.storageId == 14 ||
         data.storageId == 12 ||
         data.storageId == 13
     );
+
+    return occu.sort((a, b) => (a.type) - (b.type));
   }
   get pocariOccu() {
-    return this.occuLastApi.filter(
+    const occu = this.occuLastApi.filter(
       (data) =>
         data.type == 'Pocari' ||
         data.storageId == 15
     );
+    occu.sort(function (a, b) {
+      if (a.type < b.type) {
+        return -1;
+      }
+      if (a.type > b.type) {
+        return 1;
+      }
+      return 0;
+    });
+    console.log(occu);
+    
+    return occu
   }
 
   numberToPercent(used:number, cap:number){
-    return (Number((used/cap))*100)
+    return Number((used/cap*100).toFixed(1))
   }
 }

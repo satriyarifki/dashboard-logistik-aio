@@ -87,8 +87,8 @@ export class ApiService {
   deleteArrivalLn2(id: any): Observable<any> {
     return this.http.delete(this.baseUrl + 'del/arrival/' + id);
   }
-  deleteCheckLn2(date:any,jam:any): Observable<any> {
-    return this.http.delete(this.baseUrl + 'del/check-ln2/' + date+'/'+jam);
+  deleteCheckLn2(date: any, jam: any): Observable<any> {
+    return this.http.delete(this.baseUrl + 'del/check-ln2/' + date + '/' + jam);
   }
 
   // WAREHOUSE
@@ -112,6 +112,9 @@ export class ApiService {
   getArrivalLn2All(): Observable<any> {
     return this.http.get(this.baseUrl + 'arrival-ln2');
   }
+  getArrivalLn2Group(): Observable<any> {
+    return this.http.get(this.baseUrl + 'arrival-ln2-group');
+  }
   getReportLn2All(date: any): Observable<any> {
     return this.http.get(this.baseUrl + 'report-ln2/' + date);
   }
@@ -124,14 +127,14 @@ export class ApiService {
   getKaryawan(): Observable<any> {
     return this.http.get(this.baseUrl + 'ln2-karyawan');
   }
-  postKaryawanCreate(body:any): Observable<any> {
-    return this.http.post(this.baseUrl + 'ln2-karyawan/create',body);
+  postKaryawanCreate(body: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'ln2-karyawan/create', body);
   }
-  postKaryawanEdit(body:any): Observable<any> {
-    return this.http.post(this.baseUrl + 'ln2-karyawan/update',body);
+  postKaryawanEdit(body: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'ln2-karyawan/update', body);
   }
-  deleteKaryawanCreate(nik:any): Observable<any> {
-    return this.http.delete(this.baseUrl + 'ln2-karyawan/delete/'+nik);
+  deleteKaryawanCreate(nik: any): Observable<any> {
+    return this.http.delete(this.baseUrl + 'ln2-karyawan/delete/' + nik);
   }
   getSupplier(): Observable<any> {
     return this.http.get(this.baseUrl + 'ln2-supplier');
@@ -198,5 +201,8 @@ export class ApiService {
     return this.http.delete(
       this.baseUrl + 'rmpm-del/' + params.date + '/' + params.time
     );
+  }
+  deleteRmpmStorage(id: any): Observable<any> {
+    return this.http.delete(this.baseUrl + 'rmpm-del-storage/' + id);
   }
 }

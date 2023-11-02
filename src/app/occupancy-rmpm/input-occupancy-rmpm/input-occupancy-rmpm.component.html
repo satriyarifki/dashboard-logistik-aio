@@ -362,7 +362,7 @@
 
       <!-- STORAGE TABLE -->
       <div
-      *ngIf="userData.role == 1"
+        *ngIf="userData.role == 1"
         class="h-fit bg-white px-8 py-5 space-y-3 text-center rounded-lg overflow-hidden drop-shadow-xl"
       >
         <div>
@@ -472,7 +472,7 @@
                       </span>
                     </div>
                   </th>
-  
+
                   <th scope="col" class="px-6 py-3 text-left">
                     <div class="flex items-center justify-center gap-x-2">
                       <span
@@ -491,6 +491,15 @@
                       </span>
                     </div>
                   </th>
+                  <th scope="col" class="px-6 py-3 text-left">
+                    <div class="flex items-center justify-center gap-x-2">
+                      <span
+                        class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
+                      >
+                        Type
+                      </span>
+                    </div>
+                  </th>
                   <th
                     *ngIf="userData.role == 1"
                     scope="col"
@@ -506,7 +515,7 @@
                   </th>
                 </tr>
               </thead>
-  
+
               <tbody class="divide-y divide-gray-200">
                 <tr
                   *ngFor="
@@ -541,14 +550,17 @@
                       {{ item.min_temp }}
                     </h1>
                   </td>
-  
+
                   <td class="h-px w-px whitespace-nowrap">
                     <h1 class="text-sm">{{ item.max_temp }}</h1>
                   </td>
                   <td class="h-px w-px whitespace-nowrap">
                     <h1 class="text-sm">{{ item.capacity }}</h1>
                   </td>
-  
+                  <td class="h-px w-px whitespace-nowrap">
+                    <h1 class="text-sm">{{ item.type }}</h1>
+                  </td>
+
                   <td class="h-px w-px whitespace-nowrap">
                     <a
                       *ngIf="userData.role == 1"
@@ -560,15 +572,15 @@
                       ></span>
                       <span class="relative text-xs"> Edit</span>
                     </a>
-                    <!-- <a
-                      (click)="deleteRmpm({ date: item.date, time: item.time })"
+                    <a
+                      (click)="deleteRmpmStorage(item.id)"
                       class="bg-gradient-to-tr from-red-500 to-red-400 border-red-600 rounded-lg relative inline-flex group items-center justify-center px-2.5 py-1.5 m-1 cursor-pointer border-b-2 border-l-2 active:border-purple-600 active:shadow-none shadow-lg text-white"
                     >
                       <span
                         class="absolute w-0 h-0 transition-all duration-200 ease-out bg-white rounded-full group-hover:w-28 group-hover:h-10 opacity-10"
                       ></span>
                       <span class="relative text-xs"> Del</span>
-                    </a> -->
+                    </a>
                   </td>
                   <td class="h-px w-px whitespace-nowrap"></td>
                   <!-- <td class="h-px w-px whitespace-nowrap">
@@ -804,6 +816,19 @@
             class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
           />
         </div>
+        <div class="w-1/2 px-2">
+          <label for="jam" class="block text-sm text-gray-600 font-medium"
+            >Type</label
+          >
+          <select
+            formControlName="type"
+            class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+          >
+            <option value="Pocari">Pocari</option>
+            <option value="Soyjoy">Soyjoy</option>
+            <option value="Temporary">Temporary</option>
+          </select>
+        </div>
       </div>
       <div class="w-full flex justify-center">
         <button
@@ -882,6 +907,19 @@
             formControlName="capacity"
             class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
           />
+        </div>
+        <div class="w-1/2 px-2">
+          <label for="jam" class="block text-sm text-gray-600 font-medium"
+            >Type</label
+          >
+          <select
+            formControlName="type"
+            class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+          >
+            <option value="Pocari">Pocari</option>
+            <option value="Soyjoy">Soyjoy</option>
+            <option value="Temporary">Temporary</option>
+          </select>
         </div>
       </div>
       <div class="w-full flex justify-center">

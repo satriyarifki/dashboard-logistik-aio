@@ -37,7 +37,8 @@ export class InputOccupancyRmpmComponent {
     name: new FormControl('',[Validators.required]),
     min_temp: new FormControl(null),
     max_temp: new FormControl(0,[Validators.required]),
-    capacity: new FormControl(0,[Validators.required])
+    capacity: new FormControl(0,[Validators.required]),
+    type: new FormControl('',[Validators.required])
   })
 
   exportAsConfig: ExportAsConfig = {
@@ -101,6 +102,19 @@ export class InputOccupancyRmpmComponent {
       }
     );
   }
+  deleteRmpmStorage(params:any) {
+    this.apiService.deleteRmpmStorage(params).subscribe(
+      (data) => {
+        // console.log(data);
+        this.alertService.onCallAlert('Delete Row Success!', AlertType.Success);
+        this.ngOnInit()
+      },
+      (err) => {
+        console.log(err);
+        this.alertService.onCallAlert('Delete Row Failed!', AlertType.Error);
+      }
+    );
+  }
 
   onSave(){
     this.apiService.postRmpmStorageUpdate(this.fEdit).subscribe(data=>{
@@ -128,7 +142,7 @@ export class InputOccupancyRmpmComponent {
   get fEdit(){
     return this.formEdit.value
   }
-  setFormEdit(name:'id'|'name'|'min_temp'|'max_temp'|'capacity',value:any){
+  setFormEdit(name:'id'|'name'|'min_temp'|'max_temp'|'capacity'|'type',value:any){
     this.formEdit.controls[name].setValue(value)
   }
 
@@ -154,6 +168,7 @@ export class InputOccupancyRmpmComponent {
       this.setFormEdit('min_temp',item.min_temp)
       this.setFormEdit('max_temp',item.max_temp)
       this.setFormEdit('capacity',item.capacity)
+      this.setFormEdit('type',item.type)
       this.storageId = id;
       this.storageEditBool = true
       console.log(this.fEdit['capacity']);

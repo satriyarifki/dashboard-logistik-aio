@@ -73,13 +73,15 @@ export class InputLn2Component {
     
     forkJoin(
       this.apiService.getReportLn2All(this.dateReport),
-      this.apiService.getArrivalLn2All(),
+      this.apiService.getArrivalLn2Group(),
       this.apiService.getKaryawan()
     ).subscribe(
       ([report, arrival,karyawan]) => {
         this.arrivalAll = arrival;
         this.reportLnAll = report;
         this.karyawanAll = karyawan
+        console.log(this.arrivalAll);
+        
         this.spinner.hide();
       },
       (err) => {
