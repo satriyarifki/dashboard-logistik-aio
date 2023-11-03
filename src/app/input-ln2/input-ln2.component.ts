@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ExportAsConfig } from 'ngx-export-as';
 import { PaginationControlsDirective } from 'ngx-pagination';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -8,6 +9,7 @@ import { AlertType } from '../services/alert/alert.model';
 import { AlertService } from '../services/alert/alert.service';
 import { ApiService } from '../services/api.service';
 import { AuthService } from '../services/auth/auth.service';
+import { DeleteApiService } from '../services/delete-api/delete-api.service';
 
 @Component({
   selector: 'app-input-ln2',
@@ -18,7 +20,7 @@ export class InputLn2Component {
   @ViewChild('p', { static: true }) pa: PaginationControlsDirective | any;
   searchInput: any;
   searchInputKaryawan: any;
-  itemPerPage = 10;
+  itemPerPage = 7;
   itemPerPageKaryawan = 7;
   createModal = false;
   arrivalBool = true;
@@ -63,8 +65,14 @@ export class InputLn2Component {
     private apiService: ApiService,
     private spinner: NgxSpinnerService,
     private alertService: AlertService,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private deleteService: DeleteApiService,
+    private router:Router
+  ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
+  }
   ngOnInit() {
     // console.log(this.authService.getUser()[0].role);
     this.userData = this.authService.getUser()[0]
@@ -80,7 +88,7 @@ export class InputLn2Component {
         this.arrivalAll = arrival;
         this.reportLnAll = report;
         this.karyawanAll = karyawan
-        console.log(this.arrivalAll);
+        // console.log(this.arrivalAll);
         
         this.spinner.hide();
       },
@@ -95,32 +103,40 @@ export class InputLn2Component {
     );
   }
 
-  deleteArrival(id: number) {
-    this.apiService.deleteArrivalLn2(id).subscribe(
-      (data) => {
-        console.log(data);
-        this.alertService.onCallAlert('Delete Success!', AlertType.Success);
-        this.ngOnInit();
-      },
-      (err) => {
-        console.log(err);
-        this.alertService.onCallAlert('Delete Failed!', AlertType.Error);
-      }
-    );
+  deleteArrival(data: any) {
+    const fun = 'this.apiService.deleteArrivalLn2(' + data.id + ')';
+    this.deleteService.onCallDelete({ dataName: 'Arrival - ' + data.id, func: fun });
   }
-  deleteCheckLevel(date:any,jam:any) {
-    this.apiService.deleteCheckLn2(date,jam).subscribe(
-      (data) => {
-        console.log(data);
-        this.alertService.onCallAlert('Delete Success!', AlertType.Success);
-        this.ngOnInit();
-      },
-      (err) => {
-        console.log(err);
-        this.alertService.onCallAlert('Delete Failed!', AlertType.Error);
-      }
-    );
+  deleteCheckLevel(data: any) {
+    const fun = 'this.apiService.deleteCheckLn2(' + data.date +', ' + data.jam + ')';
+    this.deleteService.onCallDelete({ dataName: 'Check Level (' + data.date + ' , ' + data.jam + ')', func: fun });
   }
+  // deleteArrival(id: number) {
+  //   this.apiService.deleteArrivalLn2(id).subscribe(
+  //     (data) => {
+  //       console.log(data);
+  //       this.alertService.onCallAlert('Delete Success!', AlertType.Success);
+  //       this.ngOnInit();
+  //     },
+  //     (err) => {
+  //       console.log(err);
+  //       this.alertService.onCallAlert('Delete Failed!', AlertType.Error);
+  //     }
+  //   );
+  // }
+  // deleteCheckLevel(date:any,jam:any) {
+  //   this.apiService.deleteCheckLn2(date,jam).subscribe(
+  //     (data) => {
+  //       console.log(data);
+  //       this.alertService.onCallAlert('Delete Success!', AlertType.Success);
+  //       this.ngOnInit();
+  //     },
+  //     (err) => {
+  //       console.log(err);
+  //       this.alertService.onCallAlert('Delete Failed!', AlertType.Error);
+  //     }
+  //   );
+  // }
 
   recallCheckLnService() {
     this.apiService.getReportLn2All(this.dateReport).subscribe(
@@ -269,18 +285,21 @@ export class InputLn2Component {
       this.alertService.onCallAlert('Edit Karyawan Failed!',AlertType.Error)
     })
   }
-
-  deleteKar(params:any) {
-    this.apiService.deleteKaryawanCreate(params).subscribe(
-      (data) => {
-        // console.log(data);
-        this.alertService.onCallAlert('Delete Karyawan Success!', AlertType.Success);
-        this.ngOnInit()
-      },
-      (err) => {
-        console.log(err);
-        this.alertService.onCallAlert('Delete Karyawan Failed!', AlertType.Error);
-      }
-    );
+  deleteKar(nik: any) {
+    const fun = 'this.apiService.deleteKaryawanCreate(' + nik + ')';
+    this.deleteService.onCallDelete({ dataName: 'Karyawan (' + nik+ ')', func: fun });
   }
+  // deleteKar(params:any) {
+  //   this.apiService.deleteKaryawanCreate(params).subscribe(
+  //     (data) => {
+  //       // console.log(data);
+  //       this.alertService.onCallAlert('Delete Karyawan Success!', AlertType.Success);
+  //       this.ngOnInit()
+  //     },
+  //     (err) => {
+  //       console.log(err);
+  //       this.alertService.onCallAlert('Delete Karyawan Failed!', AlertType.Error);
+  //     }
+  //   );
+  // }
 }

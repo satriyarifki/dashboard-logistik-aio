@@ -68,7 +68,6 @@ export class OccupancyRmpmComponent {
       }
       return 0;
     });
-    console.log(occu);
     
     return occu
   }

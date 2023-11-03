@@ -291,7 +291,7 @@ export class InputLn2ArrivalCreateComponent {
         }
       );
     } else if (this.f['supplierId'].value == 2) {
-      console.log(bodySamatorArrival);
+      // console.log(bodySamatorArrival);
       
       this.apiService.postArrivalCreate(bodyArrival).subscribe(
         (data) => {
@@ -320,7 +320,7 @@ export class InputLn2ArrivalCreateComponent {
         (err) => {
           console.log(err);
           if (err.error.error.includes('nik')) {
-            console.log('nik');
+            // console.log('nik');
             this.alertService.onCallAlert('Checker Must Filled!', AlertType.Warning);
           } else {
             this.alertService.onCallAlert('Submit Edit Failed!', AlertType.Error);

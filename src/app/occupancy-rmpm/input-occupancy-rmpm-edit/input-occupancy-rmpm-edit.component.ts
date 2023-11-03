@@ -46,6 +46,7 @@ export class InputOccupancyRmpmEditComponent {
         this.rmpmByDatetimeApi = res[1];
         this.fillFormItems();
         // console.log(res[1]);
+        // eval("this.change(" + res[1][0].id + ")")
         spinner.hide();
       },
       (err) => {
@@ -58,8 +59,8 @@ export class InputOccupancyRmpmEditComponent {
 
   initialForm() {
     this.form = this.formBuilder.group({
-      date: [this.params['date'], Validators.required],
-      time: [this.params['time'], Validators.required],
+      date: [{value:this.params['date'],disabled:true}, Validators.required],
+      time: [{value:this.params['time'],disabled:true}, Validators.required],
       items: this.formBuilder.array([]),
     });
   }
@@ -70,6 +71,12 @@ export class InputOccupancyRmpmEditComponent {
     // console.log((this.form.controls['items'] as FormArray).controls);
 
     return this.form.controls['items'] as FormArray;
+  }
+  change(c:any){
+    console.log(c);
+    
+    console.log(this.f);
+    
   }
   fillFormItems() {
     this.items = this.form.get('items') as FormArray;
@@ -84,6 +91,8 @@ export class InputOccupancyRmpmEditComponent {
   }
 
   onSubmit() {
+    console.log(this.f);
+    
     if (this.form.invalid) {
       this.alertService.onCallAlert('Fill Blank Input!', AlertType.Warning);
       return;

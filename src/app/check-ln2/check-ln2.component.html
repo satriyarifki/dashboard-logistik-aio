@@ -11,35 +11,42 @@
       <div
         class="h-fit flex justify-between flex-wrap bg-white px-2 md:px-8 py-2 text-center rounded-lg overflow-hidden relative drop-shadow-xl"
       >
-      <span class="flex items-center justify-start w-1/3">
-        <h1 class="font-quicksand font-semibold max-sm:px-3 text-sm md:text-lg text-sky-900">
-          {{ time | date : "fullDate" }}
-        </h1>
-      </span>
+        <span class="flex items-center justify-start w-1/3">
+          <h1
+            class="font-quicksand font-semibold max-sm:px-3 text-sm md:text-lg text-sky-900"
+          >
+            {{ time | date : "fullDate" }}
+          </h1>
+        </span>
 
-      <h1 class="font-manrope font-[700] text-lg md:text-3xl w-1/3">
-        Check Ln2
-      </h1>
-      <span class="flex items-center justify-end w-1/3">
-        <h1 class="font-quicksand font-semibold text-sm md:text-lg text-sky-900">
-          {{ time | date : "mediumTime" }}
-        </h1></span
-      >
+        <h1 class="font-manrope font-[700] text-lg md:text-3xl w-1/3">
+          Check Ln2
+        </h1>
+        <span class="flex items-center justify-end w-1/3">
+          <h1
+            class="font-quicksand font-semibold text-sm md:text-lg text-sky-900"
+          >
+            {{ time | date : "mediumTime" }}
+          </h1></span
+        >
       </div>
     </div>
     <div class="grow p-2 lg:w-8/12">
       <div
         class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
       >
-        <div class="px-5 w-full flex flex-wrap items-center">
+        <div class="flex justify-between px-5 w-full flex-wrap items-center">
           <h1
             class="px-2 text-lg w-fit font-manrope font-[700] text-start h-fit"
           >
             Level Ln2 - Samator
           </h1>
           <h1
-            class="text-sm w-fit font-manrope font-semibold h-fit text-start text-gray-500"
-          ></h1>
+            class="text-sm w-fit font-manrope font-semibold h-fit text-end text-gray-500"
+          >
+            {{ datetimeUpdate | date : "longDate" }} <br />
+            {{ datetimeUpdate | date : "shortTime" }}
+          </h1>
         </div>
         <div class="w-full">
           <apx-chart
@@ -63,15 +70,18 @@
       <div
         class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
       >
-        <div class="px-5 w-full flex flex-wrap items-center">
+        <div class="flex justify-between px-5 w-full flex-wrap items-center">
           <h1
             class="px-2 text-lg w-fit font-quicksand font-[700] text-start h-fit"
           >
             Level - Air Product
           </h1>
           <h1
-            class="text-sm w-fit font-quicksand font-semibold h-fit text-start text-gray-500"
-          ></h1>
+            class="text-sm w-fit font-manrope font-semibold h-fit text-end text-gray-500"
+          >
+            {{ datetimeUpdate | date : "longDate" }} <br />
+            {{ datetimeUpdate | date : "shortTime" }}
+          </h1>
         </div>
         <div class="w-full">
           <apx-chart
@@ -94,8 +104,8 @@
       <div
         class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
       >
-      <h1 class="text-sm text-red-400">(Not Connected)</h1>
-        <div class="px-5 w-full flex flex-wrap items-center">
+        <h1 class="text-sm text-red-400">(Not Connected)</h1>
+        <div class="flex justify-between px-5 w-full flex-wrap items-center">
           <h1
             class="px-2 text-lg w-fit font-manrope font-[700] text-start h-fit"
           >
@@ -129,8 +139,8 @@
       <div
         class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
       >
-      <h1 class="text-sm text-red-400">(Not Connected)</h1>
-        <div class="px-5 w-full flex flex-wrap items-center">
+        <h1 class="text-sm text-red-400">(Not Connected)</h1>
+        <div class="flex justify-between px-5 w-full flex-wrap items-center">
           <h1
             class="px-2 text-lg w-fit font-manrope font-[700] text-start h-fit"
           >
@@ -164,8 +174,8 @@
       <div
         class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
       >
-      <h1 class="text-sm text-red-400">(Not Connected)</h1>
-        <div class="px-5 w-full flex flex-wrap items-center">
+        <h1 class="text-sm text-red-400">(Not Connected)</h1>
+        <div class="flex justify-between px-5 w-full flex-wrap items-center">
           <h1
             class="px-2 text-lg w-fit font-manrope font-[700] text-start h-fit"
           >
@@ -199,8 +209,8 @@
       <div
         class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
       >
-      <h1 class="text-sm text-red-400">(Not Connected)</h1>
-        <div class="px-5 w-full flex flex-wrap items-center">
+        <h1 class="text-sm text-red-400">(Not Connected)</h1>
+        <div class="flex justify-between px-5 w-full flex-wrap items-center">
           <h1
             class="px-2 text-lg w-fit font-manrope font-[700] text-start h-fit"
           >
@@ -234,7 +244,7 @@
       <div
         class="h-full flex justify-start flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
       >
-        <div class="px-5 w-full flex flex-wrap items-center">
+        <div class="flex justify-between px-5 w-full flex-wrap items-center">
           <h1
             class="px-2 text-lg w-fit font-quicksand font-semibold text-start h-fit"
           >
@@ -265,7 +275,7 @@
       <div
         class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
       >
-        <div class="px-5 w-full flex flex-wrap items-center">
+        <div class="flex justify-between px-5 w-full flex-wrap items-center">
           <h1
             class="px-2 text-lg w-fit font-quicksand font-semibold text-start h-fit"
           >
@@ -295,7 +305,7 @@
       <div
         class="h-full flex justify-start flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
       >
-        <div class="px-5 w-full flex flex-wrap items-center">
+        <div class="flex justify-between px-5 w-full flex-wrap items-center">
           <h1
             class="px-2 text-lg w-fit font-quicksand font-semibold text-start h-fit"
           >

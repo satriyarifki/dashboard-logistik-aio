@@ -21,6 +21,7 @@ export class InputOccupancyRmpmCreateComponent {
 
   //TOOLS
   dateNow = new Date().toISOString().slice(0, 10);
+  dataAlready = false
 
   constructor(
     private apiService: ApiService,
@@ -71,7 +72,7 @@ export class InputOccupancyRmpmCreateComponent {
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     // console.log(this.f);
     
     if (this.form.invalid) {
@@ -80,22 +81,48 @@ export class InputOccupancyRmpmCreateComponent {
       this.alertService.onCallAlert('Date or Jam cannot blank!',AlertType.Warning)
       return;
     }
-
-    this.apiService.postRmpmCreate(this.f).subscribe(
-      (data) => {
-        this.alertService.onCallAlert('Create Successfuly!', AlertType.Success);
-        this.router.navigate(['input-rmpm-occupancy'])
-      },
-      (err) => {
-        console.log(err);
-        this.alertService.onCallAlert('Create Failed, Check Your Connection!',AlertType.Error)
+    
+    let dataAlready = false
+    this.apiService.getRmpmOccupancyByDateTime({date:this.f.date,time:this.f.time+':00'}).subscribe(data=>{
+      if(data.length == 0){
+        this.apiService.postRmpmCreate(this.f).subscribe(
+          (data) => {
+            this.alertService.onCallAlert('Create Successfuly!', AlertType.Success);
+            this.router.navigate(['input-rmpm-occupancy'])
+          },
+          (err) => {
+            console.log(err);
+            this.alertService.onCallAlert('Create Failed, Check Your Connection!',AlertType.Error)
+          }
+        );
+      } else {
+        this.alertService.onCallAlert('Datetime booked,Choose another date or time!',AlertType.Warning)
       }
-    );
+    }, err => {
+      this.alertService.onCallAlert('Create Failed, Check Your Connection!',AlertType.Error)
+    })
+    // console.log(dataAlready);
+    
+    // if (dataAlready) {
+    //   this.alertService.onCallAlert('Choose another date and time!',AlertType.Warning)
+    //   dataAlready = false
+    //   return
+    // }
+
+   
+  }
+
+  checkOccupancy(){
+    this.apiService.getRmpmOccupancyByDateTime({date:this.f.date,time:this.f.time+':00'}).subscribe(data=>{
+      if(data.length != 0){
+        // console.log(data);
+        this.dataAlready = true
+      }
+    })
+    
   }
 
   filterStorageByType(params:String){
-    console.log(this.rmpmStorageApi.filter(data=>data.type == params));
-    
     return this.rmpmStorageApi.filter(data=>data.type == params)
   }
 }

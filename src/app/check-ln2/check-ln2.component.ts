@@ -16,6 +16,7 @@ export class CheckLn2Component {
 
   //TOOLS
   time: any;
+  datetimeUpdate: any;
 
   //API
   newestLevel: any[] = [];
@@ -26,7 +27,7 @@ export class CheckLn2Component {
       this.time = new Date();
     }, 1000);
   }
-
+  
   constructor(
     private apiService: ApiService,
     private spinner: NgxSpinnerService
@@ -37,6 +38,9 @@ export class CheckLn2Component {
       (res) => {
         this.newestLevel = res[0];
         console.log(this.newestLevel);
+        let d = new Date(this.newestLevel[0]?.date)
+      d.setHours(this.newestLevel[0]?.jam.slice(0,2))
+      this.datetimeUpdate = d
         this.chart();
         spinner.hide();
       },

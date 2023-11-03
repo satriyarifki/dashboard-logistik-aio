@@ -214,32 +214,33 @@
                       class="bg-gradient-to-tr from-indigo-500 to-indigo-400 border-indigo-600 rounded-lg relative inline-flex group items-center justify-center px-2.5 py-1.5 m-1 cursor-pointer border-b-2 border-l-2 active:border-purple-600 active:shadow-none shadow-lg text-white"
                     >
                       <span
-                        class="absolute w-0 h-0 transition-all duration-200 ease-out bg-white rounded-full group-hover:w-28 group-hover:h-10 opacity-10"
+                        class="absolute w-0 h-0 transition-all duration-200 ease-out bg-white rounded-full group-hover:w-fit group-hover:h-fit opacity-10"
                       ></span>
                       <span class="relative text-xs">View</span>
                     </a>
                     <a
-                      *ngIf="userData.role == 1"
+                      
                       [routerLink]="['edit']"
                       [queryParams]="{ date: item.date, time: item.time }"
                       class="bg-gradient-to-tr from-yellow-500 to-yellow-400 border-yellow-600 rounded-lg relative inline-flex group items-center justify-center px-2.5 py-1.5 m-1 cursor-pointer border-b-2 border-l-2 active:border-purple-600 active:shadow-none shadow-lg text-white"
                     >
                       <span
-                        class="absolute w-0 h-0 transition-all duration-200 ease-out bg-white rounded-full group-hover:w-28 group-hover:h-10 opacity-10"
+                        class="absolute w-0 h-0 transition-all duration-200 ease-out bg-white rounded-full group-hover:w-fit group-hover:h-fit opacity-10"
                       ></span>
                       <span class="relative text-xs"> Edit</span>
                     </a>
                     <a
-                      *ngIf="userData.role == 1"
-                      (click)="deleteRmpm({ date: item.date, time: item.time })"
+                      
+                      (click)="deleteRmpm(item)"
                       class="bg-gradient-to-tr from-red-500 to-red-400 border-red-600 rounded-lg relative inline-flex group items-center justify-center px-2.5 py-1.5 m-1 cursor-pointer border-b-2 border-l-2 active:border-purple-600 active:shadow-none shadow-lg text-white"
                     >
                       <span
-                        class="absolute w-0 h-0 transition-all duration-200 ease-out bg-white rounded-full group-hover:w-28 group-hover:h-10 opacity-10"
+                        class="absolute w-0 h-0 transition-all duration-200 ease-out bg-white rounded-full group-hover:w-fit group-hover:h-fit opacity-10"
                       ></span>
                       <span class="relative text-xs"> Del</span>
                     </a>
                   </td>
+                  
                   <td class="h-px w-px whitespace-nowrap"></td>
                   <!-- <td class="h-px w-px whitespace-nowrap">
           
@@ -568,16 +569,16 @@
                       class="bg-gradient-to-tr from-yellow-500 to-yellow-400 border-yellow-600 rounded-lg relative inline-flex group items-center justify-center px-2.5 py-1.5 m-1 cursor-pointer border-b-2 border-l-2 active:border-purple-600 active:shadow-none shadow-lg text-white"
                     >
                       <span
-                        class="absolute w-0 h-0 transition-all duration-200 ease-out bg-white rounded-full group-hover:w-28 group-hover:h-10 opacity-10"
+                        class="absolute w-0 h-0 transition-all duration-200 ease-out bg-white rounded-full group-hover:w-fit group-hover:h-fit opacity-10"
                       ></span>
                       <span class="relative text-xs"> Edit</span>
                     </a>
                     <a
-                      (click)="deleteRmpmStorage(item.id)"
+                      (click)="deleteRmpmStorage(item)"
                       class="bg-gradient-to-tr from-red-500 to-red-400 border-red-600 rounded-lg relative inline-flex group items-center justify-center px-2.5 py-1.5 m-1 cursor-pointer border-b-2 border-l-2 active:border-purple-600 active:shadow-none shadow-lg text-white"
                     >
                       <span
-                        class="absolute w-0 h-0 transition-all duration-200 ease-out bg-white rounded-full group-hover:w-28 group-hover:h-10 opacity-10"
+                        class="absolute w-0 h-0 transition-all duration-200 ease-out bg-white rounded-full group-hover:w-fit group-hover:h-fit opacity-10"
                       ></span>
                       <span class="relative text-xs"> Del</span>
                     </a>

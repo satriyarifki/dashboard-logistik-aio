@@ -54,6 +54,7 @@ import { DatePipe } from '@angular/common';
 import { InputOccupancyRmpmViewComponent } from './occupancy-rmpm/input-occupancy-rmpm-view/input-occupancy-rmpm-view.component';
 import { InputLn2ArrivalViewComponent } from './check-ln2/input-ln2-arrival-view/input-ln2-arrival-view.component';
 import { InputLn2CheckViewComponent } from './check-ln2/input-ln2-check-view/input-ln2-check-view.component';
+import { DeleteApiComponent } from './layout/delete-api/delete-api.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { InputLn2CheckViewComponent } from './check-ln2/input-ln2-check-view/inp
     InputLn2CheckEditComponent,
     InputOccupancyRmpmViewComponent,
     InputLn2ArrivalViewComponent,
-    InputLn2CheckViewComponent
+    InputLn2CheckViewComponent,
+    DeleteApiComponent
   ],
   imports: [
     BrowserModule,
