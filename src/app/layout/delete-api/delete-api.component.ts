@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
+import { zoomInOutVar } from 'src/app/animations';
 import { AlertType } from 'src/app/services/alert/alert.model';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { ApiService } from 'src/app/services/api.service';
@@ -10,6 +11,7 @@ import { DeleteApiService } from 'src/app/services/delete-api/delete-api.service
   selector: 'app-delete-api',
   templateUrl: './delete-api.component.html',
   styleUrls: ['./delete-api.component.css'],
+  animations: [zoomInOutVar],
 })
 export class DeleteApiComponent {
   modalName: String = '';
@@ -21,7 +23,7 @@ export class DeleteApiComponent {
     private deleteService: DeleteApiService,
     private apiService: ApiService,
     private alertService: AlertService,
-    private router:Router,
+    private router: Router
   ) {}
 
   callModal(params: any) {
@@ -44,16 +46,12 @@ export class DeleteApiComponent {
   execDelete() {
     forkJoin(eval(this.func)).subscribe(
       (data: any) => {
-        this.alertService.onCallAlert(
-          'Delete row success!',
-          AlertType.Success
-        );
+        this.alertService.onCallAlert('Delete row success!', AlertType.Success);
         this.router.onSameUrlNavigation = 'reload';
-        this.router.navigateByUrl(this.router.url)
-        this.closeDelete()
+        this.router.navigateByUrl(this.router.url);
+        this.closeDelete();
       },
       (err) => {
-        
         if (
           err.error.error.includes(
             'FOREIGN KEY (`storageId`) REFERENCES `storage` (`id`)'

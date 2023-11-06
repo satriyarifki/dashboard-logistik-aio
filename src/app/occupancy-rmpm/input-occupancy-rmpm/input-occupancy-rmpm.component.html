@@ -219,7 +219,7 @@
                       <span class="relative text-xs">View</span>
                     </a>
                     <a
-                      
+                    *ngIf="userData.role == 1"
                       [routerLink]="['edit']"
                       [queryParams]="{ date: item.date, time: item.time }"
                       class="bg-gradient-to-tr from-yellow-500 to-yellow-400 border-yellow-600 rounded-lg relative inline-flex group items-center justify-center px-2.5 py-1.5 m-1 cursor-pointer border-b-2 border-l-2 active:border-purple-600 active:shadow-none shadow-lg text-white"
@@ -230,7 +230,7 @@
                       <span class="relative text-xs"> Edit</span>
                     </a>
                     <a
-                      
+                    *ngIf="userData.role == 1"
                       (click)="deleteRmpm(item)"
                       class="bg-gradient-to-tr from-red-500 to-red-400 border-red-600 rounded-lg relative inline-flex group items-center justify-center px-2.5 py-1.5 m-1 cursor-pointer border-b-2 border-l-2 active:border-purple-600 active:shadow-none shadow-lg text-white"
                     >

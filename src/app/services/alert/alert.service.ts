@@ -15,13 +15,6 @@ export class AlertService {
   invokeAlert = new EventEmitter();
   subsVar: Subscription | undefined;
 
-  getAlert() {
-    return { mess: this.message, typ: this.type };
-  }
-  clearAlert() {
-    this.message = '';
-    this.type = AlertType.None;
-  }
   onCallAlert(message: string, type: AlertType) {
     
     
