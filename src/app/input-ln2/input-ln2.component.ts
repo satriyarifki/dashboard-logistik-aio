@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ExportAsConfig } from 'ngx-export-as';
+import { ExportAsConfig, ExportAsService } from 'ngx-export-as';
 import { PaginationControlsDirective } from 'ngx-pagination';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { forkJoin } from 'rxjs';
@@ -10,6 +10,7 @@ import { AlertService } from '../services/alert/alert.service';
 import { ApiService } from '../services/api.service';
 import { AuthService } from '../services/auth/auth.service';
 import { DeleteApiService } from '../services/delete-api/delete-api.service';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-input-ln2',
@@ -26,14 +27,17 @@ export class InputLn2Component {
   arrivalBool = true;
   karyawanCreateBool = false;
   karyawanEditBool = false;
-  dateReport = new Date().toISOString().slice(0, 10);
+  dateReport = {
+    start: new Date().toISOString().slice(0, 10),
+    end: new Date().toISOString().slice(0, 10),
+  };
 
   //API
   arrivalAll: any[] = [];
   reportLnAll: any[] = [];
   karyawanAll: any[] = [];
   array: any[] = [];
-  userData:any
+  userData: any;
 
   exportAsConfig: ExportAsConfig = {
     type: 'csv', // the type you want to download
@@ -54,12 +58,12 @@ export class InputLn2Component {
   };
 
   formKar = new FormGroup({
-    nik: new FormControl('',[Validators.required]),
-    nama: new FormControl('',[Validators.required]),
-    bagian: new FormControl('',[Validators.required]),
-    company: new FormControl('',[Validators.required]),
-    status: new FormControl('',[Validators.required])
-  })
+    nik: new FormControl('', [Validators.required]),
+    nama: new FormControl('', [Validators.required]),
+    bagian: new FormControl('', [Validators.required]),
+    company: new FormControl('', [Validators.required]),
+    status: new FormControl('', [Validators.required]),
+  });
 
   constructor(
     private apiService: ApiService,
@@ -67,7 +71,8 @@ export class InputLn2Component {
     private alertService: AlertService,
     private authService: AuthService,
     private deleteService: DeleteApiService,
-    private router:Router
+    private router: Router,
+    private exportAsService: ExportAsService
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
@@ -75,21 +80,20 @@ export class InputLn2Component {
   }
   ngOnInit() {
     // console.log(this.authService.getUser()[0].role);
-    this.userData = this.authService.getUser()[0]
+    this.userData = this.authService.getUser()[0];
     // console.log(this.userData);
-    
-    
+
     forkJoin(
-      this.apiService.getReportLn2All(this.dateReport),
+      this.apiService.getReportLn2Range(this.dateReport),
       this.apiService.getArrivalLn2Group(),
       this.apiService.getKaryawan()
     ).subscribe(
-      ([report, arrival,karyawan]) => {
+      ([report, arrival, karyawan]) => {
         this.arrivalAll = arrival;
         this.reportLnAll = report;
-        this.karyawanAll = karyawan
+        this.karyawanAll = karyawan;
         // console.log(this.arrivalAll);
-        
+
         this.spinner.hide();
       },
       (err) => {
@@ -103,13 +107,54 @@ export class InputLn2Component {
     );
   }
 
+  export(tableId: string, type: any, name: string) {
+    this.exportAsConfig.type = type;
+    this.exportAsConfig.elementIdOrContent = tableId;
+    console.log(name);
+    console.log(name.length);
+
+    // download the file using old school javascript method
+    this.exportAsService.save(this.exportAsConfig, name).subscribe(() => {
+      // save started
+      this.alertService.onCallAlert(
+        'Export ' + name + ' Success!',
+        AlertType.Success
+      );
+      console.log('Success');
+    });
+  }
+  exportExcel(tableId: string, name: string): void {
+    /* pass here the table id */
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(
+      document.getElementById(tableId)
+    );
+    /* generate workbook and add the worksheet */
+    const wsDelete = Object.keys(ws).filter((data) => data.includes('K'));
+    wsDelete.map((val: any) => {
+      delete (ws[val])
+    });
+
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    /* save to file */
+
+    XLSX.writeFile(wb, name+'.xlsx');
+  }
+
   deleteArrival(data: any) {
     const fun = 'this.apiService.deleteArrivalLn2(' + data.id + ')';
-    this.deleteService.onCallDelete({ dataName: 'Arrival - ' + data.id, func: fun });
+    this.deleteService.onCallDelete({
+      dataName: 'Arrival - ' + data.id,
+      func: fun,
+    });
   }
   deleteCheckLevel(data: any) {
-    const fun = 'this.apiService.deleteCheckLn2(' + data.date +', ' + data.jam + ')';
-    this.deleteService.onCallDelete({ dataName: 'Check Level (' + data.date + ' , ' + data.jam + ')', func: fun });
+    const fun =
+      'this.apiService.deleteCheckLn2(' + data.date + ', ' + data.jam + ')';
+    this.deleteService.onCallDelete({
+      dataName: 'Check Level (' + data.date + ' , ' + data.jam + ')',
+      func: fun,
+    });
   }
   // deleteArrival(id: number) {
   //   this.apiService.deleteArrivalLn2(id).subscribe(
@@ -139,10 +184,10 @@ export class InputLn2Component {
   // }
 
   recallCheckLnService() {
-    this.apiService.getReportLn2All(this.dateReport).subscribe(
+    this.apiService.getReportLn2Range(this.dateReport).subscribe(
       (data) => {
         this.reportLnAll = data;
-        this.array = Object.entries(this.groupBy(this.reportLnAll, 'jam'));
+        // this.array = Object.entries(this.groupBy(this.reportLnAll, 'jam'));
       },
       (err) => {
         console.log(err);
@@ -172,9 +217,12 @@ export class InputLn2Component {
     )[0];
   }
   get distinctReport() {
-    return this.reportLnAll.filter(
-      (n, i, arr) => arr.findIndex((r) => r.jam === n.jam) === i
-    );
+    return this.reportLnAll
+      .filter(
+        (n, i, arr) =>
+          arr.findIndex((r) => r.date === n.date && r.jam === n.jam) === i
+      )
+      .reverse();
   }
   filterReportByDatetime(date: any, time: any) {
     return this.reportLnAll.filter(
@@ -215,79 +263,99 @@ export class InputLn2Component {
     this.createModal = behav;
   }
 
-  get fKar(){
-    return this.formKar.value
+  get fKar() {
+    return this.formKar.value;
   }
-  setFormKar(name:'nik'|'nama'|'bagian'|'company'|'status',value:any){
-    this.formKar.controls[name].setValue(value)
+  setFormKar(
+    name: 'nik' | 'nama' | 'bagian' | 'company' | 'status',
+    value: any
+  ) {
+    this.formKar.controls[name].setValue(value);
     if (name == 'nik' && value != '') {
       console.log('dis');
-      
-      this.formKar.controls[name].disable()
+
+      this.formKar.controls[name].disable();
     } else if (name == 'nik' && value == '') {
       console.log('end');
-      this.formKar.controls[name].enable()
-    }
-    
-  }
-
-  changeKaryawanCreateModal(id:number){
-    if (id != 0) {
-      this.karyawanCreateBool = true
-    } else {
-      this.karyawanCreateBool = false
-      this.setFormKar('nik','')
-      this.setFormKar('nama','')
-      this.setFormKar('bagian','')
-      this.setFormKar('company','')
-      this.setFormKar('status','')
-    }
-  }
-  changeKaryawanEditModal(id:number,item:any){
-    if (id != 0) {
-      this.setFormKar('nik',item.nik)
-      this.setFormKar('nama',item.nama)
-      this.setFormKar('bagian',item.bagian)
-      this.setFormKar('company',item.company)
-      this.setFormKar('status',item.status)
-      this.karyawanEditBool = true
-    } else {
-      this.karyawanEditBool = false
-      this.setFormKar('nik','')
-      this.setFormKar('nama','')
-      this.setFormKar('bagian','')
-      this.setFormKar('company','')
-      this.setFormKar('status','')
+      this.formKar.controls[name].enable();
     }
   }
 
-  onCreateKar(){
-    this.apiService.postKaryawanCreate(this.fKar).subscribe(data=>{
-      // console.log(data);
-      this.alertService.onCallAlert('Create Karyawan Success!',AlertType.Success)
-      this.ngOnInit()
-      this.changeKaryawanCreateModal(0)
-    }, err => {
-      console.log(err);
-      this.alertService.onCallAlert('Create Karyawan Failed!',AlertType.Error)
-    })
+  changeKaryawanCreateModal(id: number) {
+    if (id != 0) {
+      this.karyawanCreateBool = true;
+    } else {
+      this.karyawanCreateBool = false;
+      this.setFormKar('nik', '');
+      this.setFormKar('nama', '');
+      this.setFormKar('bagian', '');
+      this.setFormKar('company', '');
+      this.setFormKar('status', '');
+    }
   }
-  onEditKar(){
-    this.formKar.controls['nik'].enable()
-    
-    this.apiService.postKaryawanEdit(this.fKar).subscribe(data=>{
-      // console.log(data);
-      this.alertService.onCallAlert('Edit Karyawan Success!',AlertType.Success)
-      this.ngOnInit()
-      this.changeKaryawanEditModal(0,null)
-    }, err => {
-      console.log(err);
-      this.alertService.onCallAlert('Edit Karyawan Failed!',AlertType.Error)
-    })
+  changeKaryawanEditModal(id: number, item: any) {
+    if (id != 0) {
+      this.setFormKar('nik', item.nik);
+      this.setFormKar('nama', item.nama);
+      this.setFormKar('bagian', item.bagian);
+      this.setFormKar('company', item.company);
+      this.setFormKar('status', item.status);
+      this.karyawanEditBool = true;
+    } else {
+      this.karyawanEditBool = false;
+      this.setFormKar('nik', '');
+      this.setFormKar('nama', '');
+      this.setFormKar('bagian', '');
+      this.setFormKar('company', '');
+      this.setFormKar('status', '');
+    }
+  }
+
+  onCreateKar() {
+    this.apiService.postKaryawanCreate(this.fKar).subscribe(
+      (data) => {
+        // console.log(data);
+        this.alertService.onCallAlert(
+          'Create Karyawan Success!',
+          AlertType.Success
+        );
+        this.ngOnInit();
+        this.changeKaryawanCreateModal(0);
+      },
+      (err) => {
+        console.log(err);
+        this.alertService.onCallAlert(
+          'Create Karyawan Failed!',
+          AlertType.Error
+        );
+      }
+    );
+  }
+  onEditKar() {
+    this.formKar.controls['nik'].enable();
+
+    this.apiService.postKaryawanEdit(this.fKar).subscribe(
+      (data) => {
+        // console.log(data);
+        this.alertService.onCallAlert(
+          'Edit Karyawan Success!',
+          AlertType.Success
+        );
+        this.ngOnInit();
+        this.changeKaryawanEditModal(0, null);
+      },
+      (err) => {
+        console.log(err);
+        this.alertService.onCallAlert('Edit Karyawan Failed!', AlertType.Error);
+      }
+    );
   }
   deleteKar(nik: any) {
     const fun = 'this.apiService.deleteKaryawanCreate(' + nik + ')';
-    this.deleteService.onCallDelete({ dataName: 'Karyawan (' + nik+ ')', func: fun });
+    this.deleteService.onCallDelete({
+      dataName: 'Karyawan (' + nik + ')',
+      func: fun,
+    });
   }
   // deleteKar(params:any) {
   //   this.apiService.deleteKaryawanCreate(params).subscribe(

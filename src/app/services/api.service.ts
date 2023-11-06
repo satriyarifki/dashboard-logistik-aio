@@ -118,6 +118,11 @@ export class ApiService {
   getReportLn2All(date: any): Observable<any> {
     return this.http.get(this.baseUrl + 'report-ln2/' + date);
   }
+  getReportLn2Range(date: any): Observable<any> {
+    return this.http.get(
+      this.baseUrl + 'report-ln2-range/' + date.start + '/' + date.end
+    );
+  }
   getArrivalLn2ById(id: any): Observable<any> {
     return this.http.get(this.baseUrl + 'arrival-ln2/' + id);
   }

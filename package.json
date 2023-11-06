@@ -37,6 +37,7 @@
     "tw-elements": "^1.0.0-beta1",
     "world-clock": "^1.4.0",
     "world-timestamp": "^1.0.1",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.12.0"
   },
   "devDependencies": {
