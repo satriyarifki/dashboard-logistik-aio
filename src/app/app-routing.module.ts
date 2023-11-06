@@ -35,6 +35,8 @@ import { InputLn2CheckEditComponent } from './input-ln2-check-edit/input-ln2-che
 import { InputOccupancyRmpmViewComponent } from './occupancy-rmpm/input-occupancy-rmpm-view/input-occupancy-rmpm-view.component';
 import { InputLn2ArrivalViewComponent } from './check-ln2/input-ln2-arrival-view/input-ln2-arrival-view.component';
 import { InputLn2CheckViewComponent } from './check-ln2/input-ln2-check-view/input-ln2-check-view.component';
+import { LeaderAuthGuard } from './services/guard/leader-auth.guard';
+import { CheckerAuthGuard } from './services/guard/checker-auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { animation: 'HomePage' } },
@@ -94,12 +96,12 @@ const routes: Routes = [
   {
     path: 'input-ln2/arrival-create',
     component: InputLn2ArrivalCreateComponent,
-    canActivate: [OnAuthGuard],
+    canActivate: [CheckerAuthGuard],
   },
   {
     path: 'input-ln2/arrival-edit',
     component: InputLn2ArrivalEditComponent,
-    canActivate: [OnAuthGuard],
+    canActivate: [LeaderAuthGuard],
   },
   {
     path: 'input-ln2/arrival-view',
@@ -109,12 +111,12 @@ const routes: Routes = [
   {
     path: 'input-ln2/check-create',
     component: InputLn2CheckCreateComponent,
-    canActivate: [OnAuthGuard],
+    canActivate: [CheckerAuthGuard],
   },
   {
     path: 'input-ln2/check-edit',
     component: InputLn2CheckEditComponent,
-    canActivate: [OnAuthGuard],
+    canActivate: [LeaderAuthGuard],
   },
   {
     path: 'input-ln2/check-view',
@@ -126,8 +128,8 @@ const routes: Routes = [
     component: InputOccupancyRmpmComponent,
     canActivate: [OnAuthGuard],
   },
-  { path: 'input-rmpm-occupancy/create', component: InputOccupancyRmpmCreateComponent,canActivate: [OnAuthGuard], },
-  { path: 'input-rmpm-occupancy/edit', component: InputOccupancyRmpmEditComponent,canActivate: [OnAuthGuard], },
+  { path: 'input-rmpm-occupancy/create', component: InputOccupancyRmpmCreateComponent,canActivate: [CheckerAuthGuard], },
+  { path: 'input-rmpm-occupancy/edit', component: InputOccupancyRmpmEditComponent,canActivate: [LeaderAuthGuard], },
   { path: 'input-rmpm-occupancy/view', component: InputOccupancyRmpmViewComponent,canActivate: [OnAuthGuard], },
   { path: 'temp', component: TemperatureComponent },
   { path: 'check-ln', component: CheckLn2Component },

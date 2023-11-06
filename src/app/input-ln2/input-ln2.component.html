@@ -94,7 +94,7 @@
             <!-- End Input -->
             <div>
               <a
-              
+              *ngIf="userData.role != -2"
                 [routerLink]="['/input-ln2/arrival-create']"
                 routerLinkActive="router-link-active"
                 class="relative inline-flex cursor-pointer items-center justify-center px-4 py-1 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-cyan-600 rounded-full shadow-md group"
@@ -470,6 +470,7 @@
             <!-- End Input -->
             <div>
               <a
+              *ngIf="userData.role != -2"
                 [routerLink]="['/input-ln2/check-create']"
                 routerLinkActive="router-link-active"
                 class="relative inline-flex cursor-pointer items-center justify-center px-4 py-1 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-cyan-600 rounded-full shadow-md group"

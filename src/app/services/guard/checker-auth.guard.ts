@@ -8,7 +8,7 @@ import { AuthService } from '../auth/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class LeaderAuthGuard implements CanActivate {
+export class CheckerAuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router,private alertService:AlertService){
 
   }
@@ -17,7 +17,8 @@ export class LeaderAuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       var token = this.authService.getCookie();
       var user = this.authService.getUser()
-      if (token != null && user[0].role == 1) {
+      
+      if (token != null && user[0].role != '-2') {
         return true;
       } else {
         this.alertService.onCallAlert('Access denied for this user!',AlertType.Warning)
