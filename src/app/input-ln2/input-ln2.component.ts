@@ -22,6 +22,7 @@ export class InputLn2Component {
   searchInput: any;
   searchInputKaryawan: any;
   itemPerPage = 7;
+  itemPerPageLevel = 7;
   itemPerPageKaryawan = 7;
   createModal = false;
   arrivalBool = true;
@@ -33,6 +34,7 @@ export class InputLn2Component {
   };
 
   //API
+  arrivalApi: any[] = [];
   arrivalAll: any[] = [];
   reportLnAll: any[] = [];
   karyawanAll: any[] = [];
@@ -49,6 +51,12 @@ export class InputLn2Component {
     itemsPerPage: this.itemPerPage,
     currentPage: 1,
     totalItems: this.arrivalAll.length,
+  };
+  configLevel = {
+    id: 'customLevel',
+    itemsPerPage: this.itemPerPageLevel,
+    currentPage: 1,
+    totalItems: this.distinctReport.length,
   };
   configKaryawan = {
     id: 'customKaryawan',
@@ -86,9 +94,11 @@ export class InputLn2Component {
     forkJoin(
       this.apiService.getReportLn2Range(this.dateReport),
       this.apiService.getArrivalLn2Group(),
+      this.apiService.getArrivalLn2All(),
       this.apiService.getKaryawan()
     ).subscribe(
-      ([report, arrival, karyawan]) => {
+      ([report, arrival,arrivalAll, karyawan]) => {
+        this.arrivalApi = arrivalAll;
         this.arrivalAll = arrival;
         this.reportLnAll = report;
         this.karyawanAll = karyawan;
@@ -125,20 +135,69 @@ export class InputLn2Component {
   }
   exportExcel(tableId: string, name: string): void {
     /* pass here the table id */
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(
-      document.getElementById(tableId)
-    );
-    /* generate workbook and add the worksheet */
-    const wsDelete = Object.keys(ws).filter((data) => data.includes('K'));
-    wsDelete.map((val: any) => {
-      delete (ws[val])
-    });
+    this.spinner.show()
+    if (tableId.includes('Level')) {
+      
+      this.configLevel.currentPage = 1
+      this.configLevel.itemsPerPage = this.distinctReport.length;
+    } else if(tableId.includes('arrival')){
+      this.config.currentPage = 1
+      this.config.itemsPerPage = this.arrivalAll.length;
+    }
+    console.log(XLSX.utils.json_to_sheet(this.distinctReport));
+    
+    setTimeout(() => {
+      
+      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(
+        document.getElementById(tableId)
+      );
+      console.log(ws);
+      /* generate workbook and add the worksheet */
+      const wsDelete = Object.keys(ws).filter((data) => data.includes('L'));
+      const wsHead = Object.keys(ws).filter((data) => Number(data[1])<=2);
+      console.log(wsHead);
+      
+      wsDelete.map((val: any) => {
+        delete ws[val];
+      });
+  
+      const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+      /* save to file */
+  
+      XLSX.writeFile(wb, name + '.xlsx');
+      this.configLevel.itemsPerPage = 7;
+      this.config.itemsPerPage = 7;
+      this.spinner.hide()
+    }, 100);
+    
+  }
 
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    /* save to file */
-
-    XLSX.writeFile(wb, name+'.xlsx');
+  exportExcelArrival(tableId: string, name: string): void{
+    this.spinner.show()
+    
+    setTimeout(() => {
+      
+      const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(
+        this.arrivalApi
+      );
+      console.log(ws);
+      /* generate workbook and add the worksheet */
+      // const wsDelete = Object.keys(ws).filter((data) => data.includes('L'));
+      const wsHead = Object.keys(ws).filter((data) => Number(data[1])<=2);
+      console.log(wsHead);
+      
+      // wsDelete.map((val: any) => {
+      //   delete ws[val];
+      // });
+  
+      const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+      /* save to file */
+  
+      XLSX.writeFile(wb, name + '.xlsx');
+      this.spinner.hide()
+    }, 100);
   }
 
   deleteArrival(data: any) {
@@ -199,6 +258,10 @@ export class InputLn2Component {
     this.config.itemsPerPage = value;
     // console.log(this.config.itemsPerPage);
   }
+  changeItemPerPageSelectLevel(value: any) {
+    this.configLevel.itemsPerPage = value;
+    // console.log(this.config.itemsPerPage);
+  }
   changeItemPerPageSelectKaryawan(value: any) {
     this.configKaryawan.itemsPerPage = value;
     // console.log(this.config.itemsPerPage);
@@ -221,8 +284,7 @@ export class InputLn2Component {
       .filter(
         (n, i, arr) =>
           arr.findIndex((r) => r.date === n.date && r.jam === n.jam) === i
-      )
-      .reverse();
+      );
   }
   filterReportByDatetime(date: any, time: any) {
     return this.reportLnAll.filter(

@@ -74,13 +74,15 @@ export class TooltipDirective {
     this.renderer.addClass(this.tooltip, 'ng-tooltip');
     this.renderer.addClass(this.tooltip, 'absolute');
     this.renderer.addClass(this.tooltip, 'bg-gray-50');
+    this.renderer.addClass(this.tooltip, 'border');
     this.renderer.addClass(this.tooltip, 'shadow-md');
     this.renderer.addClass(this.tooltip, 'opacity-0');
     this.renderer.addClass(this.tooltip, 'transition-all');
     this.renderer.addClass(this.tooltip, 'text-sm');
     this.renderer.addClass(this.tooltip, 'px-3');
     this.renderer.addClass(this.tooltip, 'rounded-md');
-    this.renderer.addClass(this.tooltip, 'font-medium');
+    this.renderer.addClass(this.tooltip, 'font-semibold');
+    this.renderer.addClass(this.tooltip, 'font-manrope');
     this.renderer.addClass(this.tooltip, 'text-cyan-800');
     this.renderer.addClass(this.tooltip, 'whitespace-pre-line');
     this.renderer.addClass(this.tooltip, 'z-50');
