@@ -55,6 +55,7 @@ import { InputOccupancyRmpmViewComponent } from './occupancy-rmpm/input-occupanc
 import { InputLn2ArrivalViewComponent } from './check-ln2/input-ln2-arrival-view/input-ln2-arrival-view.component';
 import { InputLn2CheckViewComponent } from './check-ln2/input-ln2-check-view/input-ln2-check-view.component';
 import { DeleteApiComponent } from './layout/delete-api/delete-api.component';
+import { TooltipDirective } from './directive/tooltip.directive';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { DeleteApiComponent } from './layout/delete-api/delete-api.component';
     InputOccupancyRmpmViewComponent,
     InputLn2ArrivalViewComponent,
     InputLn2CheckViewComponent,
-    DeleteApiComponent
+    DeleteApiComponent,
+    TooltipDirective
   ],
   imports: [
     BrowserModule,

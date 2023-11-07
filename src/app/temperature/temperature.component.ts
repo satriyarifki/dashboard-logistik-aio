@@ -7,7 +7,6 @@ import { forkJoin } from 'rxjs';
 import { AppComponent } from '../app.component';
 import { ApiService } from '../services/api.service';
 import { LoaderService } from '../services/loader.service';
-import { ProductService } from '../services/product.service';
 import { TempChart } from './../ApexChart';
 
 @Component({

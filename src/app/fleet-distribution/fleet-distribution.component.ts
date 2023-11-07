@@ -5,7 +5,6 @@ import {
   OnTimeFleetChart,
   TruckingFromChart,
 } from '../ApexChart';
-import { ProductService } from '../services/product.service';
 import worldTimestamp from 'world-timestamp';
 import { zoomInVar } from '../animations';
 import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
