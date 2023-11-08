@@ -104,7 +104,7 @@
       <div
         class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
       >
-        <h1 class="text-sm text-red-400">(Not Connected)</h1>
+        <!-- <h1 class="text-sm text-red-400">(Not Connected)</h1> -->
         <div class="flex justify-between px-5 w-full flex-wrap items-center">
           <h1
             class="px-2 text-lg w-fit font-manrope font-[700] text-start h-fit"
@@ -112,9 +112,9 @@
             Air Products (LN)
           </h1>
           <h1
-            class="text-sm w-fit font-manrope font-semibold h-fit text-start text-gray-500"
+            class="text-sm w-fit font-manrope font-semibold h-fit text-end text-gray-500"
           >
-            Yesterday
+            Yesterday <br> {{yesterday | date:'longDate'}}
           </h1>
         </div>
         <div class="w-full">
@@ -139,7 +139,7 @@
       <div
         class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
       >
-        <h1 class="text-sm text-red-400">(Not Connected)</h1>
+        <!-- <h1 class="text-sm text-red-400">(Not Connected)</h1> -->
         <div class="flex justify-between px-5 w-full flex-wrap items-center">
           <h1
             class="px-2 text-lg w-fit font-manrope font-[700] text-start h-fit"
@@ -147,21 +147,21 @@
             Samator Soyjoy (Ln2)
           </h1>
           <h1
-            class="text-sm w-fit font-manrope font-semibold h-fit text-start text-gray-500"
+            class="text-sm w-fit font-manrope font-semibold h-fit text-end text-gray-500"
           >
-            Yesterday
+            Yesterday <br> {{yesterday | date:'longDate'}}
           </h1>
         </div>
         <div class="w-full">
           <apx-chart
             *ngIf="lnYesterday"
-            [series]="lnYesterday?.series3"
+            [series]="lnYesterday?.series4"
             [chart]="lnYesterday?.chart"
-            [xaxis]="lnYesterday?.xaxis2"
+            [xaxis]="lnYesterday?.xaxis"
             [stroke]="lnYesterday?.stroke"
             [dataLabels]="lnYesterday?.dataLabels"
             [yaxis]="lnYesterday?.yaxis2"
-            [labels]="lnYesterday?.labels"
+            [labels]="lnYesterday?.labels4"
             [legend]="lnYesterday?.legend"
             [markers]="lnYesterday?.markers"
             [tooltip]="lnYesterday?.tooltip"
@@ -174,7 +174,7 @@
       <div
         class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
       >
-        <h1 class="text-sm text-red-400">(Not Connected)</h1>
+        <!-- <h1 class="text-sm text-red-400">(Not Connected)</h1> -->
         <div class="flex justify-between px-5 w-full flex-wrap items-center">
           <h1
             class="px-2 text-lg w-fit font-manrope font-[700] text-start h-fit"
@@ -182,9 +182,9 @@
             Samator TB1 (LN)
           </h1>
           <h1
-            class="text-sm w-fit font-manrope font-semibold h-fit text-start text-gray-500"
+            class="text-sm w-fit font-manrope font-semibold h-fit text-end text-gray-500"
           >
-            Yesterday
+            Yesterday <br> {{yesterday | date:'longDate'}}
           </h1>
         </div>
         <div class="w-full">
@@ -196,7 +196,7 @@
             [stroke]="lnYesterday?.stroke"
             [dataLabels]="lnYesterday?.dataLabels"
             [yaxis]="lnYesterday?.yaxis2"
-            [labels]="lnYesterday?.labels"
+            [labels]="lnYesterday?.labels2"
             [legend]="lnYesterday?.legend"
             [markers]="lnYesterday?.markers"
             [tooltip]="lnYesterday?.tooltip"
@@ -209,7 +209,7 @@
       <div
         class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
       >
-        <h1 class="text-sm text-red-400">(Not Connected)</h1>
+        <!-- <h1 class="text-sm text-red-400">(Not Connected)</h1> -->
         <div class="flex justify-between px-5 w-full flex-wrap items-center">
           <h1
             class="px-2 text-lg w-fit font-manrope font-[700] text-start h-fit"
@@ -217,21 +217,21 @@
             Samator TB2 (N2)
           </h1>
           <h1
-            class="text-sm w-fit font-manrope font-semibold h-fit text-start text-gray-500"
+            class="text-sm w-fit font-manrope font-semibold h-fit text-end text-gray-500"
           >
-            Yesterday
+            Yesterday <br> {{yesterday | date:'longDate'}}
           </h1>
         </div>
         <div class="w-full">
           <apx-chart
             *ngIf="lnYesterday"
-            [series]="lnYesterday?.series4"
+            [series]="lnYesterday?.series3"
             [chart]="lnYesterday?.chart"
             [xaxis]="lnYesterday?.xaxis"
             [stroke]="lnYesterday?.stroke"
             [dataLabels]="lnYesterday?.dataLabels"
             [yaxis]="lnYesterday?.yaxis2"
-            [labels]="lnYesterday?.labels"
+            [labels]="lnYesterday?.labels3"
             [legend]="lnYesterday?.legend"
             [markers]="lnYesterday?.markers"
             [tooltip]="lnYesterday?.tooltip"
@@ -240,116 +240,6 @@
         </div>
       </div>
     </div>
-    <!-- <div class="grow p-2 lg:w-6/12">
-      <div
-        class="h-full flex justify-start flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
-      >
-        <div class="flex justify-between px-5 w-full flex-wrap items-center">
-          <h1
-            class="px-2 text-lg w-fit font-quicksand font-semibold text-start h-fit"
-          >
-            Temperature
-          </h1>
-          <h1
-            class="text-sm w-fit font-quicksand font-semibold h-fit text-start text-gray-500"
-          >
-            Storage Pocari
-          </h1>
-        </div>
-        <div id="chart" class="w-full">
-          <apx-chart
-            [series]="tempChart.seriesPocari"
-            [chart]="tempChart.chart"
-            [dataLabels]="tempChart.dataLabelsTemperature"
-            [plotOptions]="tempChart.plotOptions"
-            [yaxis]="tempChart.yaxis"
-            [xaxis]="tempChart.xaxis"
-            [stroke]="tempChart.stroke"
-            [grid]="tempChart.grid"
-            [fill]="tempChart.fill"
-          ></apx-chart>
-        </div>
-      </div>
-    </div>
-    <div class="grow p-2 lg:w-6/12">
-      <div
-        class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
-      >
-        <div class="flex justify-between px-5 w-full flex-wrap items-center">
-          <h1
-            class="px-2 text-lg w-fit font-quicksand font-semibold text-start h-fit"
-          >
-            Humidity
-          </h1>
-          <h1
-            class="text-sm w-fit font-quicksand font-semibold h-fit text-start text-gray-500"
-          >
-            Storage Soyjoy
-          </h1>
-        </div>
-        <div id="chart" class="w-full">
-          <apx-chart
-            [series]="tempChart.humiditySoyjoy"
-            [chart]="tempChart.chart2"
-            [dataLabels]="tempChart.dataLabelsHumidity"
-            [plotOptions]="tempChart.plotOptions"
-            [xaxis]="tempChart.xHumiditySoyjoy"
-            [stroke]="tempChart.stroke"
-            [grid]="tempChart.grid"
-            [fill]="tempChart.fill"
-          ></apx-chart>
-        </div>
-      </div>
-    </div>
-    <div class="grow p-2 lg:w-6/12">
-      <div
-        class="h-full flex justify-start flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
-      >
-        <div class="flex justify-between px-5 w-full flex-wrap items-center">
-          <h1
-            class="px-2 text-lg w-fit font-quicksand font-semibold text-start h-fit"
-          >
-            Humidity
-          </h1>
-          <h1
-            class="text-sm w-fit font-quicksand font-semibold h-fit text-start text-gray-500"
-          >
-            Storage Pocari
-          </h1>
-        </div>
-        <div id="chart" class="w-full">
-          <apx-chart
-            [series]="tempChart.humidityPocari"
-            [chart]="tempChart.chart2"
-            [dataLabels]="tempChart.dataLabelsHumidity"
-            [plotOptions]="tempChart.plotOptions"
-            [xaxis]="tempChart.xHumidityPocari"
-            [stroke]="tempChart.stroke"
-            [grid]="tempChart.grid"
-            [fill]="tempChart.fill"
-          ></apx-chart>
-        </div>
-      </div>
-    </div> -->
-    <!-- <div class="grow p-2 lg:w-6/12">
-        <div
-          class="h-full flex justify-center flex-wrap bg-white px-5 py-5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
-        >
-          <div id="chart" class="w-full">
-            <apx-chart
-              [series]="checkLnChart?.series"
-              [chart]="checkLnChart?.chart"
-              [xaxis]="checkLnChart?.xaxis"
-              [dataLabels]="checkLnChart?.dataLabels"
-              [grid]="checkLnChart?.grid"
-              [stroke]="checkLnChart?.stroke"
-              [title]="checkLnChart?.titleSukabumi"
-              [markers]="checkLnChart?.markers"
-              [yaxis]="checkLnChart?.yaxis"
-
-            ></apx-chart>
-          </div>
-        </div>
-      </div> -->
+    
   </div>
 </div>

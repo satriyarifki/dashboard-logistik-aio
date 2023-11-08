@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
-import { AlertType } from '../services/alert/alert.model';
-import { AlertService } from '../services/alert/alert.service';
-import { ApiService } from '../services/api.service';
+import { AlertType } from '../../services/alert/alert.model';
+import { AlertService } from '../../services/alert/alert.service';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-input-ln2-arrival-create',

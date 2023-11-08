@@ -20,10 +20,10 @@ import { InputOccupancyComponent } from './input/input-occupancy/input-occupancy
 import { InputOccupancyEditComponent } from './input/input-occupancy-edit/input-occupancy-edit.component';
 import { InputKjyEditComponent } from './input/input-kjy-edit/input-kjy-edit.component';
 import { InputSkbEditComponent } from './input/input-skb-edit/input-skb-edit.component';
-import { InputLn2Component } from './input-ln2/input-ln2.component';
-import { InputLn2ArrivalCreateComponent } from './input-ln2-arrival-create/input-ln2-arrival-create.component';
-import { InputLn2CheckCreateComponent } from './input-ln2-check-create/input-ln2-check-create.component';
-import { InputLn2ArrivalEditComponent } from './input-ln2-arrival-edit/input-ln2-arrival-edit.component';
+import { InputLn2Component } from './check-ln2/input-ln2/input-ln2.component';
+import { InputLn2ArrivalCreateComponent } from './check-ln2/input-ln2-arrival-create/input-ln2-arrival-create.component';
+import { InputLn2CheckCreateComponent } from './check-ln2/input-ln2-check-create/input-ln2-check-create.component';
+import { InputLn2ArrivalEditComponent } from './check-ln2/input-ln2-arrival-edit/input-ln2-arrival-edit.component';
 import { LoginComponent } from './auth/login/login.component';
 import { OutAuthGuard } from './services/guard/out-auth.guard';
 import { OnAuthGuard } from './services/guard/on-auth.guard';
@@ -31,12 +31,13 @@ import { InputOccupancyRmpmComponent } from './occupancy-rmpm/input-occupancy-rm
 import { InputOccupancyRmpmCreateComponent } from './occupancy-rmpm/input-occupancy-rmpm-create/input-occupancy-rmpm-create.component';
 import { InputOccupancyRmpmEditComponent } from './occupancy-rmpm/input-occupancy-rmpm-edit/input-occupancy-rmpm-edit.component';
 import { OccupancyRmpmComponent } from './occupancy-rmpm/occupancy-rmpm.component';
-import { InputLn2CheckEditComponent } from './input-ln2-check-edit/input-ln2-check-edit.component';
+import { InputLn2CheckEditComponent } from './check-ln2/input-ln2-check-edit/input-ln2-check-edit.component';
 import { InputOccupancyRmpmViewComponent } from './occupancy-rmpm/input-occupancy-rmpm-view/input-occupancy-rmpm-view.component';
 import { InputLn2ArrivalViewComponent } from './check-ln2/input-ln2-arrival-view/input-ln2-arrival-view.component';
 import { InputLn2CheckViewComponent } from './check-ln2/input-ln2-check-view/input-ln2-check-view.component';
 import { LeaderAuthGuard } from './services/guard/leader-auth.guard';
 import { CheckerAuthGuard } from './services/guard/checker-auth.guard';
+import { RmpmCollectionComponent } from './rmpm-collection/rmpm-collection.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { animation: 'HomePage' } },
@@ -134,6 +135,7 @@ const routes: Routes = [
   { path: 'temp', component: TemperatureComponent },
   { path: 'check-ln', component: CheckLn2Component },
   { path: 'occu-rmpm', component: OccupancyRmpmComponent },
+  { path: 'rmpm-dashboard', component: RmpmCollectionComponent },
   { path: 'documentations', component: DocumentationsComponent },
   { path: '**', component: NotFoundComponent },
 ];

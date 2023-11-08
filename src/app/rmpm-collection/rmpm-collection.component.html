@@ -1,0 +1,304 @@
+<ngx-spinner
+  color="white"
+  type="square-jelly-box"
+  [fullScreen]="true"
+  size="medium"
+  ><p style="color: white">Loading...</p></ngx-spinner
+>
+<div class="py-12 md:py-0 my-2 md:pl-[4.5rem] w-full">
+  <div class="flex flex-wrap mx-auto">
+    <div class="px-2 w-full">
+      <div
+        class="h-fit flex justify-between flex-wrap bg-white px-2 md:px-8 py-2 text-center rounded-lg overflow-hidden relative drop-shadow-xl"
+      >
+        <span class="flex items-center justify-start w-1/3">
+          <h1
+            class="font-quicksand font-semibold max-sm:px-3 text-sm md:text-lg text-sky-900"
+          >
+            {{ time | date : "fullDate" }}
+          </h1>
+        </span>
+
+        <h1 class="font-manrope font-[700] text-lg md:text-3xl w-1/3">RMPM</h1>
+        <span class="flex items-center justify-end w-1/3">
+          <h1
+            class="font-quicksand font-semibold text-sm md:text-lg text-sky-900"
+          >
+            {{ time | date : "mediumTime" }}
+          </h1></span
+        >
+      </div>
+    </div>
+    <div class="grow p-1 w-full xl:w-5/12">
+      <div
+        class="h-full flex justify-center flex-wrap bg-white px-5 py-3 space-y-2.5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <div class="px-5 w-full flex flex-wrap justify-between items-center">
+          <h1 class="text-lg w-fit font-manrope font-[700] text-start h-fit">
+            Occupancy Soyjoy
+          </h1>
+          <h1
+            class="text-sm w-fit font-manrope font-semibold h-fit text-end text-gray-500"
+          >
+            {{ dateUpdateOccu | date : "longDate" }} -
+            {{ dateUpdateOccu | date : "shortTime" }}
+          </h1>
+        </div>
+        <div class="w-full rounded-lg">
+          <table class="w-full text-[14px] text-left text-gray-800 font-medium">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+              <tr>
+                <th scope="col" class="px-3 py-1.5 text-center">Storage</th>
+                <th scope="col" class="px-3 py-1.5 text-center">Temp</th>
+                <th scope="col" class="px-3 py-1.5 text-center">Capacity</th>
+                <th scope="col" class="px-3 py-1.5 text-center">Used</th>
+                <th scope="col" class="px-3 py-1.5 text-center">Percent</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let item of soyjoyOccu"
+                class="bg-white border-gray-200 border-b"
+              >
+                <td class="px-3 py-1 text-center">{{ item.name }}</td>
+                <td class="px-3 py-1 text-center">
+                  <span *ngIf="item.min_temp"
+                    >{{ item.max_temp }}°C ± {{ item.min_temp }}°C</span
+                  ><span *ngIf="!item.min_temp">
+                    <span *ngIf="item.max_temp == 35">
+                      < {{ item.max_temp }}°C</span
+                    >
+                    <span *ngIf="item.max_temp != 35">
+                      ≤ {{ item.max_temp }}°C</span
+                    >
+                  </span>
+                </td>
+                <td class="px-3 py-1 text-center text-slate-900 font-medium">
+                  {{ item.capacity }}
+                </td>
+                <td class="px-3 py-1 text-center text-slate-900 font-medium">
+                  {{ item.used }}
+                </td>
+                <td
+                  class="px-3 py-1 text-center"
+                  [ngClass]="
+                    numberToPercent(item.used, item.capacity) >= 100
+                      ? 'bg-red-500 text-white'
+                      : numberToPercent(item.used, item.capacity) >= 85
+                      ? 'bg-yellow-200'
+                      : 'bg-lime-200'
+                  "
+                >
+                  {{ numberToPercent(item.used, item.capacity) }} %
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="grow p-1 w-full xl:w-5/12">
+      <div
+        class="h-full flex-wrap bg-white px-5 py-3 space-y-2.5 rounded-lg text-center relative drop-shadow-xl"
+      >
+        <div
+          class="px-5 w-full flex flex-wrap justify-between items-center h-fit"
+        >
+          <h1 class="text-lg w-fit font-manrope font-[700] text-start h-fit">
+            Occupancy Pocari
+          </h1>
+          <h1
+            class="text-sm w-fit font-manrope font-semibold h-fit text-end text-gray-500"
+          >
+            {{ dateUpdateOccu | date : "longDate" }} -
+            {{ dateUpdateOccu | date : "shortTime" }}
+          </h1>
+        </div>
+        <div class="w-full">
+          <table class="w-full text-[14px] text-left text-gray-800 font-medium">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+              <tr>
+                <th scope="col" class="px-3 py-1 text-center">Storage</th>
+                <th scope="col" class="px-3 py-1 text-center">Temp</th>
+                <th scope="col" class="px-3 py-1 text-center">Capacity</th>
+                <th scope="col" class="px-3 py-1 text-center">Used</th>
+                <th scope="col" class="px-3 py-1 text-center">Percent</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let item of pocariOccu"
+                class="bg-white border-gray-200 border-b"
+              >
+                <td class="px-3 py-1 text-center">{{ item.name }}</td>
+                <td class="px-3 py-1 text-center">
+                  <span *ngIf="item.min_temp"
+                    >{{ item.max_temp }}°C ± {{ item.min_temp }}°C</span
+                  >
+                  <span *ngIf="!item.min_temp">
+                    <span *ngIf="item.max_temp == 35">
+                      < {{ item.max_temp }}°C</span
+                    >
+                    <span *ngIf="item.max_temp != 35">
+                      ≤ {{ item.max_temp }}°C</span
+                    >
+                  </span>
+                </td>
+                <td class="px-3 py-1 text-center text-slate-900 font-medium">
+                  {{ item.capacity }}
+                </td>
+                <td class="px-3 py-1 text-center text-slate-900 font-medium">
+                  {{ item.used }}
+                </td>
+                <td
+                  class="px-3 py-1 text-center"
+                  [ngClass]="
+                    numberToPercent(item.used, item.capacity) >= 100
+                      ? 'bg-red-500 text-white'
+                      : numberToPercent(item.used, item.capacity) >= 85
+                      ? 'bg-yellow-200'
+                      : 'bg-lime-200'
+                  "
+                >
+                  {{ numberToPercent(item.used, item.capacity) }} %
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="grow p-1 w-full md:w-1/3 xl:w-2/12">
+        <div
+          class="h-full flex justify-center flex-wrap bg-white px-4 py-3 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+        >
+          <div class="flex justify-center px-3 w-full flex-wrap items-center">
+            <h1
+              class=" text-base w-fit font-quicksand font-[700] text-center h-fit"
+            >
+              Level - Air Product
+            </h1>
+            <h1
+              class="text-xs w-fit font-manrope font-semibold h-fit text-center text-gray-500"
+            >
+              {{ dateUpdateCheck | date : "longDate" }} - 
+              {{ dateUpdateCheck | date : "shortTime" }}
+            </h1>
+          </div>
+          <div class="w-full">
+            <apx-chart
+              *ngIf="checkLnChart"
+              [series]="checkLnChart?.series2"
+              [chart]="checkLnChart?.chart"
+              [yaxis]="checkLnChart?.yaxis2"
+              [xaxis]="checkLnChart?.xaxis"
+              [plotOptions]="checkLnChart?.plotOptions"
+              [labels]="checkLnChart?.labels2"
+              [stroke]="checkLnChart?.stroke2"
+              [title]="checkLnChart?.title"
+              [dataLabels]="checkLnChart?.dataLabels"
+              [colors]="checkLnChart?.colors"
+            ></apx-chart>
+          </div>
+        </div>
+      </div>
+    <div class="grow p-1 w-full md:w-2/3 xl:w-3/12">
+      <div
+        class="h-full flex justify-center flex-wrap bg-white px-4 py-3 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+      >
+        <div class="flex justify-between px-3 w-full flex-wrap items-center">
+          <h1
+            class=" text-base w-fit font-manrope font-[700] text-start h-fit"
+          >
+            Level Ln2 - Samator
+          </h1>
+          <h1
+            class="text-xs w-fit font-manrope font-semibold h-fit text-end text-gray-500"
+          >
+            {{ dateUpdateCheck | date : "longDate" }} -
+            {{ dateUpdateCheck | date : "shortTime" }}
+          </h1>
+        </div>
+        <div class="w-full">
+          <apx-chart
+            *ngIf="checkLnChart"
+            [series]="checkLnChart?.series"
+            [chart]="checkLnChart?.chart"
+            [yaxis]="checkLnChart?.yaxis"
+            [xaxis]="checkLnChart?.xaxis"
+            [labels]="checkLnChart?.labels"
+            [stroke]="checkLnChart?.stroke"
+            [plotOptions]="checkLnChart?.plotOptions"
+            [title]="checkLnChart?.title"
+            [dataLabels]="checkLnChart?.dataLabels"
+            [colors]="checkLnChart?.colors"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+    <div class="grow p-1 w-full md:w-1/2 xl:w-4/12">
+        <div
+          class="h-full flex justify-center flex-wrap bg-white px-4 py-3 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+        >
+          <div class="px-5 w-full flex flex-wrap items-center">
+            <h1
+              class="px-2 text-lg w-fit font-quicksand font-semibold text-start h-fit"
+            >
+              Temperature
+            </h1>
+            <h1
+              class="text-sm w-fit font-quicksand font-semibold h-fit text-start text-gray-500"
+            >
+              Storage Soyjoy
+            </h1>
+          </div>
+          <div class="w-full">
+            <apx-chart
+            *ngIf="tempChart"  
+            [series]="tempChart?.seriesSoyjoy"
+              [chart]="tempChart?.chart"
+              [dataLabels]="tempChart?.dataLabelsTemperature"
+              [plotOptions]="tempChart?.plotOptions"
+              [yaxis]="tempChart?.yaxis"
+              [xaxis]="tempChart?.xaxis"
+              [stroke]="tempChart?.stroke"
+              [grid]="tempChart?.grid"
+              [fill]="tempChart?.fill"
+            ></apx-chart>
+          </div>
+        </div>
+      </div>
+      <div class="grow p-1 w-full md:w-1/2 xl:w-4/12">
+        <div
+          class="h-full flex justify-start flex-wrap bg-white px-4 py-3 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+        >
+          <div class="px-5 w-full flex flex-wrap items-center">
+            <h1
+              class="px-2 text-lg w-fit font-quicksand font-semibold text-start h-fit"
+            >
+              Temperature
+            </h1>
+            <h1
+              class="text-sm w-fit font-quicksand font-semibold h-fit text-start text-gray-500"
+            >
+              Storage Pocari
+            </h1>
+          </div>
+          <div id="chart" class="w-full">
+            <apx-chart
+            *ngIf="tempChart"  
+            [series]="tempChart?.seriesPocari"
+              [chart]="tempChart?.chart"
+              [dataLabels]="tempChart?.dataLabelsTemperature"
+              [plotOptions]="tempChart?.plotOptions"
+              [yaxis]="tempChart?.yaxis"
+              [xaxis]="tempChart?.xaxis"
+              [stroke]="tempChart?.stroke"
+              [grid]="tempChart?.grid"
+              [fill]="tempChart?.fill"
+            ></apx-chart>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

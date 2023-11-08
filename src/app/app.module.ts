@@ -39,23 +39,24 @@ import { CustomFilterPipe } from './pipe/custom-filter.pipe';
 import { InputOccupancyEditComponent } from './input/input-occupancy-edit/input-occupancy-edit.component';
 import { InputKjyEditComponent } from './input/input-kjy-edit/input-kjy-edit.component';
 import { InputSkbEditComponent } from './input/input-skb-edit/input-skb-edit.component';
-import { InputLn2Component } from './input-ln2/input-ln2.component';
-import { InputLn2ArrivalCreateComponent } from './input-ln2-arrival-create/input-ln2-arrival-create.component';
-import { InputLn2CheckCreateComponent } from './input-ln2-check-create/input-ln2-check-create.component';
-import { InputLn2ArrivalEditComponent } from './input-ln2-arrival-edit/input-ln2-arrival-edit.component';
+import { InputLn2Component } from './check-ln2/input-ln2/input-ln2.component';
+import { InputLn2ArrivalCreateComponent } from './check-ln2/input-ln2-arrival-create/input-ln2-arrival-create.component';
+import { InputLn2CheckCreateComponent } from './check-ln2/input-ln2-check-create/input-ln2-check-create.component';
+import { InputLn2ArrivalEditComponent } from './check-ln2/input-ln2-arrival-edit/input-ln2-arrival-edit.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AlertComponent } from './layout/alert/alert.component';
 import { OccupancyRmpmComponent } from './occupancy-rmpm/occupancy-rmpm.component';
 import { InputOccupancyRmpmComponent } from './occupancy-rmpm/input-occupancy-rmpm/input-occupancy-rmpm.component';
 import { InputOccupancyRmpmCreateComponent } from './occupancy-rmpm/input-occupancy-rmpm-create/input-occupancy-rmpm-create.component';
 import { InputOccupancyRmpmEditComponent } from './occupancy-rmpm/input-occupancy-rmpm-edit/input-occupancy-rmpm-edit.component';
-import { InputLn2CheckEditComponent } from './input-ln2-check-edit/input-ln2-check-edit.component';
+import { InputLn2CheckEditComponent } from './check-ln2/input-ln2-check-edit/input-ln2-check-edit.component';
 import { DatePipe } from '@angular/common';
 import { InputOccupancyRmpmViewComponent } from './occupancy-rmpm/input-occupancy-rmpm-view/input-occupancy-rmpm-view.component';
 import { InputLn2ArrivalViewComponent } from './check-ln2/input-ln2-arrival-view/input-ln2-arrival-view.component';
 import { InputLn2CheckViewComponent } from './check-ln2/input-ln2-check-view/input-ln2-check-view.component';
 import { DeleteApiComponent } from './layout/delete-api/delete-api.component';
 import { TooltipDirective } from './directive/tooltip.directive';
+import { RmpmCollectionComponent } from './rmpm-collection/rmpm-collection.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { TooltipDirective } from './directive/tooltip.directive';
     InputLn2ArrivalViewComponent,
     InputLn2CheckViewComponent,
     DeleteApiComponent,
-    TooltipDirective
+    TooltipDirective,
+    RmpmCollectionComponent
   ],
   imports: [
     BrowserModule,

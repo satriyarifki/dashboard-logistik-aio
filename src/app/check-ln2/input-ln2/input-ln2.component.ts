@@ -5,11 +5,11 @@ import { ExportAsConfig, ExportAsService } from 'ngx-export-as';
 import { PaginationControlsDirective } from 'ngx-pagination';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { forkJoin } from 'rxjs';
-import { AlertType } from '../services/alert/alert.model';
-import { AlertService } from '../services/alert/alert.service';
-import { ApiService } from '../services/api.service';
-import { AuthService } from '../services/auth/auth.service';
-import { DeleteApiService } from '../services/delete-api/delete-api.service';
+import { AlertType } from '../../services/alert/alert.model';
+import { AlertService } from '../../services/alert/alert.service';
+import { ApiService } from '../../services/api.service';
+import { AuthService } from '../../services/auth/auth.service';
+import { DeleteApiService } from '../../services/delete-api/delete-api.service';
 import * as XLSX from 'xlsx';
 
 @Component({

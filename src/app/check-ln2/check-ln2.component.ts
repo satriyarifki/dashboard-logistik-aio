@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { formatDate } from '@angular/common';
+import { Component, LOCALE_ID } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { forkJoin } from 'rxjs';
 import { CheckLnChart, ColumnLnYesterday } from '../ApexChart';
@@ -17,9 +18,21 @@ export class CheckLn2Component {
   //TOOLS
   time: any;
   datetimeUpdate: any;
+  yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
 
   //API
   newestLevel: any[] = [];
+  levelYesterday: any[] = [];
+
+  //Chart
+  airProductData:any[] = []
+  airProductLabels:any[] = []
+  samatorSoyjoyData:any[] = []
+  samatorSoyjoyLabels:any[] = []
+  samatorTB1Data:any[] = []
+  samatorTB1Labels:any[] = []
+  samatorTB2Data:any[] = []
+  samatorTB2Labels:any[] = []
 
   getCurrentDate() {
     this.time = new Date();
@@ -27,20 +40,29 @@ export class CheckLn2Component {
       this.time = new Date();
     }, 1000);
   }
-  
+
   constructor(
     private apiService: ApiService,
     private spinner: NgxSpinnerService
   ) {
     spinner.show();
     this.getCurrentDate();
-    forkJoin(apiService.getCheckLevelNewest()).subscribe(
+
+    console.log(this.yesterday);
+
+    forkJoin(
+      apiService.getCheckLevelNewest(),
+      apiService.getReportLn2All(this.yesterday.toISOString()
+      .slice(0, 10))
+    ).subscribe(
       (res) => {
         this.newestLevel = res[0];
-        console.log(this.newestLevel);
-        let d = new Date(this.newestLevel[0]?.date)
-      d.setHours(this.newestLevel[0]?.jam.slice(0,2))
-      this.datetimeUpdate = d
+        this.levelYesterday = res[1];
+        console.log(this.levelYesterday);
+        console.log(this.yesterdayData(1));
+        let d = new Date(this.newestLevel[0]?.date);
+        d.setHours(this.newestLevel[0]?.jam.slice(0, 2));
+        this.datetimeUpdate = d;
         this.chart();
         spinner.hide();
       },
@@ -51,15 +73,37 @@ export class CheckLn2Component {
     );
   }
 
+  yesterdayData(tankiId:number){
+    let value:any[] = []
+    let label:any[] = []
+    
+    this.filterLevelByTanki(tankiId).forEach(elem=>{
+      value.push(elem.level)
+      label.push(elem.jam)
+    })
+    if (value.length) {
+      
+    }
+    return {value:value.reverse(),label:label.reverse()}
+  }
+
+  filterLevelByTanki(tankiId:number){
+    return this.levelYesterday.filter(data=>data.tankiId == tankiId)
+  }
+
   chart() {
     console.log(this.newestLevel[0].level);
-    
+
     this.checkLnChart = {
       series: [
         {
           name: ['Level Ln2'],
           type: 'column',
-          data: [this.newestLevel[1].level, this.newestLevel[2].level, this.newestLevel[3].level],
+          data: [
+            this.newestLevel[1].level,
+            this.newestLevel[2].level,
+            this.newestLevel[3].level,
+          ],
         },
         {
           name: 'Std Level Refill',
@@ -160,40 +204,25 @@ export class CheckLn2Component {
       series: [
         {
           name: '',
-          data: [
-            168, 168, 168, 168, 166, 166, 166, 166, 166, 164, 164, 164, 164,
-            164, 164, 164, 164, 164, 162, 162, 162, 162, 162, 162,
-          ],
+          data: this.yesterdayData(1).value
         },
       ],
       series2: [
         {
           name: '',
-          data: [
-            4500, 4500, 4490, 4490, 4490, 4480, 4470, 4470, 4450, 4450, 4440,
-            4430, 4420, 4410, 4390, 4370, 4360, 4350, 4340, 4330, 4320, 4310,
-            4290, 4270,
-          ],
+          data: this.yesterdayData(2).value
         },
       ],
       series3: [
         {
           name: '',
-          data: [
-            1860, 1855, 1855, 1850, 1840, 1840, 1835, 1835, 1830, 1825, 1824,
-            1820, 1818, 1817, 1815, 1813, 1810, 1810, 1805, 1805, 1805, 1805,
-            1805, 1805,
-          ],
+          data: this.yesterdayData(3).value
         },
       ],
       series4: [
         {
           name: '',
-          data: [
-            5500, 5500, 5490, 5490, 5490, 5480, 5470, 5470, 5450, 5450, 5440,
-            5430, 5420, 5410, 5390, 5370, 5360, 5350, 5340, 5330, 5320, 5310,
-            5290, 5270,
-          ],
+          data: this.yesterdayData(4).value
         },
       ],
       chart: {
@@ -212,38 +241,19 @@ export class CheckLn2Component {
       stroke: {
         curve: 'smooth',
       },
-      labels: [
-        '2018-09-19T00:00:00.000Z',
-        '2018-09-19T01:00:00.000Z',
-        '2018-09-19T02:00:00.000Z',
-        '2018-09-19T03:00:00.000Z',
-        '2018-09-19T04:00:00.000Z',
-        '2018-09-19T05:00:00.000Z',
-        '2018-09-19T06:00:00.000Z',
-        '2018-09-19T07:00:00.000Z',
-        '2018-09-19T08:00:00.000Z',
-        '2018-09-19T09:00:00.000Z',
-        '2018-09-19T10:00:00.000Z',
-        '2018-09-19T11:00:00.000Z',
-        '2018-09-19T12:00:00.000Z',
-        '2018-09-19T13:00:00.000Z',
-        '2018-09-19T14:00:00.000Z',
-        '2018-09-19T15:00:00.000Z',
-        '2018-09-19T16:00:00.000Z',
-        '2018-09-19T17:00:00.000Z',
-        '2018-09-19T18:00:00.000Z',
-        '2018-09-19T19:00:00.000Z',
-        '2018-09-19T20:00:00.000Z',
-        '2018-09-19T21:00:00.000Z',
-        '2018-09-19T22:00:00.000Z',
-        '2018-09-19T23:00:00.000Z',
-      ],
+      labels: this.yesterdayData(1).label,
+      labels2: this.yesterdayData(2).label,
+      labels3: this.yesterdayData(3).label,
+      labels4: this.yesterdayData(4).label,
       xaxis: {
-        type: 'datetime',
-        // min: new Date("01 Mar 2012").getTime(),
+        // type: 'datetime',
+        // // min: new Date("01 Mar 2012").getTime(),
         labels: {
-          format: 'HH:mm',
+          formatter: function(value:any) {
+            return String(value).slice(0,5)
+          }
         },
+        
       },
       colors: [
         '#0795FA',
@@ -255,19 +265,8 @@ export class CheckLn2Component {
       ],
       colors3: ['#FAEA1B'],
       colors4: ['#ED3FFA'],
-      xaxis2: {
-        type: 'datetime',
-        min: new Date('2018-09-19T08:00:00.000Z').getTime(),
-        max: new Date('2018-09-19T16:00:00.000Z').getTime(),
-        labels: {
-          format: 'HH:mm',
-        },
-      },
       markers: {
         size: 5,
-        // colors: ['#FFA41B'],
-        // strokeColors: '#fff',
-        // strokeWidth: 2,
         hover: {
           size: 7,
         },
