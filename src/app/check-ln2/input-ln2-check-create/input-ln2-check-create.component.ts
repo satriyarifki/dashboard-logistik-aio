@@ -78,11 +78,12 @@ export class InputLn2CheckCreateComponent {
   }
 
   onSubmit() {
-    // if (this.form.invalid) {
-    //     // console.log('fail');
-    //     alert('Fill blank input!')
-    //     return;
-    //   }
+    if (this.form.invalid) {
+      console.log(this.form);
+
+      this.alertService.onCallAlert('Fill blank input !', AlertType.Warning);
+      return;
+    }
     let items: [] = this.f.items;
     // let body = {
     //   date: this.f['date'],
@@ -96,7 +97,8 @@ export class InputLn2CheckCreateComponent {
 
     // };
     // console.log(body);
-    items.forEach((element: any) => {
+    
+    items.forEach((element: any, index) => {
       let body = {
         date: this.f['date'],
         checkerId: this.f['checkerId'],
@@ -106,19 +108,43 @@ export class InputLn2CheckCreateComponent {
         level: element.level,
         press: element.press,
       };
-      this.apiService.postCheckLevelCreate(body).subscribe(
-        (data) => {
-          console.log(data);
-          console.log('success');
-          this.alertService.onCallAlert('Submit Success!', AlertType.Success);
-          this.router.navigate(['/input-ln2']);
-        },
-        (err) => {
-          console.log(err);
-          console.log('error');
-          this.alertService.onCallAlert('Submit Failed!', AlertType.Error);
+      let tanki =
+        element.tankiId == 1
+          ? 'Ln2 Air Produk'
+          : element.tankiId == 2
+          ? 'Ln2 Samator TB1'
+          : element.tankiId == 3
+          ? 'Ln2 Samator TB2'
+          : ' Ln2 Samator Soyjoy';
+      this.apiService.getReportLn2All(this.f['date']).subscribe((data) => {
+        if (
+          data.filter(
+            (elem: any) =>
+              elem.jam.slice(0, 5) == body.jam && elem.tankiId == body.tankiId
+          ).length != 0
+        ) {
+          this.alertService.onCallAlert(
+            tanki + ' already filled !',
+            AlertType.Error
+          );
+        } else {
+          this.apiService.postCheckLevelCreate(body).subscribe(
+            (data) => {
+              console.log(data);
+              console.log('success');
+              if (items.length - 1 == index) {
+                this.alertService.onCallAlert('Submit Success!', AlertType.Success);
+                this.router.navigate(['/input-ln2']);
+              }
+            },
+            (err) => {
+              console.log(err);
+              console.log('error');
+              this.alertService.onCallAlert('Submit Failed!', AlertType.Error);
+            }
+          );
         }
-      );
+      });
 
       // console.log(body);
     });
@@ -131,7 +157,6 @@ export class InputLn2CheckCreateComponent {
       supplierId: [0, Validators.required],
       tankiId: [0, Validators.required],
       level: [0, Validators.required],
-      satuan: ['', Validators.required],
       press: [0, Validators.required],
     });
   }
