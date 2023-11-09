@@ -112,6 +112,9 @@ export class ApiService {
   getArrivalLn2All(): Observable<any> {
     return this.http.get(this.baseUrl + 'arrival-ln2');
   }
+  getArrivalLn2DateSupplier(date :any,supplierId:any): Observable<any> {
+    return this.http.get(this.baseUrl + 'arrival-ln2/' + date+'/' +supplierId);
+  }
   getArrivalLn2Group(): Observable<any> {
     return this.http.get(this.baseUrl + 'arrival-ln2-group');
   }

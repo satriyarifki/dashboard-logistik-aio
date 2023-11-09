@@ -47,7 +47,7 @@ const routes: Routes = [
     component: OccupancyComponent,
     data: { animation: 'OccuPage' },
   },
-  { path: 'login', component: LoginComponent, canActivate: [OutAuthGuard] },
+  { path: 'login', component: LoginComponent, data: { animation: 'LoginPage' },canActivate: [OutAuthGuard] },
   { path: 'inven-accuracy', component: InvenAccuracyComponent },
   // { path: 'trucking/kejayan', component: TruckingKejayanComponent },
   { path: 'delivery-destination/kejayan', component: DelDesKejayanComponent },

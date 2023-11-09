@@ -187,6 +187,8 @@ export class InputLn2ArrivalCreateComponent {
       return;
     }
 
+    
+
     let bodyArrival = {
       date: this.f['date'].value,
       checkerId: this.f['checkerId'].value,
@@ -255,50 +257,17 @@ export class InputLn2ArrivalCreateComponent {
       },
     ];
     // console.log(bodySamatorArrival);
-
-    if (this.f['supplierId'].value == 1) {
-      this.apiService.postArrivalCreate(bodyArrival).subscribe(
-        (data) => {
-          console.log(data);
-          bodyAirArrival.arrivalId = data[0];
-          this.apiService.postArrivalAirCreate(bodyAirArrival).subscribe(
-            (elem) => {
-              // console.log(elem);
-              this.alertService.onCallAlert(
-                'Submit Edit Success!',
-                AlertType.Success
-              );
-              this.router.navigate(['input-ln2']);
-            },
-            (er) => {
-              console.log(er);
-              
-              this.alertService.onCallAlert(
-                'Submit Edit Failed!',
-                AlertType.Error
-              );
-            }
-          );
-        },
-        (err) => {
-          console.log(err);
-          if (err.error.error.includes('nik')) {
-            this.alertService.onCallAlert('Checker Must Filled!', AlertType.Warning);
-          } else {
-            this.alertService.onCallAlert('Submit Edit Failed!', AlertType.Error);
-
-          }
-        }
-      );
-    } else if (this.f['supplierId'].value == 2) {
-      // console.log(bodySamatorArrival);
-      
-      this.apiService.postArrivalCreate(bodyArrival).subscribe(
-        (data) => {
-          console.log(data);
-          bodySamatorArrival.forEach((element, index) => {
-            bodySamatorArrival[index].arrivalId = data[0];
-            this.apiService.postArrivalAirCreate(element).subscribe(
+    this.apiService.getArrivalLn2DateSupplier(bodyArrival.date,bodyArrival.supplierId).subscribe(data=> {
+      if (data.length != 0) {
+        this.alertService.onCallAlert('Data already inputed, \n choose another date or supplier !',AlertType.Warning)
+        return
+      }
+      else if (this.f['supplierId'].value == 1) {
+        this.apiService.postArrivalCreate(bodyArrival).subscribe(
+          (data) => {
+            console.log(data);
+            bodyAirArrival.arrivalId = data[0];
+            this.apiService.postArrivalAirCreate(bodyAirArrival).subscribe(
               (elem) => {
                 // console.log(elem);
                 this.alertService.onCallAlert(
@@ -309,25 +278,64 @@ export class InputLn2ArrivalCreateComponent {
               },
               (er) => {
                 console.log(er);
+                
                 this.alertService.onCallAlert(
                   'Submit Edit Failed!',
                   AlertType.Error
                 );
               }
             );
-          });
-        },
-        (err) => {
-          console.log(err);
-          if (err.error.error.includes('nik')) {
-            // console.log('nik');
-            this.alertService.onCallAlert('Checker Must Filled!', AlertType.Warning);
-          } else {
-            this.alertService.onCallAlert('Submit Edit Failed!', AlertType.Error);
+          },
+          (err) => {
+            console.log(err);
+            if (err.error.error.includes('nik')) {
+              this.alertService.onCallAlert('Checker Must Filled!', AlertType.Warning);
+            } else {
+              this.alertService.onCallAlert('Submit Edit Failed!', AlertType.Error);
+  
+            }
           }
-        }
-      );
-    }
+        );
+      } else if (this.f['supplierId'].value == 2) {
+        // console.log(bodySamatorArrival);
+        
+        this.apiService.postArrivalCreate(bodyArrival).subscribe(
+          (data) => {
+            console.log(data);
+            bodySamatorArrival.forEach((element, index) => {
+              bodySamatorArrival[index].arrivalId = data[0];
+              this.apiService.postArrivalAirCreate(element).subscribe(
+                (elem) => {
+                  // console.log(elem);
+                  this.alertService.onCallAlert(
+                    'Submit Edit Success!',
+                    AlertType.Success
+                  );
+                  this.router.navigate(['input-ln2']);
+                },
+                (er) => {
+                  console.log(er);
+                  this.alertService.onCallAlert(
+                    'Submit Edit Failed!',
+                    AlertType.Error
+                  );
+                }
+              );
+            });
+          },
+          (err) => {
+            console.log(err);
+            if (err.error.error.includes('nik')) {
+              // console.log('nik');
+              this.alertService.onCallAlert('Checker Must Filled!', AlertType.Warning);
+            } else {
+              this.alertService.onCallAlert('Submit Edit Failed!', AlertType.Error);
+            }
+          }
+        );
+      }
+    })
+    
   }
 
   plusItemLoop() {

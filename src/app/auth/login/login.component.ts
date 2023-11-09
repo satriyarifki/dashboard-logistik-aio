@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BounceInOut } from 'src/app/animations';
 import { AlertType } from 'src/app/services/alert/alert.model';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -9,6 +10,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
+  animations: [BounceInOut]
 })
 export class LoginComponent {
   form!: FormGroup;
@@ -18,7 +20,7 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private router: Router,
+    public router: Router,
     private alertService: AlertService
   ) {
     // this.alertService.onCallAlert('Login Success', AlertType.Success);

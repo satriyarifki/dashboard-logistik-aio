@@ -57,6 +57,7 @@ import { InputLn2CheckViewComponent } from './check-ln2/input-ln2-check-view/inp
 import { DeleteApiComponent } from './layout/delete-api/delete-api.component';
 import { TooltipDirective } from './directive/tooltip.directive';
 import { RmpmCollectionComponent } from './rmpm-collection/rmpm-collection.component';
+import { ParallaxDirective } from './directive/parallax.directive';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import { RmpmCollectionComponent } from './rmpm-collection/rmpm-collection.compo
     InputLn2CheckViewComponent,
     DeleteApiComponent,
     TooltipDirective,
-    RmpmCollectionComponent
+    RmpmCollectionComponent,
+    ParallaxDirective
   ],
   imports: [
     BrowserModule,
@@ -117,7 +119,7 @@ import { RmpmCollectionComponent } from './rmpm-collection/rmpm-collection.compo
     NgIdleModule.forRoot(),
     NgxPaginationModule,
     ExportAsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     DatePipe,
