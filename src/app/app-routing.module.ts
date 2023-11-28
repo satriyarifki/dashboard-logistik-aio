@@ -38,6 +38,7 @@ import { InputLn2CheckViewComponent } from './check-ln2/input-ln2-check-view/inp
 import { LeaderAuthGuard } from './services/guard/leader-auth.guard';
 import { CheckerAuthGuard } from './services/guard/checker-auth.guard';
 import { RmpmCollectionComponent } from './rmpm-collection/rmpm-collection.component';
+import { InputBudgetFactoryComponent } from './budget-factory/input-budget-factory/input-budget-factory.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { animation: 'HomePage' } },
@@ -132,6 +133,11 @@ const routes: Routes = [
   { path: 'input-rmpm-occupancy/create', component: InputOccupancyRmpmCreateComponent,canActivate: [CheckerAuthGuard], },
   { path: 'input-rmpm-occupancy/edit', component: InputOccupancyRmpmEditComponent,canActivate: [LeaderAuthGuard], },
   { path: 'input-rmpm-occupancy/view', component: InputOccupancyRmpmViewComponent,canActivate: [OnAuthGuard], },
+  {
+    path: 'input-budget-factory',
+    component: InputBudgetFactoryComponent,
+    canActivate: [OnAuthGuard],
+  },
   { path: 'temp', component: TemperatureComponent },
   { path: 'check-ln', component: CheckLn2Component },
   { path: 'occu-rmpm', component: OccupancyRmpmComponent },

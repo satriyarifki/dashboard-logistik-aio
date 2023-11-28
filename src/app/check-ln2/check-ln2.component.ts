@@ -58,8 +58,8 @@ export class CheckLn2Component {
       (res) => {
         this.newestLevel = res[0];
         this.levelYesterday = res[1];
-        console.log(this.levelYesterday);
-        console.log(this.yesterdayData(1));
+        // console.log(this.levelYesterday);
+        // console.log(this.yesterdayData(1));
         let d = new Date(this.newestLevel[0]?.date);
         d.setHours(this.newestLevel[0]?.jam.slice(0, 2));
         this.datetimeUpdate = d;

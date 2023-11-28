@@ -213,4 +213,30 @@ export class ApiService {
   deleteRmpmStorage(id: any): Observable<any> {
     return this.http.delete(this.baseUrl + 'rmpm-del-storage/' + id);
   }
+
+  //BUDGET FACTORY
+  getBudgetShipping(): Observable<any> {
+    return this.http.get(this.baseUrl + 'budget/shipping');
+  }
+  getBudgetShippingKjy(): Observable<any> {
+    return this.http.get(this.baseUrl + 'budget/shipping-kjy');
+  }
+  getBudgetShippingSkb(): Observable<any> {
+    return this.http.get(this.baseUrl + 'budget/shipping-skb');
+  }
+  getBudgetFactory(): Observable<any> {
+    return this.http.get(this.baseUrl + 'budget/factory');
+  }
+  getBudgetHandling(): Observable<any> {
+    return this.http.get(this.baseUrl + 'budget/handling');
+  }
+  getBudgetOverhead(): Observable<any> {
+    return this.http.get(this.baseUrl + 'budget/overhead');
+  }
+  updateBudgetOverhead(body:any): Observable<any> {
+    return this.http.put(this.baseUrl + 'budget/overhead',body);
+  }
+  updateBudgetShipping(body:any): Observable<any> {
+    return this.http.put(this.baseUrl + 'budget/shipping',body);
+  }
 }

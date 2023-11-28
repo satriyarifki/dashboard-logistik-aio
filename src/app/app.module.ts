@@ -58,6 +58,12 @@ import { DeleteApiComponent } from './layout/delete-api/delete-api.component';
 import { TooltipDirective } from './directive/tooltip.directive';
 import { RmpmCollectionComponent } from './rmpm-collection/rmpm-collection.component';
 import { ParallaxDirective } from './directive/parallax.directive';
+import { BudgetFactoryComponent } from './budget-factory/budget-factory.component';
+import { InputBudgetFactoryComponent } from './budget-factory/input-budget-factory/input-budget-factory.component';
+import { TblFactoryOverheadComponent } from './budget-factory/input-budget-factory/tbl-factory-overhead/tbl-factory-overhead.component';
+import { TblWarehouseHandlingComponent } from './budget-factory/input-budget-factory/tbl-warehouse-handling/tbl-warehouse-handling.component';
+import { TblShippingKjyComponent } from './budget-factory/input-budget-factory/tbl-shipping-kjy/tbl-shipping-kjy.component';
+import { TblShippingSkbComponent } from './budget-factory/input-budget-factory/tbl-shipping-skb/tbl-shipping-skb.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +108,13 @@ import { ParallaxDirective } from './directive/parallax.directive';
     DeleteApiComponent,
     TooltipDirective,
     RmpmCollectionComponent,
-    ParallaxDirective
+    ParallaxDirective,
+    BudgetFactoryComponent,
+    InputBudgetFactoryComponent,
+    TblFactoryOverheadComponent,
+    TblWarehouseHandlingComponent,
+    TblShippingKjyComponent,
+    TblShippingSkbComponent,
   ],
   imports: [
     BrowserModule,
