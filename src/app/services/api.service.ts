@@ -227,6 +227,12 @@ export class ApiService {
   getBudgetFactory(): Observable<any> {
     return this.http.get(this.baseUrl + 'budget/factory');
   }
+  getBudgetFactoryKjy(): Observable<any> {
+    return this.http.get(this.baseUrl + 'budget/factory-kjy');
+  }
+  getBudgetFactorySkb(): Observable<any> {
+    return this.http.get(this.baseUrl + 'budget/factory-skb');
+  }
   getBudgetHandling(): Observable<any> {
     return this.http.get(this.baseUrl + 'budget/handling');
   }
@@ -235,6 +241,9 @@ export class ApiService {
   }
   updateBudgetOverhead(body:any): Observable<any> {
     return this.http.put(this.baseUrl + 'budget/overhead',body);
+  }
+  updateBudgetFactory(body:any): Observable<any> {
+    return this.http.put(this.baseUrl + 'budget/factory',body);
   }
   updateBudgetShipping(body:any): Observable<any> {
     return this.http.put(this.baseUrl + 'budget/shipping',body);

@@ -12,12 +12,12 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { DeleteApiService } from 'src/app/services/delete-api/delete-api.service';
 
 @Component({
-  selector: 'app-tbl-warehouse-handling',
-  templateUrl: './tbl-warehouse-handling.component.html',
-  styleUrls: ['./tbl-warehouse-handling.component.css']
+  selector: 'app-tbl-budget-skb',
+  templateUrl: './tbl-budget-skb.component.html',
+  styleUrls: ['./tbl-budget-skb.component.css']
 })
-export class TblWarehouseHandlingComponent {
-    //TOOLS
+export class TblBudgetSkbComponent {
+  //TOOLS
   @ViewChild('p', { static: true }) pa: PaginationControlsDirective | any;
   searchInput: any;
   searchInputStorage: any;
@@ -26,7 +26,7 @@ export class TblWarehouseHandlingComponent {
   storageId: number = 0;
 
   //API
-  budgetHandlingApi: any[] = [];
+  budgetApi: any[] = [];
   userData: any;
 
   //Form
@@ -43,7 +43,7 @@ export class TblWarehouseHandlingComponent {
     id: 'custom',
     itemsPerPage: this.itemPerPage,
     currentPage: 1,
-    totalItems: this.budgetHandlingApi.length,
+    totalItems: this.budgetApi.length,
   };
   constructor(
     private apiService: ApiService,
@@ -61,11 +61,10 @@ export class TblWarehouseHandlingComponent {
   ngOnInit() {
     this.spinner.show();
     forkJoin(
-      this.apiService.getBudgetHandling(),
-      this.apiService.getBudgetOverhead()
+      this.apiService.getBudgetFactorySkb(),
     ).subscribe(
       (res) => {
-        this.budgetHandlingApi = res[0];
+        this.budgetApi = res[0];
         // console.log(res[2]);
         // this.fillArray();
         this.spinner.hide();
@@ -80,35 +79,35 @@ export class TblWarehouseHandlingComponent {
 
   fillArray() {
     let array = this.form.get('array') as FormArray;
-    this.budgetHandlingApi.forEach((elem) => {
+    this.budgetApi.forEach((elem) => {
       // console.log(elem.date.slice(0, 7));
 
       array.push(
         new FormGroup({
           id: new FormControl(elem.id, [Validators.required]),
           date: new FormControl(elem.date.slice(0, 7), [Validators.required]),
-          skb: new FormControl(elem.skb, [Validators.required]),
-          kjy: new FormControl(elem.kjy, [Validators.required]),
-          type: new FormControl(elem.type, [Validators.required]),
+          bud: new FormControl(elem.bud, [Validators.required]),
+          foh: new FormControl(elem.foh, [Validators.required]),
+          from: new FormControl(elem.from, [Validators.required]),
         })
       );
     });
   }
   
   onUpdate() {
-    // console.log(this.f.array);
+   //  console.log(this.f.array);
     this.apiService
-      .updateBudgetOverhead({ items: this.f.array })
+      .updateBudgetFactory({ items: this.f.array })
       .subscribe(
         (res) => {
-          this.alertService.onCallAlert('Update Handling Success!', AlertType.Success);
+          this.alertService.onCallAlert('Update Budget Factory Success!', AlertType.Success);
           this.ngOnInit();
           this.changeUpdateModal(0)
         },
         (err) => {
           console.log(err);
           this.alertService.onCallAlert(
-            'Update Handling Failed!',
+            'Update Budget Factory Failed!',
             AlertType.Error
           );
         }

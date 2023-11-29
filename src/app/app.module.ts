@@ -64,6 +64,8 @@ import { TblFactoryOverheadComponent } from './budget-factory/input-budget-facto
 import { TblWarehouseHandlingComponent } from './budget-factory/input-budget-factory/tbl-warehouse-handling/tbl-warehouse-handling.component';
 import { TblShippingKjyComponent } from './budget-factory/input-budget-factory/tbl-shipping-kjy/tbl-shipping-kjy.component';
 import { TblShippingSkbComponent } from './budget-factory/input-budget-factory/tbl-shipping-skb/tbl-shipping-skb.component';
+import { TblBudgetKjyComponent } from './budget-factory/input-budget-factory/tbl-budget-kjy/tbl-budget-kjy.component';
+import { TblBudgetSkbComponent } from './budget-factory/input-budget-factory/tbl-budget-skb/tbl-budget-skb.component';
 
 @NgModule({
   declarations: [
@@ -115,6 +117,8 @@ import { TblShippingSkbComponent } from './budget-factory/input-budget-factory/t
     TblWarehouseHandlingComponent,
     TblShippingKjyComponent,
     TblShippingSkbComponent,
+    TblBudgetKjyComponent,
+    TblBudgetSkbComponent,
   ],
   imports: [
     BrowserModule,

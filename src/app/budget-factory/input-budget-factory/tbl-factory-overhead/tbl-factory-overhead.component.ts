@@ -104,7 +104,7 @@ export class TblFactoryOverheadComponent {
   }
   
   onUpdate() {
-    console.log(this.fOverhead.array);
+    // console.log(this.fOverhead.array);
     this.apiService
       .updateBudgetOverhead({ items: this.fOverhead.array })
       .subscribe(
