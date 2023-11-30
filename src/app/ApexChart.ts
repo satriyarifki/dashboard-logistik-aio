@@ -172,3 +172,9 @@ export type multiColumnChart = {
   stroke: ApexStroke;
   legend: ApexLegend;
 };
+export type pieChart = {
+  series: ApexNonAxisChartSeries;
+  chart: ApexChart;
+  responsive: ApexResponsive[];
+  labels: any;
+};

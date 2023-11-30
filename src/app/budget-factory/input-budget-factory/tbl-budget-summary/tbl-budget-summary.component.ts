@@ -41,7 +41,7 @@ export class TblBudgetSummaryComponent {
   };
 
   config = {
-    id: 'custom',
+    id: 'customBudgetSum',
     itemsPerPage: this.itemPerPage,
     currentPage: 1,
     totalItems: this.budgetSummary.length,

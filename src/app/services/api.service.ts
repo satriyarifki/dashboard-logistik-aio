@@ -242,6 +242,9 @@ export class ApiService {
   getBudgetSummary(): Observable<any> {
     return this.http.get(this.baseUrl + 'budget/summary');
   }
+  getBudgetFohDistribution(): Observable<any> {
+    return this.http.get(this.baseUrl + 'budget/foh');
+  }
   updateBudgetOverhead(body:any): Observable<any> {
     return this.http.put(this.baseUrl + 'budget/overhead',body);
   }
@@ -253,5 +256,8 @@ export class ApiService {
   }
   updateBudgetSummary(body:any): Observable<any> {
     return this.http.put(this.baseUrl + 'budget/summary',body);
+  }
+  updateBudgetFohDistribution(body:any): Observable<any> {
+    return this.http.put(this.baseUrl + 'budget/foh',body);
   }
 }

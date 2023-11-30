@@ -12,21 +12,21 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { DeleteApiService } from 'src/app/services/delete-api/delete-api.service';
 
 @Component({
-  selector: 'app-tbl-shipping-skb',
-  templateUrl: './tbl-shipping-skb.component.html',
-  styleUrls: ['./tbl-shipping-skb.component.css']
+  selector: 'app-tbl-foh-distribution',
+  templateUrl: './tbl-foh-distribution.component.html',
+  styleUrls: ['./tbl-foh-distribution.component.css']
 })
-export class TblShippingSkbComponent {
+export class TblFohDistributionComponent {
   //TOOLS
   @ViewChild('p', { static: true }) pa: PaginationControlsDirective | any;
   searchInput: any;
   searchInputStorage: any;
-  itemPerPage = 7;
+  itemPerPage = 5;
   updateBool = false;
   storageId: number = 0;
 
   //API
-  budgetShippingApi: any[] = [];
+  fohApi: any[] = [];
   userData: any;
 
   //Form
@@ -40,10 +40,10 @@ export class TblShippingSkbComponent {
   };
 
   config = {
-    id: 'customShippingSkb',
+    id: 'customFohDist',
     itemsPerPage: this.itemPerPage,
     currentPage: 1,
-    totalItems: this.budgetShippingApi.length,
+    totalItems: this.fohApi.length,
   };
   constructor(
     private apiService: ApiService,
@@ -61,10 +61,12 @@ export class TblShippingSkbComponent {
   ngOnInit() {
     this.spinner.show();
     forkJoin(
-      this.apiService.getBudgetShippingSkb(),
+      this.apiService.getBudgetFohDistribution(),
     ).subscribe(
       (res) => {
-        this.budgetShippingApi = res[0];
+        this.fohApi = res[0];
+        console.log(res[0]);
+        
         // console.log(res[2]);
         // this.fillArray();
         this.spinner.hide();
@@ -79,16 +81,15 @@ export class TblShippingSkbComponent {
 
   fillArray() {
     let array = this.form.get('array') as FormArray;
-    this.budgetShippingApi.forEach((elem) => {
+    this.fohApi.forEach((elem) => {
       // console.log(elem.date.slice(0, 7));
 
       array.push(
         new FormGroup({
           id: new FormControl(elem.id, [Validators.required]),
-          destination: new FormControl({value:elem.destination, disabled:true}, [Validators.required]),
+          itemId: new FormControl({value:elem.id, disabled:true}, [Validators.required]),
+          item: new FormControl({value:elem.item, disabled:true}, [Validators.required]),
           percentage: new FormControl(elem.percentage, [Validators.required]),
-          qty_carton: new FormControl(elem.qty_carton, [Validators.required]),
-          from: new FormControl(elem.from, [Validators.required]),
         })
       );
     });
@@ -98,21 +99,22 @@ export class TblShippingSkbComponent {
    let array = this.form.get('array') as FormArray;
 
    this.f.array?.forEach((element,i) => {
-     (array.controls[i] as FormGroup).controls['destination'].enable()
+     (array.controls[i] as FormGroup).controls['itemId'].enable(),
+     (array.controls[i] as FormGroup).controls['item'].enable()
    });
    //  console.log(this.f.array);
     this.apiService
-      .updateBudgetShipping({ items: this.f.array })
+      .updateBudgetFohDistribution({ items: this.f.array })
       .subscribe(
         (res) => {
-          this.alertService.onCallAlert('Update Shipping Success!', AlertType.Success);
+          this.alertService.onCallAlert('Update FOH Distributin Success!', AlertType.Success);
           this.ngOnInit();
           this.changeUpdateModal(0)
         },
         (err) => {
           console.log(err);
           this.alertService.onCallAlert(
-            'Update Shipping Failed!',
+            'Update FOH Distributin Failed!',
             AlertType.Error
           );
         }

@@ -40,7 +40,7 @@ export class TblShippingKjyComponent {
   };
 
   config = {
-    id: 'custom',
+    id: 'customShippingKjy',
     itemsPerPage: this.itemPerPage,
     currentPage: 1,
     totalItems: this.budgetShippingApi.length,
@@ -59,12 +59,16 @@ export class TblShippingKjyComponent {
     };
   }
   ngOnInit() {
+    
+    
     this.spinner.show();
     forkJoin(this.apiService.getBudgetShippingKjy()).subscribe(
       (res) => {
         this.budgetShippingApi = res[0];
+        this.config.totalItems = this.budgetShippingApi.length
         // console.log(res[2]);
         // this.fillArray();
+        
         this.spinner.hide();
       },
       (err) => {
