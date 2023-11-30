@@ -5,7 +5,7 @@
   size="medium"
   ><p style="color: white">Loading...</p></ngx-spinner
 >
-<div class=" w-full font-manrope font-medium">
+<div class="w-full font-manrope font-medium">
   <div class="flex flex-wrap mx-auto">
     <div class="px-2 w-full space-y-3">
       <!-- OVERHEAD TABLE -->
@@ -15,7 +15,7 @@
       >
         <div>
           <h1 class="text-xl font-semibold text-justify px-4">
-            Budget Factory <span class="text-base text-slate-600 px-1">Sukabumi</span>
+            Budget Summary
           </h1>
         </div>
         <div
@@ -110,7 +110,7 @@
                       <span
                         class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
                       >
-                        Month
+                        Name
                       </span>
                     </div>
                   </th>
@@ -119,17 +119,16 @@
                       <span
                         class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
                       >
-                        BUD
+                        Value
                       </span>
                     </div>
                   </th>
-
                   <th scope="col" class="px-6 py-3 text-left">
                     <div class="flex items-center justify-center gap-x-2">
                       <span
                         class="text-xs font-semibold uppercase tracking-wide text-gray-800 text-center"
                       >
-                        FOH
+                        Running Month
                       </span>
                     </div>
                   </th>
@@ -139,28 +138,24 @@
               <tbody class="divide-y divide-gray-200">
                 <tr
                   *ngFor="
-                    let item of budgetApi
+                    let item of budgetSummary
                       | customFilter : searchInputStorage
                       | paginate : config
                   "
                   class="bg-white hover:bg-gray-50 text-center cursor-pointer"
                 >
-                  <!-- <td class="h-px w-px whitespace-nowrap py-2">
-                    <h1 class="text-sm">
-                      {{ item.id }}
-                    </h1>
-                  </td> -->
                   <td class="h-px w-px whitespace-nowrap py-2">
-                    <h1 class="text-sm">{{ item.date | date : "MMM yyyy" }}</h1>
+                    <h1 class="text-sm">{{ item.name }}</h1>
                   </td>
                   <td class="h-px w-px whitespace-nowrap py-2">
                     <h1 class="text-sm">
-                      {{ item.bud }}
+                      {{ item.value.toLocaleString() }}
                     </h1>
                   </td>
-
                   <td class="h-px w-px whitespace-nowrap py-2">
-                    <h1 class="text-sm">{{ item.foh }}</h1>
+                    <h1 class="text-sm">
+                      {{ item.month != null ? item.month : "-" }}
+                    </h1>
                   </td>
                   <td class="h-px w-px whitespace-nowrap py-2"></td>
                   <!-- <td class="h-px w-px whitespace-nowrap">
@@ -266,9 +261,7 @@
               <select
                 #selectItemPerPage
                 id="selectItemPerPage"
-                (change)="
-                  changeItemPerPageSelect(selectItemPerPage.value)
-                "
+                (change)="changeItemPerPageSelect(selectItemPerPage.value)"
                 class="py-1.5 px-3 pr-5 block border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
               >
                 <option selected>7</option>
@@ -293,7 +286,7 @@
     class="flex flex-wrap px-5 py-3 bg-white rounded-lg shadow-xl self-center w-3/5 relative font-manrope"
   >
     <div class="w-full pb-2 flex justify-between">
-      <h1 class="font-semibold">Change Budget Factory Sukabumi</h1>
+      <h1 class="font-semibold">Change Budget Summary</h1>
       <a
         (click)="changeUpdateModal(0)"
         class="right-1 top-1 text-base px-1.5 py-1 rounded-full font-semibold hover:text-red-500 cursor-pointer"
@@ -305,42 +298,63 @@
       (ngSubmit)="onUpdate()"
       class="w-full mr-3 space-y-1.5"
     >
-      <div *ngFor="let item of budgetApi;index as i" formArrayName="array" class="w-full">
+      <div
+        *ngFor="let item of budgetSummary; index as i"
+        formArrayName="array"
+        class="w-full"
+      >
         <div [formGroupName]="i" class="flex">
-            <div class="w-full px-2" >
-              <label *ngIf="i==0" for="date" class="block text-sm text-gray-600 font-medium"
-                >Month</label
-              >
-              <input
-                id="date"
-                type="month"
-                formControlName="date"
+          <div class="w-full px-2">
+            <label
+              *ngIf="i == 0"
+              for="name"
+              class="block text-sm text-gray-600 font-medium"
+              >Name</label
+            >
+            <input
+              id="name"
+              type="text"
+              formControlName="name"
+              class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+            />
+          </div>
+
+          <div class="w-1/2 px-2">
+            <label
+              *ngIf="i == 0"
+              for="value"
+              class="block text-sm text-gray-600 font-medium"
+              >Value</label
+            >
+            <input
+              id="value"
+              type="number"
+              formControlName="value"
+              class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+            />
+          </div>
+          <div class="w-1/2 px-2">
+            <label
+              *ngIf="i == 0"
+              for="month"
+              class="block text-sm text-gray-600 font-medium"
+              >Running Month</label
+            >
+            <!-- <input
+                id="month"
+                type="text"
+                formControlName="month"
                 class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-              />
-            </div>
-    
-            <div class="w-1/2 px-2">
-              <label *ngIf="i==0" for="jam" class="block text-sm text-gray-600 font-medium"
-                >BUD</label
-              >
-              <input
-                id="jam"
-                type="number"
-                formControlName="bud"
-                class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-              />
-            </div>
-            <div class="w-1/2 px-2">
-              <label *ngIf="i==0" for="jam" class="block text-sm text-gray-600 font-medium"
-                >FOH</label
-              >
-              <input
-                id="jam"
-                type="number"
-                formControlName="foh"
-                class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
-              />
-            </div>
+              /> -->
+            <select
+            id="month"
+              formControlName="month"
+              class="py-2 px-3 block w-full border border-gray-200 rounded-lg text-sm focus:border focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+            >
+              <option [value]="null">-</option>
+              <option *ngFor="let item of monthList" [value]="item">{{ item }}</option>
+            </select>
+          </div>
         </div>
       </div>
       <div class="w-full flex justify-center">

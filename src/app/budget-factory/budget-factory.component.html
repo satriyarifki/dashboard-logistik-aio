@@ -42,15 +42,30 @@
             </h1>
           </div> -->
           <div class="w-full grid grid-cols-4 gap-2 rounded-lg">
-            <div
-              class="flex flex-col items-center justify-center py-2.5 px-1 rounded-lg bg-indigo-50 text-indigo-900"
+            <!-- <div
+            *ngFor="let item of budgetSummary;index as i"
+              class="flex flex-col items-center justify-center py-2.5 px-1 rounded-lg {{colorsBudget[i]}}"
             >
               <div
                 class="text-xl sm:text-2xl font-semibold leading-none tracking-tight"
               >
-                197
+                {{item.value}}
               </div>
-              <div class="text-xs sm:text-sm font-semibold font-manrope" >YTD Budget</div>
+              <div class="text-xs sm:text-sm font-semibold font-manrope">
+                {{item.name}}
+              </div>
+            </div> -->
+            <div
+              class="flex flex-col items-center justify-center py-2.5 px-1 rounded-lg bg-sky-50 text-sky-900"
+            >
+              <div
+                class="text-xl sm:text-2xl font-semibold leading-none tracking-tight"
+              >
+              {{currencyRounded(budgetSummary[0]?.value) }}
+              </div>
+              <div class="text-xs sm:text-sm font-semibold font-manrope">
+                {{budgetSummary[0]?.name}} {{budgetSummary[0]?.month}}
+              </div>
             </div>
             <div
               class="flex flex-col items-center justify-center py-2.5 px-1 rounded-lg bg-emerald-50 text-emerald-900"
@@ -58,9 +73,11 @@
               <div
                 class="text-xl sm:text-2xl font-semibold leading-none tracking-tight"
               >
-                197
+              {{currencyRounded(budgetSummary[1]?.value)}}
               </div>
-              <div class="text-xs sm:text-sm font-semibold font-manrope" >YTD FOH</div>
+              <div class="text-xs sm:text-sm font-semibold font-manrope">
+                {{budgetSummary[1]?.name}} {{budgetSummary[1]?.month}}
+              </div>
             </div>
             <div
               class="flex flex-col items-center justify-center py-2.5 px-1 rounded-lg bg-amber-50 text-amber-900"
@@ -68,9 +85,11 @@
               <div
                 class="text-xl sm:text-2xl font-semibold leading-none tracking-tight"
               >
-                197
+              {{budgetSummary[2]?.value}}%
               </div>
-              <div class="text-xs sm:text-sm font-semibold font-manrope" >% Achievement</div>
+              <div class="text-xs sm:text-sm font-semibold font-manrope">
+                {{budgetSummary[2]?.name}}
+              </div>
             </div>
             <div
               class="flex flex-col items-center justify-center py-2.5 px-1 rounded-lg bg-fuchsia-50 text-fuchsia-900"
@@ -78,9 +97,11 @@
               <div
                 class="text-xl sm:text-2xl font-semibold leading-none tracking-tight"
               >
-                197
+              <span class="text-lg sm:text-xl"> Rp.</span>{{budgetSummary[3]?.value}}
               </div>
-              <div class="text-xs sm:text-sm font-semibold font-manrope" >Avg. FOH/Unit</div>
+              <div class="text-xs sm:text-sm font-semibold font-manrope">
+                {{budgetSummary[3]?.name}}
+              </div>
             </div>
           </div>
         </div>
@@ -89,7 +110,9 @@
         <div
           class="h-full flex justify-center flex-wrap bg-white px-4 py-3 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
         >
-          <div class="flex flex-col justify-start px-3 w-full flex-wrap items-start">
+          <div
+            class="flex flex-col justify-start px-3 w-full flex-wrap items-start"
+          >
             <h1
               class="text-base w-fit font-quicksand font-[700] text-start h-fit"
             >
@@ -150,7 +173,9 @@
         <div
           class="h-full flex justify-center flex-wrap bg-white px-4 py-3 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
         >
-          <div class="flex flex-col justify-start px-3 w-full flex-wrap items-start">
+          <div
+            class="flex flex-col justify-start px-3 w-full flex-wrap items-start"
+          >
             <h1
               class="text-base w-fit font-quicksand font-[700] text-start h-fit"
             >
@@ -162,7 +187,7 @@
               Sukabumi
             </h1>
           </div>
-          
+
           <div class="w-full">
             <apx-chart
               *ngIf="shippingChart"
@@ -229,7 +254,7 @@
           </div>
           <div class="w-full">
             <apx-chart
-            *ngIf="multiColumnChart"
+              *ngIf="multiColumnChart"
               [series]="multiColumnChart.series"
               [chart]="multiColumnChart.chart"
               [dataLabels]="multiColumnChart.dataLabels"
@@ -252,9 +277,7 @@
           <div
             class="px-5 w-full flex flex-wrap justify-between items-center h-fit"
           >
-            <h1
-              class="text-lg w-fit font-manrope font-[700] text-start h-fit"
-            >
+            <h1 class="text-lg w-fit font-manrope font-[700] text-start h-fit">
               Budget vs Factory Overhead
             </h1>
             <h1
@@ -265,7 +288,7 @@
           </div>
           <div class="w-full">
             <apx-chart
-            *ngIf="multiColumnChart"
+              *ngIf="multiColumnChart"
               [series]="multiColumnChart.series2"
               [chart]="multiColumnChart.chart"
               [dataLabels]="multiColumnChart.dataLabels"

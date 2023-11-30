@@ -12,11 +12,11 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { DeleteApiService } from 'src/app/services/delete-api/delete-api.service';
 
 @Component({
-  selector: 'app-tbl-shipping-kjy',
-  templateUrl: './tbl-shipping-kjy.component.html',
-  styleUrls: ['./tbl-shipping-kjy.component.css'],
+  selector: 'app-tbl-budget-summary',
+  templateUrl: './tbl-budget-summary.component.html',
+  styleUrls: ['./tbl-budget-summary.component.css']
 })
-export class TblShippingKjyComponent {
+export class TblBudgetSummaryComponent {
   //TOOLS
   @ViewChild('p', { static: true }) pa: PaginationControlsDirective | any;
   searchInput: any;
@@ -24,9 +24,10 @@ export class TblShippingKjyComponent {
   itemPerPage = 7;
   updateBool = false;
   storageId: number = 0;
+  monthList = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
 
   //API
-  budgetShippingApi: any[] = [];
+  budgetSummary: any[] = [];
   userData: any;
 
   //Form
@@ -43,7 +44,7 @@ export class TblShippingKjyComponent {
     id: 'custom',
     itemsPerPage: this.itemPerPage,
     currentPage: 1,
-    totalItems: this.budgetShippingApi.length,
+    totalItems: this.budgetSummary.length,
   };
   constructor(
     private apiService: ApiService,
@@ -60,9 +61,11 @@ export class TblShippingKjyComponent {
   }
   ngOnInit() {
     this.spinner.show();
-    forkJoin(this.apiService.getBudgetShippingKjy()).subscribe(
+    forkJoin(
+      this.apiService.getBudgetSummary(),
+    ).subscribe(
       (res) => {
-        this.budgetShippingApi = res[0];
+        this.budgetSummary = res[0];
         // console.log(res[2]);
         // this.fillArray();
         this.spinner.hide();
@@ -77,48 +80,43 @@ export class TblShippingKjyComponent {
 
   fillArray() {
     let array = this.form.get('array') as FormArray;
-    this.budgetShippingApi.forEach((elem) => {
+    this.budgetSummary.forEach((elem) => {
       // console.log(elem.date.slice(0, 7));
 
       array.push(
         new FormGroup({
           id: new FormControl(elem.id, [Validators.required]),
-          destination: new FormControl(
-            { value: elem.destination, disabled: true },
-            [Validators.required]
-          ),
-          percentage: new FormControl(elem.percentage, [Validators.required]),
-          qty_carton: new FormControl(elem.qty_carton, [Validators.required]),
-          from: new FormControl(elem.from, [Validators.required]),
+          name: new FormControl({value:elem.name, disabled:true}, [Validators.required]),
+          value: new FormControl(elem.value, [Validators.required]),
+          month: new FormControl(elem.month, [Validators.required]),
         })
       );
     });
   }
-
+  
   onUpdate() {
-    let array = this.form.get('array') as FormArray;
+   let array = this.form.get('array') as FormArray;
 
-    this.f.array?.forEach((element, i) => {
-      (array.controls[i] as FormGroup).controls['destination'].enable();
-    });
-    //  console.log(this.f.array);
-    this.apiService.updateBudgetShipping({ items: this.f.array }).subscribe(
-      (res) => {
-        this.alertService.onCallAlert(
-          'Update Shipping Success!',
-          AlertType.Success
-        );
-        this.ngOnInit();
-        this.changeUpdateModal(0);
-      },
-      (err) => {
-        console.log(err);
-        this.alertService.onCallAlert(
-          'Update Shipping Failed!',
-          AlertType.Error
-        );
-      }
-    );
+   this.f.array?.forEach((element,i) => {
+     (array.controls[i] as FormGroup).controls['name'].enable()
+   });
+   //  console.log(this.f.array);
+    this.apiService
+      .updateBudgetSummary({ items: this.f.array })
+      .subscribe(
+        (res) => {
+          this.alertService.onCallAlert('Update Budget Summary Success!', AlertType.Success);
+          this.ngOnInit();
+          this.changeUpdateModal(0)
+        },
+        (err) => {
+          console.log(err);
+          this.alertService.onCallAlert(
+            'Update Budget Summary Failed!',
+            AlertType.Error
+          );
+        }
+      );
   }
 
   get f() {
@@ -133,11 +131,12 @@ export class TblShippingKjyComponent {
   changeUpdateModal(id: number) {
     if (id != 0) {
       this.updateBool = true;
-      this.fillArray();
+      this.fillArray()
     } else {
       this.updateBool = false;
       let array = this.form.get('array') as FormArray;
-      array.clear();
+      array.clear()
+
     }
   }
 }

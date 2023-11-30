@@ -66,6 +66,7 @@ import { TblShippingKjyComponent } from './budget-factory/input-budget-factory/t
 import { TblShippingSkbComponent } from './budget-factory/input-budget-factory/tbl-shipping-skb/tbl-shipping-skb.component';
 import { TblBudgetKjyComponent } from './budget-factory/input-budget-factory/tbl-budget-kjy/tbl-budget-kjy.component';
 import { TblBudgetSkbComponent } from './budget-factory/input-budget-factory/tbl-budget-skb/tbl-budget-skb.component';
+import { TblBudgetSummaryComponent } from './budget-factory/input-budget-factory/tbl-budget-summary/tbl-budget-summary.component';
 
 @NgModule({
   declarations: [
@@ -119,6 +120,7 @@ import { TblBudgetSkbComponent } from './budget-factory/input-budget-factory/tbl
     TblShippingSkbComponent,
     TblBudgetKjyComponent,
     TblBudgetSkbComponent,
+    TblBudgetSummaryComponent,
   ],
   imports: [
     BrowserModule,
