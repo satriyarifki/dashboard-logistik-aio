@@ -177,4 +177,5 @@ export type pieChart = {
   chart: ApexChart;
   responsive: ApexResponsive[];
   labels: any;
+  legend: ApexLegend;
 };

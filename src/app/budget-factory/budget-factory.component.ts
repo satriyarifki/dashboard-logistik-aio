@@ -3,7 +3,7 @@ import { Component, Inject, LOCALE_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { forkJoin } from 'rxjs';
-import { multiColumnChart, MultiLineChart, ShippingChart } from '../ApexChart';
+import { multiColumnChart, MultiLineChart, pieChart, ShippingChart } from '../ApexChart';
 import { AlertService } from '../services/alert/alert.service';
 import { ApiService } from '../services/api.service';
 import { AuthService } from '../services/auth/auth.service';
@@ -18,6 +18,7 @@ export class BudgetFactoryComponent {
   public shippingChart!: Partial<ShippingChart> | any;
   public multiLineChart!: Partial<MultiLineChart> | any;
   public multiColumnChart!: Partial<multiColumnChart> | any;
+  public pieChart!: Partial<pieChart> | any;
   time: any;
 
   colorsBudget = [
@@ -33,6 +34,7 @@ export class BudgetFactoryComponent {
   budgetOverhead: any[] = [];
   budgetShipping: any[] = [];
   budgetSummary: any[] = [];
+  fohDistribution: any[] = [];
 
   getCurrentDate() {
     this.time = new Date();
@@ -56,13 +58,15 @@ export class BudgetFactoryComponent {
       apiService.getBudgetHandling(),
       apiService.getBudgetOverhead(),
       apiService.getBudgetShipping(),
-      apiService.getBudgetSummary()
+      apiService.getBudgetSummary(),
+      apiService.getBudgetFohDistribution()
     ).subscribe((res) => {
       this.budgetFactory = res[0];
       this.budgetHandling = res[1];
       this.budgetOverhead = res[2];
       this.budgetShipping = res[3];
       this.budgetSummary = res[4];
+      this.fohDistribution = res[5];
       this.chart();
       spinner.hide();
     });
@@ -264,7 +268,7 @@ export class BudgetFactoryComponent {
       plotOptions: {
         bar: {
           horizontal: false,
-          columnWidth: '70%',
+          columnWidth: '75%',
           endingShape: 'rounded',
           borderRadius: 2,
           dataLabels: {
@@ -278,7 +282,7 @@ export class BudgetFactoryComponent {
         style: {
           fontSize: 10,
           fontFamily: 'Manrope',
-          fontWeight: 600,
+          fontWeight: 700,
         },
         background: {
           enabled: true,
@@ -336,6 +340,28 @@ export class BudgetFactoryComponent {
         fontFamily: 'Manrope',
       },
     };
+    this.pieChart = {
+      series: this.dataFohDistribution.percentage,
+      chart: {
+        height: 'auto',
+        type: "pie"
+      },
+      labels: this.dataFohDistribution.labels,
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ]
+    };
+    
   }
 
   get dataShippingKjy() {
@@ -403,6 +429,15 @@ export class BudgetFactoryComponent {
       label.push(formatDate(elem.date, 'MMM', this.locale));
     });
     return { bud: bud, foh: foh, labels: label };
+  }
+  get dataFohDistribution() {
+    let percentage: any[] = [];
+    let label: any[] = [];
+    this.fohDistribution.forEach((elem) => {
+      percentage.push(elem.percentage);
+      label.push(elem.item);
+    });
+    return { percentage: percentage, labels: label };
   }
 
   currencyRounded(data:number){

@@ -61,10 +61,10 @@
               <div
                 class="text-xl sm:text-2xl font-semibold leading-none tracking-tight"
               >
-              {{currencyRounded(budgetSummary[0]?.value) }}
+                {{ currencyRounded(budgetSummary[0]?.value) }}
               </div>
               <div class="text-xs sm:text-sm font-semibold font-manrope">
-                {{budgetSummary[0]?.name}} {{budgetSummary[0]?.month}}
+                {{ budgetSummary[0]?.name }} {{ budgetSummary[0]?.month }}
               </div>
             </div>
             <div
@@ -73,10 +73,10 @@
               <div
                 class="text-xl sm:text-2xl font-semibold leading-none tracking-tight"
               >
-              {{currencyRounded(budgetSummary[1]?.value)}}
+                {{ currencyRounded(budgetSummary[1]?.value) }}
               </div>
               <div class="text-xs sm:text-sm font-semibold font-manrope">
-                {{budgetSummary[1]?.name}} {{budgetSummary[1]?.month}}
+                {{ budgetSummary[1]?.name }} {{ budgetSummary[1]?.month }}
               </div>
             </div>
             <div
@@ -85,10 +85,10 @@
               <div
                 class="text-xl sm:text-2xl font-semibold leading-none tracking-tight"
               >
-              {{budgetSummary[2]?.value}}%
+                {{ budgetSummary[2]?.value }}%
               </div>
               <div class="text-xs sm:text-sm font-semibold font-manrope">
-                {{budgetSummary[2]?.name}}
+                {{ budgetSummary[2]?.name }}
               </div>
             </div>
             <div
@@ -97,10 +97,11 @@
               <div
                 class="text-xl sm:text-2xl font-semibold leading-none tracking-tight"
               >
-              <span class="text-lg sm:text-xl"> Rp.</span>{{budgetSummary[3]?.value}}
+                <span class="text-lg sm:text-xl"> Rp.</span
+                >{{ budgetSummary[3]?.value }}
               </div>
               <div class="text-xs sm:text-sm font-semibold font-manrope">
-                {{budgetSummary[3]?.name}}
+                {{ budgetSummary[3]?.name }}
               </div>
             </div>
           </div>

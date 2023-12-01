@@ -40,6 +40,7 @@ import { CheckerAuthGuard } from './services/guard/checker-auth.guard';
 import { RmpmCollectionComponent } from './rmpm-collection/rmpm-collection.component';
 import { InputBudgetFactoryComponent } from './budget-factory/input-budget-factory/input-budget-factory.component';
 import { BudgetFactoryComponent } from './budget-factory/budget-factory.component';
+import { FohDistributionComponent } from './foh-distribution/foh-distribution.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { animation: 'HomePage' } },
@@ -137,6 +138,10 @@ const routes: Routes = [
   {
     path: 'budget-factory',
     component: BudgetFactoryComponent,
+  },
+  {
+    path: 'foh_distribution',
+    component: FohDistributionComponent,
   },
   {
     path: 'input-budget-factory',
