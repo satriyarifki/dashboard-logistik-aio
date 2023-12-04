@@ -41,6 +41,7 @@ import { RmpmCollectionComponent } from './rmpm-collection/rmpm-collection.compo
 import { InputBudgetFactoryComponent } from './budget-factory/input-budget-factory/input-budget-factory.component';
 import { BudgetFactoryComponent } from './budget-factory/budget-factory.component';
 import { FohDistributionComponent } from './foh-distribution/foh-distribution.component';
+import { AdminAuthGuard } from './services/guard/admin-auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { animation: 'HomePage' } },
@@ -146,7 +147,7 @@ const routes: Routes = [
   {
     path: 'input-budget-factory',
     component: InputBudgetFactoryComponent,
-    canActivate: [OnAuthGuard],
+    canActivate: [AdminAuthGuard],
   },
   { path: 'temp', component: TemperatureComponent },
   { path: 'check-ln', component: CheckLn2Component },

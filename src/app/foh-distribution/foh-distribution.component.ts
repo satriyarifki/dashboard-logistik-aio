@@ -59,6 +59,16 @@ export class FohDistributionComponent {
         type: 'pie',
       },
       labels: this.dataFohDistribution.labels,
+      fill: {
+        type: 'gradient',
+      },
+      dataLabels: {
+        style: {
+          fontSize: '16px',
+          fontFamily: 'Quicksand',
+          fontWeight: 600,
+        },
+      },
       responsive: [
         {
           breakpoint: 480,
@@ -72,11 +82,29 @@ export class FohDistributionComponent {
           },
         },
       ],
+      colors: [
+        '#FF6F61',
+        '#FFD700',
+        '#FFA07A',
+        '#00FA9A',
+        '#1E90FF',
+        '#FF69B4',
+        '#FF4500',
+        '#6A5ACD',
+        '#FF8C00',
+        '#8B008B',
+        '#32CD32',
+        '#FFD700',
+      ],
       legend: {
         show: true,
         // position: 'center',
-        horizontalAlign: 'center', 
-        offsetY:20,
+        fontSize: '16px',
+        fontFamily: 'Quicksand',
+        fontWeight: 600,
+        horizontalAlign: 'center',
+        offsetY: 80,
+        offsetX: 200,
       },
     };
   }
