@@ -25,6 +25,8 @@ export class BudgetFactoryComponent {
   public multiColumnChart!: Partial<multiColumnChart> | any;
   public pieChart!: Partial<pieChart> | any;
   time: any;
+  lastData: number[] = []
+  lastIndex: number = 0
 
   colorsBudget = [
     'bg-indigo-50 text-indigo-900',
@@ -32,6 +34,7 @@ export class BudgetFactoryComponent {
     'bg-amber-50 text-amber-900',
     'bg-fuchsia-50 text-fuchsia-900',
   ];
+
 
   //API
   budgetFactory: any[] = [];
@@ -58,6 +61,7 @@ export class BudgetFactoryComponent {
   ) {
     spinner.show();
     this.getCurrentDate();
+    
     forkJoin(
       apiService.getBudgetFactory(),
       apiService.getBudgetHandling(),
@@ -78,8 +82,10 @@ export class BudgetFactoryComponent {
   }
 
   chart() {
-    // console.log(this.dataHandling);
-
+    this.lastData = this.dataHandling.kjy.filter(data=>data!=0)
+    this.lastIndex = this.lastData.length-1
+    
+    //
     this.shippingChart = {
       series: [
         {
@@ -130,7 +136,9 @@ export class BudgetFactoryComponent {
       },
       dataLabels: {
         enabled: true,
-        offsetX: -6,
+        offsetX: 13,
+        // offsetY: -7,
+        textAnchor: 'middle',
         formatter: function (val: any, opts: any) {
           let seriess: number = 0;
           seriess = opts.config.series[0].data.reduce(
@@ -139,17 +147,32 @@ export class BudgetFactoryComponent {
           );
           let percent = ((val / seriess) * 100).toFixed(1);
           // console.log(opts.config.series[0].data);
-          return val + 'K  (' + percent + '%)';
+          return [val + 'K' + '\xa0'.repeat(2) + ' ' + percent + '%'];
+          // return [val + 'K' , ' ' + percent + '%'];
         },
         background: {
-          enabled: true,
+          enabled: false,
+          padding: 5,
+          opacity: 0.2,
         },
         style: {
           fontSize: '12px',
-          colors: ['#AB46D2', '#FF0BAC', '#00BEC5', '#FFB72B', '#04D4F0'],
+          // colors: ['#000'],
+          // colors: ['#AB46D2', '#FF0BAC', '#00BEC5', '#E48F45', '#6499E9'],
+          colors: ['#490663', '#590040', '#003C2E', '#61400C', '#01233D'],
+        },
+        dropShadow: {
+          enabled: false,
+          color: '#fff',
+          top: 0.5,
+          left: 0.5,
+          blur: 0.5,
+          opacity: 1,
         },
       },
-      colors: ['#AB46D2', '#FF0BAC', '#00BEC5', '#FFB72B', '#04D4F0'],
+      colors: ['#BEADFA', '#FE7BE5', '#85E6C5', '#F8DE22', '#75C2F6'],
+      // colors: ['#AB46D2', '#FF0BAC', '#00BEC5', '#E48F45', '#6499E9'],
+
       stroke: {
         show: true,
         width: 1,
@@ -160,6 +183,18 @@ export class BudgetFactoryComponent {
           show: false,
         },
         categories: this.dataShippingKjy.labels,
+        max:
+          Math.max(...this.dataShippingKjy.value) +
+          Math.max(...this.dataShippingKjy.value) / 3,
+      },
+      xaxis2: {
+        labels: {
+          show: false,
+        },
+        categories: this.dataShippingSkb.labels,
+        max:
+          Math.max(...this.dataShippingSkb.value) +
+          Math.max(...this.dataShippingSkb.value) / 3,
       },
       yaxis: {
         show: true,
@@ -216,7 +251,14 @@ export class BudgetFactoryComponent {
       },
       colors: ['#ed6a5e', '#3BACB6'],
       dataLabels: {
-        enabled: false,
+        enabled: true,
+        formatter: (val: any, opts: any) => {
+          // console.log(this.lastIndex);
+          if(opts.dataPointIndex==this.lastIndex){
+            return val
+          }
+          
+        },
       },
       stroke: {
         curve: 'smooth',
@@ -378,7 +420,7 @@ export class BudgetFactoryComponent {
         // floating: true,
         title: {
           text: 'Bio',
-          offsetX:10,
+          offsetX: 10,
           style: {
             fontSize: 10,
             fontFamily: 'Manrope',

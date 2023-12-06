@@ -600,7 +600,7 @@
             />
           </svg>
 
-          <span class="mx-2 text-xs font-medium w-fit">Budget Factory</span>
+          <span class="mx-2 text-xs font-medium w-fit">Budget Actual Factory</span>
         </a>
         <a
           [routerLink]="['/foh_distribution']"
@@ -798,7 +798,7 @@
           <span class="mx-2 text-xs font-medium">Input Occupancy RMPM</span>
         </a>
         <a
-        *ngIf="employee.lg_nik == 1 || employee.lg_nik == -1"
+        *ngIf="employee.role == 1 || employee.role == -1"
           class="flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-700 hover:text-gray-200"
           [routerLink]="['/input-budget-factory']"
           routerLinkActive="router-link-active"
