@@ -133,6 +133,7 @@
               [dataLabels]="shippingChart?.dataLabels"
               [plotOptions]="shippingChart?.plotOptions"
               [colors]="shippingChart?.colors"
+              [title]="shippingChart?.title"
               [xaxis]="shippingChart?.xaxis"
               [legend]="shippingChart?.legend"
               [yaxis]="shippingChart?.yaxis"
@@ -197,6 +198,7 @@
               [dataLabels]="shippingChart?.dataLabels"
               [plotOptions]="shippingChart?.plotOptions"
               [colors]="shippingChart?.colors"
+              [title]="shippingChart?.title"
               [xaxis]="shippingChart?.xaxis"
               [legend]="shippingChart?.legend"
               [yaxis]="shippingChart?.yaxis"
@@ -228,7 +230,7 @@
               [legend]="multiLineChart.legend"
               [markers]="multiLineChart.markers"
               [grid]="multiLineChart.grid"
-              [yaxis]="multiLineChart.yaxis"
+              [yaxis]="multiLineChart.yaxis2"
               [title]="multiLineChart.title2"
             ></apx-chart>
           </div>
@@ -239,7 +241,7 @@
     <div class="grow pr-1 pt-1 w-full xl:w-5/12 flex flex-wrap">
       <div class="grow p-1 w-full">
         <div
-          class="h-full flex-wrap bg-white px-5 py-3 space-y-2.5 rounded-lg text-center relative drop-shadow-xl"
+          class="h-full flex-wrap bg-white px-4 py-3 space-y-2 rounded-lg text-center relative drop-shadow-xl"
         >
           <div
             class="px-5 w-full flex flex-wrap justify-between items-center h-fit"
@@ -263,6 +265,7 @@
               [yaxis]="multiColumnChart.yaxis"
               [legend]="multiColumnChart.legend"
               [fill]="multiColumnChart.fill"
+              [title]="multiColumnChart.title"
               [colors]="multiColumnChart.colors2"
               [stroke]="multiColumnChart.stroke"
               [tooltip]="multiColumnChart.tooltip"
@@ -273,7 +276,7 @@
       </div>
       <div class="grow p-1 w-full">
         <div
-          class="h-full flex justify-center flex-wrap bg-white px-4 py-3 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+          class="h-full flex justify-center flex-wrap bg-white px-4 py-3 space-y-2 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
         >
           <div
             class="px-5 w-full flex flex-wrap justify-between items-center h-fit"
@@ -297,6 +300,7 @@
               [yaxis]="multiColumnChart.yaxis"
               [legend]="multiColumnChart.legend"
               [fill]="multiColumnChart.fill"
+              [title]="multiColumnChart.title"
               [colors]="multiColumnChart.colors"
               [stroke]="multiColumnChart.stroke"
               [tooltip]="multiColumnChart.tooltip"

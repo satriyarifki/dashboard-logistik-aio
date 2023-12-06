@@ -3,7 +3,12 @@ import { Component, Inject, LOCALE_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { forkJoin } from 'rxjs';
-import { multiColumnChart, MultiLineChart, pieChart, ShippingChart } from '../ApexChart';
+import {
+  multiColumnChart,
+  MultiLineChart,
+  pieChart,
+  ShippingChart,
+} from '../ApexChart';
 import { AlertService } from '../services/alert/alert.service';
 import { ApiService } from '../services/api.service';
 import { AuthService } from '../services/auth/auth.service';
@@ -105,15 +110,43 @@ export class BudgetFactoryComponent {
           borderRadius: 3,
           dataLabels: {
             position: 'top',
+            // hideOverflowingLabels: false,
+            total: {
+              enabled: true,
+            },
           },
+        },
+      },
+      title: {
+        text: 'Ctn(Thousand)',
+        align: 'right',
+        margin: 0,
+        offsetY: 5,
+        floating: true,
+        style: {
+          fontSize: '11px',
+          fontFamily: 'Manrope',
         },
       },
       dataLabels: {
         enabled: true,
         offsetX: -6,
+        formatter: function (val: any, opts: any) {
+          let seriess: number = 0;
+          seriess = opts.config.series[0].data.reduce(
+            (acc: any, val: any) => acc + val,
+            0
+          );
+          let percent = ((val / seriess) * 100).toFixed(1);
+          // console.log(opts.config.series[0].data);
+          return val + 'K  (' + percent + '%)';
+        },
+        background: {
+          enabled: true,
+        },
         style: {
           fontSize: '12px',
-          colors: ['#fff'],
+          colors: ['#AB46D2', '#FF0BAC', '#00BEC5', '#FFB72B', '#04D4F0'],
         },
       },
       colors: ['#AB46D2', '#FF0BAC', '#00BEC5', '#FFB72B', '#04D4F0'],
@@ -222,11 +255,24 @@ export class BudgetFactoryComponent {
         // },
       },
       yaxis: {
-        // title: {
-        //   text: 'Temperature',
-        // },
-        min: 5,
-        max: 40,
+        title: {
+          text: 'Mio Carton',
+          style: {
+            fontSize: '12px',
+            fontFamily: 'Manrope',
+            cssClass: 'font-bold font-manrope',
+          },
+        },
+      },
+      yaxis2: {
+        title: {
+          text: 'Rp/Carton',
+          style: {
+            fontSize: '12px',
+            fontFamily: 'Manrope',
+            cssClass: 'font-bold font-manrope',
+          },
+        },
       },
       legend: {
         position: 'top',
@@ -313,14 +359,35 @@ export class BudgetFactoryComponent {
         width: 2,
         colors: ['transparent'],
       },
+      title: {
+        text: 'Bio',
+        align: 'left',
+        margin: 0,
+        offsetY: 5,
+        floating: true,
+        style: {
+          fontSize: '12px',
+          fontFamily: 'Manrope',
+        },
+      },
       xaxis: {
         categories: this.dataBudgetKjy.labels,
       },
       yaxis: {
         show: false,
-        // title: {
-        //   text: "$ (thousands)"
-        // }
+        // floating: true,
+        title: {
+          text: 'Bio',
+          offsetX:10,
+          style: {
+            fontSize: 10,
+            fontFamily: 'Manrope',
+            fontWeight: 700,
+          },
+        },
+        labels: {
+          show: false,
+        },
       },
       fill: {
         opacity: 1,
@@ -344,7 +411,7 @@ export class BudgetFactoryComponent {
       series: this.dataFohDistribution.percentage,
       chart: {
         height: 'auto',
-        type: "pie"
+        type: 'pie',
       },
       labels: this.dataFohDistribution.labels,
       responsive: [
@@ -352,16 +419,15 @@ export class BudgetFactoryComponent {
           breakpoint: 480,
           options: {
             chart: {
-              width: 200
+              width: 200,
             },
             legend: {
-              position: "bottom"
-            }
-          }
-        }
-      ]
+              position: 'bottom',
+            },
+          },
+        },
+      ],
     };
-    
   }
 
   get dataShippingKjy() {
@@ -440,7 +506,9 @@ export class BudgetFactoryComponent {
     return { percentage: percentage, labels: label };
   }
 
-  currencyRounded(data:number){
-    return String(data).length > 9? (data/1000000000).toFixed(2) + ' Bio' : (data/1000000).toFixed() + ' Mio'
+  currencyRounded(data: number) {
+    return String(data).length > 9
+      ? (data / 1000000000).toFixed(2) + ' Bio'
+      : (data / 1000000).toFixed() + ' Mio';
   }
 }

@@ -798,6 +798,7 @@
           <span class="mx-2 text-xs font-medium">Input Occupancy RMPM</span>
         </a>
         <a
+        *ngIf="employee.lg_nik == 1 || employee.lg_nik == -1"
           class="flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-700 hover:text-gray-200"
           [routerLink]="['/input-budget-factory']"
           routerLinkActive="router-link-active"

@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
+import { AlertType } from '../alert/alert.model';
+import { AlertService } from '../alert/alert.service';
 
 var authUrl = environment.baseApi + 'auth/';
 const httpOptions = {
@@ -16,7 +18,7 @@ const USER_KEY = 'auth-user';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router,private alertService:AlertService) {}
 
   setCookie(cValue: string, expDays: number) {
     let date = new Date();
@@ -75,6 +77,9 @@ export class AuthService {
     const user = window.localStorage.getItem(USER_KEY);
     if (user) {
       return JSON.parse(user);
+    } else if(!user && this.getToken()) {
+      this.alertService.onCallAlert('Your session out of time, please re-Login!', AlertType.Info)
+      this.signOut();
     }
 
     return {};
