@@ -1,5 +1,5 @@
 import { formatDate } from '@angular/common';
-import { Component, Inject, LOCALE_ID } from '@angular/core';
+import { Component, ElementRef, Inject, LOCALE_ID, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { forkJoin } from 'rxjs';
@@ -21,6 +21,7 @@ import { DeleteApiService } from '../services/delete-api/delete-api.service';
 })
 export class FohDistributionComponent {
   public pieChart!: Partial<pieChart> | any;
+  @ViewChild('PieChart') chartElement!: ElementRef;
   time: any;
 
   //API
@@ -39,6 +40,7 @@ export class FohDistributionComponent {
     private authService: AuthService,
     private deleteService: DeleteApiService,
     private router: Router,
+    private renderer:Renderer2,
     @Inject(LOCALE_ID) public locale: string
   ) {
     spinner.show();
@@ -76,9 +78,6 @@ export class FohDistributionComponent {
             chart: {
               width: 200,
             },
-            legend: {
-              position: 'bottom',
-            },
           },
         },
       ],
@@ -98,15 +97,24 @@ export class FohDistributionComponent {
       ],
       legend: {
         show: true,
-        // position: 'center',
+        position: 'right',
+        horizontalAlign: 'right',
         fontSize: '16px',
         fontFamily: 'Quicksand',
         fontWeight: 600,
-        horizontalAlign: 'center',
+        floating: false,
         offsetY: 80,
         offsetX: 200,
       },
     };
+    setTimeout(() => {
+      for (let i = 0; i < (<HTMLElement>this.chartElement.nativeElement).getElementsByClassName('apexcharts-legend-series').length; i++){
+        (<HTMLElement>(<HTMLElement>this.chartElement.nativeElement).getElementsByClassName('apexcharts-legend-series').item(i)).style.display='flex'
+      }
+      // console.log((<HTMLElement>this.chartElement.nativeElement).getElementsByClassName('apexcharts-legend-series').item(2));
+      // console.log((<HTMLElement>this.chartElement.nativeElement).getElementsByClassName('apexcharts-legend').item(0));
+    }, 0);
+  
   }
 
   get dataFohDistribution() {

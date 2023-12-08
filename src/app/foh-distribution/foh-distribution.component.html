@@ -43,17 +43,16 @@
               Factory Overhead per Unit
             </h1>
           </div> -->
-          <div class="w-full">
+          <div  class="w-full" #PieChart>
             <apx-chart
-              *ngIf="pieChart"
-              [series]="pieChart.series"
-              [chart]="pieChart.chart"
-              [labels]="pieChart.labels"
-              [dataLabels]="pieChart.dataLabels"
-              [legend]="pieChart.legend"
-              [colors]="pieChart.colors"
-              [fill]="pieChart.fill"
-              [responsive]="pieChart.responsive"
+              [series]="pieChart?.series"
+              [chart]="pieChart?.chart"
+              [labels]="pieChart?.labels"
+              [dataLabels]="pieChart?.dataLabels"
+              [legend]="pieChart?.legend"
+              [colors]="pieChart?.colors"
+              [fill]="pieChart?.fill"
+              [responsive]="pieChart?.responsive"
             ></apx-chart>
           </div>
         </div>
