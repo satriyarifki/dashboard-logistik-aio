@@ -60,33 +60,33 @@
             <!-- End Input -->
             <div>
               <a
-                *ngIf="userData.role != -2"
-                (click)="changeUpdateModal(1)"
-                routerLinkActive="router-link-active"
-                class="relative inline-flex cursor-pointer items-center justify-center px-4 py-1 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-cyan-600 rounded-full shadow-md group"
+              *ngIf="userData.role != -2"
+              (click)="changeUpdateModal(1)"
+              routerLinkActive="router-link-active"
+              class="relative inline-flex cursor-pointer items-center justify-center px-3 py-1 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-amber-500 rounded-full shadow-md group"
+            >
+              <span
+                class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-amber-500 group-hover:translate-x-0 ease"
               >
-                <span
-                  class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-cyan-600 group-hover:translate-x-0 ease"
+                <!-- <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg> -->
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  height="24"
+                  viewBox="0 -960 960 960"
+                  width="24"
                 >
-                  <!-- <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg> -->
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    height="24"
-                    viewBox="0 -960 960 960"
-                    width="24"
-                  >
-                    <path
-                      d="M450-450H200v-60h250v-250h60v250h250v60H510v250h-60v-250Z"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="absolute flex items-center justify-center w-full h-full text-cyan-600 font-semibold transition-all duration-300 transform group-hover:translate-x-full ease text-sm"
-                  >Update</span
-                >
-                <span class="relative invisible">Update</span>
-              </a>
+                  <path
+                    d="M180-180h44l443-443-44-44-443 443v44Zm614-486L666-794l42-42q17-17 42-17t42 17l44 44q17 17 17 42t-17 42l-42 42Zm-42 42L248-120H120v-128l504-504 128 128Zm-107-21-22-22 44 44-22-22Z"
+                  />
+                </svg>
+              </span>
+              <span
+                class="absolute flex items-center justify-center w-full h-full text-amber-500 font-semibold transition-all duration-300 transform group-hover:translate-x-full ease text-sm"
+                >Update</span
+              >
+              <span class="relative invisible">Update</span>
+            </a>
             </div>
           </div>
           <!-- End Header -->

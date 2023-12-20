@@ -52,21 +52,11 @@ export class DeleteApiComponent {
         this.closeDelete();
       },
       (err) => {
-        if (
-          err.error.error.includes(
-            'FOREIGN KEY (`storageId`) REFERENCES `storage` (`id`)'
-          )
-        ) {
-          this.alertService.onCallAlert(
-            'Row used in another table, Delete failed !',
-            AlertType.Error
-          );
-        } else {
-          this.alertService.onCallAlert(
-            'Delete' + ' row' + ' failed!',
-            AlertType.Error
-          );
-        }
+        console.log(err);
+        this.alertService.onCallAlert(
+          'Delete' + ' row' + ' failed!',
+          AlertType.Error
+        );
       }
     );
   }

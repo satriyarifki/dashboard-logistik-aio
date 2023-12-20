@@ -65,7 +65,7 @@ export class TblFohDistributionComponent {
     ).subscribe(
       (res) => {
         this.fohApi = res[0];
-        console.log(res[0]);
+        // console.log(res[0]);
         
         // console.log(res[2]);
         // this.fillArray();

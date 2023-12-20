@@ -23,17 +23,23 @@ export class TblWarehouseHandlingComponent {
   searchInputStorage: any;
   itemPerPage = 7;
   updateBool = false;
-  storageId: number = 0;
+  addYearBool = false;
 
   //API
-  budgetHandlingApi: any[] = [];
+  budgetHandlingByYearApi: any[] = [];
+  budgetYearListApi: any[] = [];
   userData: any;
-
+  yearSelect: Number = new Date().getFullYear();
+  
   //Form
   form = new FormGroup({
     array: new FormArray([]),
   });
-
+  formAddYear = new FormGroup({
+      year: new FormControl(null, Validators.required),
+      type: new FormControl('Handling'),
+    });
+  
   exportAsConfig: ExportAsConfig = {
     type: 'csv', // the type you want to download
     elementIdOrContent: 'stockTable', // the id of html/table element
@@ -43,7 +49,7 @@ export class TblWarehouseHandlingComponent {
     id: 'custom',
     itemsPerPage: this.itemPerPage,
     currentPage: 1,
-    totalItems: this.budgetHandlingApi.length,
+    totalItems: this.budgetHandlingByYearApi.length,
   };
   constructor(
     private apiService: ApiService,
@@ -61,11 +67,12 @@ export class TblWarehouseHandlingComponent {
   ngOnInit() {
     this.spinner.show();
     forkJoin(
-      this.apiService.getBudgetHandling(),
-      this.apiService.getBudgetOverhead()
+      this.apiService.getBudgetHandlingByYear(this.yearSelect),
+      this.apiService.getBudgetOverHandYearList('Handling')
     ).subscribe(
       (res) => {
-        this.budgetHandlingApi = res[0];
+        this.budgetHandlingByYearApi = res[0];
+        this.budgetYearListApi = res[1];
         // console.log(res[2]);
         // this.fillArray();
         this.spinner.hide();
@@ -80,7 +87,7 @@ export class TblWarehouseHandlingComponent {
 
   fillArray() {
     let array = this.form.get('array') as FormArray;
-    this.budgetHandlingApi.forEach((elem) => {
+    this.budgetHandlingByYearApi.forEach((elem) => {
       // console.log(elem.date.slice(0, 7));
 
       array.push(
@@ -98,7 +105,7 @@ export class TblWarehouseHandlingComponent {
   onUpdate() {
     // console.log(this.f.array);
     this.apiService
-      .updateBudgetOverhead({ items: this.f.array })
+      .updateBudgetOverHand({ items: this.f.array })
       .subscribe(
         (res) => {
           this.alertService.onCallAlert('Update Handling Success!', AlertType.Success);
@@ -114,16 +121,60 @@ export class TblWarehouseHandlingComponent {
         }
       );
   }
+  onAddYear() {
+    if (
+      this.formAddYear.invalid ||
+      this.formAddYear.value.year! > new Date().getFullYear() + 20 ||
+      this.formAddYear.value.year! < 1990
+    ) {
+      this.alertService.onCallAlert('Year is Invalid !', AlertType.Warning);
+      return;
+    }
 
+    this.apiService.postBudgetOverHand(this.formAddYear.value).subscribe(
+      (res) => {
+        this.alertService.onCallAlert('Add Year Success !', AlertType.Success);
+        this.ngOnInit()
+        this.changeAddYearModal(0)
+      },
+      (err) => {
+        console.log(err);
+        this.alertService.onCallAlert('Add Year Failed !', AlertType.Error);
+      }
+    );
+  }
+
+  deleteBudget(data: any) {
+    const fun =
+      'this.apiService.deleteBudgetOverHand(' +
+      JSON.stringify({ year: data.year, type: data.type }) +
+      ')';
+    this.deleteService.onCallDelete({
+      dataName: data.year + ', ' + data.type,
+      func: fun,
+    });
+  }
+
+  changeSelectYear() {
+    this.spinner.show()
+    this.apiService
+      .getBudgetHandlingByYear(this.yearSelect)
+      .subscribe((res) => {
+        this.budgetHandlingByYearApi = res;
+        this.spinner.hide()
+      });
+      
+  }
+  
   get f() {
     return this.form.value;
   }
-
+  
   changeItemPerPageSelect(value: any) {
     this.config.itemsPerPage = value;
     // console.log(this.config.itemsPerPage);
   }
-
+  
   changeUpdateModal(id: number) {
     if (id != 0) {
       this.updateBool = true;
@@ -135,4 +186,12 @@ export class TblWarehouseHandlingComponent {
 
     }
   }
+  changeAddYearModal(id: number) {
+      if (id != 0) {
+        this.addYearBool = true;
+      } else {
+        this.addYearBool = false;
+        this.formAddYear.reset();
+      }
+    }
 }

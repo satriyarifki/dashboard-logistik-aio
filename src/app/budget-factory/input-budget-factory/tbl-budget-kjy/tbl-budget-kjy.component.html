@@ -26,16 +26,16 @@
             class="px-6 py-2.5 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200"
           >
             <!-- Input -->
-            <div class="sm:col-span-1">
-              <label for="hs-as-table-product-review-search" class="sr-only"
+            <div class="sm:col-span-1 flex-row flex gap-2">
+              <!-- <label for="hs-as-table-product-review-search" class="sr-only"
                 >Search</label
               >
-              <div class="relative">
+              <div class="relative w-full">
                 <input
                   type="text"
                   id="hs-as-table-product-review-search"
                   name="hs-as-table-product-review-search"
-                  class="py-2 px-3 pl-11 block w-full border-gray-200 shadow-sm rounded-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                  class="py-2 px-3 pl-11 block w-full border border-gray-200 shadow-sm rounded-md text-sm focus:z-10 outline-none focus:border-blue-500 focus:ring-blue-500"
                   placeholder="Search"
                   [(ngModel)]="searchInputStorage"
                 />
@@ -55,15 +55,22 @@
                     />
                   </svg>
                 </div>
-              </div>
+              </div> -->
+              <select
+                [(ngModel)]="yearSelect"
+                (change)="changeSelectYear()"
+                class="py-1.5 px-2 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 outline-none disabled:opacity-50 disabled:pointer-events-none"
+              >
+                <option *ngFor="let item of budgetYearListApi" [value]="item.year">{{item.year}}</option>
+              </select>
             </div>
             <!-- End Input -->
-            <div>
+            <div class="grid grid-cols-3 gap-1.5">
               <a
                 *ngIf="userData.role != -2"
-                (click)="changeUpdateModal(1)"
+                (click)="changeAddYearModal(1)"
                 routerLinkActive="router-link-active"
-                class="relative inline-flex cursor-pointer items-center justify-center px-4 py-1 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-cyan-600 rounded-full shadow-md group"
+                class="relative inline-flex cursor-pointer items-center justify-center px-3 py-1 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-cyan-600 rounded-full shadow-md group"
               >
                 <span
                   class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-cyan-600 group-hover:translate-x-0 ease"
@@ -83,9 +90,65 @@
                 </span>
                 <span
                   class="absolute flex items-center justify-center w-full h-full text-cyan-600 font-semibold transition-all duration-300 transform group-hover:translate-x-full ease text-sm"
+                  >Add</span
+                >
+                <span class="relative invisible">Add</span>
+              </a>
+              <a
+                *ngIf="userData.role != -2"
+                (click)="changeUpdateModal(1)"
+                routerLinkActive="router-link-active"
+                class="relative inline-flex cursor-pointer items-center justify-center px-3 py-1 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-amber-500 rounded-full shadow-md group"
+              >
+                <span
+                  class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-amber-500 group-hover:translate-x-0 ease"
+                >
+                  <!-- <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg> -->
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    height="24"
+                    viewBox="0 -960 960 960"
+                    width="24"
+                  >
+                    <path
+                      d="M180-180h44l443-443-44-44-443 443v44Zm614-486L666-794l42-42q17-17 42-17t42 17l44 44q17 17 17 42t-17 42l-42 42Zm-42 42L248-120H120v-128l504-504 128 128Zm-107-21-22-22 44 44-22-22Z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="absolute flex items-center justify-center w-full h-full text-amber-500 font-semibold transition-all duration-300 transform group-hover:translate-x-full ease text-sm"
                   >Update</span
                 >
                 <span class="relative invisible">Update</span>
+              </a>
+              <a
+                *ngIf="userData.role != -2"
+                (click)="deleteBudget({year:yearSelect, from:'Kejayan'})"
+                routerLinkActive="router-link-active"
+                class="relative inline-flex cursor-pointer items-center justify-center px-3 py-1 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-rose-500 rounded-full shadow-md group"
+              >
+                <span
+                  class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-rose-500 group-hover:translate-x-0 ease"
+                >
+                  <!-- <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg> -->
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    height="24"
+                    viewBox="0 -960 960 960"
+                    width="24"
+                  >
+                    <path
+                      d="m361-299 119-121 120 121 47-48-119-121 119-121-47-48-120 121-119-121-48 48 120 121-120 121 48 48ZM261-120q-24 0-42-18t-18-42v-570h-41v-60h188v-30h264v30h188v60h-41v570q0 24-18 42t-42 18H261Zm438-630H261v570h438v-570Zm-438 0v570-570Z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="absolute flex items-center justify-center w-full h-full text-rose-500 font-semibold transition-all duration-300 transform group-hover:translate-x-full ease text-sm"
+                  >Del</span
+                >
+                <span class="relative invisible">Del</span>
               </a>
             </div>
           </div>
@@ -139,7 +202,7 @@
               <tbody class="divide-y divide-gray-200">
                 <tr
                   *ngFor="
-                    let item of budgetApi
+                    let item of budgetByYearApi
                       | customFilter : searchInputStorage
                       | paginate : config
                   "
@@ -281,6 +344,56 @@
     </div>
   </div>
 </div>
+
+<!-- ADD YEAR -->
+<div
+  *ngIf="addYearBool"
+  class="fixed z-50 top-0 left-0 w-screen h-screen flex justify-center items-stretch bg-gray-500 bg-opacity-40"
+>
+  <div
+    class="flex flex-wrap px-5 py-3 bg-white rounded-lg shadow-xl self-center w-1/2 md:w-1/3 relative font-manrope"
+  >
+    <div class="w-full pb-2 flex justify-between">
+      <h1 class="font-semibold">Add Year of Budget Factory Kejayan</h1>
+      <a
+        (click)="changeAddYearModal(0)"
+        class="right-1 top-1 text-base px-1.5 py-1 rounded-full font-semibold hover:text-red-500 cursor-pointer"
+        >X</a
+      >
+    </div>
+    <form
+      [formGroup]="formAddYear"
+      (ngSubmit)="onAddYear()"
+      class="w-full mr-3 space-y-1.5"
+    >
+      <div class="w-56 px-2 mx-auto">
+        <label for="date" class="block text-sm text-gray-600 font-medium"
+          >Year</label
+        >
+        <input
+          id="date"
+          type="number"
+          placeholder="yyyy"
+          formControlName="year"
+          min="1111"
+          max="9999"
+          class="py-2 px-3 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+        />
+      </div>
+
+      <div class="w-full flex justify-center py-2">
+        <button
+          type="submit"
+          class="w-1/5 inline-flex justify-center items-center gap-x-3 text-center bg-sky-600 hover:bg-sky-700 border border-transparent text-sm lg:text-base text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-sky-600 focus:ring-offset-2 focus:ring-offset-white transition py-1 px-3"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- UPDATE -->
 <div
   *ngIf="updateBool"
   class="fixed z-50 top-0 left-0 w-screen h-screen flex justify-center items-stretch bg-gray-500 bg-opacity-40"
@@ -302,7 +415,7 @@
       class="w-full mr-3 space-y-1.5"
     >
       <div
-        *ngFor="let item of budgetApi; index as i"
+        *ngFor="let item of budgetByYearApi; index as i"
         formArrayName="array"
         class="w-full"
       >

@@ -37,7 +37,8 @@ export class BudgetFactoryComponent {
 
 
   //API
-  budgetFactory: any[] = [];
+  budgetFactoryKjy: any[] = [];
+  budgetFactorySkb: any[] = [];
   budgetHandling: any[] = [];
   budgetOverhead: any[] = [];
   budgetShipping: any[] = [];
@@ -63,19 +64,21 @@ export class BudgetFactoryComponent {
     this.getCurrentDate();
     
     forkJoin(
-      apiService.getBudgetFactory(),
-      apiService.getBudgetHandling(),
-      apiService.getBudgetOverhead(),
+      apiService.getBudgetFactoryKjyByyear(new Date().getFullYear()),
+      apiService.getBudgetFactorySkbByYear(new Date().getFullYear()),
+      apiService.getBudgetHandlingByYear(new Date().getFullYear()),
+      apiService.getBudgetOverheadByYear(new Date().getFullYear()),
       apiService.getBudgetShipping(),
       apiService.getBudgetSummary(),
       apiService.getBudgetFohDistribution()
     ).subscribe((res) => {
-      this.budgetFactory = res[0];
-      this.budgetHandling = res[1];
-      this.budgetOverhead = res[2];
-      this.budgetShipping = res[3];
-      this.budgetSummary = res[4];
-      this.fohDistribution = res[5];
+      this.budgetFactoryKjy = res[0];
+      this.budgetFactorySkb = res[1];
+      this.budgetHandling = res[2];
+      this.budgetOverhead = res[3];
+      this.budgetShipping = res[4];
+      this.budgetSummary = res[5];
+      this.fohDistribution = res[6];
       this.chart();
       spinner.hide();
     });
@@ -518,7 +521,7 @@ export class BudgetFactoryComponent {
     let bud: any[] = [];
     let foh: any[] = [];
     let label: any[] = [];
-    const datas = this.budgetFactory.filter((data) => data.from == 'Kejayan');
+    const datas = this.budgetFactoryKjy.filter((data) => data.from == 'Kejayan');
     datas.forEach((elem) => {
       bud.push(elem.bud);
       foh.push(elem.foh);
@@ -530,7 +533,7 @@ export class BudgetFactoryComponent {
     let bud: any[] = [];
     let foh: any[] = [];
     let label: any[] = [];
-    const datas = this.budgetFactory.filter((data) => data.from == 'Sukabumi');
+    const datas = this.budgetFactorySkb.filter((data) => data.from == 'Sukabumi');
     datas.forEach((elem) => {
       bud.push(elem.bud);
       foh.push(elem.foh);

@@ -227,17 +227,35 @@ export class ApiService {
   getBudgetFactory(): Observable<any> {
     return this.http.get(this.baseUrl + 'budget/factory');
   }
+  getBudgetFactoryYearList(params:any): Observable<any> {
+    return this.http.get(this.baseUrl + 'budget/factory-yearlist/' + params);
+  }
   getBudgetFactoryKjy(): Observable<any> {
     return this.http.get(this.baseUrl + 'budget/factory-kjy');
+  }
+  getBudgetFactoryKjyByyear(year:any): Observable<any> {
+    return this.http.get(this.baseUrl + 'budget/factory-kjy/' + year);
   }
   getBudgetFactorySkb(): Observable<any> {
     return this.http.get(this.baseUrl + 'budget/factory-skb');
   }
+  getBudgetFactorySkbByYear(year:any): Observable<any> {
+    return this.http.get(this.baseUrl + 'budget/factory-skb/' + year);
+  }
   getBudgetHandling(): Observable<any> {
     return this.http.get(this.baseUrl + 'budget/handling');
   }
+  getBudgetHandlingByYear(year:any): Observable<any> {
+    return this.http.get(this.baseUrl + 'budget/handling/' + year);
+  }
   getBudgetOverhead(): Observable<any> {
     return this.http.get(this.baseUrl + 'budget/overhead');
+  }
+  getBudgetOverheadByYear(year:any): Observable<any> {
+    return this.http.get(this.baseUrl + 'budget/overhead/' + year);
+  }
+  getBudgetOverHandYearList(params:any): Observable<any> {
+    return this.http.get(this.baseUrl + 'budget/overhand-yearlist/' + params);
   }
   getBudgetSummary(): Observable<any> {
     return this.http.get(this.baseUrl + 'budget/summary');
@@ -245,7 +263,15 @@ export class ApiService {
   getBudgetFohDistribution(): Observable<any> {
     return this.http.get(this.baseUrl + 'budget/foh');
   }
-  updateBudgetOverhead(body:any): Observable<any> {
+
+  postBudgetFactory(body:any): Observable<any> {
+    return this.http.post(this.baseUrl + 'budget/factory',body);
+  }
+  postBudgetOverHand(body:any): Observable<any> {
+    return this.http.post(this.baseUrl + 'budget/overhand',body);
+  }
+
+  updateBudgetOverHand(body:any): Observable<any> {
     return this.http.put(this.baseUrl + 'budget/overhead',body);
   }
   updateBudgetFactory(body:any): Observable<any> {
@@ -259,5 +285,16 @@ export class ApiService {
   }
   updateBudgetFohDistribution(body:any): Observable<any> {
     return this.http.put(this.baseUrl + 'budget/foh',body);
+  }
+
+  deleteBudgetFactory(params: any): Observable<any> {
+    return this.http.delete(
+      this.baseUrl + 'budget/factory/' + params.year + '/' + params.from
+    );
+  }
+  deleteBudgetOverHand(params: any): Observable<any> {
+    return this.http.delete(
+      this.baseUrl + 'budget/overhand/' + params.year + '/' + params.type
+    );
   }
 }

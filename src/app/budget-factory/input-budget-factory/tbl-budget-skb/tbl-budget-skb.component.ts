@@ -23,15 +23,22 @@ export class TblBudgetSkbComponent {
   searchInputStorage: any;
   itemPerPage = 7;
   updateBool = false;
+  addYearBool = false;
   storageId: number = 0;
 
   //API
-  budgetApi: any[] = [];
+  budgetYearListApi: any[] = [];
+  budgetByYearApi: any[] = [];
   userData: any;
+  yearSelect: Number = new Date().getFullYear();
 
   //Form
   form = new FormGroup({
     array: new FormArray([]),
+  });
+  formAddYear = new FormGroup({
+    year: new FormControl(null, Validators.required),
+    from: new FormControl('Sukabumi'),
   });
 
   exportAsConfig: ExportAsConfig = {
@@ -40,10 +47,10 @@ export class TblBudgetSkbComponent {
   };
 
   config = {
-    id: 'custom',
+    id: 'budgetSkb',
     itemsPerPage: this.itemPerPage,
     currentPage: 1,
-    totalItems: this.budgetApi.length,
+    totalItems: this.budgetByYearApi.length,
   };
   constructor(
     private apiService: ApiService,
@@ -60,12 +67,15 @@ export class TblBudgetSkbComponent {
   }
   ngOnInit() {
     this.spinner.show();
+    
     forkJoin(
-      this.apiService.getBudgetFactorySkb(),
+      this.apiService.getBudgetFactoryYearList('Sukabumi'),
+      this.apiService.getBudgetFactorySkbByYear(this.yearSelect)
     ).subscribe(
       (res) => {
-        this.budgetApi = res[0];
-        // console.log(res[2]);
+        this.budgetYearListApi = res[0];
+        this.budgetByYearApi = res[1];
+        
         // this.fillArray();
         this.spinner.hide();
       },
@@ -76,10 +86,31 @@ export class TblBudgetSkbComponent {
       }
     );
   }
+  changeSelectYear() {
+    this.spinner.show()
+    this.apiService
+      .getBudgetFactorySkbByYear(this.yearSelect)
+      .subscribe((res) => {
+        this.budgetByYearApi = res;
+        this.spinner.hide()
+      });
+      
+  }
+
+  deleteBudget(data: any) {
+    const fun =
+      'this.apiService.deleteBudgetFactory(' +
+      JSON.stringify({ year: data.year, from: data.from }) +
+      ')';
+    this.deleteService.onCallDelete({
+      dataName: data.year + ', ' + data.from,
+      func: fun,
+    });
+  }
 
   fillArray() {
     let array = this.form.get('array') as FormArray;
-    this.budgetApi.forEach((elem) => {
+    this.budgetByYearApi.forEach((elem) => {
       // console.log(elem.date.slice(0, 7));
 
       array.push(
@@ -113,6 +144,28 @@ export class TblBudgetSkbComponent {
         }
       );
   }
+  onAddYear() {
+    if (
+      this.formAddYear.invalid ||
+      this.formAddYear.value.year! > new Date().getFullYear() + 20 ||
+      this.formAddYear.value.year! < 1990
+    ) {
+      this.alertService.onCallAlert('Year is Invalid !', AlertType.Warning);
+      return;
+    }
+
+    this.apiService.postBudgetFactory(this.formAddYear.value).subscribe(
+      (res) => {
+        this.alertService.onCallAlert('Add Year Success !', AlertType.Success);
+        this.ngOnInit()
+        this.changeAddYearModal(0)
+      },
+      (err) => {
+        console.log(err);
+        this.alertService.onCallAlert('Add Year Failed !', AlertType.Error);
+      }
+    );
+  }
 
   get f() {
     return this.form.value;
@@ -132,6 +185,14 @@ export class TblBudgetSkbComponent {
       let array = this.form.get('array') as FormArray;
       array.clear()
 
+    }
+  }
+  changeAddYearModal(id: number) {
+    if (id != 0) {
+      this.addYearBool = true;
+    } else {
+      this.addYearBool = false;
+      this.formAddYear.reset();
     }
   }
 }
