@@ -25,8 +25,8 @@ export class BudgetFactoryComponent {
   public multiColumnChart!: Partial<multiColumnChart> | any;
   public pieChart!: Partial<pieChart> | any;
   time: any;
-  lastData: number[] = []
-  lastIndex: number = 0
+  lastData: number[] = [];
+  lastIndex: number = 0;
 
   colorsBudget = [
     'bg-indigo-50 text-indigo-900',
@@ -35,6 +35,11 @@ export class BudgetFactoryComponent {
     'bg-fuchsia-50 text-fuchsia-900',
   ];
 
+  // PARAMS
+  yearBudgetKjy = new Date().getFullYear();
+  yearBudgetSkb = new Date().getFullYear();
+  yearHandling = new Date().getFullYear();
+  yearOverhead = new Date().getFullYear();
 
   //API
   budgetFactoryKjy: any[] = [];
@@ -44,6 +49,10 @@ export class BudgetFactoryComponent {
   budgetShipping: any[] = [];
   budgetSummary: any[] = [];
   fohDistribution: any[] = [];
+  yearListBudgetKjy: any[] = [];
+  yearListBudgetSkb: any[] = [];
+  yearListHandling: any[] = [];
+  yearListOverhead: any[] = [];
 
   getCurrentDate() {
     this.time = new Date();
@@ -62,7 +71,7 @@ export class BudgetFactoryComponent {
   ) {
     spinner.show();
     this.getCurrentDate();
-    
+
     forkJoin(
       apiService.getBudgetFactoryKjyByyear(new Date().getFullYear()),
       apiService.getBudgetFactorySkbByYear(new Date().getFullYear()),
@@ -70,7 +79,11 @@ export class BudgetFactoryComponent {
       apiService.getBudgetOverheadByYear(new Date().getFullYear()),
       apiService.getBudgetShipping(),
       apiService.getBudgetSummary(),
-      apiService.getBudgetFohDistribution()
+      apiService.getBudgetFohDistribution(),
+      apiService.getBudgetFactoryYearList('Kejayan'),
+      apiService.getBudgetFactoryYearList('Sukabumi'),
+      apiService.getBudgetOverHandYearList('Handling'),
+      apiService.getBudgetOverHandYearList('Overhead')
     ).subscribe((res) => {
       this.budgetFactoryKjy = res[0];
       this.budgetFactorySkb = res[1];
@@ -79,15 +92,20 @@ export class BudgetFactoryComponent {
       this.budgetShipping = res[4];
       this.budgetSummary = res[5];
       this.fohDistribution = res[6];
+      this.yearListBudgetKjy = res[7];
+      this.yearListBudgetSkb = res[8];
+      this.yearListHandling = res[9];
+      this.yearListOverhead = res[10];
+
       this.chart();
       spinner.hide();
     });
   }
 
   chart() {
-    this.lastData = this.dataHandling.kjy.filter(data=>data!=0)
-    this.lastIndex = this.lastData.length-1
-    
+    this.lastData = this.dataHandling.kjy.filter((data) => data != 0);
+    this.lastIndex = this.lastData.length - 1;
+
     //
     this.shippingChart = {
       series: [
@@ -105,7 +123,7 @@ export class BudgetFactoryComponent {
       chart: {
         type: 'bar',
         height: '200px',
-        offsetY: -13,
+        offsetY: -10,
         toolbar: {
           offsetY: 30,
           show: false,
@@ -215,118 +233,33 @@ export class BudgetFactoryComponent {
         show: false,
       },
     };
-
-    this.multiLineChart = {
-      series: [
-        {
-          name: 'Kejayan',
-          data: this.dataHandling.kjy,
-        },
-        {
-          name: 'Sukabumi',
-          data: this.dataHandling.skb,
-        },
-      ],
-      series2: [
-        {
-          name: 'Kejayan',
-          data: this.dataOverhead.kjy,
-        },
-        {
-          name: 'Sukabumi',
-          data: this.dataOverhead.skb,
-        },
-      ],
+    this.budgetFactoryChart()
+    this.handOverChart()
+    this.pieChart = {
+      series: this.dataFohDistribution.percentage,
       chart: {
-        height: '235px',
-        type: 'line',
-        dropShadow: {
-          enabled: true,
-          color: '#000',
-          top: 18,
-          left: 7,
-          blur: 10,
-          opacity: 0.2,
-        },
-        toolbar: {
-          show: false,
-        },
+        height: 'auto',
+        type: 'pie',
       },
-      colors: ['#ed6a5e', '#3BACB6'],
-      dataLabels: {
-        enabled: true,
-        formatter: (val: any, opts: any) => {
-          // console.log(this.lastIndex);
-          if(opts.dataPointIndex==this.lastIndex){
-            return val
-          }
-          
-        },
-      },
-      stroke: {
-        curve: 'smooth',
-      },
-      title: {
-        text: 'Warehouse Handling Load',
-        align: 'left',
-        style: {
-          fontSize: '16px',
-          fontFamily: 'Manrope',
-        },
-      },
-      title2: {
-        text: 'Factory Overhead per Unit',
-        align: 'left',
-        style: {
-          fontSize: '16px',
-          fontFamily: 'Manrope',
-        },
-      },
-      grid: {
-        borderColor: '#e7e7e7',
-        row: {
-          colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-          opacity: 0.5,
-        },
-      },
-      markers: {
-        size: 1,
-      },
-      xaxis: {
-        categories: this.dataHandling.labels,
-        // title: {
-        //   text: 'Month',
-        //   offsetY: -15,
-        // },
-      },
-      yaxis: {
-        title: {
-          text: 'Mio Carton',
-          style: {
-            fontSize: '12px',
-            fontFamily: 'Manrope',
-            cssClass: 'font-bold font-manrope',
+      labels: this.dataFohDistribution.labels,
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200,
+            },
+            legend: {
+              position: 'bottom',
+            },
           },
         },
-      },
-      yaxis2: {
-        title: {
-          text: 'Rp/Carton',
-          style: {
-            fontSize: '12px',
-            fontFamily: 'Manrope',
-            cssClass: 'font-bold font-manrope',
-          },
-        },
-      },
-      legend: {
-        position: 'top',
-        horizontalAlign: 'right',
-        floating: true,
-        offsetY: -25,
-        offsetX: -5,
-      },
+      ],
     };
+  }
+
+  budgetFactoryChart(){
+    
     this.multiColumnChart = {
       series: [
         {
@@ -452,26 +385,118 @@ export class BudgetFactoryComponent {
         fontFamily: 'Manrope',
       },
     };
-    this.pieChart = {
-      series: this.dataFohDistribution.percentage,
-      chart: {
-        height: 'auto',
-        type: 'pie',
-      },
-      labels: this.dataFohDistribution.labels,
-      responsive: [
+  }
+
+  handOverChart(){
+    this.multiLineChart = {
+      series: [
         {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200,
-            },
-            legend: {
-              position: 'bottom',
-            },
-          },
+          name: 'Kejayan',
+          data: this.dataHandling.kjy,
+        },
+        {
+          name: 'Sukabumi',
+          data: this.dataHandling.skb,
         },
       ],
+      series2: [
+        {
+          name: 'Kejayan',
+          data: this.dataOverhead.kjy,
+        },
+        {
+          name: 'Sukabumi',
+          data: this.dataOverhead.skb,
+        },
+      ],
+      chart: {
+        height: '210px',
+        type: 'line',
+        dropShadow: {
+          enabled: true,
+          color: '#000',
+          top: 18,
+          left: 7,
+          blur: 10,
+          opacity: 0.2,
+        },
+        toolbar: {
+          show: false,
+        },
+      },
+      colors: ['#ed6a5e', '#3BACB6'],
+      dataLabels: {
+        enabled: true,
+        formatter: (val: any, opts: any) => {
+          // console.log(this.lastIndex);
+          if (opts.dataPointIndex == this.lastIndex) {
+            return val;
+          }
+        },
+      },
+      stroke: {
+        curve: 'smooth',
+      },
+      // title: {
+      //   text: 'Warehouse Handling Load',
+      //   align: 'left',
+      //   style: {
+      //     fontSize: '16px',
+      //     fontFamily: 'Manrope',
+      //   },
+      // },
+      // title2: {
+      //   text: 'Factory Overhead per Unit',
+      //   align: 'left',
+      //   style: {
+      //     fontSize: '16px',
+      //     fontFamily: 'Manrope',
+      //   },
+      // },
+      grid: {
+        borderColor: '#e7e7e7',
+        row: {
+          colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+          opacity: 0.5,
+        },
+      },
+      markers: {
+        size: 1,
+      },
+      xaxis: {
+        categories: this.dataHandling.labels,
+        // title: {
+        //   text: 'Month',
+        //   offsetY: -15,
+        // },
+      },
+      yaxis: {
+        title: {
+          text: 'Mio Carton',
+          style: {
+            fontSize: '12px',
+            fontFamily: 'Manrope',
+            cssClass: 'font-bold font-manrope',
+          },
+        },
+      },
+      yaxis2: {
+        title: {
+          text: 'Rp/Carton',
+          style: {
+            fontSize: '12px',
+            fontFamily: 'Manrope',
+            cssClass: 'font-bold font-manrope',
+          },
+        },
+      },
+      legend: {
+        position: 'top',
+        horizontalAlign: 'right',
+        floating: true,
+        offsetY: 5,
+        offsetX: -5,
+      },
     };
   }
 
@@ -521,7 +546,9 @@ export class BudgetFactoryComponent {
     let bud: any[] = [];
     let foh: any[] = [];
     let label: any[] = [];
-    const datas = this.budgetFactoryKjy.filter((data) => data.from == 'Kejayan');
+    const datas = this.budgetFactoryKjy.filter(
+      (data) => data.from == 'Kejayan'
+    );
     datas.forEach((elem) => {
       bud.push(elem.bud);
       foh.push(elem.foh);
@@ -533,7 +560,9 @@ export class BudgetFactoryComponent {
     let bud: any[] = [];
     let foh: any[] = [];
     let label: any[] = [];
-    const datas = this.budgetFactorySkb.filter((data) => data.from == 'Sukabumi');
+    const datas = this.budgetFactorySkb.filter(
+      (data) => data.from == 'Sukabumi'
+    );
     datas.forEach((elem) => {
       bud.push(elem.bud);
       foh.push(elem.foh);
@@ -549,6 +578,47 @@ export class BudgetFactoryComponent {
       label.push(elem.item);
     });
     return { percentage: percentage, labels: label };
+  }
+
+  changeYearBudgetKjy() {
+    this.spinner.show();
+    this.apiService
+      .getBudgetFactoryKjyByyear(this.yearBudgetKjy)
+      .subscribe((res) => {
+        this.budgetFactoryKjy = res;
+        this.budgetFactoryChart()
+        this.spinner.hide();
+      });
+  }
+  changeYearBudgetSkb() {
+    this.spinner.show();
+    this.apiService
+      .getBudgetFactorySkbByYear(this.yearBudgetSkb)
+      .subscribe((res) => {
+        this.budgetFactorySkb = res;
+        this.budgetFactoryChart()
+        this.spinner.hide();
+      });
+  }
+  changeYearHandling() {
+    this.spinner.show();
+    this.apiService
+      .getBudgetHandlingByYear(this.yearHandling)
+      .subscribe((res) => {
+        this.budgetHandling = res;
+        this.handOverChart()
+        this.spinner.hide();
+      });
+  }
+  changeYearOverhead() {
+    this.spinner.show();
+    this.apiService
+      .getBudgetOverheadByYear(this.yearOverhead)
+      .subscribe((res) => {
+        this.budgetOverhead = res;
+        this.handOverChart()
+        this.spinner.hide();
+      });
   }
 
   currencyRounded(data: number) {
