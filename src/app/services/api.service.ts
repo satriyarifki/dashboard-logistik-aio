@@ -218,11 +218,20 @@ export class ApiService {
   getBudgetShipping(): Observable<any> {
     return this.http.get(this.baseUrl + 'budget/shipping');
   }
+  getBudgetShippingMonthlist(from:any): Observable<any> {
+    return this.http.get(this.baseUrl + 'budget/shipping-monthlist/'+from);
+  }
   getBudgetShippingKjy(): Observable<any> {
     return this.http.get(this.baseUrl + 'budget/shipping-kjy');
   }
+  getBudgetShippingKjyYearMonth(yearmonth:any): Observable<any> {
+    return this.http.get(this.baseUrl + 'budget/shipping-kjy/'+yearmonth);
+  }
   getBudgetShippingSkb(): Observable<any> {
     return this.http.get(this.baseUrl + 'budget/shipping-skb');
+  }
+  getBudgetShippingSkbYearMonth(yearmonth:any): Observable<any> {
+    return this.http.get(this.baseUrl + 'budget/shipping-skb/'+yearmonth);
   }
   getBudgetFactory(): Observable<any> {
     return this.http.get(this.baseUrl + 'budget/factory');

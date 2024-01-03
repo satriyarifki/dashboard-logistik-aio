@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -24,9 +25,11 @@ export class TblShippingSkbComponent {
   itemPerPage = 7;
   updateBool = false;
   storageId: number = 0;
+  monthSelect = formatDate(new Date(), 'yyyy-MM', 'EN-us')
 
   //API
   budgetShippingApi: any[] = [];
+  budgetShippingMonthlist: any[] = [];
   userData: any;
 
   //Form
@@ -61,10 +64,11 @@ export class TblShippingSkbComponent {
   ngOnInit() {
     this.spinner.show();
     forkJoin(
-      this.apiService.getBudgetShippingSkb(),
+      this.apiService.getBudgetShippingSkbYearMonth(this.monthSelect),this.apiService.getBudgetShippingMonthlist('Sukabumi'),
     ).subscribe(
       (res) => {
         this.budgetShippingApi = res[0];
+        this.budgetShippingMonthlist = res[1]
         // console.log(res[2]);
         // this.fillArray();
         this.spinner.hide();
@@ -138,5 +142,13 @@ export class TblShippingSkbComponent {
       array.clear()
 
     }
+  }
+  changeSelectYearMonth() {
+    this.spinner.show()
+    this.apiService.getBudgetShippingSkbYearMonth(this.monthSelect.slice(0,7)).subscribe(res=>{
+      this.budgetShippingApi = res
+      this.spinner.hide()
+    })
+      
   }
 }

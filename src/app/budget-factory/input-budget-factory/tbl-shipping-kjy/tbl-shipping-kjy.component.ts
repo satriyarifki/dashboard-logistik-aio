@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -24,9 +25,11 @@ export class TblShippingKjyComponent {
   itemPerPage = 7;
   updateBool = false;
   storageId: number = 0;
+  monthSelect = formatDate(new Date(), 'yyyy-MM', 'EN-us')
 
   //API
   budgetShippingApi: any[] = [];
+  budgetShippingMonthlist: any[] = [];
   userData: any;
 
   //Form
@@ -53,6 +56,7 @@ export class TblShippingKjyComponent {
     private deleteService: DeleteApiService,
     private router: Router
   ) {
+    
     this.userData = authService.getUser()[0];
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
@@ -62,9 +66,13 @@ export class TblShippingKjyComponent {
     
     
     this.spinner.show();
-    forkJoin(this.apiService.getBudgetShippingKjy()).subscribe(
+    forkJoin(this.apiService.getBudgetShippingKjyYearMonth(this.monthSelect),this.apiService.getBudgetShippingMonthlist('Kejayan')).subscribe(
       (res) => {
         this.budgetShippingApi = res[0];
+        this.budgetShippingMonthlist = res[1]
+        console.log(this.budgetShippingApi);
+        console.log(this.budgetShippingMonthlist);
+        
         this.config.totalItems = this.budgetShippingApi.length
         // console.log(res[2]);
         // this.fillArray();
@@ -143,5 +151,14 @@ export class TblShippingKjyComponent {
       let array = this.form.get('array') as FormArray;
       array.clear();
     }
+  }
+
+  changeSelectYearMonth() {
+    this.spinner.show()
+    this.apiService.getBudgetShippingKjyYearMonth(this.monthSelect.slice(0,7)).subscribe(res=>{
+      this.budgetShippingApi = res
+      this.spinner.hide()
+    })
+      
   }
 }

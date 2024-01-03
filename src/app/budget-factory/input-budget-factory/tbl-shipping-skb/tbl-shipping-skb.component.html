@@ -26,7 +26,7 @@
           >
             <!-- Input -->
             <div class="sm:col-span-1">
-              <label for="hs-as-table-product-review-search" class="sr-only"
+              <!-- <label for="hs-as-table-product-review-search" class="sr-only"
                 >Search</label
               >
               <div class="relative">
@@ -53,8 +53,15 @@
                       d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
                     />
                   </svg>
-                </div>
-              </div>
+                </div> 
+              </div> -->
+                <select
+                [(ngModel)]="monthSelect"
+                (change)="changeSelectYearMonth()"
+                class="py-1.5 px-2 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 outline-none disabled:opacity-50 disabled:pointer-events-none"
+              >
+                <option *ngFor="let item of budgetShippingMonthlist" [value]="item.yearmonth">{{item.yearmonth | date:'MMMM yyyy'}}</option>
+              </select>
             </div>
             <!-- End Input -->
             <div>

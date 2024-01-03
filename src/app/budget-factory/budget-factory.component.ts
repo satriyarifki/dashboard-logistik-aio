@@ -70,7 +70,9 @@ export class BudgetFactoryComponent {
     @Inject(LOCALE_ID) public locale: string
   ) {
     spinner.show();
+    
     this.getCurrentDate();
+    
 
     forkJoin(
       apiService.getBudgetFactoryKjyByyear(new Date().getFullYear()),
@@ -96,7 +98,7 @@ export class BudgetFactoryComponent {
       this.yearListBudgetSkb = res[8];
       this.yearListHandling = res[9];
       this.yearListOverhead = res[10];
-
+      console.log(new Date().getFullYear());
       this.chart();
       spinner.hide();
     });
