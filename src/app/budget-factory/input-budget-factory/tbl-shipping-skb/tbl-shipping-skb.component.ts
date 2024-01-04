@@ -24,8 +24,9 @@ export class TblShippingSkbComponent {
   searchInputStorage: any;
   itemPerPage = 7;
   updateBool = false;
+  addYearMonthBool = false
   storageId: number = 0;
-  monthSelect = formatDate(new Date(), 'yyyy-MM', 'EN-us')
+  monthSelect = formatDate(new Date(), 'yyyy-MM', 'EN-us')+'-01'
 
   //API
   budgetShippingApi: any[] = [];
@@ -35,6 +36,10 @@ export class TblShippingSkbComponent {
   //Form
   form = new FormGroup({
     array: new FormArray([]),
+  });
+  formYearMonth = new FormGroup({
+    yearmonth: new FormControl(null, Validators.required),
+    from: new FormControl('Sukabumi'),
   });
 
   exportAsConfig: ExportAsConfig = {
@@ -122,6 +127,38 @@ export class TblShippingSkbComponent {
         }
       );
   }
+  onAddYearMonth() {
+    // if (
+    //   this.formYearMonth.invalid ||
+    //   this.formYearMonth.value.yearmonth! > new Date().getFullYear() + 20 ||
+    //   this.formYearMonth.value.yearmonth! < 1990
+    // ) {
+    //   this.alertService.onCallAlert('Year is Invalid !', AlertType.Warning);
+    //   return;
+    // }
+
+    this.apiService.postBudgetShipping(this.formYearMonth.value).subscribe(
+      (res) => {
+        this.alertService.onCallAlert('Add Year Month Success !', AlertType.Success);
+        this.ngOnInit()
+        this.changeAddYearMonthModal(0)
+      },
+      (err) => {
+        console.log(err);
+        this.alertService.onCallAlert('Add Year Month Failed !', AlertType.Error);
+      }
+    );
+  }
+  deleteShipping(data: any) {
+    const fun =
+      'this.apiService.deleteBudgetShipping(' +
+      JSON.stringify({ yearmonth: data.yearmonth, from: data.from }) +
+      ')';
+    this.deleteService.onCallDelete({
+      dataName: formatDate(this.monthSelect,'MMMM yyyy','EN-us') + ', ' + data.from,
+      func: fun,
+    });
+  }
 
   get f() {
     return this.form.value;
@@ -143,8 +180,18 @@ export class TblShippingSkbComponent {
 
     }
   }
+  changeAddYearMonthModal(id: number) {
+    if (id != 0) {
+      this.addYearMonthBool = true;
+    } else {
+      this.addYearMonthBool = false;
+      this.formYearMonth.controls['yearmonth'].reset()
+    }
+  }
   changeSelectYearMonth() {
     this.spinner.show()
+    console.log(this.monthSelect);
+    
     this.apiService.getBudgetShippingSkbYearMonth(this.monthSelect.slice(0,7)).subscribe(res=>{
       this.budgetShippingApi = res
       this.spinner.hide()

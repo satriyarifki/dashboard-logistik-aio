@@ -276,6 +276,9 @@ export class ApiService {
   postBudgetFactory(body:any): Observable<any> {
     return this.http.post(this.baseUrl + 'budget/factory',body);
   }
+  postBudgetShipping(body:any): Observable<any> {
+    return this.http.post(this.baseUrl + 'budget/shipping',body);
+  }
   postBudgetOverHand(body:any): Observable<any> {
     return this.http.post(this.baseUrl + 'budget/overhand',body);
   }
@@ -299,6 +302,11 @@ export class ApiService {
   deleteBudgetFactory(params: any): Observable<any> {
     return this.http.delete(
       this.baseUrl + 'budget/factory/' + params.year + '/' + params.from
+    );
+  }
+  deleteBudgetShipping(params: any): Observable<any> {
+    return this.http.delete(
+      this.baseUrl + 'budget/shipping/' + params.yearmonth + '/' + params.from
     );
   }
   deleteBudgetOverHand(params: any): Observable<any> {
