@@ -40,19 +40,24 @@ export class BudgetFactoryComponent {
   yearBudgetSkb = new Date().getFullYear();
   yearHandling = new Date().getFullYear();
   yearOverhead = new Date().getFullYear();
+  yearmonthShippingKjy = formatDate(new Date(), 'yyyy-MM', 'EN-us');
+  yearmonthShippingSkb = formatDate(new Date(), 'yyyy-MM', 'EN-us');
 
   //API
   budgetFactoryKjy: any[] = [];
   budgetFactorySkb: any[] = [];
   budgetHandling: any[] = [];
   budgetOverhead: any[] = [];
-  budgetShipping: any[] = [];
+  budgetShippingKjy: any[] = [];
+  budgetShippingSkb: any[] = [];
   budgetSummary: any[] = [];
   fohDistribution: any[] = [];
   yearListBudgetKjy: any[] = [];
   yearListBudgetSkb: any[] = [];
   yearListHandling: any[] = [];
   yearListOverhead: any[] = [];
+  monthListShippingKjy: any[] = []
+  monthListShippingSkb: any[] = []
 
   getCurrentDate() {
     this.time = new Date();
@@ -75,30 +80,37 @@ export class BudgetFactoryComponent {
     
 
     forkJoin(
-      apiService.getBudgetFactoryKjyByyear(new Date().getFullYear()),
-      apiService.getBudgetFactorySkbByYear(new Date().getFullYear()),
-      apiService.getBudgetHandlingByYear(new Date().getFullYear()),
-      apiService.getBudgetOverheadByYear(new Date().getFullYear()),
-      apiService.getBudgetShipping(),
+      apiService.getBudgetFactoryKjy(),
+      apiService.getBudgetFactorySkb(),
+      apiService.getBudgetHandling(),
+      apiService.getBudgetOverhead(),
+      apiService.getBudgetShippingKjy(),
+      apiService.getBudgetShippingSkb(),
       apiService.getBudgetSummary(),
       apiService.getBudgetFohDistribution(),
       apiService.getBudgetFactoryYearList('Kejayan'),
       apiService.getBudgetFactoryYearList('Sukabumi'),
       apiService.getBudgetOverHandYearList('Handling'),
-      apiService.getBudgetOverHandYearList('Overhead')
+      apiService.getBudgetOverHandYearList('Overhead'),
+      apiService.getBudgetShippingMonthlist('Kejayan'),
+      apiService.getBudgetShippingMonthlist('Sukabumi'),
     ).subscribe((res) => {
       this.budgetFactoryKjy = res[0];
       this.budgetFactorySkb = res[1];
       this.budgetHandling = res[2];
       this.budgetOverhead = res[3];
-      this.budgetShipping = res[4];
-      this.budgetSummary = res[5];
-      this.fohDistribution = res[6];
-      this.yearListBudgetKjy = res[7];
-      this.yearListBudgetSkb = res[8];
-      this.yearListHandling = res[9];
-      this.yearListOverhead = res[10];
-      console.log(new Date().getFullYear());
+      this.budgetShippingKjy = res[4];
+      this.budgetShippingSkb = res[5];
+      this.budgetSummary = res[6];
+      this.fohDistribution = res[7];
+      this.yearListBudgetKjy = res[8];
+      this.yearListBudgetSkb = res[9];
+      this.yearListHandling = res[10];
+      this.yearListOverhead = res[11];
+      this.monthListShippingKjy = res[12];
+      this.monthListShippingSkb = res[13];
+      console.log(res[4]);
+      console.log(res[5]);
       this.chart();
       spinner.hide();
     });
@@ -109,6 +121,34 @@ export class BudgetFactoryComponent {
     this.lastIndex = this.lastData.length - 1;
 
     //
+    
+    this.budgetFactoryChart()
+    this.handOverChart()
+    this.budgetShippingChart()
+    this.pieChart = {
+      series: this.dataFohDistribution.percentage,
+      chart: {
+        height: 'auto',
+        type: 'pie',
+      },
+      labels: this.dataFohDistribution.labels,
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200,
+            },
+            legend: {
+              position: 'bottom',
+            },
+          },
+        },
+      ],
+    };
+  }
+
+  budgetShippingChart(){
     this.shippingChart = {
       series: [
         {
@@ -234,29 +274,6 @@ export class BudgetFactoryComponent {
       legend: {
         show: false,
       },
-    };
-    this.budgetFactoryChart()
-    this.handOverChart()
-    this.pieChart = {
-      series: this.dataFohDistribution.percentage,
-      chart: {
-        height: 'auto',
-        type: 'pie',
-      },
-      labels: this.dataFohDistribution.labels,
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200,
-            },
-            legend: {
-              position: 'bottom',
-            },
-          },
-        },
-      ],
     };
   }
 
@@ -505,7 +522,7 @@ export class BudgetFactoryComponent {
   get dataShippingKjy() {
     let value: any[] = [];
     let label: any[] = [];
-    const datas = this.budgetShipping.filter((data) => data.from == 'Kejayan');
+    const datas = this.budgetShippingKjy.filter((data) => data.from == 'Kejayan');
     datas.forEach((elem) => {
       value.push(elem.qty_carton);
       label.push(elem.destination);
@@ -515,7 +532,7 @@ export class BudgetFactoryComponent {
   get dataShippingSkb() {
     let value: any[] = [];
     let label: any[] = [];
-    const datas = this.budgetShipping.filter((data) => data.from == 'Sukabumi');
+    const datas = this.budgetShippingSkb.filter((data) => data.from == 'Sukabumi');
     datas.forEach((elem) => {
       value.push(elem.qty_carton);
       label.push(elem.destination);
@@ -621,6 +638,24 @@ export class BudgetFactoryComponent {
         this.handOverChart()
         this.spinner.hide();
       });
+  }
+  changeYearMonthShippingKjy() {
+    this.spinner.show()
+    this.apiService.getBudgetShippingKjyYearMonth(this.yearmonthShippingKjy.slice(0,7)).subscribe(res=>{
+      this.budgetShippingKjy = res
+      this.budgetShippingChart()
+      this.spinner.hide()
+    })
+      
+  }
+  changeYearMonthShippingSkb() {
+    this.spinner.show()
+    this.apiService.getBudgetShippingSkbYearMonth(this.yearmonthShippingSkb.slice(0,7)).subscribe(res=>{
+      this.budgetShippingSkb = res
+      this.budgetShippingChart()
+      this.spinner.hide()
+    })
+      
   }
 
   currencyRounded(data: number) {

@@ -269,6 +269,12 @@ export class ApiService {
   getBudgetSummary(): Observable<any> {
     return this.http.get(this.baseUrl + 'budget/summary');
   }
+  getBudgetSummaryMonthlist(): Observable<any> {
+    return this.http.get(this.baseUrl + 'budget/summary-monthlist');
+  }
+  getBudgetSummaryByYearMonth(yearmonth:any): Observable<any> {
+    return this.http.get(this.baseUrl + 'budget/summary/'+yearmonth);
+  }
   getBudgetFohDistribution(): Observable<any> {
     return this.http.get(this.baseUrl + 'budget/foh');
   }
@@ -281,6 +287,9 @@ export class ApiService {
   }
   postBudgetOverHand(body:any): Observable<any> {
     return this.http.post(this.baseUrl + 'budget/overhand',body);
+  }
+  postBudgetSummary(body:any): Observable<any> {
+    return this.http.post(this.baseUrl + 'budget/summary',body);
   }
 
   updateBudgetOverHand(body:any): Observable<any> {
@@ -312,6 +321,11 @@ export class ApiService {
   deleteBudgetOverHand(params: any): Observable<any> {
     return this.http.delete(
       this.baseUrl + 'budget/overhand/' + params.year + '/' + params.type
-    );
-  }
+      );
+    }
+    deleteBudgetSummary(params: any): Observable<any> {
+      return this.http.delete(
+        this.baseUrl + 'budget/summary/' + params.yearmonth
+      );
+    }
 }

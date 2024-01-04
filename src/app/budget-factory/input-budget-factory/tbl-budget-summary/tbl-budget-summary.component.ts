@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -23,16 +24,22 @@ export class TblBudgetSummaryComponent {
   searchInputStorage: any;
   itemPerPage = 7;
   updateBool = false;
+  addYearMonthBool = false
   storageId: number = 0;
   monthList = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+  monthSelect = formatDate(new Date(), 'yyyy-MM', 'EN-us')+'-01'
 
   //API
   budgetSummary: any[] = [];
+  budgetSummaryMonthlist: any[] = [];
   userData: any;
 
   //Form
   form = new FormGroup({
     array: new FormArray([]),
+  });
+  formYearMonth = new FormGroup({
+    yearmonth: new FormControl(null, Validators.required),
   });
 
   exportAsConfig: ExportAsConfig = {
@@ -62,10 +69,13 @@ export class TblBudgetSummaryComponent {
   ngOnInit() {
     this.spinner.show();
     forkJoin(
-      this.apiService.getBudgetSummary(),
+      this.apiService.getBudgetSummaryByYearMonth(this.monthSelect.slice(0,7)),this.apiService.getBudgetSummaryMonthlist()
     ).subscribe(
       (res) => {
         this.budgetSummary = res[0];
+        this.budgetSummaryMonthlist = res[1]
+        console.log(res[1]);
+        
         // console.log(res[2]);
         // this.fillArray();
         this.spinner.hide();
@@ -118,6 +128,29 @@ export class TblBudgetSummaryComponent {
         }
       );
   }
+  onAddYearMonth() {
+    this.apiService.postBudgetSummary(this.formYearMonth.value).subscribe(
+      (res) => {
+        this.alertService.onCallAlert('Add Year Month Success !', AlertType.Success);
+        this.ngOnInit()
+        this.changeAddYearMonthModal(0)
+      },
+      (err) => {
+        console.log(err);
+        this.alertService.onCallAlert('Add Year Month Failed !', AlertType.Error);
+      }
+    );
+  }
+  deleteSummary(data: any) {
+    const fun =
+      'this.apiService.deleteBudgetSummary(' +
+      JSON.stringify({ yearmonth: data.yearmonth }) +
+      ')';
+    this.deleteService.onCallDelete({
+      dataName:'Summary, ' + formatDate(this.monthSelect,'MMMM yyyy','EN-us') ,
+      func: fun,
+    });
+  }
 
   get f() {
     return this.form.value;
@@ -137,6 +170,22 @@ export class TblBudgetSummaryComponent {
       let array = this.form.get('array') as FormArray;
       array.clear()
 
+    }
+  }
+  changeSelectYearMonth() {
+    this.spinner.show()
+    this.apiService.getBudgetSummaryByYearMonth(this.monthSelect.slice(0,7)).subscribe(res=>{
+      this.budgetSummary = res
+      this.spinner.hide()
+    })
+      
+  }
+  changeAddYearMonthModal(id: number) {
+    if (id != 0) {
+      this.addYearMonthBool = true;
+    } else {
+      this.addYearMonthBool = false;
+      this.formYearMonth.controls['yearmonth'].reset()
     }
   }
 }

@@ -68,9 +68,6 @@ export class TblShippingKjyComponent {
     };
   }
   ngOnInit() {
-    console.log(this.monthSelect);
-    
-    
     this.spinner.show();
     forkJoin(this.apiService.getBudgetShippingKjyYearMonth(this.monthSelect),this.apiService.getBudgetShippingMonthlist('Kejayan')).subscribe(
       (res) => {
