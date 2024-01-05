@@ -8,6 +8,7 @@
 <div class="py-12 md:py-0 my-2 md:pl-[4.5rem] w-full">
   <div class="flex flex-wrap mx-auto">
     <div class="px-2 w-full">
+
       <div
         class="h-fit flex justify-between flex-wrap bg-white px-2 md:px-8 py-2 text-center rounded-lg overflow-hidden relative drop-shadow-xl"
       >
@@ -34,14 +35,22 @@
     <div class="grow pl-1 pt-1 w-full xl:w-7/12 flex flex-wrap">
       <div class="grow p-1 w-full">
         <div
-          class="h-full flex justify-center flex-wrap bg-white px-5 py-2.5 space-y-2.5 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
+          class="h-full flex justify-center flex-row  bg-white px-5 py-2.5 space-y-2 space-x-2 rounded-lg overflow-hidden text-center relative drop-shadow-xl"
         >
-          <!-- <div class="px-5 w-full flex flex-wrap justify-between items-center">
-            <h1 class="text-lg w-fit font-manrope font-[700] text-start h-fit">
-              Occupancy Soyjoy
-            </h1>
-          </div> -->
+          <select
+                [(ngModel)]="yearmonthSummary"
+                (change)="changeYearMonthSummary()"
+                class="py-1 px-2 block h-fit my-auto w-fit border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 outline-none disabled:opacity-50 disabled:pointer-events-none"
+              >
+                <option
+                  *ngFor="let item of monthListSummary"
+                  [value]="item.yearmonth"
+                >
+                  {{ item.yearmonth | date : "MMM yyyy" }}
+                </option>
+              </select>
           <div class="w-full grid grid-cols-4 gap-2 rounded-lg">
+            
             <!-- <div
             *ngFor="let item of budgetSummary;index as i"
               class="flex flex-col items-center justify-center py-2.5 px-1 rounded-lg {{colorsBudget[i]}}"
@@ -56,7 +65,7 @@
               </div>
             </div> -->
             <div
-              class="flex flex-col items-center justify-center py-2.5 px-1 rounded-lg bg-sky-50 text-sky-900"
+              class="flex flex-col items-center justify-center py-2 px-1 rounded-lg bg-sky-50 text-sky-900"
             >
               <div
                 class="text-xl sm:text-2xl font-semibold leading-none tracking-tight"
@@ -64,7 +73,7 @@
                 {{ currencyRounded(budgetSummary[0]?.value) }}
               </div>
               <div class="text-xs sm:text-sm font-semibold font-manrope">
-                {{ budgetSummary[0]?.name }} {{ budgetSummary[0]?.month }}
+                {{ budgetSummary[0]?.name }} {{ budgetSummary[0]?.date | date: 'MMM' }}
               </div>
             </div>
             <div
@@ -76,7 +85,7 @@
                 {{ currencyRounded(budgetSummary[1]?.value) }}
               </div>
               <div class="text-xs sm:text-sm font-semibold font-manrope">
-                {{ budgetSummary[1]?.name }} {{ budgetSummary[1]?.month }}
+                {{ budgetSummary[1]?.name }} {{ budgetSummary[1]?.date | date: 'MMM' }}
               </div>
             </div>
             <div

@@ -42,6 +42,7 @@ export class BudgetFactoryComponent {
   yearOverhead = new Date().getFullYear();
   yearmonthShippingKjy = formatDate(new Date(), 'yyyy-MM', 'EN-us');
   yearmonthShippingSkb = formatDate(new Date(), 'yyyy-MM', 'EN-us');
+  yearmonthSummary = formatDate(new Date(), 'yyyy-MM', 'EN-us');
 
   //API
   budgetFactoryKjy: any[] = [];
@@ -58,6 +59,7 @@ export class BudgetFactoryComponent {
   yearListOverhead: any[] = [];
   monthListShippingKjy: any[] = []
   monthListShippingSkb: any[] = []
+  monthListSummary: any[] = []
 
   getCurrentDate() {
     this.time = new Date();
@@ -94,6 +96,7 @@ export class BudgetFactoryComponent {
       apiService.getBudgetOverHandYearList('Overhead'),
       apiService.getBudgetShippingMonthlist('Kejayan'),
       apiService.getBudgetShippingMonthlist('Sukabumi'),
+      apiService.getBudgetSummaryMonthlist(),
     ).subscribe((res) => {
       this.budgetFactoryKjy = res[0];
       this.budgetFactorySkb = res[1];
@@ -109,8 +112,15 @@ export class BudgetFactoryComponent {
       this.yearListOverhead = res[11];
       this.monthListShippingKjy = res[12];
       this.monthListShippingSkb = res[13];
-      console.log(res[4]);
-      console.log(res[5]);
+      this.monthListSummary = res[14];
+      console.log(res[14]);
+      this.yearBudgetKjy = Number(formatDate(res[0][0]?.date, 'yyyy', 'EN-us'))
+      this.yearBudgetSkb = Number(formatDate(res[1][0]?.date, 'yyyy', 'EN-us'))
+      this.yearHandling = Number(formatDate(res[2][0]?.date, 'yyyy', 'EN-us'))
+      this.yearOverhead = Number(formatDate(res[3][0]?.date, 'yyyy', 'EN-us'))
+      this.yearmonthShippingKjy = res[4][0]?.date
+      this.yearmonthShippingSkb = res[5][0]?.date
+      this.yearmonthSummary = res[6][0]?.date
       this.chart();
       spinner.hide();
     });
@@ -653,6 +663,14 @@ export class BudgetFactoryComponent {
     this.apiService.getBudgetShippingSkbYearMonth(this.yearmonthShippingSkb.slice(0,7)).subscribe(res=>{
       this.budgetShippingSkb = res
       this.budgetShippingChart()
+      this.spinner.hide()
+    })
+      
+  }
+  changeYearMonthSummary() {
+    this.spinner.show()
+    this.apiService.getBudgetSummaryByYearMonth(this.yearmonthSummary.slice(0,7)).subscribe(res=>{
+      this.budgetSummary = res
       this.spinner.hide()
     })
       

@@ -69,12 +69,12 @@ export class TblBudgetSummaryComponent {
   ngOnInit() {
     this.spinner.show();
     forkJoin(
-      this.apiService.getBudgetSummaryByYearMonth(this.monthSelect.slice(0,7)),this.apiService.getBudgetSummaryMonthlist()
+      this.apiService.getBudgetSummary(),this.apiService.getBudgetSummaryMonthlist()
     ).subscribe(
       (res) => {
         this.budgetSummary = res[0];
         this.budgetSummaryMonthlist = res[1]
-        console.log(res[1]);
+        this.monthSelect = res[0][0]?.date
         
         // console.log(res[2]);
         // this.fillArray();

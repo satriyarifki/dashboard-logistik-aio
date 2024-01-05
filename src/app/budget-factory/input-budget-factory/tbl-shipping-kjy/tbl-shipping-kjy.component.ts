@@ -69,11 +69,11 @@ export class TblShippingKjyComponent {
   }
   ngOnInit() {
     this.spinner.show();
-    forkJoin(this.apiService.getBudgetShippingKjyYearMonth(this.monthSelect),this.apiService.getBudgetShippingMonthlist('Kejayan')).subscribe(
+    forkJoin(this.apiService.getBudgetShippingKjy(),this.apiService.getBudgetShippingMonthlist('Kejayan')).subscribe(
       (res) => {
         this.budgetShippingApi = res[0];
         this.budgetShippingMonthlist = res[1]
-        
+        this.monthSelect = res[0][0]?.date
         this.config.totalItems = this.budgetShippingApi.length
         // console.log(res[2]);
         // this.fillArray();

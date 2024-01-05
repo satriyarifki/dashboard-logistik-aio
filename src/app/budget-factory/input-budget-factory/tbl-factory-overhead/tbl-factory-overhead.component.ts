@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import {
   FormGroup,
@@ -73,12 +74,13 @@ exportAsConfig: ExportAsConfig = {
   ngOnInit() {
     this.spinner.show();
     forkJoin(
-      this.apiService.getBudgetOverheadByYear(this.yearSelect),
+      this.apiService.getBudgetOverhead(),
       this.apiService.getBudgetOverHandYearList('Overhead')
     ).subscribe(
       (res) => {
         this.budgetOverheadByYearApi = res[0];
         this.budgetYearListApi = res[1];
+        this.yearSelect = Number(formatDate(res[0][0]?.date, 'yyyy', 'EN-us'))
         // console.log(res[2]);
         // this.fillOverheadArray();
         this.spinner.hide();

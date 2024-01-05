@@ -69,12 +69,14 @@ export class TblShippingSkbComponent {
   ngOnInit() {
     this.spinner.show();
     forkJoin(
-      this.apiService.getBudgetShippingSkbYearMonth(this.monthSelect),this.apiService.getBudgetShippingMonthlist('Sukabumi'),
+      this.apiService.getBudgetShippingSkb(),this.apiService.getBudgetShippingMonthlist('Sukabumi'),
     ).subscribe(
       (res) => {
         this.budgetShippingApi = res[0];
         this.budgetShippingMonthlist = res[1]
+        this.monthSelect = res[0][0]?.date
         // console.log(res[2]);
+        
         // this.fillArray();
         this.spinner.hide();
       },

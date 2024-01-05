@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -67,12 +68,13 @@ export class TblWarehouseHandlingComponent {
   ngOnInit() {
     this.spinner.show();
     forkJoin(
-      this.apiService.getBudgetHandlingByYear(this.yearSelect),
+      this.apiService.getBudgetHandling(),
       this.apiService.getBudgetOverHandYearList('Handling')
     ).subscribe(
       (res) => {
         this.budgetHandlingByYearApi = res[0];
         this.budgetYearListApi = res[1];
+        this.yearSelect = Number(formatDate(res[0][0]?.date, 'yyyy', 'EN-us'))
         // console.log(res[2]);
         // this.fillArray();
         this.spinner.hide();

@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -70,11 +71,12 @@ export class TblBudgetSkbComponent {
     
     forkJoin(
       this.apiService.getBudgetFactoryYearList('Sukabumi'),
-      this.apiService.getBudgetFactorySkbByYear(this.yearSelect)
+      this.apiService.getBudgetFactorySkb()
     ).subscribe(
       (res) => {
         this.budgetYearListApi = res[0];
         this.budgetByYearApi = res[1];
+        this.yearSelect = Number(formatDate(res[1][0]?.date, 'yyyy', 'EN-us'))
         
         // this.fillArray();
         this.spinner.hide();
