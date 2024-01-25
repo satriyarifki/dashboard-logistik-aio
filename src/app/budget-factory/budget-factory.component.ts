@@ -9,6 +9,7 @@ import {
   pieChart,
   ShippingChart,
 } from '../ApexChart';
+import { AlertType } from '../services/alert/alert.model';
 import { AlertService } from '../services/alert/alert.service';
 import { ApiService } from '../services/api.service';
 import { AuthService } from '../services/auth/auth.service';
@@ -123,6 +124,9 @@ export class BudgetFactoryComponent {
       this.yearmonthSummary = res[6][0]?.date
       this.chart();
       spinner.hide();
+    }, err => {
+      spinner.hide();
+      alertService.onCallAlert('Data can`t loaded!',AlertType.Error)
     });
   }
 
